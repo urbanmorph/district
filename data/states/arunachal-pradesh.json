@@ -63,6 +63,34 @@
         "Geographic boundaries"
       ],
       "type": "Geography"
+    },
+    {
+      "name": "NFHS-5 (2019-21) via MoSPI",
+      "url": "https://mcp.mospi.gov.in",
+      "fields": [
+        "Infant Mortality Rate",
+        "Neonatal Mortality Rate",
+        "Under-5 Mortality Rate"
+      ],
+      "type": "Health"
+    },
+    {
+      "name": "AISHE 2021-22 via MoSPI",
+      "url": "https://mcp.mospi.gov.in",
+      "fields": [
+        "Number of Colleges"
+      ],
+      "type": "Education"
     }
-  ]
+  ],
+  "health": {
+    "infantMortalityRate": 12.87,
+    "neonatalMortalityRate": 7.72,
+    "under5MortalityRate": 18.82,
+    "source": "NFHS-5 (2019-21) via MoSPI eSankhyiki MCP"
+  },
+  "education": {
+    "colleges": 44,
+    "source": "AISHE 2021-22 via MoSPI eSankhyiki MCP"
+  }
 }

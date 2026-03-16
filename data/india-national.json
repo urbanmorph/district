@@ -1,0 +1,10 @@
+{
+  "gdp_crores_2023_24": 28983909,
+  "gva_crores_2023_24": 26316103,
+  "gvaComposition": {
+    "agriculture": 19.4,
+    "manufacturing": 14.7
+  },
+  "source": "MoSPI NAS 2023-24 via eSankhyiki MCP (base year 2022-23, Final Estimates)",
+  "sourceUrl": "https://mcp.mospi.gov.in"
+}

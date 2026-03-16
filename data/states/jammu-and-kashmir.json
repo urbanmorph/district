@@ -63,6 +63,18 @@
         "Geographic boundaries"
       ],
       "type": "Geography"
+    },
+    {
+      "name": "AISHE 2021-22 via MoSPI",
+      "url": "https://mcp.mospi.gov.in",
+      "fields": [
+        "Number of Colleges"
+      ],
+      "type": "Education"
     }
-  ]
+  ],
+  "education": {
+    "colleges": 341,
+    "source": "AISHE 2021-22 via MoSPI eSankhyiki MCP"
+  }
 }
