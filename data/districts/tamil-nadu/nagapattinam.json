@@ -1,0 +1,84 @@
+{
+  "id": "nagapattinam",
+  "name": "Nagapattinam",
+  "state": "Tamil Nadu",
+  "stateCode": "TN",
+  "censusCode": "618",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 1616450,
+    "rural": 1245779,
+    "urban": 370671,
+    "literacyRate": 83.59,
+    "sexRatio": 1025,
+    "area_sq_km": 2569,
+    "density": 629
+  },
+  "economy": {
+    "gddp_crores": 47701,
+    "perCapitaIncome": 295095,
+    "gddpComposition": {
+      "agriculture": 12.5,
+      "industry": 32.3,
+      "services": 55.2
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Lakshadweep",
+  "stateCode": "LD",
+  "slug": "lakshadweep",
+  "districtCount": 1,
+  "demographics": {
+    "population": 64473,
+    "rural": 16053,
+    "urban": 48420,
+    "area_sq_km": 30,
+    "density": 2149,
+    "literacyRate": 0.92,
+    "sexRatio": 946,
+    "urbanizationRate": 78.07,
+    "population_2026_projected": 70000
+  },
+  "economy": {
+    "gsdp_crores": 0,
+    "perCapitaIncome": 0,
+    "gsdpComposition": {
+      "agriculture": 5,
+      "industry": 12,
+      "services": 83
+    }
+  },
+  "hdi": 0,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

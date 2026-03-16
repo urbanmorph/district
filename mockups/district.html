@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalaburagi, Karnataka — India District Development Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-deeper: #1a2f6d;
+            --primary-light: #dbeafe;
+            --teal: #0d9488;
+            --teal-light: #ccfbf1;
+            --orange: #f97316;
+            --orange-light: #ffedd5;
+            --green: #10b981;
+            --green-light: #d1fae5;
+            --green-dark: #065f46;
+            --yellow: #f59e0b;
+            --yellow-light: #fef3c7;
+            --red: #ef4444;
+            --red-light: #fee2e2;
+            --red-dark: #991b1b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Source Serif 4', Georgia, serif;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --radius: 0.625rem;
+            --radius-lg: 0.875rem;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-up { animation: fadeUp 0.5s ease-out both; }
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.16s; }
+        .delay-3 { animation-delay: 0.24s; }
+        .delay-4 { animation-delay: 0.32s; }
+        .delay-5 { animation-delay: 0.4s; }
+        .delay-6 { animation-delay: 0.48s; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-deeper) 0%, var(--primary-dark) 40%, var(--primary) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .header-flag { font-size: 1.5rem; line-height: 1; }
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+        .header .subtitle {
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius);
+            padding: 0.4375rem 0.75rem;
+            gap: 0.5rem;
+            min-width: 240px;
+        }
+        .search-box:focus-within { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+        .search-box svg { opacity: 0.6; flex-shrink: 0; }
+        .search-box input {
+            background: none; border: none; color: white;
+            font-family: var(--font-body); font-size: 0.8125rem;
+            width: 100%; outline: none;
+        }
+        .search-box input::placeholder { color: rgba(255,255,255,0.5); }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 0.875rem 0;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb .sep { margin: 0 0.375rem; color: var(--gray-300); }
+
+        /* District Title */
+        .district-hero {
+            margin-bottom: 1.5rem;
+        }
+        .district-name {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            letter-spacing: -0.01em;
+        }
+        .district-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-top: 0.125rem;
+        }
+
+        /* KPI Strip */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .kpi-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .kpi-accent { width: 2.5rem; height: 3px; border-radius: 2px; margin-bottom: 0.75rem; }
+        .kpi-value {
+            font-size: 1.875rem; font-weight: 800;
+            color: var(--gray-900); letter-spacing: -0.02em; line-height: 1.1;
+        }
+        .kpi-label {
+            font-size: 0.8125rem; color: var(--gray-500); font-weight: 500;
+            margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .kpi-trend {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+        }
+        .kpi-trend.negative {
+            color: var(--red-dark);
+            background: var(--red-light);
+        }
+        .kpi-trend.caution {
+            color: #92400e;
+            background: var(--yellow-light);
+        }
+
+        /* Section title */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        /* GDDP + Demographics row */
+        .gddp-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+        }
+
+        /* SVG Donut Chart */
+        .donut-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .donut-chart {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            flex-shrink: 0;
+        }
+        .donut-chart svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .donut-chart circle {
+            fill: none;
+            stroke-width: 28;
+            cx: 90;
+            cy: 90;
+            r: 70;
+        }
+        .donut-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .donut-center-value {
+            font-size: 1.375rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        .donut-center-label {
+            font-size: 0.6875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+        .donut-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+        .donut-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .donut-legend-name {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+            flex: 1;
+        }
+        .donut-legend-value {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            font-variant-numeric: tabular-nums;
+        }
+        .donut-legend-pct {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-left: 0.25rem;
+        }
+
+        /* Demographics */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        .demo-item {
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .demo-item:nth-child(odd) { padding-right: 1rem; }
+        .demo-item:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--gray-100); }
+        .demo-item:nth-last-child(-n+2) { border-bottom: none; }
+        .demo-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .demo-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.0625rem;
+        }
+
+        /* Key Sectors */
+        .sectors-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.625rem;
+            margin-bottom: 2rem;
+        }
+        .sector-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 100px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+        .sector-pill:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        .sector-pill .icon {
+            font-size: 1rem;
+        }
+
+        /* Strengths / Challenges / Opportunities */
+        .sco-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .sco-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            border-top: 3px solid transparent;
+        }
+        .sco-card.strengths { border-top-color: var(--green); }
+        .sco-card.challenges { border-top-color: var(--red); }
+        .sco-card.opportunities { border-top-color: var(--primary); }
+
+        .sco-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .sco-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .strengths .sco-icon { background: var(--green-light); }
+        .challenges .sco-icon { background: var(--red-light); }
+        .opportunities .sco-icon { background: var(--primary-light); }
+
+        .sco-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+        }
+        .strengths .sco-title { color: var(--green-dark); }
+        .challenges .sco-title { color: var(--red-dark); }
+        .opportunities .sco-title { color: var(--primary-dark); }
+
+        .sco-list {
+            list-style: none;
+        }
+        .sco-list li {
+            font-size: 0.8125rem;
+            color: var(--gray-700);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            line-height: 1.4;
+        }
+        .sco-list li:last-child { border-bottom: none; }
+        .sco-list .bullet {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-top: 0.4rem;
+            flex-shrink: 0;
+        }
+        .strengths .bullet { background: var(--green); }
+        .challenges .bullet { background: var(--red); }
+        .opportunities .bullet { background: var(--primary); }
+
+        /* CTA */
+        .cta-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .cta-section h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .cta-section p {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+            transition: all 0.2s;
+        }
+        .cta-button:hover {
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .maplibregl-popup-content {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+        }
+        .maplibregl-ctrl-attrib { display: none !important; }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-800);
+            color: var(--gray-400);
+            padding: 2rem 0;
+            margin-top: 1rem;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a {
+            color: var(--gray-400);
+            font-size: 0.8125rem;
+            text-decoration: none;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-copy { font-size: 0.75rem; color: var(--gray-500); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gddp-demo { grid-template-columns: 1fr; }
+            .sco-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 0.75rem; }
+            .search-box { min-width: 100%; }
+            .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 0 1rem; }
+            .district-name { font-size: 1.5rem; }
+            .donut-wrapper { flex-direction: column; align-items: center; text-align: center; }
+            .donut-legend { flex-direction: row; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+            .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .kpi-strip { gap: 0.75rem; }
+            .kpi-value { font-size: 1.5rem; }
+            .demo-grid { grid-template-columns: 1fr; }
+            .demo-item:nth-child(even) { padding-left: 0; border-left: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <span class="header-flag">&#x1F1EE;&#x1F1F3;</span>
+                    <div>
+                        <h1>India District Development Dashboard</h1>
+                        <p class="subtitle">Development status across 780 districts</p>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Search districts...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="/mockups/index.html">India</a>
+                <span class="sep">&rsaquo;</span>
+                <a href="/mockups/state.html">Karnataka</a>
+                <span class="sep">&rsaquo;</span>
+                <strong style="color: var(--gray-800);">Kalaburagi</strong>
+            </nav>
+
+            <div class="district-hero animate-up">
+                <h2 class="district-name">Kalaburagi</h2>
+                <p class="district-subtitle">North Karnataka &middot; Hyderabad-Karnataka Region &middot; Last updated: March 2026</p>
+            </div>
+
+            <!-- KPI Strip -->
+            <div class="kpi-strip">
+                <div class="kpi-card animate-up delay-1">
+                    <div class="kpi-accent" style="background: var(--teal);"></div>
+                    <div class="kpi-value">&#x20B9;1.46L</div>
+                    <div class="kpi-label">Per Capita Income</div>
+                    <div class="kpi-trend negative">&#x25BC; Rank 30/30 in Karnataka</div>
+                </div>
+                <div class="kpi-card animate-up delay-2">
+                    <div class="kpi-accent" style="background: var(--primary);"></div>
+                    <div class="kpi-value">&#x20B9;40,500 Cr</div>
+                    <div class="kpi-label">GDDP</div>
+                </div>
+                <div class="kpi-card animate-up delay-3">
+                    <div class="kpi-accent" style="background: var(--orange);"></div>
+                    <div class="kpi-value">28.4L</div>
+                    <div class="kpi-label">Population</div>
+                </div>
+                <div class="kpi-card animate-up delay-4">
+                    <div class="kpi-accent" style="background: var(--red);"></div>
+                    <div class="kpi-value">30/30</div>
+                    <div class="kpi-label">PCI State Rank</div>
+                    <div class="kpi-trend caution">Target: Top 15 by 2034</div>
+                </div>
+            </div>
+
+            <!-- District Location Map -->
+            <div class="panel animate-up delay-5" style="margin-bottom: 2rem;">
+                <h3 class="section-title">Location</h3>
+                <div id="district-map" style="width:100%;height:280px;border-radius:var(--radius);overflow:hidden;"></div>
+            </div>
+
+            <!-- GDDP Composition + Demographics -->
+            <div class="gddp-demo animate-up delay-5">
+                <div class="panel">
+                    <h3 class="section-title">GDDP Composition</h3>
+                    <div class="donut-wrapper">
+                        <div class="donut-chart">
+                            <!--
+                                Circumference = 2 * pi * 70 = 439.82
+                                Agriculture: 25.5% = 112.15
+                                Industry: 20.8% = 91.48
+                                Services: 53.7% = 236.18
+                            -->
+                            <svg viewBox="0 0 180 180">
+                                <!-- Services (largest, draw first) -->
+                                <circle
+                                    stroke="var(--teal)"
+                                    stroke-dasharray="236.18 203.64"
+                                    stroke-dashoffset="0"
+                                    stroke-linecap="butt"
+                                />
+                                <!-- Industry -->
+                                <circle
+                                    stroke="var(--primary)"
+                                    stroke-dasharray="91.48 348.34"
+                                    stroke-dashoffset="-236.18"
+                                    stroke-linecap="butt"
+                                />
+                                <!-- Agriculture -->
+                                <circle
+                                    stroke="var(--green)"
+                                    stroke-dasharray="112.15 327.67"
+                                    stroke-dashoffset="-327.66"
+                                    stroke-linecap="butt"
+                                />
+                            </svg>
+                            <div class="donut-center">
+                                <div class="donut-center-value">&#x20B9;40.5K Cr</div>
+                                <div class="donut-center-label">Total GDDP</div>
+                            </div>
+                        </div>
+                        <div class="donut-legend">
+                            <div class="donut-legend-item">
+                                <div class="donut-legend-dot" style="background: var(--teal);"></div>
+                                <span class="donut-legend-name">Services</span>
+                                <span class="donut-legend-value">&#x20B9;21,749 Cr <span class="donut-legend-pct">53.7%</span></span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <div class="donut-legend-dot" style="background: var(--green);"></div>
+                                <span class="donut-legend-name">Agriculture</span>
+                                <span class="donut-legend-value">&#x20B9;10,327 Cr <span class="donut-legend-pct">25.5%</span></span>
+                            </div>
+                            <div class="donut-legend-item">
+                                <div class="donut-legend-dot" style="background: var(--primary);"></div>
+                                <span class="donut-legend-name">Industry</span>
+                                <span class="donut-legend-value">&#x20B9;8,424 Cr <span class="donut-legend-pct">20.8%</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3 class="section-title">Demographics</h3>
+                    <div class="demo-grid">
+                        <div class="demo-item">
+                            <div class="demo-value">16,224 km&sup2;</div>
+                            <div class="demo-label">Area</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-value">66.2% / 33.8%</div>
+                            <div class="demo-label">Rural / Urban</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-value">64.6%</div>
+                            <div class="demo-label">Literacy Rate</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-value">961</div>
+                            <div class="demo-label">Sex Ratio (per 1000)</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-value">175 / km&sup2;</div>
+                            <div class="demo-label">Population Density</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="demo-value">13.4%</div>
+                            <div class="demo-label">Irrigated Land</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Sectors -->
+            <section class="animate-up delay-5">
+                <h3 class="section-title">Key Sectors</h3>
+                <div class="sectors-row">
+                    <div class="sector-pill"><span class="icon">&#x1F33E;</span> Agriculture &mdash; Toor Dal</div>
+                    <div class="sector-pill"><span class="icon">&#x1F3D7;</span> Cement &amp; Limestone</div>
+                    <div class="sector-pill"><span class="icon">&#x1F9F5;</span> Textiles</div>
+                    <div class="sector-pill"><span class="icon">&#x2699;</span> MSME Manufacturing</div>
+                    <div class="sector-pill"><span class="icon">&#x1F4BC;</span> Services &amp; Trade</div>
+                </div>
+            </section>
+
+            <!-- Strengths / Challenges / Opportunities -->
+            <div class="sco-grid animate-up delay-6">
+                <div class="sco-card strengths">
+                    <div class="sco-header">
+                        <div class="sco-icon">&#x2705;</div>
+                        <div class="sco-title">Strengths</div>
+                    </div>
+                    <ul class="sco-list">
+                        <li><span class="bullet"></span>Largest toor dal production hub in India &mdash; 75 active dal mills</li>
+                        <li><span class="bullet"></span>2.5&ndash;4 billion MT proven limestone reserves (200-400 year supply)</li>
+                        <li><span class="bullet"></span>Strategic NH-50 and rail connectivity to Hyderabad &amp; Bangalore</li>
+                        <li><span class="bullet"></span>PM MITRA textile park approved (&#x20B9;390 Cr, Dec 2024)</li>
+                    </ul>
+                </div>
+
+                <div class="sco-card challenges">
+                    <div class="sco-header">
+                        <div class="sco-icon">&#x26A0;&#xFE0F;</div>
+                        <div class="sco-title">Challenges</div>
+                    </div>
+                    <ul class="sco-list">
+                        <li><span class="bullet"></span>Lowest per capita income in Karnataka (&#x20B9;1.46L vs state avg &#x20B9;2.42L)</li>
+                        <li><span class="bullet"></span>Only 13.4% irrigated land &mdash; 86.6% rainfed agriculture</li>
+                        <li><span class="bullet"></span>43% of Bangalore construction workers are migrants from Kalaburagi</li>
+                        <li><span class="bullet"></span>Credit-Deposit ratio at 69% (target: 85%+)</li>
+                    </ul>
+                </div>
+
+                <div class="sco-card opportunities">
+                    <div class="sco-header">
+                        <div class="sco-icon">&#x1F680;</div>
+                        <div class="sco-title">Opportunities</div>
+                    </div>
+                    <ul class="sco-list">
+                        <li><span class="bullet"></span>Garment &amp; textile cluster: 26,000 direct jobs, &#x20B9;1,800 Cr revenue potential</li>
+                        <li><span class="bullet"></span>Aerospace components &mdash; 200km from Hyderabad aerospace hub</li>
+                        <li><span class="bullet"></span>Pharma packaging &mdash; linked to Hyderabad Pharma City Phase 2</li>
+                        <li><span class="bullet"></span>Dal mill upgradation: 500 mills targeted by 2032 (currently 75)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Detailed Dashboard CTA -->
+            <div class="cta-section animate-up">
+                <h3>Full Development Dashboard</h3>
+                <p>Explore the complete 8-year roadmap, live KPIs, role-based views, and &#x20B9;20,150 Cr investment tracker for Kalaburagi.</p>
+                <a href="#" class="cta-button">
+                    Detailed Dashboard
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="/mockups/index.html">Home</a>
+                    <a href="/mockups/state.html">Karnataka</a>
+                    <a href="#">Data Sources</a>
+                    <a href="#">GitHub</a>
+                </div>
+                <span class="footer-copy">Data: Census 2011, MoSPI, DES Karnataka &middot; urbanmorph.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const map = new maplibregl.Map({
+        container: 'district-map',
+        style: {
+            version: 8,
+            sources: {},
+            layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#f8fafc' } }]
+        },
+        center: [76.8, 15.5],
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 10
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    map.on('load', () => {
+        fetch('/data/geo/karnataka-districts.geojson')
+            .then(r => r.json())
+            .then(data => {
+                data.features.forEach(f => {
+                    const name = (f.properties.name || '').toLowerCase();
+                    f.properties.isKalaburagi = (name === 'gulbarga' || name === 'kalaburagi') ? 1 : 0;
+                });
+
+                map.addSource('districts', { type: 'geojson', data });
+
+                // Fit to Karnataka with Kalaburagi visible
+                const bounds = new maplibregl.LngLatBounds();
+                data.features.forEach(f => {
+                    const addCoords = (coords) => {
+                        if (typeof coords[0] === 'number') { bounds.extend(coords); return; }
+                        coords.forEach(c => addCoords(c));
+                    };
+                    addCoords(f.geometry.coordinates);
+                });
+                map.fitBounds(bounds, { padding: 30, maxZoom: 8 });
+
+                map.addLayer({
+                    id: 'district-fills',
+                    type: 'fill',
+                    source: 'districts',
+                    paint: {
+                        'fill-color': [
+                            'case',
+                            ['==', ['get', 'isKalaburagi'], 1],
+                            '#2563eb',
+                            '#e0e7ff'
+                        ],
+                        'fill-opacity': [
+                            'case',
+                            ['==', ['get', 'isKalaburagi'], 1],
+                            0.4, 0.3
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    id: 'district-borders',
+                    type: 'line',
+                    source: 'districts',
+                    paint: {
+                        'line-color': [
+                            'case',
+                            ['==', ['get', 'isKalaburagi'], 1],
+                            '#1e40af',
+                            '#93a3b8'
+                        ],
+                        'line-width': [
+                            'case',
+                            ['==', ['get', 'isKalaburagi'], 1],
+                            2.5, 0.8
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    id: 'district-labels',
+                    type: 'symbol',
+                    source: 'districts',
+                    filter: ['==', ['get', 'isKalaburagi'], 1],
+                    layout: {
+                        'text-field': 'Kalaburagi',
+                        'text-size': 13,
+                        'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+                        'text-anchor': 'center'
+                    },
+                    paint: {
+                        'text-color': '#1e40af',
+                        'text-halo-color': '#ffffff',
+                        'text-halo-width': 2
+                    }
+                });
+            })
+            .catch(() => {
+                document.getElementById('district-map').innerHTML =
+                    '<div style="display:flex;align-items:center;justify-content:center;height:280px;color:#9ca3af;font-size:0.875rem;text-align:center;padding:2rem;">' +
+                    'Map requires a local server.<br><code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;font-size:0.75rem;">npx serve .</code> from the project root</div>';
+            });
+    });
+    </script>
+
+</body>
+</html>

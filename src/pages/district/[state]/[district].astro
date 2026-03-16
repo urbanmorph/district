@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { loadAllDistricts, formatCurrency, formatPopulation, getStates } from '../../../lib/data-loader';
+
+export function getStaticPaths() {
+  const states = getStates();
+  return states.flatMap(s =>
+    s.districts.map(d => ({
+      params: { state: s.slug, district: d.id },
+      props: { district: d, stateName: s.name, stateSlug: s.slug }
+    }))
+  );
+}
+
+const { district: d, stateName, stateSlug } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const eco = d.economy || {};
+const demo = d.demographics || {};
+const comp = eco.gddpComposition || {};
+---
+
+<BaseLayout title={d.name} description={`Development dashboard for ${d.name} district, ${stateName}`}>
+  <nav class="breadcrumb">
+    <a href="/">India</a>
+    <span class="sep">&rsaquo;</span>
+    <a href={`/state/${stateSlug}`}>{stateName}</a>
+    <span class="sep">&rsaquo;</span>
+    <strong style="color:var(--gray-800);">{d.name}</strong>
+  </nav>
+
+  <div class="district-hero animate-up">
+    <h2 class="district-name">{d.name}</h2>
+    <p class="district-subtitle">{stateName} &middot; Last updated: {d.lastUpdated || 'March 2026'}</p>
+  </div>
+
+  <!-- KPI Strip -->
+  <div class="kpi-strip">
+    <div class="kpi-card animate-up delay-1">
+      <div class="kpi-accent" style="background:var(--teal);"></div>
+      <div class="kpi-value">{eco.perCapitaIncome ? formatCurrency(eco.perCapitaIncome) : 'N/A'}</div>
+      <div class="kpi-label">Per Capita Income</div>
+      {d.rankings?.perCapitaIncome?.stateRank && (
+        <div class="kpi-trend negative">Rank {d.rankings.perCapitaIncome.stateRank} in {stateName}</div>
+      )}
+    </div>
+    <div class="kpi-card animate-up delay-2">
+      <div class="kpi-accent" style="background:var(--primary);"></div>
+      <div class="kpi-value">{eco.gddp_crores ? `₹${eco.gddp_crores.toLocaleString('en-IN')} Cr` : 'N/A'}</div>
+      <div class="kpi-label">GDDP</div>
+    </div>
+    <div class="kpi-card animate-up delay-3">
+      <div class="kpi-accent" style="background:var(--orange);"></div>
+      <div class="kpi-value">{demo.population ? formatPopulation(demo.population) : 'N/A'}</div>
+      <div class="kpi-label">Population</div>
+    </div>
+    <div class="kpi-card animate-up delay-4">
+      <div class="kpi-accent" style="background:var(--red);"></div>
+      <div class="kpi-value">{d.rankings?.perCapitaIncome?.stateRank || 'N/A'}</div>
+      <div class="kpi-label">PCI State Rank</div>
+    </div>
+  </div>
+
+  <!-- Location Map -->
+  <div class="panel animate-up delay-5" style="margin-bottom:2rem;">
+    <h3 class="section-title" style="font-size:1.125rem;">Location</h3>
+    <div id="district-map" style="width:100%;height:280px;border-radius:var(--radius);overflow:hidden;"></div>
+  </div>
+
+  <!-- GDDP + Demographics -->
+  <div class="gddp-demo animate-up delay-5">
+    {(comp.agriculture || comp.industry || comp.services) && (
+      <div class="panel">
+        <h3 class="section-title">GDDP Composition</h3>
+        <div class="donut-wrapper">
+          <div class="donut-chart">
+            <svg viewBox="0 0 180 180">
+              {(() => {
+                const r = 70, c = 2 * Math.PI * r;
+                const servPct = comp.services || 0;
+                const indPct = comp.industry || 0;
+                const agriPct = comp.agriculture || 0;
+                const servLen = (servPct / 100) * c;
+                const indLen = (indPct / 100) * c;
+                const agriLen = (agriPct / 100) * c;
+                return [
+                  { color: 'var(--teal)', len: servLen, offset: 0, label: 'Services' },
+                  { color: 'var(--primary)', len: indLen, offset: -servLen, label: 'Industry' },
+                  { color: 'var(--green)', len: agriLen, offset: -(servLen + indLen), label: 'Agriculture' },
+                ].map(seg => (
+                  <circle fill="none" stroke={seg.color} stroke-width="28" cx="90" cy="90" r={r}
+                    stroke-dasharray={`${seg.len} ${c - seg.len}`}
+                    stroke-dashoffset={seg.offset} />
+                ));
+              })()}
+            </svg>
+            <div class="donut-center">
+              <div class="donut-center-value">{eco.gddp_crores ? `₹${(eco.gddp_crores/1000).toFixed(1)}K Cr` : ''}</div>
+              <div class="donut-center-label">Total GDDP</div>
+            </div>
+          </div>
+          <div class="donut-legend">
+            <div class="donut-legend-item">
+              <div class="donut-legend-dot" style="background:var(--teal);"></div>
+              <span class="donut-legend-name">Services</span>
+              <span class="donut-legend-value">{comp.services}%</span>
+            </div>
+            <div class="donut-legend-item">
+              <div class="donut-legend-dot" style="background:var(--green);"></div>
+              <span class="donut-legend-name">Agriculture</span>
+              <span class="donut-legend-value">{comp.agriculture}%</span>
+            </div>
+            <div class="donut-legend-item">
+              <div class="donut-legend-dot" style="background:var(--primary);"></div>
+              <span class="donut-legend-name">Industry</span>
+              <span class="donut-legend-value">{comp.industry}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <div class="panel">
+      <h3 class="section-title">Demographics</h3>
+      <div class="demo-grid">
+        <div class="demo-item"><div class="demo-value">{demo.area_sq_km ? `${demo.area_sq_km.toLocaleString('en-IN')} km²` : 'N/A'}</div><div class="demo-label">Area</div></div>
+        <div class="demo-item"><div class="demo-value">{demo.rural && demo.urban && demo.population ? `${((demo.rural/demo.population)*100).toFixed(1)}% / ${((demo.urban/demo.population)*100).toFixed(1)}%` : 'N/A'}</div><div class="demo-label">Rural / Urban</div></div>
+        <div class="demo-item"><div class="demo-value">{demo.literacyRate ? `${demo.literacyRate}%` : 'N/A'}</div><div class="demo-label">Literacy Rate</div></div>
+        <div class="demo-item"><div class="demo-value">{demo.sexRatio || 'N/A'}</div><div class="demo-label">Sex Ratio (per 1000)</div></div>
+        <div class="demo-item"><div class="demo-value">{demo.density ? `${demo.density} / km²` : 'N/A'}</div><div class="demo-label">Population Density</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Sectors -->
+  {d.keySectors?.length > 0 && (
+    <section class="animate-up delay-5">
+      <h3 class="section-title">Key Sectors</h3>
+      <div class="sectors-row">
+        {d.keySectors.map(sector => (
+          <div class="sector-pill">{sector}</div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Strengths / Challenges / Opportunities -->
+  {(d.strengths?.length || d.challenges?.length || d.opportunities?.length) && (
+    <div class="sco-grid animate-up delay-6">
+      {d.strengths?.length > 0 && (
+        <div class="sco-card strengths">
+          <div class="sco-header"><div class="sco-title">Strengths</div></div>
+          <ul class="sco-list">
+            {d.strengths.map(s => <li><span class="bullet"></span>{s}</li>)}
+          </ul>
+        </div>
+      )}
+      {d.challenges?.length > 0 && (
+        <div class="sco-card challenges">
+          <div class="sco-header"><div class="sco-title">Challenges</div></div>
+          <ul class="sco-list">
+            {d.challenges.map(c => <li><span class="bullet"></span>{c}</li>)}
+          </ul>
+        </div>
+      )}
+      {d.opportunities?.length > 0 && (
+        <div class="sco-card opportunities">
+          <div class="sco-header"><div class="sco-title">Opportunities</div></div>
+          <ul class="sco-list">
+            {d.opportunities.map(o => <li><span class="bullet"></span>{o}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  )}
+
+  <!-- Data Sources -->
+  {(d as any).dataSources?.length > 0 && (
+    <section class="animate-up">
+      <h3 class="section-title">Data Sources</h3>
+      <div class="panel sources-panel">
+        <table class="sources-table">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Type</th>
+              <th>Fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            {(d as any).dataSources.map((src: any) => (
+              <tr>
+                <td>
+                  {src.url
+                    ? <a href={src.url} target="_blank" rel="noopener" class="source-link">{src.name}</a>
+                    : src.name}
+                </td>
+                <td><span class="source-type">{src.type}</span></td>
+                <td class="source-fields">{src.fields?.join(', ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {d.dataCompleteness?.lastVerified && (
+          <p class="sources-footer">Last verified: {d.dataCompleteness.lastVerified}</p>
+        )}
+      </div>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .district-hero { margin-bottom: 1.5rem; }
+  .district-name { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--gray-900); }
+  .district-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
+
+  .gddp-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .donut-wrapper { display: flex; align-items: center; gap: 2rem; }
+  .donut-chart { position: relative; width: 180px; height: 180px; flex-shrink: 0; }
+  .donut-chart svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-center-value { font-size: 1.375rem; font-weight: 800; color: var(--gray-900); }
+  .donut-center-label { font-size: 0.6875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+  .donut-legend { display: flex; flex-direction: column; gap: 0.875rem; }
+  .donut-legend-item { display: flex; align-items: center; gap: 0.625rem; }
+  .donut-legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .donut-legend-name { font-size: 0.8125rem; color: var(--gray-600); flex: 1; }
+  .donut-legend-value { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
+
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .demo-item { padding: 0.875rem 0; border-bottom: 1px solid var(--gray-100); }
+  .demo-item:nth-child(odd) { padding-right: 1rem; }
+  .demo-item:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--gray-100); }
+  .demo-item:nth-last-child(-n+2) { border-bottom: none; }
+  .demo-value { font-size: 1.125rem; font-weight: 700; color: var(--gray-800); }
+  .demo-label { font-size: 0.75rem; color: var(--gray-500); }
+
+  .sectors-row { display: flex; flex-wrap: wrap; gap: 0.625rem; margin-bottom: 2rem; }
+  .sector-pill {
+    background: white; border: 1px solid var(--gray-200); border-radius: 100px;
+    padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 500;
+    color: var(--gray-700); box-shadow: var(--shadow-sm);
+  }
+
+  .sco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+  .sco-card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--gray-100); border-top: 3px solid transparent; }
+  .sco-card.strengths { border-top-color: var(--green); }
+  .sco-card.challenges { border-top-color: var(--red); }
+  .sco-card.opportunities { border-top-color: var(--primary); }
+  .sco-title { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .strengths .sco-title { color: var(--green-dark); }
+  .challenges .sco-title { color: var(--red-dark); }
+  .opportunities .sco-title { color: var(--primary-dark); }
+  .sco-list { list-style: none; }
+  .sco-list li { font-size: 0.8125rem; color: var(--gray-700); padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+  .sco-list li:last-child { border-bottom: none; }
+  .bullet { width: 5px; height: 5px; border-radius: 50%; margin-top: 0.4rem; flex-shrink: 0; }
+  .strengths .bullet { background: var(--green); }
+  .challenges .bullet { background: var(--red); }
+  .opportunities .bullet { background: var(--primary); }
+
+  .sources-panel { padding: 0; overflow: hidden; margin-bottom: 2rem; }
+  .sources-table { width: 100%; border-collapse: collapse; }
+  .sources-table th {
+    padding: 0.75rem 1.25rem; text-align: left; font-size: 0.6875rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--gray-500); background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+  }
+  .sources-table td {
+    padding: 0.625rem 1.25rem; font-size: 0.8125rem;
+    border-bottom: 1px solid var(--gray-100); color: var(--gray-700); vertical-align: top;
+  }
+  .sources-table tr:last-child td { border-bottom: none; }
+  .sources-table tr:hover { background: var(--gray-50); }
+  .source-link { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .source-link:hover { text-decoration: underline; }
+  .source-type {
+    font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--teal); background: rgba(13,148,136,0.08);
+    padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap;
+  }
+  .source-fields { font-size: 0.75rem; color: var(--gray-500); }
+  .sources-footer { padding: 0.75rem 1.25rem; font-size: 0.75rem; color: var(--gray-400); background: var(--gray-50); border-top: 1px solid var(--gray-100); }
+
+  @media (max-width: 1024px) { .gddp-demo { grid-template-columns: 1fr; } .sco-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { .district-name { font-size: 1.5rem; } .donut-wrapper { flex-direction: column; } }
+</style>
+
+<script is:inline define:vars={{ districtName: d.name, stateName, stateSlug }}>
+  const mapEl = document.getElementById('district-map');
+  if (mapEl) {
+    const map = new maplibregl.Map({
+      container: 'district-map',
+      style: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#f8fafc' } }] },
+      center: [80, 20], zoom: 4, minZoom: 3, maxZoom: 10
+    });
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    map.on('load', () => {
+      fetch('/geo/india-districts-simple.geojson')
+        .then(r => r.json())
+        .then(data => {
+          const stateDistricts = {
+            type: 'FeatureCollection',
+            features: data.features.filter(f => {
+              const s = (f.properties.state || '').toLowerCase();
+              return s === stateName.toLowerCase() || s.includes(stateName.toLowerCase().split(' ')[0]);
+            })
+          };
+          if (stateDistricts.features.length === 0) return;
+
+          stateDistricts.features.forEach(f => {
+            const name = (f.properties.name || '').toLowerCase();
+            const target = districtName.toLowerCase();
+            f.properties.isTarget = (name === target || name.includes(target) || target.includes(name)) ? 1 : 0;
+          });
+
+          map.addSource('districts', { type: 'geojson', data: stateDistricts });
+          map.addLayer({ id: 'district-fills', type: 'fill', source: 'districts',
+            paint: {
+              'fill-color': ['case', ['==', ['get', 'isTarget'], 1], '#2563eb', '#e0e7ff'],
+              'fill-opacity': ['case', ['==', ['get', 'isTarget'], 1], 0.4, 0.25]
+            }
+          });
+          map.addLayer({ id: 'district-borders', type: 'line', source: 'districts',
+            paint: {
+              'line-color': ['case', ['==', ['get', 'isTarget'], 1], '#1e40af', '#94a3b8'],
+              'line-width': ['case', ['==', ['get', 'isTarget'], 1], 2.5, 0.7]
+            }
+          });
+
+          const bounds = new maplibregl.LngLatBounds();
+          stateDistricts.features.forEach(f => {
+            const ac = c => { if (typeof c[0]==='number') bounds.extend(c); else c.forEach(ac); };
+            ac(f.geometry.coordinates);
+          });
+          map.fitBounds(bounds, { padding: 30, maxZoom: 8 });
+        });
+    });
+  }
+</script>

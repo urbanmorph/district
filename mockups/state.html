@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karnataka — India District Development Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-deeper: #1a2f6d;
+            --teal: #0d9488;
+            --orange: #f97316;
+            --green: #10b981;
+            --green-light: #d1fae5;
+            --yellow: #f59e0b;
+            --yellow-light: #fef3c7;
+            --red: #ef4444;
+            --red-light: #fee2e2;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Source Serif 4', Georgia, serif;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            --radius: 0.625rem;
+            --radius-lg: 0.875rem;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-up { animation: fadeUp 0.5s ease-out both; }
+        .delay-1 { animation-delay: 0.08s; }
+        .delay-2 { animation-delay: 0.16s; }
+        .delay-3 { animation-delay: 0.24s; }
+        .delay-4 { animation-delay: 0.32s; }
+        .delay-5 { animation-delay: 0.4s; }
+
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-deeper) 0%, var(--primary-dark) 40%, var(--primary) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .header-flag { font-size: 1.5rem; line-height: 1; }
+        .header h1 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+        .header .subtitle {
+            font-size: 0.8125rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius);
+            padding: 0.4375rem 0.75rem;
+            gap: 0.5rem;
+            min-width: 240px;
+        }
+        .search-box:focus-within { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); }
+        .search-box svg { opacity: 0.6; flex-shrink: 0; }
+        .search-box input {
+            background: none; border: none; color: white;
+            font-family: var(--font-body); font-size: 0.8125rem;
+            width: 100%; outline: none;
+        }
+        .search-box input::placeholder { color: rgba(255,255,255,0.5); }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 0.875rem 0;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb .sep { margin: 0 0.375rem; color: var(--gray-300); }
+
+        /* KPI Strip */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .kpi-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .kpi-accent { width: 2.5rem; height: 3px; border-radius: 2px; margin-bottom: 0.75rem; }
+        .kpi-value {
+            font-size: 1.875rem; font-weight: 800;
+            color: var(--gray-900); letter-spacing: -0.02em; line-height: 1.1;
+        }
+        .kpi-label {
+            font-size: 0.8125rem; color: var(--gray-500); font-weight: 500;
+            margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+
+        /* Section title */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        /* Map + Table two-column */
+        .map-table {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* State Map */
+        .state-map-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+        }
+        #state-map {
+            width: 100%;
+            min-height: 380px;
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .maplibregl-popup-content {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow-lg);
+        }
+        .maplibregl-popup-content strong { color: var(--gray-900); }
+        .maplibregl-ctrl-attrib { display: none !important; }
+
+        /* Legend */
+        .map-legend {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+        .legend-swatch {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* District Table */
+        .table-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+            overflow: hidden;
+        }
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem 1rem;
+        }
+        .table-search {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 0.375rem 0.75rem;
+        }
+        .table-search svg { color: var(--gray-400); flex-shrink: 0; }
+        .table-search input {
+            border: none; background: none;
+            font-family: var(--font-body); font-size: 0.8125rem;
+            color: var(--gray-700); outline: none; width: 160px;
+        }
+        .sort-select {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            color: var(--gray-600);
+            background: white;
+            cursor: pointer;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: var(--gray-50); }
+        th {
+            padding: 0.75rem 1.5rem;
+            text-align: left;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gray-500);
+            border-bottom: 1px solid var(--gray-200);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        th:hover { color: var(--gray-700); }
+        th .sort-icon { font-size: 0.625rem; margin-left: 0.25rem; }
+        td {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+        }
+        tr:hover { background: var(--gray-50); }
+        tr:last-child td { border-bottom: none; }
+
+        .district-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .district-link:hover { text-decoration: underline; }
+
+        .pci-value {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        .pci-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .pci-high { color: var(--green); }
+        .pci-mid { color: var(--yellow); }
+        .pci-low { color: var(--red); }
+
+        .sector-tag {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            background: var(--gray-100);
+            padding: 0.125rem 0.5rem;
+            border-radius: 3px;
+        }
+
+        .table-footer {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-100);
+        }
+
+        /* GDDP Composition Bar */
+        .composition-section {
+            margin-bottom: 2rem;
+        }
+        .composition-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-100);
+        }
+        .comp-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .comp-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        .comp-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+        .comp-pct {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .comp-bar {
+            display: flex;
+            height: 28px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.06);
+        }
+        .comp-bar > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: white;
+            transition: width 0.5s ease;
+        }
+        .comp-bar-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-800);
+            color: var(--gray-400);
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a {
+            color: var(--gray-400);
+            font-size: 0.8125rem;
+            text-decoration: none;
+        }
+        .footer-links a:hover { color: white; }
+        .footer-copy { font-size: 0.75rem; color: var(--gray-500); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .map-table { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 0.75rem; }
+            .search-box { min-width: 100%; }
+            .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 0 1rem; }
+            th, td { padding: 0.625rem 0.875rem; font-size: 0.8125rem; }
+            .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+        @media (max-width: 480px) {
+            .kpi-strip { gap: 0.75rem; }
+            .kpi-value { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <span class="header-flag">&#x1F1EE;&#x1F1F3;</span>
+                    <div>
+                        <h1>India District Development Dashboard</h1>
+                        <p class="subtitle">Development status across 780 districts</p>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" placeholder="Search districts...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="/mockups/index.html">India</a>
+                <span class="sep">&rsaquo;</span>
+                <strong style="color: var(--gray-800);">Karnataka</strong>
+            </nav>
+
+            <!-- KPI Strip -->
+            <div class="kpi-strip">
+                <div class="kpi-card animate-up delay-1">
+                    <div class="kpi-accent" style="background: var(--primary);"></div>
+                    <div class="kpi-value">31</div>
+                    <div class="kpi-label">Districts</div>
+                </div>
+                <div class="kpi-card animate-up delay-2">
+                    <div class="kpi-accent" style="background: var(--teal);"></div>
+                    <div class="kpi-value">&#x20B9;2.42L</div>
+                    <div class="kpi-label">Avg Per Capita Income</div>
+                </div>
+                <div class="kpi-card animate-up delay-3">
+                    <div class="kpi-accent" style="background: var(--orange);"></div>
+                    <div class="kpi-value">38.7%</div>
+                    <div class="kpi-label">Urbanization</div>
+                </div>
+                <div class="kpi-card animate-up delay-4">
+                    <div class="kpi-accent" style="background: var(--green);"></div>
+                    <div class="kpi-value">&#x20B9;18.2L Cr</div>
+                    <div class="kpi-label">State GSDP</div>
+                </div>
+            </div>
+
+            <!-- Map + Table -->
+            <div class="map-table animate-up delay-5">
+                <div class="state-map-panel">
+                    <h2 class="section-title">Karnataka</h2>
+                    <div id="state-map"></div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-swatch" style="background: var(--green);"></div>
+                            &gt; &#x20B9;3L
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-swatch" style="background: var(--yellow);"></div>
+                            &#x20B9;2&ndash;3L
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-swatch" style="background: var(--red);"></div>
+                            &lt; &#x20B9;2L
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-panel">
+                    <div class="table-header">
+                        <div class="table-search">
+                            <svg width="14" height="14" fill="none" stroke="var(--gray-400)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                            <input type="text" placeholder="Filter districts...">
+                        </div>
+                        <select class="sort-select">
+                            <option>Sort: PCI High → Low</option>
+                            <option>Sort: A-Z</option>
+                            <option>Sort: GDDP</option>
+                            <option>Sort: Population</option>
+                        </select>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>District <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+                                <th>Per Capita Income <span class="sort-icon">&#x25BE;</span></th>
+                                <th>GDDP (Cr) <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+                                <th>Population <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+                                <th>Key Sector</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Bangalore Urban</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--green);"></span><span class="pci-high">&#x20B9;4.21L</span></span></td>
+                                <td>&#x20B9;4,85,000</td>
+                                <td>1.23 Cr</td>
+                                <td><span class="sector-tag">IT / Services</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Dakshina Kannada</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--green);"></span><span class="pci-high">&#x20B9;3.18L</span></span></td>
+                                <td>&#x20B9;72,500</td>
+                                <td>21.1L</td>
+                                <td><span class="sector-tag">Banking / Ports</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Mysuru</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--yellow);"></span><span class="pci-mid">&#x20B9;2.48L</span></span></td>
+                                <td>&#x20B9;78,200</td>
+                                <td>31.5L</td>
+                                <td><span class="sector-tag">Tourism / Silk</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Dharwad</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--yellow);"></span><span class="pci-mid">&#x20B9;2.21L</span></span></td>
+                                <td>&#x20B9;44,800</td>
+                                <td>19.5L</td>
+                                <td><span class="sector-tag">Education / IT</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Belgaum</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--yellow);"></span><span class="pci-mid">&#x20B9;2.05L</span></span></td>
+                                <td>&#x20B9;98,400</td>
+                                <td>47.8L</td>
+                                <td><span class="sector-tag">Sugar / Textiles</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Udupi</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--yellow);"></span><span class="pci-mid">&#x20B9;2.88L</span></span></td>
+                                <td>&#x20B9;34,200</td>
+                                <td>11.8L</td>
+                                <td><span class="sector-tag">Banking / Fishing</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Shimoga</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--red);"></span><span class="pci-low">&#x20B9;1.78L</span></span></td>
+                                <td>&#x20B9;32,100</td>
+                                <td>17.6L</td>
+                                <td><span class="sector-tag">Iron Ore / Rice</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Kalaburagi</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--red);"></span><span class="pci-low">&#x20B9;1.46L</span></span></td>
+                                <td>&#x20B9;40,500</td>
+                                <td>28.4L</td>
+                                <td><span class="sector-tag">Toor Dal / Cement</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Raichur</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--red);"></span><span class="pci-low">&#x20B9;1.28L</span></span></td>
+                                <td>&#x20B9;24,800</td>
+                                <td>19.3L</td>
+                                <td><span class="sector-tag">Rice / Thermal</span></td>
+                            </tr>
+                            <tr>
+                                <td><a class="district-link" href="/mockups/district.html">Bidar</a></td>
+                                <td><span class="pci-value"><span class="pci-dot" style="background: var(--red);"></span><span class="pci-low">&#x20B9;1.18L</span></span></td>
+                                <td>&#x20B9;21,200</td>
+                                <td>17.0L</td>
+                                <td><span class="sector-tag">Agriculture</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-footer">
+                        Showing 10 of 31 districts &middot; Click column headers to sort
+                    </div>
+                </div>
+            </div>
+
+            <!-- GDDP Composition -->
+            <section class="composition-section animate-up">
+                <div class="composition-card">
+                    <h3 class="section-title" style="font-size: 1.125rem; margin-bottom: 0.875rem;">Karnataka GSDP Composition</h3>
+                    <div class="comp-label-row">
+                        <div class="comp-item">
+                            <div class="comp-dot" style="background: var(--green);"></div>
+                            Agriculture <span class="comp-pct">14.8%</span>
+                        </div>
+                        <div class="comp-item">
+                            <div class="comp-dot" style="background: var(--primary);"></div>
+                            Industry <span class="comp-pct">27.6%</span>
+                        </div>
+                        <div class="comp-item">
+                            <div class="comp-dot" style="background: var(--teal);"></div>
+                            Services <span class="comp-pct">57.6%</span>
+                        </div>
+                    </div>
+                    <div class="comp-bar">
+                        <div style="width: 14.8%; background: var(--green);">14.8%</div>
+                        <div style="width: 27.6%; background: var(--primary);">27.6%</div>
+                        <div style="width: 57.6%; background: var(--teal);">57.6%</div>
+                    </div>
+                    <div class="comp-bar-values">
+                        <span>&#x20B9;2.69L Cr</span>
+                        <span>&#x20B9;5.02L Cr</span>
+                        <span>&#x20B9;10.48L Cr</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="/mockups/index.html">Home</a>
+                    <a href="#">Data Sources</a>
+                    <a href="#">Methodology</a>
+                    <a href="#">GitHub</a>
+                </div>
+                <span class="footer-copy">Data: Census 2011, MoSPI, DES Karnataka &middot; urbanmorph.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // PCI data for Karnataka districts (sample for mockup)
+    const districtPCI = {
+        'Bangalore': 421000, 'Bangalore Urban': 421000, 'Dakshina Kannada': 318000,
+        'Udupi': 288000, 'Mysore': 248000, 'Dharwad': 221000, 'Belgaum': 205000,
+        'Hassan': 195000, 'Shimoga': 178000, 'Tumkur': 172000, 'Mandya': 168000,
+        'Chitradurga': 155000, 'Bellary': 152000, 'Davangere': 150000,
+        'Gulbarga': 146000, 'Kalaburagi': 146000, 'Haveri': 142000,
+        'Gadag': 138000, 'Bagalkot': 135000, 'Bijapur': 132000,
+        'Koppal': 128000, 'Raichur': 128000, 'Chamarajanagar': 125000,
+        'Bidar': 118000, 'Kodagu': 245000, 'Chikmagalur': 198000
+    };
+
+    function getPCIColor(name) {
+        const pci = districtPCI[name] || 150000;
+        if (pci >= 300000) return '#10b981';
+        if (pci >= 200000) return '#f59e0b';
+        return '#ef4444';
+    }
+
+    const map = new maplibregl.Map({
+        container: 'state-map',
+        style: {
+            version: 8,
+            sources: {},
+            layers: [{ id: 'background', type: 'background', paint: { 'background-color': '#f8fafc' } }]
+        },
+        center: [76.5, 15.3],
+        zoom: 5,
+        minZoom: 4,
+        maxZoom: 10
+    });
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 12 });
+
+    map.on('load', () => {
+        fetch('/data/geo/karnataka-districts.geojson')
+            .then(r => r.json())
+            .then(data => {
+                // Color each district by PCI
+                data.features.forEach((f, i) => {
+                    f.id = i;
+                    f.properties.color = getPCIColor(f.properties.name);
+                });
+
+                map.addSource('districts', { type: 'geojson', data });
+
+                map.addLayer({
+                    id: 'district-fills',
+                    type: 'fill',
+                    source: 'districts',
+                    paint: {
+                        'fill-color': ['get', 'color'],
+                        'fill-opacity': [
+                            'case',
+                            ['boolean', ['feature-state', 'hover'], false],
+                            0.6, 0.35
+                        ]
+                    }
+                });
+
+                map.addLayer({
+                    id: 'district-borders',
+                    type: 'line',
+                    source: 'districts',
+                    paint: {
+                        'line-color': '#1e40af',
+                        'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0.8],
+                        'line-opacity': 0.5
+                    }
+                });
+
+                // Add district name labels
+                map.addLayer({
+                    id: 'district-labels',
+                    type: 'symbol',
+                    source: 'districts',
+                    layout: {
+                        'text-field': ['get', 'name'],
+                        'text-size': 10,
+                        'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
+                        'text-anchor': 'center',
+                        'text-allow-overlap': false
+                    },
+                    paint: {
+                        'text-color': '#374151',
+                        'text-halo-color': '#ffffff',
+                        'text-halo-width': 1.5
+                    }
+                });
+
+                let hoveredId = null;
+
+                map.on('mousemove', 'district-fills', (e) => {
+                    map.getCanvas().style.cursor = 'pointer';
+                    if (e.features.length > 0) {
+                        if (hoveredId !== null) map.setFeatureState({ source: 'districts', id: hoveredId }, { hover: false });
+                        hoveredId = e.features[0].id;
+                        map.setFeatureState({ source: 'districts', id: hoveredId }, { hover: true });
+                        const name = e.features[0].properties.name;
+                        const pci = districtPCI[name];
+                        const pciStr = pci ? '₹' + (pci / 100000).toFixed(2) + 'L' : 'N/A';
+                        popup.setLngLat(e.lngLat).setHTML('<strong>' + name + '</strong><br>PCI: ' + pciStr).addTo(map);
+                    }
+                });
+
+                map.on('mouseleave', 'district-fills', () => {
+                    map.getCanvas().style.cursor = '';
+                    if (hoveredId !== null) map.setFeatureState({ source: 'districts', id: hoveredId }, { hover: false });
+                    hoveredId = null;
+                    popup.remove();
+                });
+
+                // Fit map to Karnataka bounds
+                const bounds = new maplibregl.LngLatBounds();
+                data.features.forEach(f => {
+                    const addCoords = (coords) => {
+                        if (typeof coords[0] === 'number') { bounds.extend(coords); return; }
+                        coords.forEach(c => addCoords(c));
+                    };
+                    addCoords(f.geometry.coordinates);
+                });
+                map.fitBounds(bounds, { padding: 30, maxZoom: 8 });
+
+                map.on('click', 'district-fills', () => { window.location.href = '/mockups/district.html'; });
+            })
+            .catch(() => {
+                document.getElementById('state-map').innerHTML =
+                    '<div style="display:flex;align-items:center;justify-content:center;height:380px;color:#9ca3af;font-size:0.875rem;text-align:center;padding:2rem;">' +
+                    'Map requires a local server.<br><code style="background:#f3f4f6;padding:2px 6px;border-radius:4px;font-size:0.75rem;">npx serve .</code> from the project root</div>';
+            });
+    });
+    </script>
+
+</body>
+</html>

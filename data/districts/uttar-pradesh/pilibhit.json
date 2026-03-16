@@ -1,0 +1,84 @@
+{
+  "id": "pilibhit",
+  "name": "Pilibhit",
+  "state": "Uttar Pradesh",
+  "stateCode": "UP",
+  "censusCode": "151",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 2031007,
+    "rural": 1636427,
+    "urban": 394580,
+    "literacyRate": 61.47,
+    "sexRatio": 895,
+    "area_sq_km": 3686,
+    "density": 551
+  },
+  "economy": {
+    "gddp_crores": 15063,
+    "perCapitaIncome": 74166,
+    "gddpComposition": {
+      "agriculture": 24,
+      "industry": 25,
+      "services": 51
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

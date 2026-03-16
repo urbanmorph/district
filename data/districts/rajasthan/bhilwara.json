@@ -1,0 +1,84 @@
+{
+  "id": "bhilwara",
+  "name": "Bhilwara",
+  "state": "Rajasthan",
+  "stateCode": "RJ",
+  "censusCode": "122",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 2408523,
+    "rural": 1888728,
+    "urban": 519795,
+    "literacyRate": 61.37,
+    "sexRatio": 973,
+    "area_sq_km": 10455,
+    "density": 230
+  },
+  "economy": {
+    "gddp_crores": 31538,
+    "perCapitaIncome": 130944,
+    "gddpComposition": {
+      "agriculture": 25,
+      "industry": 26,
+      "services": 49
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

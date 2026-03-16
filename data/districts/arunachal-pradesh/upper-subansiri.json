@@ -1,0 +1,84 @@
+{
+  "id": "upper-subansiri",
+  "name": "Upper Subansiri",
+  "state": "Arunachal Pradesh",
+  "stateCode": "AR",
+  "censusCode": "249",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 83448,
+    "rural": 63157,
+    "urban": 20291,
+    "literacyRate": 63.8,
+    "sexRatio": 998,
+    "area_sq_km": 7032,
+    "density": 12
+  },
+  "economy": {
+    "gddp_crores": 1562,
+    "perCapitaIncome": 187224,
+    "gddpComposition": {
+      "agriculture": 27.8,
+      "industry": 30.2,
+      "services": 42
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

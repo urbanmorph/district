@@ -1,0 +1,84 @@
+{
+  "id": "sindhudurg",
+  "name": "Sindhudurg",
+  "state": "Maharashtra",
+  "stateCode": "MH",
+  "censusCode": "529",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 849651,
+    "rural": 737500,
+    "urban": 112151,
+    "literacyRate": 85.56,
+    "sexRatio": 1036,
+    "area_sq_km": 5207,
+    "density": 163
+  },
+  "economy": {
+    "gddp_crores": 18696,
+    "perCapitaIncome": 220043,
+    "gddpComposition": {
+      "agriculture": 11.3,
+      "industry": 27.2,
+      "services": 61.5
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "name": "Chhattisgarh",
+  "stateCode": "CG",
+  "slug": "chhattisgarh",
+  "districtCount": 18,
+  "demographics": {
+    "population": 25545198,
+    "rural": 19406462,
+    "urban": 6138736,
+    "area_sq_km": 114600,
+    "density": 223,
+    "literacyRate": 0.7,
+    "sexRatio": 991,
+    "urbanizationRate": 23.24,
+    "population_2026_projected": 31311000
+  },
+  "economy": {
+    "gsdp_crores": 512107,
+    "perCapitaIncome": 168567,
+    "gsdpComposition": {
+      "agriculture": 25,
+      "industry": 37.5,
+      "services": 37.5
+    }
+  },
+  "hdi": 0.625,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

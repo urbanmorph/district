@@ -1,0 +1,68 @@
+{
+  "name": "Andhra Pradesh",
+  "stateCode": "AP",
+  "slug": "andhra-pradesh",
+  "districtCount": 23,
+  "demographics": {
+    "population": 84580777,
+    "rural": 56533550,
+    "urban": 28047227,
+    "area_sq_km": 275045,
+    "density": 308,
+    "literacyRate": 0.67,
+    "sexRatio": 993,
+    "urbanizationRate": 29.47,
+    "population_2026_projected": 53740000
+  },
+  "economy": {
+    "gsdp_crores": 1422094,
+    "perCapitaIncome": 266995,
+    "gsdpComposition": {
+      "agriculture": 28.1,
+      "industry": 23.5,
+      "services": 48.4
+    }
+  },
+  "hdi": 0.642,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

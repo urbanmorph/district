@@ -1,0 +1,68 @@
+{
+  "name": "Rajasthan",
+  "stateCode": "RJ",
+  "slug": "rajasthan",
+  "districtCount": 33,
+  "demographics": {
+    "population": 68548437,
+    "rural": 50399094,
+    "urban": 18149343,
+    "area_sq_km": 337790,
+    "density": 203,
+    "literacyRate": 0.66,
+    "sexRatio": 928,
+    "urbanizationRate": 24.87,
+    "population_2026_projected": 83879000
+  },
+  "economy": {
+    "gsdp_crores": 1521510,
+    "perCapitaIncome": 186610,
+    "gsdpComposition": {
+      "agriculture": 25,
+      "industry": 26,
+      "services": 49
+    }
+  },
+  "hdi": 0.652,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

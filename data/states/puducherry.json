@@ -1,0 +1,68 @@
+{
+  "name": "Puducherry",
+  "stateCode": "",
+  "slug": "puducherry",
+  "districtCount": 4,
+  "demographics": {
+    "population": 1247953,
+    "rural": 387896,
+    "urban": 860057,
+    "area_sq_km": 0,
+    "density": 0,
+    "literacyRate": 0.77,
+    "sexRatio": 1037,
+    "urbanizationRate": 68.33,
+    "population_2026_projected": 1771000
+  },
+  "economy": {
+    "gsdp_crores": 46945,
+    "perCapitaIncome": 281612,
+    "gsdpComposition": {
+      "agriculture": 5,
+      "industry": 28,
+      "services": 67
+    }
+  },
+  "hdi": 0.741,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

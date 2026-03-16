@@ -1,0 +1,68 @@
+{
+  "name": "Manipur",
+  "stateCode": "MN",
+  "slug": "manipur",
+  "districtCount": 9,
+  "demographics": {
+    "population": 2855794,
+    "rural": 1988202,
+    "urban": 867592,
+    "area_sq_km": 22327,
+    "density": 128,
+    "literacyRate": 0.77,
+    "sexRatio": 985,
+    "urbanizationRate": 32.45,
+    "population_2026_projected": 3318000
+  },
+  "economy": {
+    "gsdp_crores": 43414,
+    "perCapitaIncome": 134076,
+    "gsdpComposition": {
+      "agriculture": 20.5,
+      "industry": 20.1,
+      "services": 59.4
+    }
+  },
+  "hdi": 0.683,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

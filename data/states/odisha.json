@@ -1,0 +1,68 @@
+{
+  "name": "Odisha",
+  "stateCode": "",
+  "slug": "odisha",
+  "districtCount": 30,
+  "demographics": {
+    "population": 41974218,
+    "rural": 34692249,
+    "urban": 7281969,
+    "area_sq_km": 155707,
+    "density": 270,
+    "literacyRate": 0.73,
+    "sexRatio": 979,
+    "urbanizationRate": 16.69,
+    "population_2026_projected": 47221000
+  },
+  "economy": {
+    "gsdp_crores": 798969,
+    "perCapitaIncome": 172021,
+    "gsdpComposition": {
+      "agriculture": 20.9,
+      "industry": 33.8,
+      "services": 45.3
+    }
+  },
+  "hdi": 0.61,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

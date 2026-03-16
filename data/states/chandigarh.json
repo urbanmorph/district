@@ -1,0 +1,68 @@
+{
+  "name": "Chandigarh",
+  "stateCode": "CH",
+  "slug": "chandigarh",
+  "districtCount": 1,
+  "demographics": {
+    "population": 1055450,
+    "rural": 31522,
+    "urban": 1023928,
+    "area_sq_km": 114,
+    "density": 9258,
+    "literacyRate": 0.86,
+    "sexRatio": 818,
+    "urbanizationRate": 97.25,
+    "population_2026_projected": 1270000
+  },
+  "economy": {
+    "gsdp_crores": 62536,
+    "perCapitaIncome": 505137,
+    "gsdpComposition": {
+      "agriculture": 0.5,
+      "industry": 16.5,
+      "services": 83
+    }
+  },
+  "hdi": 0.751,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

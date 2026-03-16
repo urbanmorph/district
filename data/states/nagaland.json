@@ -1,0 +1,68 @@
+{
+  "name": "Nagaland",
+  "stateCode": "NL",
+  "slug": "nagaland",
+  "districtCount": 11,
+  "demographics": {
+    "population": 1978502,
+    "rural": 1356625,
+    "urban": 621877,
+    "area_sq_km": 16579,
+    "density": 119,
+    "literacyRate": 0.79,
+    "sexRatio": 931,
+    "urbanizationRate": 28.97,
+    "population_2026_projected": 2299000
+  },
+  "economy": {
+    "gsdp_crores": 39809,
+    "perCapitaIncome": 176692,
+    "gsdpComposition": {
+      "agriculture": 23,
+      "industry": 18.5,
+      "services": 58.5
+    }
+  },
+  "hdi": 0.679,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

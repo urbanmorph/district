@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadAllDistricts, formatCurrency, getStates, stateCompletenessScore, completenessColor, completenessLabel, detailedDistrictCount } from '../lib/data-loader';
+
+const allDistricts = loadAllDistricts();
+const states = getStates();
+
+// Build state completeness map for the map coloring
+const stateCompleteness = Object.fromEntries(
+  states.map(s => [s.name, { score: stateCompletenessScore(s.districts), color: completenessColor(stateCompletenessScore(s.districts)), count: s.districts.length }])
+);
+
+// Compute national stats
+const totalDistricts = allDistricts.length;
+const avgPCI = allDistricts.length > 0
+  ? Math.round(allDistricts.reduce((s, d) => s + (d.economy?.perCapitaIncome || 0), 0) / allDistricts.length)
+  : 0;
+
+// Sort districts by PCI for rankings
+const rankedDistricts = [...allDistricts]
+  .filter(d => d.economy?.perCapitaIncome)
+  .sort((a, b) => b.economy.perCapitaIncome - a.economy.perCapitaIncome);
+const top5 = rankedDistricts.slice(0, 5);
+const bottom5 = rankedDistricts.slice(-5).reverse();
+---
+
+<BaseLayout title="Home">
+  <!-- KPI Strip -->
+  <div class="kpi-strip" style="margin: -1.25rem 0 0; position: relative; z-index: 10;">
+    <div class="kpi-card animate-up delay-1">
+      <div class="kpi-accent" style="background: var(--primary);"></div>
+      <div class="kpi-value">{totalDistricts || 780}</div>
+      <div class="kpi-label">Districts</div>
+    </div>
+    <div class="kpi-card animate-up delay-2">
+      <div class="kpi-accent" style="background: var(--teal);"></div>
+      <div class="kpi-value">{avgPCI ? formatCurrency(avgPCI) : '₹1.98L'}</div>
+      <div class="kpi-label">Avg Per Capita Income</div>
+    </div>
+    <div class="kpi-card animate-up delay-3">
+      <div class="kpi-accent" style="background: var(--orange);"></div>
+      <div class="kpi-value">{(() => {
+        const totalPop = allDistricts.reduce((s, d) => s + (d.demographics?.population || 0), 0);
+        const urbanPop = allDistricts.reduce((s, d) => s + (d.demographics?.urban || 0), 0);
+        return totalPop > 0 ? (urbanPop / totalPop * 100).toFixed(1) + '%' : 'N/A';
+      })()}</div>
+      <div class="kpi-label">Urbanization</div>
+    </div>
+    <div class="kpi-card animate-up delay-4">
+      <div class="kpi-accent" style="background: var(--green);"></div>
+      <div class="kpi-value">{states.length}</div>
+      <div class="kpi-label">States & UTs with data</div>
+    </div>
+  </div>
+
+  <!-- Map + Rankings -->
+  <section class="map-rankings animate-up delay-5">
+    <div class="panel" style="display:flex;flex-direction:column;">
+      <h2 class="section-title">Explore by State</h2>
+      <div id="india-map" style="flex:1;min-height:420px;border-radius:var(--radius);overflow:hidden;"></div>
+      <div class="map-legend">
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#10b981;"></span> Detailed</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#f59e0b;"></span> Moderate</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#ef4444;"></span> Basic</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#d1d5db;"></span> No data</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="section-title">District Rankings</h2>
+      <p style="font-size:0.8125rem;color:var(--gray-500);margin:-0.5rem 0 1.25rem;">By Per Capita Income</p>
+
+      {top5.length > 0 ? (
+        <div class="rankings-section">
+          <div class="rankings-label"><span class="dot" style="background:var(--green);"></span> Top 5 Districts</div>
+          {top5.map((d, i) => (
+            <div class="rank-row">
+              <span class="rank-num">{i + 1}</span>
+              <span class="rank-name">{d.name} <span class="rank-state">{d.state}</span></span>
+              <span class="rank-value top">{formatCurrency(d.economy.perCapitaIncome)}</span>
+            </div>
+          ))}
+        </div>
+        <div class="rankings-section" style="margin-top:1.5rem;">
+          <div class="rankings-label"><span class="dot" style="background:var(--red);"></span> Bottom 5 Districts</div>
+          {bottom5.map((d, i) => (
+            <div class="rank-row">
+              <span class="rank-num">{totalDistricts - i}</span>
+              <span class="rank-name">{d.name} <span class="rank-state">{d.state}</span></span>
+              <span class="rank-value bottom">{formatCurrency(d.economy.perCapitaIncome)}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="rankings-section">
+          <div class="rankings-label"><span class="dot" style="background:var(--green);"></span> Top Districts</div>
+          <p style="font-size:0.8125rem;color:var(--gray-400);padding:1rem 0;">Rankings will populate as district data is added.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- States Grid -->
+  <section>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+      <h2 class="section-title">All States & Union Territories</h2>
+    </div>
+    <div class="state-grid">
+      {states.map(s => {
+        const score = stateCompletenessScore(s.districts);
+        const detailed = detailedDistrictCount(s.districts);
+        const avgPci = s.districts.reduce((sum, d) => sum + (d.economy?.perCapitaIncome || 0), 0) / s.districts.length;
+        return (
+          <a href={`/state/${s.slug}`} class="state-card">
+            <div class="state-name">{s.name}</div>
+            <div class="state-meta">
+              <span class="state-districts">{s.districts.length} district{s.districts.length !== 1 ? 's' : ''}</span>
+              {avgPci > 0 && <span class="state-pci">{formatCurrency(Math.round(avgPci))}</span>}
+            </div>
+            <div class="state-completeness">
+              <span class="completeness-dot" style={`background:${completenessColor(score)};`}></span>
+              <span class="completeness-label">
+                {detailed > 0 ? `${detailed} detailed` : completenessLabel(score) + ' data'}
+              </span>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .map-rankings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+  .rankings-section { margin-bottom: 0; }
+  .rankings-label {
+    font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--gray-400);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.375rem;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .rank-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .rank-row:last-child { border-bottom: none; }
+  .rank-num { min-width: 2.25rem; font-size: 0.75rem; font-weight: 700; color: var(--gray-400); margin-right: 0.5rem; text-align: right; }
+  .rank-name { flex: 1; font-size: 0.875rem; font-weight: 500; color: var(--gray-800); }
+  .rank-state { font-size: 0.75rem; color: var(--gray-400); margin-left: 0.25rem; }
+  .rank-value { font-size: 0.875rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .rank-value.top { color: var(--green); }
+  .rank-value.bottom { color: var(--red); }
+
+  .state-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 0.875rem; margin-bottom: 3rem;
+  }
+  .state-card {
+    background: white; border-radius: var(--radius);
+    padding: 1.125rem 1.25rem; box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200); cursor: pointer;
+    transition: all 0.2s; text-decoration: none; color: inherit;
+    display: block; position: relative; overflow: hidden;
+  }
+  .state-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%; background: var(--primary); opacity: 0; transition: opacity 0.2s;
+  }
+  .state-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .state-card:hover::before { opacity: 1; }
+  .state-name { font-size: 0.9375rem; font-weight: 600; color: var(--gray-800); margin-bottom: 0.5rem; }
+  .state-meta { display: flex; justify-content: space-between; align-items: baseline; }
+  .state-districts { font-size: 0.75rem; color: var(--gray-500); }
+  .state-pci { font-size: 0.875rem; font-weight: 700; color: var(--primary-dark); font-variant-numeric: tabular-nums; }
+  .state-completeness { display: flex; align-items: center; gap: 0.375rem; margin-top: 0.5rem; }
+  .completeness-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .completeness-label { font-size: 0.6875rem; color: var(--gray-500); }
+  .map-legend { display: flex; gap: 1rem; justify-content: center; margin-top: 0.75rem; flex-wrap: wrap; }
+  .map-legend-item { display: flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: var(--gray-500); }
+
+  @media (max-width: 1024px) { .map-rankings { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) { .state-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .state-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script is:inline define:vars={{ stateCompleteness }}>
+  const map = new maplibregl.Map({
+    container: 'india-map',
+    style: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#f8fafc' } }] },
+    center: [82, 23], zoom: 3.5, minZoom: 3, maxZoom: 8
+  });
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+  const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 12 });
+
+  map.on('load', () => {
+    fetch('/geo/india-states-official-simple.geojson')
+      .then(r => r.json())
+      .then(data => {
+        data.features.forEach((f, i) => {
+          f.id = i;
+          const name = f.properties.name || '';
+          const comp = stateCompleteness[name];
+          f.properties.fillColor = comp ? comp.color : '#d1d5db';
+          f.properties.districtCount = comp ? comp.count : 0;
+          f.properties.completenessScore = comp ? comp.score : 0;
+        });
+        map.addSource('states', { type: 'geojson', data });
+        map.addLayer({ id: 'state-fills', type: 'fill', source: 'states',
+          paint: {
+            'fill-color': ['case', ['boolean', ['feature-state', 'hover'], false], '#2563eb',
+              ['get', 'fillColor']],
+            'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.35, 0.55]
+          }
+        });
+        map.addLayer({ id: 'state-borders', type: 'line', source: 'states',
+          paint: { 'line-color': '#2563eb', 'line-width': 1, 'line-opacity': 0.4 }
+        });
+        map.addLayer({ id: 'state-borders-hover', type: 'line', source: 'states',
+          paint: { 'line-color': '#1e40af', 'line-width': 2, 'line-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0] }
+        });
+        const bounds = new maplibregl.LngLatBounds();
+        data.features.forEach(f => { const ac = c => { if (typeof c[0]==='number') bounds.extend(c); else c.forEach(ac); }; ac(f.geometry.coordinates); });
+        map.fitBounds(bounds, { padding: 20, maxZoom: 6 });
+
+        let hov = null;
+        map.on('mousemove', 'state-fills', e => {
+          map.getCanvas().style.cursor = 'pointer';
+          if (e.features.length) {
+            if (hov !== null) map.setFeatureState({ source: 'states', id: hov }, { hover: false });
+            hov = e.features[0].id;
+            map.setFeatureState({ source: 'states', id: hov }, { hover: true });
+            const props = e.features[0].properties;
+            const dc = props.districtCount || 0;
+            const tip = '<strong>' + (props.name||'') + '</strong>' +
+              (dc > 0 ? '<br>' + dc + ' district' + (dc>1?'s':'') + ' with data' : '<br><em style="color:#9ca3af">No data yet</em>');
+            popup.setLngLat(e.lngLat).setHTML(tip).addTo(map);
+          }
+        });
+        map.on('mouseleave', 'state-fills', () => {
+          map.getCanvas().style.cursor = '';
+          if (hov !== null) map.setFeatureState({ source: 'states', id: hov }, { hover: false });
+          hov = null; popup.remove();
+        });
+        map.on('click', 'state-fills', e => {
+          if (e.features.length) {
+            const slug = (e.features[0].properties.name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-');
+            window.location.href = '/state/' + slug;
+          }
+        });
+      });
+  });
+</script>

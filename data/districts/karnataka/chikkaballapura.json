@@ -1,0 +1,84 @@
+{
+  "id": "chikkaballapura",
+  "name": "Chikkaballapura",
+  "state": "Karnataka",
+  "stateCode": "KA",
+  "censusCode": "582",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 1255104,
+    "rural": 966977,
+    "urban": 288127,
+    "literacyRate": 69.76,
+    "sexRatio": 972,
+    "area_sq_km": 4244,
+    "density": 296
+  },
+  "economy": {
+    "gddp_crores": 36406,
+    "perCapitaIncome": 290063,
+    "gddpComposition": {
+      "agriculture": 12.1,
+      "industry": 24.5,
+      "services": 63.4
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

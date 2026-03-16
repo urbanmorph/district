@@ -1,0 +1,68 @@
+{
+  "name": "Arunachal Pradesh",
+  "stateCode": "AR",
+  "slug": "arunachal-pradesh",
+  "districtCount": 16,
+  "demographics": {
+    "population": 1383727,
+    "rural": 1003178,
+    "urban": 380549,
+    "area_sq_km": 80281,
+    "density": 17,
+    "literacyRate": 0.65,
+    "sexRatio": 938,
+    "urbanizationRate": 22.94,
+    "population_2026_projected": 1608000
+  },
+  "economy": {
+    "gsdp_crores": 38565,
+    "perCapitaIncome": 245796,
+    "gsdpComposition": {
+      "agriculture": 27.8,
+      "industry": 30.2,
+      "services": 42
+    }
+  },
+  "hdi": 0.683,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

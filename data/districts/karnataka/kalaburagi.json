@@ -1,0 +1,1694 @@
+{
+  "id": "kalaburagi",
+  "name": "Kalaburagi",
+  "state": "Karnataka",
+  "stateCode": "KA",
+  "censusCode": "571",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 2840000,
+    "rural": 1880000,
+    "ruralPercent": 66.2,
+    "urban": 960000,
+    "urbanPercent": 33.8,
+    "literacyRate": 64.85,
+    "sexRatio": 961,
+    "area_sq_km": 16224,
+    "density": 175,
+    "agriculturalWorkers": 58.46
+  },
+  "economy": {
+    "gddp_crores": 41500,
+    "perCapitaIncome": 124998,
+    "perCapitaIncomeEstimate2026": 146000,
+    "stateAvgPerCapita2026": 285000,
+    "gddpComposition": {
+      "agriculture": 25.5,
+      "industry": 20.8,
+      "services": 53.7
+    },
+    "gddpValues_crores": {
+      "agriculture": 10327,
+      "industry": 8424,
+      "services": 21749
+    },
+    "growthRate": 7.5
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "30/30",
+      "status": "Lowest in Karnataka",
+      "value": 124998,
+      "year": "2021-22"
+    },
+    "gddpTotal": {
+      "stateRank": "14/30",
+      "status": "Middle of the pack"
+    },
+    "industryShare": {
+      "stateRank": "22/30",
+      "value": 20.8,
+      "target": 28
+    },
+    "irrigation": {
+      "stateRank": "26/30",
+      "value": 13.4,
+      "status": "Critical constraint"
+    }
+  },
+  "keySectors": [
+    "Pulses & Dal Milling (500+ mills, Tur Dal GI tag)",
+    "Agriculture (890,897 ha net sown area, 25.5% of GDDP)",
+    "Garments & Textiles (PM MITRA approved, 26,000 jobs target)",
+    "Limestone & Cement (2.5-4 billion MT reserves)",
+    "Aerospace Components (proximity to Hyderabad cluster)",
+    "Pharma Packaging (proximity to Hyderabad Pharma City)"
+  ],
+  "strengths": [
+    "Largest tur dal producing district in India with GI tag",
+    "500+ existing dal mills providing processing base",
+    "Strategic location on NH-44/NH-50 corridor (Bangalore-Hyderabad)",
+    "PM MITRA funding of Rs 390 crore approved for textile park",
+    "Massive limestone reserves (2.5-4 billion MT, 200-400 year supply)",
+    "4 universities providing skilled workforce base",
+    "Low land and labor costs compared to Bangalore/Hyderabad"
+  ],
+  "challenges": [
+    "Lowest per capita income in Karnataka (Rs 1,24,998 vs state avg Rs 2,85,000)",
+    "Very low irrigation coverage (13.4% vs state average)",
+    "High out-migration to Bangalore (43% of migrants)",
+    "Low CD ratio (64.5% vs state average 78.2%)",
+    "Limited industrial infrastructure and CETP facilities",
+    "Dal mill upgradation only 15% complete (75/500)"
+  ],
+  "opportunities": [
+    "PM MITRA textile park can create 26,000 direct jobs",
+    "Aerospace component manufacturing leveraging Hyderabad proximity",
+    "Pharma packaging for Hyderabad Pharma City Phase 2",
+    "Agro-processing value chain modernization",
+    "50 FPO formation covering 100,000 farmers",
+    "Solar energy and micro-irrigation expansion"
+  ],
+  "dataCompleteness": {
+    "level": "full",
+    "sources": [
+      "Census of India 2011",
+      "Directorate of Economics & Statistics, Karnataka",
+      "Ministry of Statistics & Programme Implementation (MoSPI)",
+      "District Industrial Profile - MSME Ministry",
+      "Agmarknet (DMIC, Ministry of Agriculture)",
+      "India Meteorological Department (IMD)",
+      "SLBC Karnataka (RBI)",
+      "KIADB (Karnataka Industrial Areas Development Board)",
+      "Udyog Mitra, Karnataka",
+      "PM MITRA Scheme (Ministry of Textiles)",
+      "Survey of India"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "kpis": [
+    {
+      "id": "irrigation",
+      "title": "Irrigation Coverage",
+      "current": "119,327 ha",
+      "percentage": 13.4,
+      "target": "145,000 ha (2029)",
+      "targetYear": "222,000 ha (2034)",
+      "gap": "25,673 ha to 2029 target",
+      "status": "green",
+      "confidence": "high",
+      "source": "Agriculture Department",
+      "updated": "Jan 2026",
+      "details": [
+        "Net sown area: 890,897 ha",
+        "Irrigated: 119,327 ha (13.4%)",
+        "Target increase: +86% by 2034",
+        "Methods: Borewells, drip, sprinkler, LIS"
+      ]
+    },
+    {
+      "id": "credit",
+      "title": "Credit Disbursement",
+      "current": "Rs 2,750 cr",
+      "percentage": 79,
+      "target": "Rs 3,500 cr (FY 24-25)",
+      "targetYear": "Rs 9,100 cr (2034)",
+      "gap": "Rs 750 cr remaining (78 days left)",
+      "status": "yellow",
+      "confidence": "high",
+      "source": "SLBC",
+      "updated": "Dec 2024",
+      "details": [
+        "Priority sector: Rs 2,750 cr (79% of target)",
+        "Agriculture: Rs 1,800 cr (73%)",
+        "MSME: Rs 220 cr (9%)",
+        "CD Ratio: 69% (Target: 85%+)"
+      ]
+    },
+    {
+      "id": "jobs",
+      "title": "Non-Farm Jobs Created",
+      "current": "6,400-8,400 jobs",
+      "percentage": 8,
+      "target": "156,700 jobs (2034)",
+      "targetYear": "156,700 jobs",
+      "gap": "91,600-93,600 remaining",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "ESIC + Udyam + Surveys",
+      "updated": "Q3 2024",
+      "details": [
+        "Direct (ESIC): 1,800 jobs (High confidence)",
+        "Government: 400 jobs",
+        "Training placements: 200 jobs",
+        "Indirect (estimated): 4,000-6,000 jobs",
+        "Note: Excludes informal sector"
+      ]
+    },
+    {
+      "id": "dalmills",
+      "title": "Dal Mill Upgradation",
+      "current": "75 mills (15%)",
+      "percentage": 15,
+      "target": "500 mills (2032)",
+      "targetYear": "500 mills (2034)",
+      "gap": "425 mills remaining",
+      "status": "red",
+      "confidence": "high",
+      "source": "Industries Dept + IK Profile 2016",
+      "updated": "Jan 2026",
+      "details": [
+        "Mills upgraded: 75/500 (15%)",
+        "Total mills in district: 500+ (verified 2024)",
+        "Jobs created: 2,250/15,000",
+        "Value addition: Rs 180 cr (Target: Rs 2,400 cr)",
+        "Need 3x acceleration"
+      ]
+    },
+    {
+      "id": "income",
+      "title": "Per Capita Income (Est.)",
+      "current": "Rs 1.46 lakh (est.)",
+      "percentage": 58,
+      "target": "Rs 2.00 lakh (2029)",
+      "targetYear": "Rs 2.50 lakh (2034)",
+      "gap": "Rs 1.04 lakh increase needed",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "GDDP projection",
+      "updated": "Jan 2026",
+      "details": [
+        "Official (2021-22): Rs 1.25 lakh (rank 30/30)",
+        "Estimated (2025-26): Rs 1.46 lakh",
+        "Method: GDDP growth + population projection",
+        "Margin of error: +/-8%",
+        "State average: Rs 2.85 lakh (2025-26 est.)"
+      ]
+    }
+  ],
+  "baseline": {
+    "rankings": {
+      "perCapitaIncome": {
+        "rank": "30/30",
+        "value": "Rs 1,24,998 (2021-22 official)",
+        "stateAvg": "Rs 2,85,000 (2025-26 est.)",
+        "status": "Lowest in Karnataka"
+      },
+      "gddpTotal": {
+        "rank": "14/30",
+        "value": "Rs 41,500 crore (2025-26 est.)",
+        "status": "Middle of the pack"
+      },
+      "industryShare": {
+        "rank": "22/30",
+        "value": "20.8% of GDDP",
+        "target": "28%"
+      },
+      "irrigation": {
+        "rank": "26/30",
+        "value": "13.4% of net sown area (2024 verified)",
+        "status": "Critical constraint"
+      }
+    },
+    "gddp": {
+      "total": 41500,
+      "agriculture": {
+        "share": 25.5,
+        "value": 10327
+      },
+      "industry": {
+        "share": 20.8,
+        "value": 8424
+      },
+      "services": {
+        "share": 53.7,
+        "value": 21749
+      }
+    },
+    "irrigation": {
+      "totalSownArea": 890897,
+      "irrigated": 119327,
+      "irrigatedPercent": 13.4,
+      "rainfed": 771570,
+      "rainfedPercent": 86.6,
+      "target2034": 222000,
+      "target2034Percent": 25
+    },
+    "demographics": {
+      "totalPopulation": 2840000,
+      "rural": 1880000,
+      "ruralPercent": 66.2,
+      "agriculturalWorkers": 58.46,
+      "literacy": 64.85
+    },
+    "migration": {
+      "toBangalore": 43,
+      "reasons": [
+        "Drought & agricultural underdevelopment",
+        "Lack of employment opportunities",
+        "Low and uncertain income from farming",
+        "Limited non-farm jobs in the district"
+      ]
+    }
+  },
+  "roadmap": {
+    "totalInvestment": 20150,
+    "targetRank": "15/30",
+    "perCapitaGoal": 250000,
+    "jobsToCreate": 156700,
+    "phases": {
+      "phase1": {
+        "name": "Foundation",
+        "years": "2026-2029",
+        "budget": 4000,
+        "progress": 80,
+        "status": "green",
+        "components": [
+          {
+            "name": "Water Security Infrastructure",
+            "budget": 2200,
+            "progress": 75,
+            "items": [
+              "Borewell rehabilitation: 285/357 completed",
+              "New borewells: 1,450/2,200 drilled",
+              "Micro-irrigation: 38,000/50,000 ha",
+              "Farm ponds: 2,100/3,250 built",
+              "Solar pumps: 450/1,910 installed"
+            ]
+          },
+          {
+            "name": "Rural Connectivity",
+            "budget": 800,
+            "progress": 80,
+            "items": [
+              "Village-to-market roads: 480/600 km",
+              "All-weather roads to dal mills: 80/100 km"
+            ]
+          },
+          {
+            "name": "Power Infrastructure",
+            "budget": 500,
+            "progress": 65,
+            "items": [
+              "Feeder separation in progress",
+              "Sub-station upgrades: 18/25 completed"
+            ]
+          }
+        ]
+      },
+      "phase2": {
+        "name": "Activation",
+        "years": "2029-2032",
+        "budget": 6600,
+        "progress": 30,
+        "status": "yellow",
+        "components": [
+          {
+            "name": "Agro-Processing Clusters",
+            "budget": 2400,
+            "progress": 15,
+            "items": [
+              "Dal mills upgraded: 45/300",
+              "New jobs created: 1,350/9,000",
+              "Value addition: Rs 180 cr (Target: Rs 1,600 cr)"
+            ]
+          },
+          {
+            "name": "FPO Development",
+            "budget": 300,
+            "progress": 30,
+            "items": [
+              "FPOs formed: 15/50",
+              "Farmers covered: 30,000/100,000"
+            ]
+          },
+          {
+            "name": "Skill Development",
+            "budget": 600,
+            "progress": 25,
+            "items": [
+              "Youth trained: 9,000/36,000",
+              "Placements: 7,200/30,600"
+            ]
+          },
+          {
+            "name": "MSME Ecosystem",
+            "budget": 2500,
+            "progress": 20,
+            "items": [
+              "New MSMEs: 500/2,500",
+              "Jobs created: 5,000/25,000"
+            ]
+          }
+        ]
+      },
+      "phase3": {
+        "name": "Scale",
+        "years": "2032-2034",
+        "budget": 7100,
+        "progress": 0,
+        "status": "notstarted",
+        "description": "Strategic industrial attraction, healthcare/education upgrades, and urban infrastructure development."
+      }
+    },
+    "financing": [
+      {
+        "source": "Central Schemes",
+        "amount": 6270,
+        "percent": 35,
+        "details": "RIDF, PMKSY, PMFME, Smart Cities, AMRUT"
+      },
+      {
+        "source": "State Budget",
+        "amount": 4070,
+        "percent": 23,
+        "details": "State schemes & budget allocation"
+      },
+      {
+        "source": "Bank Credit",
+        "amount": 4600,
+        "percent": 26,
+        "details": "Agriculture + MSME lending"
+      },
+      {
+        "source": "Private Investment",
+        "amount": 2760,
+        "percent": 16,
+        "details": "Industry + Processing units"
+      }
+    ]
+  },
+  "industries": {
+    "overview": {
+      "totalInvestment": 2450,
+      "totalJobs": 56700,
+      "gddpContribution": 1242,
+      "percentOfTarget": 3.58,
+      "status": "Planning & Feasibility Stage"
+    },
+    "sectors": [
+      {
+        "id": "garments",
+        "name": "Garments & Textiles",
+        "priority": "HIGHEST",
+        "priorityNote": "Rs 390cr PM MITRA funding approved (Dec 2024)",
+        "investment": {
+          "total": 650,
+          "breakdown": {
+            "infrastructure": 150,
+            "factories": 200,
+            "machinery": 300
+          },
+          "financing": {
+            "pmMitra": 390,
+            "private": 195,
+            "banks": 65
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 26000,
+            "indirect": 17000,
+            "total": 43000,
+            "skillLevel": "Semi-skilled (60% women)",
+            "salary": "Rs 12,000-18,000/month"
+          },
+          "revenue": {
+            "year2034": 1800,
+            "domestic": 1080,
+            "export": 720,
+            "exportPercent": 40
+          },
+          "gddp": {
+            "contribution": 540,
+            "percentOfTarget": 1.55,
+            "multiplier": 1.5
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Land acquisition, first 5 units operational",
+          "phase2": "2027-2029: Scale to 15 units, exports begin",
+          "phase3": "2029-2034: Full 30 units, Rs 1,800cr revenue",
+          "firstRevenue": "18 months",
+          "fullScale": "96 months"
+        },
+        "location": "Sedam/Afzalpur (300 acres near NH-50)",
+        "products": [
+          "Readymade garments (shirts, trousers, kurtas)",
+          "Home textiles (bedsheets, curtains, towels)",
+          "Export quality apparel (EU, Middle East)"
+        ],
+        "buyers": {
+          "domestic": [
+            "Reliance Trends",
+            "Pantaloons",
+            "Max Fashion",
+            "V-Mart"
+          ],
+          "export": [
+            "H&M India",
+            "Zara India",
+            "Marks & Spencer"
+          ],
+          "ecommerce": [
+            "Amazon Fashion",
+            "Flipkart Fashion",
+            "Myntra"
+          ]
+        },
+        "risks": [
+          {
+            "risk": "Labor shortage (26,000 workers)",
+            "severity": "high",
+            "mitigation": "ITI training, attract women workers, return migrants"
+          },
+          {
+            "risk": "PM MITRA delays",
+            "severity": "medium",
+            "mitigation": "Direct engagement with Ministry of Textiles"
+          }
+        ],
+        "confidence": "HIGH (85%)",
+        "recommendation": "PROCEED IMMEDIATELY - Funding approved, fastest job creation"
+      },
+      {
+        "id": "limestone",
+        "name": "Limestone & Cement",
+        "priority": "HIGH",
+        "priorityNote": "2.5-4 billion MT reserves, 200-400 year supply",
+        "investment": {
+          "total": 500,
+          "breakdown": {
+            "mining": 100,
+            "crushers": 80,
+            "cement": 320
+          },
+          "financing": {
+            "private": 350,
+            "banks": 100,
+            "government": 50
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 12000,
+            "indirect": 8000,
+            "total": 20000,
+            "skillLevel": "Mix (operators, engineers, managers)",
+            "salary": "Rs 15,000-50,000/month"
+          },
+          "revenue": {
+            "year2034": 750,
+            "cement": 600,
+            "aggregates": 150
+          },
+          "gddp": {
+            "contribution": 338,
+            "percentOfTarget": 0.97,
+            "multiplier": 1.5
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2028: Mining leases, 3 crushers operational",
+          "phase2": "2028-2030: First mini cement plant (1,000 TPD)",
+          "phase3": "2030-2034: Scale to 3,000 TPD, 2nd plant",
+          "firstRevenue": "24-30 months",
+          "fullScale": "96 months"
+        },
+        "location": "Chincholi, Sedam, Chittapur taluks (existing deposits)",
+        "products": [
+          "Cement (OPC 43/53 grade, PPC)",
+          "Aggregates (construction, road building)",
+          "Ready-mix concrete (urban Kalaburagi)"
+        ],
+        "risks": [
+          {
+            "risk": "Mining lease delays (24-36 months)",
+            "severity": "high",
+            "mitigation": "Parallel applications, political support, fast-track"
+          },
+          {
+            "risk": "Environmental clearances",
+            "severity": "medium",
+            "mitigation": "Comprehensive EIA, community engagement"
+          },
+          {
+            "risk": "Cement market oversupply",
+            "severity": "medium",
+            "mitigation": "Gradual scaling, specialty cements"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (75%)",
+        "recommendation": "PROCEED - Resource proven, but regulatory timeline critical"
+      },
+      {
+        "id": "aerospace",
+        "name": "Aerospace Components",
+        "priority": "MEDIUM-HIGH",
+        "priorityNote": "200km from Hyderabad aerospace cluster ($2.5B)",
+        "investment": {
+          "total": 800,
+          "breakdown": {
+            "infrastructure": 150,
+            "buildings": 200,
+            "machinery": 450
+          },
+          "financing": {
+            "private": 240,
+            "banks": 320,
+            "subsidies": 120,
+            "vendorCredit": 80,
+            "ridf": 40
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 12000,
+            "indirect": 8000,
+            "total": 20000,
+            "skillLevel": "Highly skilled (63% ITI+, 20% engineers)",
+            "salary": "Rs 20,000-80,000/month"
+          },
+          "revenue": {
+            "year2034": 1200,
+            "defence": 480,
+            "commercial": 600,
+            "mro": 120,
+            "exportPercent": 60
+          },
+          "gddp": {
+            "contribution": 360,
+            "percentOfTarget": 1.04,
+            "multiplier": 1.7
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2028: Land, ITI curriculum, first 5 factories, AS9100 consultant",
+          "phase2": "2027-2028: Trial production, AS9100 certification",
+          "phase3": "2028-2031: Scale to 15 factories, exports, NADCAP",
+          "phase4": "2032-2034: 30 factories, R&D center",
+          "firstRevenue": "45-63 months",
+          "fullScale": "96 months"
+        },
+        "location": "Sedam/Afzalpur (500 acres, industrial zone)",
+        "products": [
+          "Non-critical precision components (brackets, fasteners)",
+          "Sheet metal parts (aircraft interiors)",
+          "CNC machined parts (landing gear components)"
+        ],
+        "buyers": {
+          "defence": [
+            "HAL",
+            "Tata Advanced Systems",
+            "Bharat Forge"
+          ],
+          "commercial": [
+            "Boeing India",
+            "Airbus"
+          ],
+          "tier1": [
+            "Collins Aerospace",
+            "Safran"
+          ],
+          "mro": [
+            "Air India Engineering",
+            "GMR Aero Technic"
+          ]
+        },
+        "risks": [
+          {
+            "risk": "Quality failures (aerospace 10-100 PPM standard)",
+            "severity": "critical",
+            "mitigation": "Triple-layer quality, German/Israeli partnership, 100% CMM inspection"
+          },
+          {
+            "risk": "AS9100 certification failure (60% first-time fail rate)",
+            "severity": "critical",
+            "mitigation": "Consultant from Day 1, build compliance into factory design, mock audits"
+          },
+          {
+            "risk": "Long sales cycles (12-18 months OEM approval)",
+            "severity": "high",
+            "mitigation": "Start OEM outreach Year 1, parallel approvals"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (70-75%)",
+        "recommendation": "PROCEED with heavy quality investment"
+      },
+      {
+        "id": "pharma",
+        "name": "Pharma Packaging",
+        "priority": "MEDIUM-HIGH",
+        "priorityNote": "250km from Hyderabad Pharma City (world's largest)",
+        "investment": {
+          "total": 500,
+          "breakdown": {
+            "infrastructure": 80,
+            "buildings": 120,
+            "machinery": 300
+          },
+          "financing": {
+            "private": 150,
+            "banks": 200,
+            "subsidies": 75,
+            "vendorCredit": 50,
+            "ridf": 25
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 4000,
+            "indirect": 2700,
+            "total": 6700,
+            "skillLevel": "Skilled (60% GMP-certified)",
+            "salary": "Rs 15,000-50,000/month"
+          },
+          "revenue": {
+            "year2034": 900,
+            "domestic": 630,
+            "export": 270,
+            "exportPercent": 30
+          },
+          "gddp": {
+            "contribution": 270,
+            "percentOfTarget": 0.78,
+            "multiplier": 1.3
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Land, Schedule M consultant, pharma MoUs",
+          "phase2": "2027-2028: First 5 factories, Schedule M licensing, trial production",
+          "phase3": "2028-2031: Scale to 15 factories, ISO 15378, exports",
+          "phase4": "2032-2034: 20 factories, WHO-GMP, Rs 900cr revenue",
+          "firstRevenue": "24-30 months",
+          "fullScale": "96 months"
+        },
+        "location": "Sedam/Afzalpur (200 acres, pharma zone)",
+        "products": [
+          "Blister packs (Alu-Alu, PVC-Alu for tablets/capsules)",
+          "HDPE/PET bottles (child-resistant caps)",
+          "Cartons & labels (secondary packaging)"
+        ],
+        "buyers": {
+          "hyderabad": [
+            "Dr. Reddy's",
+            "Hetero",
+            "Aurobindo",
+            "Laurus Labs"
+          ],
+          "bangalore": [
+            "Biocon",
+            "Strides"
+          ],
+          "export": [
+            "Africa (antimalarials/ARVs)",
+            "Middle East"
+          ]
+        },
+        "risks": [
+          {
+            "risk": "Schedule M license delays (6-9 months normal, 12-18 if issues)",
+            "severity": "critical",
+            "mitigation": "Hire ex-CDSCO inspector, mock audits quarterly, build right from Day 1"
+          },
+          {
+            "risk": "Quality failures (pharma zero-tolerance)",
+            "severity": "high",
+            "mitigation": "Triple-check quality, 100% vision inspection, zero-defect guarantee"
+          },
+          {
+            "risk": "Hyderabad Pharma City Phase 2 delays",
+            "severity": "medium",
+            "mitigation": "Diversify to Bangalore 15%, export 30%, other cities 10%"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (75-80%)",
+        "recommendation": "PROCEED - Perfect timing for Pharma City Phase 2 (2029-2030)"
+      }
+    ],
+    "comparison": [
+      {
+        "industry": "Garments",
+        "investment_crores": 650,
+        "directJobs": 26000,
+        "revenue2034_crores": 1800,
+        "gddpPercent": 1.55,
+        "timeToRevenue": "18 months",
+        "risk": "Low-Medium"
+      },
+      {
+        "industry": "Limestone",
+        "investment_crores": 500,
+        "directJobs": 12000,
+        "revenue2034_crores": 750,
+        "gddpPercent": 0.97,
+        "timeToRevenue": "24-30 months",
+        "risk": "Medium-High"
+      },
+      {
+        "industry": "Aerospace",
+        "investment_crores": 800,
+        "directJobs": 12000,
+        "revenue2034_crores": 1200,
+        "gddpPercent": 1.04,
+        "timeToRevenue": "45-63 months",
+        "risk": "Medium-High"
+      },
+      {
+        "industry": "Pharma Packaging",
+        "investment_crores": 500,
+        "directJobs": 6700,
+        "revenue2034_crores": 900,
+        "gddpPercent": 0.78,
+        "timeToRevenue": "24-30 months",
+        "risk": "Medium"
+      }
+    ]
+  },
+  "fpos": {
+    "lastUpdated": "2026-02-03",
+    "source": "Centre of Excellence for FPO",
+    "summary": {
+      "totalFPOs": 15,
+      "activeFPOs": 12,
+      "underFormationFPOs": 3,
+      "targetBy2032": 50,
+      "gapRemaining": 35,
+      "percentComplete": 30
+    },
+    "fpoDetails": [
+      {
+        "name": "Kalaburagi Dal Mill FPO",
+        "location": "Kalaburagi Taluk",
+        "commodities": [
+          "Tur Dal",
+          "Bengal Gram"
+        ],
+        "memberFarmers": 450,
+        "yearOfRegistration": 2021,
+        "status": "Active",
+        "annualTurnover": 35000000
+      },
+      {
+        "name": "Chittapur Pulses Producers",
+        "location": "Chittapur Taluk",
+        "commodities": [
+          "Tur",
+          "Green Gram"
+        ],
+        "memberFarmers": 380,
+        "yearOfRegistration": 2022,
+        "status": "Active",
+        "annualTurnover": 28000000
+      },
+      {
+        "name": "Sedam Grape Growers FPO",
+        "location": "Sedam Taluk",
+        "commodities": [
+          "Grapes"
+        ],
+        "memberFarmers": 220,
+        "yearOfRegistration": 2020,
+        "status": "Active",
+        "annualTurnover": 42000000
+      },
+      {
+        "name": "Jevargi Farmers Collective",
+        "location": "Jevargi Taluk",
+        "commodities": [
+          "Pulses",
+          "Oilseeds"
+        ],
+        "memberFarmers": 310,
+        "yearOfRegistration": 2023,
+        "status": "Active",
+        "annualTurnover": 19000000
+      },
+      {
+        "name": "Afzalpur Agri Producers",
+        "location": "Afzalpur Taluk",
+        "commodities": [
+          "Tur Dal",
+          "Soybean"
+        ],
+        "memberFarmers": 270,
+        "yearOfRegistration": 2022,
+        "status": "Active",
+        "annualTurnover": 23000000
+      },
+      {
+        "name": "Aland Pulses FPO",
+        "location": "Aland Taluk",
+        "commodities": [
+          "Bengal Gram",
+          "Green Gram"
+        ],
+        "memberFarmers": 195,
+        "yearOfRegistration": 2023,
+        "status": "Active",
+        "annualTurnover": 15000000
+      },
+      {
+        "name": "Chincholi Crop Producers",
+        "location": "Chincholi Taluk",
+        "commodities": [
+          "Mixed Crops"
+        ],
+        "memberFarmers": 160,
+        "yearOfRegistration": 2024,
+        "status": "Active",
+        "annualTurnover": 12000000
+      },
+      {
+        "name": "Kamalapur Farmers Union",
+        "location": "Kamalapur",
+        "commodities": [
+          "Pulses",
+          "Groundnut"
+        ],
+        "memberFarmers": 240,
+        "yearOfRegistration": 2021,
+        "status": "Active",
+        "annualTurnover": 21000000
+      },
+      {
+        "name": "Shahabad Agri Collective",
+        "location": "Shahabad",
+        "commodities": [
+          "Tur",
+          "Bengal Gram"
+        ],
+        "memberFarmers": 290,
+        "yearOfRegistration": 2022,
+        "status": "Active",
+        "annualTurnover": 26000000
+      },
+      {
+        "name": "Yadgir Border FPO",
+        "location": "Yadgir Border Area",
+        "commodities": [
+          "Mixed Pulses"
+        ],
+        "memberFarmers": 175,
+        "yearOfRegistration": 2023,
+        "status": "Active",
+        "annualTurnover": 14000000
+      },
+      {
+        "name": "Kalaburagi North FPO",
+        "location": "Kalaburagi North",
+        "commodities": [
+          "Vegetables",
+          "Pulses"
+        ],
+        "memberFarmers": 210,
+        "yearOfRegistration": 2024,
+        "status": "Active",
+        "annualTurnover": 11000000
+      },
+      {
+        "name": "Gulbarga South Farmers",
+        "location": "Kalaburagi South",
+        "commodities": [
+          "Tur Dal",
+          "Oilseeds"
+        ],
+        "memberFarmers": 185,
+        "yearOfRegistration": 2024,
+        "status": "Active",
+        "annualTurnover": 9000000
+      },
+      {
+        "name": "Chittapur Grape Collective",
+        "location": "Chittapur",
+        "commodities": [
+          "Grapes"
+        ],
+        "memberFarmers": 95,
+        "yearOfRegistration": 2025,
+        "status": "Under Formation",
+        "annualTurnover": 0
+      },
+      {
+        "name": "Sedam Dal Mill Cluster FPO",
+        "location": "Sedam",
+        "commodities": [
+          "Pulses Processing"
+        ],
+        "memberFarmers": 120,
+        "yearOfRegistration": 2025,
+        "status": "Under Formation",
+        "annualTurnover": 0
+      },
+      {
+        "name": "Aland Oilseed Producers",
+        "location": "Aland",
+        "commodities": [
+          "Groundnut",
+          "Sunflower"
+        ],
+        "memberFarmers": 140,
+        "yearOfRegistration": 2026,
+        "status": "Under Formation",
+        "annualTurnover": 0
+      }
+    ],
+    "byTaluk": {
+      "Kalaburagi": 3,
+      "Chittapur": 2,
+      "Sedam": 2,
+      "Jevargi": 1,
+      "Afzalpur": 1,
+      "Aland": 2,
+      "Chincholi": 1,
+      "Others": 3
+    },
+    "byCommodity": {
+      "Pulses (Tur, Bengal Gram)": 9,
+      "Grapes": 2,
+      "Oilseeds": 2,
+      "Mixed Crops": 2
+    },
+    "financialMetrics": {
+      "totalMemberFarmers": 3440,
+      "averageMembersPerFPO": 229,
+      "totalAnnualTurnover": 255000000,
+      "averageTurnoverPerFPO": 21250000
+    },
+    "growthTrend": {
+      "2020": 1,
+      "2021": 2,
+      "2022": 3,
+      "2023": 4,
+      "2024": 3,
+      "2025": 2,
+      "2026": 0
+    },
+    "roadmapTargets": {
+      "phase1": {
+        "years": "2026-2029",
+        "targetNew": 10,
+        "focus": "Dal mill linkages, grape FPOs"
+      },
+      "phase2": {
+        "years": "2030-2032",
+        "targetNew": 15,
+        "focus": "Agro-processing integration, export linkages"
+      },
+      "phase3": {
+        "years": "2033-2034",
+        "targetNew": 10,
+        "focus": "Value addition, direct market access"
+      }
+    }
+  },
+  "industrialLand": {
+    "lastUpdated": "2026-02-03",
+    "source": "KIADB",
+    "industrialAreas": [
+      {
+        "name": "Sedam Industrial Area",
+        "location": "Sedam Taluk",
+        "totalArea": 485,
+        "developedArea": 320,
+        "availableForAllotment": 165,
+        "allottedPlots": 42,
+        "vacantPlots": 28,
+        "underDevelopment": 95,
+        "infrastructureStatus": {
+          "power": "Available - 11KV line, transformer capacity 2500 KVA",
+          "water": "Available - Borewells + tanker supply",
+          "roads": "Good - Internal roads paved, NH connectivity 8km",
+          "drainage": "Partial - 60% coverage"
+        },
+        "majorAllotments": [
+          {
+            "company": "Aerospace Component Manufacturers",
+            "area": 50,
+            "status": "Allotted - Awaiting Possession"
+          },
+          {
+            "company": "Pharma Unit 1",
+            "area": 25,
+            "status": "Allotted - Construction Started"
+          },
+          {
+            "company": "Pharma Unit 2",
+            "area": 18,
+            "status": "Allotted - Construction Started"
+          },
+          {
+            "company": "Food Processing Units",
+            "area": 35,
+            "status": "Allotted - Operational"
+          }
+        ]
+      },
+      {
+        "name": "Kalaburagi Growth Centre",
+        "location": "Kalaburagi Taluk",
+        "totalArea": 280,
+        "developedArea": 210,
+        "availableForAllotment": 35,
+        "allottedPlots": 58,
+        "vacantPlots": 12,
+        "underDevelopment": 35,
+        "infrastructureStatus": {
+          "power": "Excellent - 24x7 industrial feeder",
+          "water": "Good - Municipal + borewell",
+          "roads": "Excellent - Within city limits",
+          "drainage": "Complete"
+        },
+        "majorAllotments": [
+          {
+            "company": "Existing Dal Mills",
+            "area": 45,
+            "status": "Operational"
+          },
+          {
+            "company": "Logistics Hub",
+            "area": 28,
+            "status": "Operational"
+          },
+          {
+            "company": "MSME Units (15+)",
+            "area": 82,
+            "status": "Mixed - Operational/Under Construction"
+          }
+        ]
+      }
+    ],
+    "projectWiseLandRequirement": {
+      "pmMitraTextilePark": {
+        "landRequired": 300,
+        "landIdentified": 300,
+        "landAcquired": 0,
+        "status": "Land Acquisition Pending",
+        "location": "Sedam/Chittapur",
+        "timeline": {
+          "acquisitionTarget": "Q2 2026",
+          "developmentStart": "Q4 2026",
+          "allotmentStart": "Q2 2027"
+        }
+      },
+      "aerospaceCluster": {
+        "landRequired": 500,
+        "landIdentified": 450,
+        "landAcquired": 50,
+        "status": "Partial Acquisition - Awaiting Clearances",
+        "location": "Sedam Industrial Area + Expansion",
+        "timeline": {
+          "acquisitionTarget": "Q3 2026",
+          "developmentStart": "Q1 2027",
+          "allotmentStart": "Q3 2027"
+        }
+      },
+      "pharmaCluster": {
+        "landRequired": 200,
+        "landIdentified": 180,
+        "landAcquired": 43,
+        "landDeveloped": 43,
+        "status": "Partially Allotted - Active",
+        "location": "Sedam Industrial Area",
+        "timeline": {
+          "acquisitionTarget": "Q4 2026",
+          "developmentStart": "Q1 2027",
+          "allotmentStart": "Q2 2027"
+        }
+      },
+      "limestoneMining": {
+        "landRequired": 200,
+        "landIdentified": 250,
+        "landAcquired": 0,
+        "status": "Geological Survey Pending",
+        "location": "Chincholi/Sedam (limestone belt)"
+      }
+    },
+    "summary": {
+      "totalIndustrialLand": 765,
+      "developedLand": 530,
+      "allottedLand": 398,
+      "vacantLand": 132,
+      "underDevelopment": 130,
+      "availableForAllotment": 200,
+      "pipelineLandRequirement": 1200,
+      "pipelineLandAcquired": 93,
+      "pipelineLandGap": 1107,
+      "totalPlots": 100,
+      "allottedPlots": 100,
+      "occupiedPlots": 73,
+      "vacantAllottedPlots": 27
+    },
+    "infrastructureReadiness": {
+      "power": {
+        "status": "Good",
+        "rating": 75,
+        "gap": "50 MVA substation needed for PM MITRA"
+      },
+      "water": {
+        "status": "Moderate",
+        "rating": 60,
+        "gap": "15 MLD additional supply needed"
+      },
+      "roads": {
+        "status": "Good",
+        "rating": 80,
+        "gap": "Sedam IA approach road needs widening"
+      },
+      "drainage": {
+        "status": "Moderate",
+        "rating": 55,
+        "gap": "Complete drainage system for expansions"
+      },
+      "effluent": {
+        "status": "Critical Gap",
+        "rating": 20,
+        "gap": "CETP mandatory for PM MITRA, pharma clusters"
+      }
+    },
+    "allotmentProcess": {
+      "averageProcessingTime": 90,
+      "targetTime": 30,
+      "recentAllotments": 8,
+      "pendingApplications": 12
+    },
+    "landPricing": {
+      "sedamIA": {
+        "developedPlot": 2500000,
+        "undevelopedPlot": 1800000
+      },
+      "kalaburagGC": {
+        "developedPlot": 3500000,
+        "undevelopedPlot": 2500000
+      }
+    }
+  },
+  "creditData": {
+    "lastUpdated": "2026-02-03",
+    "currentQuarter": "Q3 FY 2025-26",
+    "source": "SLBC Karnataka",
+    "summary": {
+      "totalCredit": 18450000000,
+      "totalDeposits": 28600000000,
+      "creditDepositRatio": 64.5,
+      "stateAvgCDRatio": 78.2,
+      "prioritySectorCredit": 9680000000,
+      "nonPrioritySectorCredit": 8770000000,
+      "totalBankBranches": 387,
+      "totalATMs": 412
+    },
+    "sectorWiseCredit": {
+      "agriculture": {
+        "outstanding": 7420000000,
+        "percentOfTotal": 40.2,
+        "yearlyTarget": 8500000000,
+        "achievement": 87.3,
+        "subcategories": {
+          "cropLoans": 4850000000,
+          "investmentCredit": 1920000000,
+          "alliedActivities": 650000000
+        }
+      },
+      "msme": {
+        "outstanding": 5630000000,
+        "percentOfTotal": 30.5,
+        "yearlyTarget": 6200000000,
+        "achievement": 90.8,
+        "subcategories": {
+          "micro": 2340000000,
+          "small": 2150000000,
+          "medium": 1140000000
+        }
+      },
+      "industry": {
+        "outstanding": 3280000000,
+        "percentOfTotal": 17.8,
+        "yearlyTarget": 3800000000,
+        "achievement": 86.3,
+        "subcategories": {
+          "textilesAndGarments": 1450000000,
+          "foodProcessing": 820000000,
+          "engineering": 680000000,
+          "others": 330000000
+        }
+      },
+      "others": {
+        "outstanding": 2120000000,
+        "percentOfTotal": 11.5,
+        "subcategories": {
+          "education": 840000000,
+          "housing": 780000000,
+          "personal": 500000000
+        }
+      }
+    },
+    "quarterlyTrend": {
+      "Q1_FY24": {
+        "credit": 16200000000,
+        "deposits": 26800000000,
+        "cdRatio": 60.4
+      },
+      "Q2_FY24": {
+        "credit": 16800000000,
+        "deposits": 27400000000,
+        "cdRatio": 61.3
+      },
+      "Q3_FY24": {
+        "credit": 17100000000,
+        "deposits": 27900000000,
+        "cdRatio": 61.3
+      },
+      "Q4_FY24": {
+        "credit": 17650000000,
+        "deposits": 28200000000,
+        "cdRatio": 62.6
+      },
+      "Q1_FY25": {
+        "credit": 17900000000,
+        "deposits": 28400000000,
+        "cdRatio": 63
+      },
+      "Q2_FY25": {
+        "credit": 18200000000,
+        "deposits": 28500000000,
+        "cdRatio": 63.9
+      },
+      "Q3_FY25": {
+        "credit": 18450000000,
+        "deposits": 28600000000,
+        "cdRatio": 64.5
+      }
+    },
+    "bankWiseCredit": {
+      "nationalizedBanks": {
+        "credit": 9870000000,
+        "deposits": 15200000000,
+        "branches": 168
+      },
+      "privateBanks": {
+        "credit": 4250000000,
+        "deposits": 8100000000,
+        "branches": 87
+      },
+      "regionalRuralBanks": {
+        "credit": 2680000000,
+        "deposits": 3800000000,
+        "branches": 95
+      },
+      "cooperativeBanks": {
+        "credit": 1650000000,
+        "deposits": 1500000000,
+        "branches": 37
+      }
+    },
+    "challenges": [
+      {
+        "issue": "CD Ratio Below State Average",
+        "current": 64.5,
+        "target": 78.2,
+        "gap": 13.7,
+        "impact": "Need Rs 392 cr additional credit to match state average"
+      },
+      {
+        "issue": "Low Industrial Credit",
+        "current": 17.8,
+        "target": 25,
+        "gap": 7.2,
+        "impact": "Insufficient lending for Phase 1 industrial expansion"
+      },
+      {
+        "issue": "Branch Network Density",
+        "current": 387,
+        "target": 450,
+        "gap": 63,
+        "impact": "Rural areas underserved, especially for FPO financing"
+      }
+    ]
+  },
+  "msme": {
+    "lastUpdated": "2026-02-03",
+    "source": "UDYAM Registration (OGD Platform)",
+    "statistics": {
+      "total": 2847,
+      "byType": {
+        "proprietorship": 1820,
+        "partnership": 658,
+        "privateLimited": 289,
+        "publicLimited": 45,
+        "selfHelpGroup": 35
+      },
+      "bySector": {
+        "manufacturing": 1124,
+        "services": 892,
+        "trade": 678,
+        "others": 153
+      },
+      "byYear": {
+        "2020": 189,
+        "2021": 247,
+        "2022": 312,
+        "2023": 398,
+        "2024": 467,
+        "2025": 521,
+        "2026": 156
+      },
+      "totalInvestment": 1247000000,
+      "totalEmployment": 18420
+    },
+    "growthTrends": {
+      "yearOverYear": "+15.2%",
+      "targetBy2032": 4500,
+      "gapRemaining": 1653
+    }
+  },
+  "investments": {
+    "lastUpdated": "2026-02-03",
+    "source": "Karnataka Udyog Mitra / Invest Karnataka",
+    "summary": {
+      "totalProposals": 47,
+      "approvedProposals": 28,
+      "pendingProposals": 15,
+      "rejectedProposals": 4,
+      "proposedInvestment": 8450000000,
+      "realizedInvestment": 3280000000,
+      "projectedEmployment": 12400,
+      "realizationRate": 38.8
+    },
+    "proposalsBySector": {
+      "textilesAndGarments": {
+        "count": 12,
+        "investment": 3200000000,
+        "employment": 4800
+      },
+      "foodProcessingAndAgro": {
+        "count": 8,
+        "investment": 950000000,
+        "employment": 1600
+      },
+      "aerospaceAndEngineering": {
+        "count": 5,
+        "investment": 2500000000,
+        "employment": 2100
+      },
+      "pharmaceuticals": {
+        "count": 6,
+        "investment": 1200000000,
+        "employment": 1800
+      },
+      "limestoneAndMining": {
+        "count": 3,
+        "investment": 450000000,
+        "employment": 720
+      },
+      "logisticsAndWarehousing": {
+        "count": 7,
+        "investment": 580000000,
+        "employment": 940
+      },
+      "others": {
+        "count": 6,
+        "investment": 570000000,
+        "employment": 440
+      }
+    },
+    "proposalsByInvestmentSize": {
+      "mega_above100cr": {
+        "count": 4,
+        "investment": 2800000000
+      },
+      "large_50to100cr": {
+        "count": 6,
+        "investment": 1920000000
+      },
+      "medium_10to50cr": {
+        "count": 18,
+        "investment": 2730000000
+      },
+      "small_below10cr": {
+        "count": 19,
+        "investment": 1000000000
+      }
+    },
+    "majorProposals": [
+      {
+        "projectName": "PM MITRA Mega Textile Park",
+        "investor": "Central Government + Private Partners",
+        "sector": "Textiles & Garments",
+        "investment": 1100000000,
+        "projectedJobs": 26000,
+        "status": "Pending - Land Acquisition"
+      },
+      {
+        "projectName": "Aerospace Component Manufacturing Hub",
+        "investor": "Private Consortium",
+        "sector": "Aerospace & Engineering",
+        "investment": 1800000000,
+        "projectedJobs": 1500,
+        "status": "Pending - Quality Certification"
+      },
+      {
+        "projectName": "Integrated Dal Mill Cluster",
+        "investor": "FPO Consortium + NABARD",
+        "sector": "Food Processing & Agro",
+        "investment": 450000000,
+        "projectedJobs": 850,
+        "status": "Approved - Implementation Phase"
+      },
+      {
+        "projectName": "Pharma Formulation Unit",
+        "investor": "Mid-size Pharma Company",
+        "sector": "Pharmaceuticals",
+        "investment": 280000000,
+        "projectedJobs": 420,
+        "status": "Approved - Land Allotment Done"
+      },
+      {
+        "projectName": "Cold Storage & Logistics Hub",
+        "investor": "Agricultural Logistics Pvt Ltd",
+        "sector": "Logistics & Warehousing",
+        "investment": 120000000,
+        "projectedJobs": 180,
+        "status": "Approved - Under Construction"
+      }
+    ],
+    "clearanceEfficiency": {
+      "averageProcessingTime": 87,
+      "targetProcessingTime": 30,
+      "clearanceRate": 60
+    },
+    "bottlenecks": [
+      {
+        "stage": "Land Acquisition",
+        "delayedProposals": 8,
+        "avgDelay": 120,
+        "impact": "Critical - delays PM MITRA, aerospace projects"
+      },
+      {
+        "stage": "Environmental Clearance",
+        "delayedProposals": 4,
+        "avgDelay": 90,
+        "impact": "High - affects limestone, large manufacturing"
+      },
+      {
+        "stage": "Quality Certifications",
+        "delayedProposals": 3,
+        "avgDelay": 60,
+        "impact": "Medium - aerospace AS9100, pharma licenses"
+      }
+    ]
+  },
+  "liveData": {
+    "lastUpdated": "2026-03-15",
+    "commodityPrices": {
+      "turDal": {
+        "market": "Kalaburagi APMC",
+        "price": 9519,
+        "unit": "Rs/quintal",
+        "date": "2026-03-15",
+        "priceChange": 87,
+        "percentChange": 0.9,
+        "lastWeekPrice": 9432
+      },
+      "bengalGram": {
+        "market": "Kalaburagi APMC",
+        "price": 5868,
+        "unit": "Rs/quintal",
+        "date": "2026-03-15",
+        "priceChange": 152,
+        "percentChange": 2.7,
+        "lastWeekPrice": 5716
+      },
+      "greenGram": {
+        "market": "Kalaburagi APMC",
+        "price": 7184,
+        "unit": "Rs/quintal",
+        "date": "2026-03-15",
+        "priceChange": 43,
+        "percentChange": 0.6,
+        "lastWeekPrice": 7141
+      }
+    },
+    "rainfall": {
+      "district": "Kalaburagi",
+      "today": {
+        "amount": 0,
+        "unit": "mm",
+        "date": "2026-03-15"
+      },
+      "thisWeek": {
+        "amount": 4.5,
+        "unit": "mm"
+      },
+      "thisMonth": {
+        "amount": 15.4,
+        "unit": "mm",
+        "normalAmount": 8,
+        "deviation": 25
+      },
+      "thisSeason": {
+        "amount": 484.1,
+        "unit": "mm",
+        "normalAmount": 528,
+        "deviation": -15.7,
+        "status": "Deficient"
+      }
+    },
+    "dataQuality": {
+      "commodityPrices": {
+        "status": "live",
+        "source": "Agmarknet API",
+        "confidence": "high"
+      },
+      "rainfall": {
+        "status": "live",
+        "source": "IMD API",
+        "confidence": "high"
+      }
+    }
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Directorate of Economics & Statistics, Karnataka",
+      "url": "https://des.karnataka.gov.in",
+      "fields": [
+        "GDDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Ministry of Statistics & Programme Implementation (MoSPI)",
+      "url": "https://mospi.gov.in",
+      "fields": [
+        "GDDP estimates",
+        "Growth Rate"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "District Industrial Profile - MSME Ministry",
+      "url": "https://msme.gov.in",
+      "fields": [
+        "Key Sectors",
+        "MSME registrations",
+        "Industrial areas"
+      ],
+      "type": "Industry"
+    },
+    {
+      "name": "Agmarknet (DMIC, Ministry of Agriculture)",
+      "url": "https://agmarknet.gov.in",
+      "fields": [
+        "Commodity Prices (Tur Dal, Bengal Gram, Green Gram)"
+      ],
+      "type": "Live Data"
+    },
+    {
+      "name": "India Meteorological Department (IMD)",
+      "url": "https://mausam.imd.gov.in",
+      "fields": [
+        "Rainfall data"
+      ],
+      "type": "Live Data"
+    },
+    {
+      "name": "SLBC Karnataka (RBI)",
+      "url": "https://slbc.karnataka.gov.in",
+      "fields": [
+        "Credit-Deposit Ratio",
+        "Bank branch data",
+        "Sector-wise credit"
+      ],
+      "type": "Finance"
+    },
+    {
+      "name": "KIADB (Karnataka Industrial Areas Development Board)",
+      "url": "https://kiadb.karnataka.gov.in",
+      "fields": [
+        "Industrial land allocation",
+        "Infrastructure readiness"
+      ],
+      "type": "Industry"
+    },
+    {
+      "name": "Udyog Mitra, Karnataka",
+      "url": "https://udyogmitra.karnataka.gov.in",
+      "fields": [
+        "Investment proposals",
+        "Project pipeline"
+      ],
+      "type": "Industry"
+    },
+    {
+      "name": "PM MITRA Scheme (Ministry of Textiles)",
+      "url": "https://pmmitra.gov.in",
+      "fields": [
+        "Textile park details",
+        "Investment approval"
+      ],
+      "type": "Industry"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

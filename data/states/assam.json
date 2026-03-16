@@ -1,0 +1,68 @@
+{
+  "name": "Assam",
+  "stateCode": "AS",
+  "slug": "assam",
+  "districtCount": 27,
+  "demographics": {
+    "population": 31205576,
+    "rural": 26223641,
+    "urban": 4981935,
+    "area_sq_km": 78438,
+    "density": 398,
+    "literacyRate": 0.72,
+    "sexRatio": 958,
+    "urbanizationRate": 14.1,
+    "population_2026_projected": 36815000
+  },
+  "economy": {
+    "gsdp_crores": 569287,
+    "perCapitaIncome": 158540,
+    "gsdpComposition": {
+      "agriculture": 28.1,
+      "industry": 26.7,
+      "services": 45.2
+    }
+  },
+  "hdi": 0.615,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

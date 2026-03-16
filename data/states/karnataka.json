@@ -1,0 +1,68 @@
+{
+  "name": "Karnataka",
+  "stateCode": "KA",
+  "slug": "karnataka",
+  "districtCount": 31,
+  "demographics": {
+    "population": 63935297,
+    "rural": 38731168,
+    "urban": 25204129,
+    "area_sq_km": 208015,
+    "density": 307,
+    "literacyRate": 0.75,
+    "sexRatio": 973,
+    "urbanizationRate": 38.57,
+    "population_2026_projected": 69074000
+  },
+  "economy": {
+    "gsdp_crores": 2557241,
+    "perCapitaIncome": 376402,
+    "gsdpComposition": {
+      "agriculture": 12.1,
+      "industry": 24.5,
+      "services": 63.4
+    }
+  },
+  "hdi": 0.673,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

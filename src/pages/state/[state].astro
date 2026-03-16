@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getStates, formatCurrency, formatPopulation } from '../../lib/data-loader';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export function getStaticPaths() {
+  return getStates().map(s => ({ params: { state: s.slug }, props: { stateData: s } }));
+}
+
+const { stateData } = Astro.props;
+const districts = stateData.districts.sort((a, b) => (b.economy?.perCapitaIncome || 0) - (a.economy?.perCapitaIncome || 0));
+
+// Load state-level JSON with economic data
+let stateJson: any = {};
+try {
+  stateJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'states', stateData.slug + '.json'), 'utf-8'));
+} catch {}
+
+const stateEcon = stateJson.economy || {};
+const statePCI = stateEcon.perCapitaIncome || 0;
+const stateGSDP = stateEcon.gsdp_crores || 0;
+const stateHDI = stateJson.hdi || 0;
+const totalPop = districts.reduce((s, d) => s + (d.demographics?.population || 0), 0);
+
+function pciClass(pci: number) {
+  if (pci >= 300000) return 'pci-high';
+  if (pci >= 200000) return 'pci-mid';
+  return 'pci-low';
+}
+---
+
+<BaseLayout title={stateData.name}>
+  <nav class="breadcrumb">
+    <a href="/">India</a>
+    <span class="sep">&rsaquo;</span>
+    <strong style="color:var(--gray-800);">{stateData.name}</strong>
+  </nav>
+
+  <div class="kpi-strip">
+    <div class="kpi-card animate-up delay-1">
+      <div class="kpi-accent" style="background:var(--primary);"></div>
+      <div class="kpi-value">{districts.length}</div>
+      <div class="kpi-label">Districts</div>
+    </div>
+    <div class="kpi-card animate-up delay-2">
+      <div class="kpi-accent" style="background:var(--teal);"></div>
+      <div class="kpi-value">{statePCI ? formatCurrency(statePCI) : 'N/A'}</div>
+      <div class="kpi-label">Per Capita Income</div>
+    </div>
+    <div class="kpi-card animate-up delay-3">
+      <div class="kpi-accent" style="background:var(--orange);"></div>
+      <div class="kpi-value">{stateGSDP ? `₹${(stateGSDP / 100).toFixed(1)}L Cr` : 'N/A'}</div>
+      <div class="kpi-label">GSDP (2023-24)</div>
+    </div>
+    <div class="kpi-card animate-up delay-4">
+      <div class="kpi-accent" style="background:var(--green);"></div>
+      <div class="kpi-value">{stateHDI ? stateHDI.toFixed(3) : 'N/A'}</div>
+      <div class="kpi-label">HDI (2022)</div>
+    </div>
+  </div>
+
+  <!-- Map + Table -->
+  <div class="map-table animate-up delay-5">
+    <div class="panel map-panel">
+      <h3 class="section-title" style="font-size:1.125rem;">{stateData.name}</h3>
+      <div id="state-map"></div>
+      <div class="map-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:var(--green);"></span> Has data</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--gray-300);"></span> No data</span>
+      </div>
+    </div>
+
+    <div class="table-panel">
+      <table>
+      <thead>
+        <tr>
+          <th>District</th>
+          <th>Per Capita Income</th>
+          <th>GDDP (Cr)</th>
+          <th>Population</th>
+          <th>Key Sector</th>
+        </tr>
+      </thead>
+      <tbody>
+        {districts.map(d => (
+          <tr>
+            <td><a class="district-link" href={`/district/${stateData.slug}/${d.id}`}>{d.name}</a></td>
+            <td>
+              <span class={`pci-value ${pciClass(d.economy?.perCapitaIncome || 0)}`}>
+                <span class="pci-dot" style={`background:var(--${d.economy?.perCapitaIncome >= 300000 ? 'green' : d.economy?.perCapitaIncome >= 200000 ? 'yellow' : 'red'});`}></span>
+                {d.economy?.perCapitaIncome ? formatCurrency(d.economy.perCapitaIncome) : 'N/A'}
+              </span>
+            </td>
+            <td>{d.economy?.gddp_crores ? `₹${d.economy.gddp_crores.toLocaleString('en-IN')}` : 'N/A'}</td>
+            <td>{d.demographics?.population ? formatPopulation(d.demographics.population) : 'N/A'}</td>
+            <td><span class="sector-tag">{d.keySectors?.[0] || '—'}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .map-table {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .map-panel { display: flex; flex-direction: column; }
+  #state-map { flex: 1; min-height: 380px; border-radius: var(--radius); overflow: hidden; }
+  .map-legend { display: flex; gap: 1rem; justify-content: center; margin-top: 0.75rem; }
+  .legend-item { display: flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: var(--gray-500); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .table-panel {
+    background: white; border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md); border: 1px solid var(--gray-100); overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead { background: var(--gray-50); }
+  th {
+    padding: 0.75rem 1.5rem; text-align: left; font-size: 0.6875rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--gray-500); border-bottom: 1px solid var(--gray-200); white-space: nowrap;
+  }
+  td {
+    padding: 0.75rem 1.5rem; font-size: 0.875rem;
+    border-bottom: 1px solid var(--gray-100); color: var(--gray-700);
+  }
+  tr:hover { background: var(--gray-50); }
+  tr:last-child td { border-bottom: none; }
+  .district-link { color: var(--primary); font-weight: 600; text-decoration: none; }
+  .district-link:hover { text-decoration: underline; }
+  .pci-value { font-weight: 700; font-variant-numeric: tabular-nums; display: inline-flex; align-items: center; gap: 0.375rem; }
+  .pci-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .pci-high { color: var(--green); }
+  .pci-mid { color: var(--yellow); }
+  .pci-low { color: var(--red); }
+  .sector-tag { font-size: 0.6875rem; font-weight: 500; color: var(--gray-600); background: var(--gray-100); padding: 0.125rem 0.5rem; border-radius: 3px; }
+
+  @media (max-width: 1024px) { .map-table { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    th, td { padding: 0.625rem 0.875rem; font-size: 0.8125rem; }
+  }
+</style>
+
+<script is:inline define:vars={{ stateName: stateData.name, stateSlug: stateData.slug }}>
+  const map = new maplibregl.Map({
+    container: 'state-map',
+    style: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#f8fafc' } }] },
+    center: [80, 22], zoom: 4, minZoom: 3, maxZoom: 10
+  });
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+  const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 12 });
+
+  map.on('load', () => {
+    fetch('/geo/india-districts-simple.geojson')
+      .then(r => r.json())
+      .then(data => {
+        // Filter to just this state
+        const stateDistricts = {
+          type: 'FeatureCollection',
+          features: data.features.filter(f => {
+            const s = (f.properties.state || '').toLowerCase();
+            return s === stateName.toLowerCase();
+          })
+        };
+
+        // If no match, try partial match
+        if (stateDistricts.features.length === 0) {
+          const partial = stateName.toLowerCase().split(' ')[0];
+          stateDistricts.features = data.features.filter(f =>
+            (f.properties.state || '').toLowerCase().includes(partial)
+          );
+        }
+
+        if (stateDistricts.features.length === 0) return;
+
+        stateDistricts.features.forEach((f, i) => { f.id = i; });
+
+        map.addSource('districts', { type: 'geojson', data: stateDistricts });
+        map.addLayer({ id: 'district-fills', type: 'fill', source: 'districts',
+          paint: {
+            'fill-color': ['case', ['boolean', ['feature-state', 'hover'], false], '#2563eb', '#dbeafe'],
+            'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.4, 0.5]
+          }
+        });
+        map.addLayer({ id: 'district-borders', type: 'line', source: 'districts',
+          paint: { 'line-color': '#2563eb', 'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0.8], 'line-opacity': 0.5 }
+        });
+
+        // Fit bounds
+        const bounds = new maplibregl.LngLatBounds();
+        stateDistricts.features.forEach(f => {
+          const ac = c => { if (typeof c[0]==='number') bounds.extend(c); else c.forEach(ac); };
+          ac(f.geometry.coordinates);
+        });
+        map.fitBounds(bounds, { padding: 30, maxZoom: 8 });
+
+        let hov = null;
+        map.on('mousemove', 'district-fills', e => {
+          map.getCanvas().style.cursor = 'pointer';
+          if (e.features.length) {
+            if (hov !== null) map.setFeatureState({ source: 'districts', id: hov }, { hover: false });
+            hov = e.features[0].id;
+            map.setFeatureState({ source: 'districts', id: hov }, { hover: true });
+            popup.setLngLat(e.lngLat).setHTML('<strong>' + (e.features[0].properties.name || '') + '</strong>').addTo(map);
+          }
+        });
+        map.on('mouseleave', 'district-fills', () => {
+          map.getCanvas().style.cursor = '';
+          if (hov !== null) map.setFeatureState({ source: 'districts', id: hov }, { hover: false });
+          hov = null; popup.remove();
+        });
+        map.on('click', 'district-fills', e => {
+          if (e.features.length) {
+            const slug = (e.features[0].properties.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            window.location.href = '/district/' + stateSlug + '/' + slug;
+          }
+        });
+      });
+  });
+</script>

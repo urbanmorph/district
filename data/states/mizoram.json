@@ -1,0 +1,68 @@
+{
+  "name": "Mizoram",
+  "stateCode": "MZ",
+  "slug": "mizoram",
+  "districtCount": 8,
+  "demographics": {
+    "population": 1097206,
+    "rural": 508676,
+    "urban": 588530,
+    "area_sq_km": 21081,
+    "density": 52,
+    "literacyRate": 0.91,
+    "sexRatio": 976,
+    "urbanizationRate": 52.11,
+    "population_2026_projected": 1275000
+  },
+  "economy": {
+    "gsdp_crores": 33277,
+    "perCapitaIncome": 267495,
+    "gsdpComposition": {
+      "agriculture": 17.5,
+      "industry": 18,
+      "services": 64.5
+    }
+  },
+  "hdi": 0.709,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

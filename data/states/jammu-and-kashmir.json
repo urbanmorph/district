@@ -1,0 +1,68 @@
+{
+  "name": "Jammu and Kashmir",
+  "stateCode": "JK",
+  "slug": "jammu-and-kashmir",
+  "districtCount": 22,
+  "demographics": {
+    "population": 12541302,
+    "rural": 9056304,
+    "urban": 3484998,
+    "area_sq_km": 101387,
+    "density": 124,
+    "literacyRate": 0.67,
+    "sexRatio": 889,
+    "urbanizationRate": 27.38,
+    "population_2026_projected": 13927000
+  },
+  "economy": {
+    "gsdp_crores": 236059,
+    "perCapitaIncome": 172811,
+    "gsdpComposition": {
+      "agriculture": 17,
+      "industry": 26,
+      "services": 57
+    }
+  },
+  "hdi": 0.72,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

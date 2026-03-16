@@ -1,0 +1,68 @@
+{
+  "name": "Punjab",
+  "stateCode": "PB",
+  "slug": "punjab",
+  "districtCount": 20,
+  "demographics": {
+    "population": 27743338,
+    "rural": 16553032,
+    "urban": 11190306,
+    "area_sq_km": 49268,
+    "density": 563,
+    "literacyRate": 0.75,
+    "sexRatio": 895,
+    "urbanizationRate": 37.49,
+    "population_2026_projected": 31370000
+  },
+  "economy": {
+    "gsdp_crores": 771744,
+    "perCapitaIncome": 236165,
+    "gsdpComposition": {
+      "agriculture": 22.6,
+      "industry": 26.4,
+      "services": 51
+    }
+  },
+  "hdi": 0.698,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

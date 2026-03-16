@@ -1,0 +1,68 @@
+{
+  "name": "Gujarat",
+  "stateCode": "GJ",
+  "slug": "gujarat",
+  "districtCount": 26,
+  "demographics": {
+    "population": 60439692,
+    "rural": 32872292,
+    "urban": 27567400,
+    "area_sq_km": 192602,
+    "density": 314,
+    "literacyRate": 0.78,
+    "sexRatio": 919,
+    "urbanizationRate": 42.58,
+    "population_2026_projected": 74343000
+  },
+  "economy": {
+    "gsdp_crores": 2425804,
+    "perCapitaIncome": 336875,
+    "gsdpComposition": {
+      "agriculture": 17.8,
+      "industry": 40.8,
+      "services": 41.4
+    }
+  },
+  "hdi": 0.646,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

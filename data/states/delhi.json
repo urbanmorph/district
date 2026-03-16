@@ -1,0 +1,68 @@
+{
+  "name": "Delhi",
+  "stateCode": "DL",
+  "slug": "delhi",
+  "districtCount": 9,
+  "demographics": {
+    "population": 16787941,
+    "rural": 445742,
+    "urban": 16342199,
+    "area_sq_km": 0,
+    "density": 0,
+    "literacyRate": 0.76,
+    "sexRatio": 868,
+    "urbanizationRate": 97.5,
+    "population_2026_projected": 22674000
+  },
+  "economy": {
+    "gsdp_crores": 1112905,
+    "perCapitaIncome": 515520,
+    "gsdpComposition": {
+      "agriculture": 1,
+      "industry": 11,
+      "services": 88
+    }
+  },
+  "hdi": 0.734,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

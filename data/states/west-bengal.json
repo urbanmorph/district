@@ -1,0 +1,68 @@
+{
+  "name": "West Bengal",
+  "stateCode": "WB",
+  "slug": "west-bengal",
+  "districtCount": 19,
+  "demographics": {
+    "population": 91276115,
+    "rural": 61585738,
+    "urban": 29690377,
+    "area_sq_km": 88752,
+    "density": 1028,
+    "literacyRate": 0.76,
+    "sexRatio": 950,
+    "urbanizationRate": 31.87,
+    "population_2026_projected": 100631000
+  },
+  "economy": {
+    "gsdp_crores": 1651374,
+    "perCapitaIncome": 166196,
+    "gsdpComposition": {
+      "agriculture": 19.5,
+      "industry": 23.5,
+      "services": 57
+    }
+  },
+  "hdi": 0.635,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

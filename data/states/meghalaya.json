@@ -1,0 +1,68 @@
+{
+  "name": "Meghalaya",
+  "stateCode": "ML",
+  "slug": "meghalaya",
+  "districtCount": 7,
+  "demographics": {
+    "population": 2966889,
+    "rural": 2299273,
+    "urban": 667616,
+    "area_sq_km": 19981,
+    "density": 148,
+    "literacyRate": 0.74,
+    "sexRatio": 989,
+    "urbanizationRate": 20.07,
+    "population_2026_projected": 3447000
+  },
+  "economy": {
+    "gsdp_crores": 53223,
+    "perCapitaIncome": 156814,
+    "gsdpComposition": {
+      "agriculture": 20.2,
+      "industry": 25.1,
+      "services": 54.7
+    }
+  },
+  "hdi": 0.65,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

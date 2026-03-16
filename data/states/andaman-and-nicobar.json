@@ -1,0 +1,68 @@
+{
+  "name": "Andaman and Nicobar",
+  "stateCode": "AN",
+  "slug": "andaman-and-nicobar",
+  "districtCount": 3,
+  "demographics": {
+    "population": 380581,
+    "rural": 236737,
+    "urban": 143844,
+    "area_sq_km": 4513,
+    "density": 84,
+    "literacyRate": 0.87,
+    "sexRatio": 876,
+    "urbanizationRate": 37.7,
+    "population_2026_projected": 406000
+  },
+  "economy": {
+    "gsdp_crores": 12499,
+    "perCapitaIncome": 310143,
+    "gsdpComposition": {
+      "agriculture": 14,
+      "industry": 14,
+      "services": 72
+    }
+  },
+  "hdi": 0.706,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Area",
+        "Density",
+        "Rural/Urban"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income",
+        "Sectoral Composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Global Data Lab (2022)",
+      "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
+      "fields": [
+        "Human Development Index"
+      ],
+      "type": "Development"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    }
+  ]
+}

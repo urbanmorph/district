@@ -1,0 +1,84 @@
+{
+  "id": "dakshina-kannada",
+  "name": "Dakshina Kannada",
+  "state": "Karnataka",
+  "stateCode": "KA",
+  "censusCode": "575",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 2089649,
+    "rural": 1069802,
+    "urban": 1019847,
+    "literacyRate": 88.57,
+    "sexRatio": 1020,
+    "area_sq_km": 4861,
+    "density": 430
+  },
+  "economy": {
+    "gddp_crores": 103463,
+    "perCapitaIncome": 495123,
+    "gddpComposition": {
+      "agriculture": 12.1,
+      "industry": 24.5,
+      "services": 63.4
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

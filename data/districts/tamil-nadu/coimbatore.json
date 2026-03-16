@@ -1,0 +1,84 @@
+{
+  "id": "coimbatore",
+  "name": "Coimbatore",
+  "state": "Tamil Nadu",
+  "stateCode": "TN",
+  "censusCode": "632",
+  "lastUpdated": "2026-03-16",
+  "demographics": {
+    "population": 3458045,
+    "rural": 841917,
+    "urban": 2616128,
+    "literacyRate": 83.98,
+    "sexRatio": 1000,
+    "area_sq_km": 4732,
+    "density": 731
+  },
+  "economy": {
+    "gddp_crores": 211454,
+    "perCapitaIncome": 611485,
+    "gddpComposition": {
+      "agriculture": 12.5,
+      "industry": 32.3,
+      "services": 55.2
+    },
+    "growthRate": 0,
+    "isEstimate": true
+  },
+  "rankings": {
+    "perCapitaIncome": {
+      "stateRank": "",
+      "nationalPercentile": 0
+    }
+  },
+  "keySectors": [],
+  "strengths": [],
+  "challenges": [],
+  "opportunities": [],
+  "dataCompleteness": {
+    "level": "basic",
+    "sources": [
+      "Census of India 2011",
+      "MoSPI (state-level estimates)"
+    ],
+    "lastVerified": "2026-03-16"
+  },
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Population",
+        "Literacy Rate",
+        "Sex Ratio",
+        "Rural/Urban split"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": [
+        "Geographic boundaries"
+      ],
+      "type": "Geography"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Sectoral Composition (state average)"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "Estimated from State GSDP (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "Per Capita Income (estimated)",
+        "GDDP (estimated)"
+      ],
+      "type": "Economy (Estimate)"
+    }
+  ]
+}

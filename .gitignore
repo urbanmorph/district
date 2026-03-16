@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Supporting docs (internal planning, not for public repo)
+supporting-docs/
+
+# Astro generated
+.astro/
+
+# Large raw source files (keep processed data, not raw downloads)
+data/raw/
+data/geo/official/
+data/geo/india-states.geojson
+data/geo/india-states-simple.geojson
+data/geo/india-states-official.geojson
+data/geo/india-states-official-4326.geojson
+data/geo/india-districts.geojson
+
+# Vercel
+.vercel/
