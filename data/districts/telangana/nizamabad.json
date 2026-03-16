@@ -1,22 +1,22 @@
 {
-  "id": "nalgonda",
-  "name": "Nalgonda",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "539",
+  "id": "nizamabad",
+  "name": "Nizamabad",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "533",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 3488809,
-    "rural": 2820673,
-    "urban": 668136,
-    "literacyRate": 64.2,
-    "sexRatio": 983,
-    "area_sq_km": 14240,
-    "density": 245
+    "population": 2551335,
+    "rural": 2001845,
+    "urban": 549490,
+    "literacyRate": 61.25,
+    "sexRatio": 1040,
+    "area_sq_km": 7956,
+    "density": 321
   },
   "economy": {
-    "gddp_crores": 62906,
-    "perCapitaIncome": 180309,
+    "gddp_crores": 47704,
+    "perCapitaIncome": 186975,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

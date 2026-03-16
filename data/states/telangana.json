@@ -1,0 +1,42 @@
+{
+  "name": "Telangana",
+  "stateCode": "TS",
+  "slug": "telangana",
+  "districtCount": 10,
+  "demographics": {
+    "population": 35193978,
+    "rural": 21518663,
+    "urban": 13675315,
+    "area_sq_km": 114840,
+    "density": 306
+  },
+  "economy": {
+    "gsdp_crores": 1461836,
+    "perCapitaIncome": 382870,
+    "gsdpComposition": {
+      "agriculture": 16.5,
+      "industry": 19.5,
+      "services": 64
+    }
+  },
+  "hdi": 0.669,
+  "dataSources": [
+    {
+      "name": "Census of India 2011",
+      "url": "https://censusindia.gov.in",
+      "fields": [
+        "Demographics"
+      ],
+      "type": "Demographics"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "fields": [
+        "GSDP",
+        "Per Capita Income"
+      ],
+      "type": "Economy"
+    }
+  ]
+}

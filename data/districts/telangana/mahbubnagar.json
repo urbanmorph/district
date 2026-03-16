@@ -1,22 +1,22 @@
 {
-  "id": "warangal",
-  "name": "Warangal",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "540",
+  "id": "mahbubnagar",
+  "name": "Mahbubnagar",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "538",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 3512576,
-    "rural": 2545519,
-    "urban": 967057,
-    "literacyRate": 65.11,
-    "sexRatio": 997,
-    "area_sq_km": 12846,
-    "density": 273
+    "population": 4053028,
+    "rural": 3406752,
+    "urban": 646276,
+    "literacyRate": 55.04,
+    "sexRatio": 977,
+    "area_sq_km": 18432,
+    "density": 220
   },
   "economy": {
-    "gddp_crores": 77270,
-    "perCapitaIncome": 219980,
+    "gddp_crores": 61775,
+    "perCapitaIncome": 152418,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

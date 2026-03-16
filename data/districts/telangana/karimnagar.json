@@ -1,22 +1,22 @@
 {
-  "id": "rangareddy",
-  "name": "Rangareddy",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "537",
+  "id": "karimnagar",
+  "name": "Karimnagar",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "534",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 5296741,
-    "rural": 1465880,
-    "urban": 3830861,
-    "literacyRate": 75.87,
-    "sexRatio": 961,
-    "area_sq_km": 7493,
-    "density": 707
+    "population": 3776269,
+    "rural": 2842818,
+    "urban": 933451,
+    "literacyRate": 64.15,
+    "sexRatio": 1008,
+    "area_sq_km": 11823,
+    "density": 319
   },
   "economy": {
-    "gddp_crores": 233338,
-    "perCapitaIncome": 440532,
+    "gddp_crores": 77686,
+    "perCapitaIncome": 205722,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

@@ -1,22 +1,22 @@
 {
-  "id": "hyderabad",
-  "name": "Hyderabad",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "536",
+  "id": "warangal",
+  "name": "Warangal",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "540",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 3943323,
-    "rural": 0,
-    "urban": 3943323,
-    "literacyRate": 83.25,
-    "sexRatio": 954,
-    "area_sq_km": 217,
-    "density": 18172
+    "population": 3512576,
+    "rural": 2545519,
+    "urban": 967057,
+    "literacyRate": 65.11,
+    "sexRatio": 997,
+    "area_sq_km": 12846,
+    "density": 273
   },
   "economy": {
-    "gddp_crores": 227866,
-    "perCapitaIncome": 577853,
+    "gddp_crores": 77270,
+    "perCapitaIncome": 219980,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

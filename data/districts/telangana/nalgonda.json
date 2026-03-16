@@ -1,22 +1,22 @@
 {
-  "id": "karimnagar",
-  "name": "Karimnagar",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "534",
+  "id": "nalgonda",
+  "name": "Nalgonda",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "539",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 3776269,
-    "rural": 2842818,
-    "urban": 933451,
-    "literacyRate": 64.15,
-    "sexRatio": 1008,
-    "area_sq_km": 11823,
-    "density": 319
+    "population": 3488809,
+    "rural": 2820673,
+    "urban": 668136,
+    "literacyRate": 64.2,
+    "sexRatio": 983,
+    "area_sq_km": 14240,
+    "density": 245
   },
   "economy": {
-    "gddp_crores": 77686,
-    "perCapitaIncome": 205722,
+    "gddp_crores": 62906,
+    "perCapitaIncome": 180309,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

@@ -5,10 +5,19 @@ import { loadAllDistricts, formatCurrency, getStates, stateCompletenessScore, co
 const allDistricts = loadAllDistricts();
 const states = getStates();
 
-// Build state completeness map for the map coloring
-const stateCompleteness = Object.fromEntries(
-  states.map(s => [s.name, { score: stateCompletenessScore(s.districts), color: completenessColor(stateCompletenessScore(s.districts)), count: s.districts.length }])
-);
+// Build state data map for map coloring by PCI
+import fs from 'node:fs';
+import path from 'node:path';
+const statesDir = path.join(process.cwd(), 'data', 'states');
+const stateMapData: Record<string, { pci: number; count: number; score: number }> = {};
+for (const s of states) {
+  let pci = 0;
+  try {
+    const sj = JSON.parse(fs.readFileSync(path.join(statesDir, s.slug + '.json'), 'utf-8'));
+    pci = sj.economy?.perCapitaIncome || 0;
+  } catch {}
+  stateMapData[s.name] = { pci, count: s.districts.length, score: stateCompletenessScore(s.districts) };
+}
 
 // Compute national stats
 const totalDistricts = allDistricts.length;
@@ -59,10 +68,11 @@ const bottom5 = rankedDistricts.slice(-5).reverse();
       <h2 class="section-title">Explore by State</h2>
       <div id="india-map" style="flex:1;min-height:420px;border-radius:var(--radius);overflow:hidden;"></div>
       <div class="map-legend">
-        <span class="map-legend-item"><span class="completeness-dot" style="background:#10b981;"></span> Detailed</span>
-        <span class="map-legend-item"><span class="completeness-dot" style="background:#f59e0b;"></span> Moderate</span>
-        <span class="map-legend-item"><span class="completeness-dot" style="background:#ef4444;"></span> Basic</span>
-        <span class="map-legend-item"><span class="completeness-dot" style="background:#d1d5db;"></span> No data</span>
+        <span class="map-legend-label">Per Capita Income</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#065f46;"></span> &gt;4L</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#10b981;"></span> 3-4L</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#6ee7b7;"></span> 1.5-3L</span>
+        <span class="map-legend-item"><span class="completeness-dot" style="background:#d1fae5;"></span> &lt;1.5L</span>
       </div>
     </div>
 
@@ -182,13 +192,14 @@ const bottom5 = rankedDistricts.slice(-5).reverse();
   .completeness-label { font-size: 0.6875rem; color: var(--gray-500); }
   .map-legend { display: flex; gap: 1rem; justify-content: center; margin-top: 0.75rem; flex-wrap: wrap; }
   .map-legend-item { display: flex; align-items: center; gap: 0.25rem; font-size: 0.6875rem; color: var(--gray-500); }
+  .map-legend-label { font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gray-400); }
 
   @media (max-width: 1024px) { .map-rankings { grid-template-columns: 1fr; } }
   @media (max-width: 768px) { .state-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) { .state-grid { grid-template-columns: 1fr; } }
 </style>
 
-<script is:inline define:vars={{ stateCompleteness }}>
+<script is:inline define:vars={{ stateMapData }}>
   const map = new maplibregl.Map({
     container: 'india-map',
     style: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#f8fafc' } }] },
@@ -201,20 +212,32 @@ const bottom5 = rankedDistricts.slice(-5).reverse();
     fetch('/geo/india-states-official-simple.geojson')
       .then(r => r.json())
       .then(data => {
+        // Color states by PCI using a green gradient
+        function pciColor(pci) {
+          if (pci >= 400000) return '#065f46'; // dark green - very high
+          if (pci >= 300000) return '#10b981'; // green - high
+          if (pci >= 200000) return '#34d399'; // medium green
+          if (pci >= 150000) return '#6ee7b7'; // light green
+          if (pci >= 100000) return '#a7f3d0'; // very light green
+          if (pci > 0) return '#d1fae5'; // pale green - low
+          return '#e5e7eb'; // gray - no data
+        }
+
         data.features.forEach((f, i) => {
           f.id = i;
           const name = f.properties.name || '';
-          const comp = stateCompleteness[name];
-          f.properties.fillColor = comp ? comp.color : '#d1d5db';
-          f.properties.districtCount = comp ? comp.count : 0;
-          f.properties.completenessScore = comp ? comp.score : 0;
+          const sd = stateMapData[name];
+          const pci = sd ? sd.pci : 0;
+          f.properties.fillColor = pciColor(pci);
+          f.properties.districtCount = sd ? sd.count : 0;
+          f.properties.pci = pci;
         });
         map.addSource('states', { type: 'geojson', data });
         map.addLayer({ id: 'state-fills', type: 'fill', source: 'states',
           paint: {
             'fill-color': ['case', ['boolean', ['feature-state', 'hover'], false], '#2563eb',
               ['get', 'fillColor']],
-            'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.35, 0.55]
+            'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.35, 0.7]
           }
         });
         map.addLayer({ id: 'state-borders', type: 'line', source: 'states',
@@ -236,8 +259,11 @@ const bottom5 = rankedDistricts.slice(-5).reverse();
             map.setFeatureState({ source: 'states', id: hov }, { hover: true });
             const props = e.features[0].properties;
             const dc = props.districtCount || 0;
+            const pci = props.pci || 0;
+            const pciStr = pci > 0 ? '₹' + (pci / 100000).toFixed(2) + 'L' : '';
             const tip = '<strong>' + (props.name||'') + '</strong>' +
-              (dc > 0 ? '<br>' + dc + ' district' + (dc>1?'s':'') + ' with data' : '<br><em style="color:#9ca3af">No data yet</em>');
+              (pci > 0 ? '<br>PCI: ' + pciStr : '') +
+              (dc > 0 ? '<br>' + dc + ' district' + (dc>1?'s':'') : '');
             popup.setLngLat(e.lngLat).setHTML(tip).addTo(map);
           }
         });

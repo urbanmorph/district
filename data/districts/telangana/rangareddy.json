@@ -1,22 +1,22 @@
 {
-  "id": "mahbubnagar",
-  "name": "Mahbubnagar",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "538",
+  "id": "rangareddy",
+  "name": "Rangareddy",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "537",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 4053028,
-    "rural": 3406752,
-    "urban": 646276,
-    "literacyRate": 55.04,
-    "sexRatio": 977,
-    "area_sq_km": 18432,
-    "density": 220
+    "population": 5296741,
+    "rural": 1465880,
+    "urban": 3830861,
+    "literacyRate": 75.87,
+    "sexRatio": 961,
+    "area_sq_km": 7493,
+    "density": 707
   },
   "economy": {
-    "gddp_crores": 61775,
-    "perCapitaIncome": 152418,
+    "gddp_crores": 233338,
+    "perCapitaIncome": 440532,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,

@@ -1,22 +1,22 @@
 {
-  "id": "medak",
-  "name": "Medak",
-  "state": "Andhra Pradesh",
-  "stateCode": "AP",
-  "censusCode": "535",
+  "id": "khammam",
+  "name": "Khammam",
+  "state": "Telangana",
+  "stateCode": "TS",
+  "censusCode": "541",
   "lastUpdated": "2026-03-16",
   "demographics": {
-    "population": 3033288,
-    "rural": 2281900,
-    "urban": 751388,
-    "literacyRate": 61.42,
-    "sexRatio": 992,
-    "area_sq_km": 9699,
-    "density": 313
+    "population": 2797370,
+    "rural": 2150379,
+    "urban": 646991,
+    "literacyRate": 64.81,
+    "sexRatio": 1011,
+    "area_sq_km": 16029,
+    "density": 175
   },
   "economy": {
-    "gddp_crores": 61279,
-    "perCapitaIncome": 202022,
+    "gddp_crores": 55778,
+    "perCapitaIncome": 199396,
     "gddpComposition": {
       "agriculture": 28.1,
       "industry": 23.5,
