@@ -1,0 +1,38 @@
+---
+import { generateDistrictMap } from '../lib/district-map';
+
+interface Props {
+  districtName: string;
+  stateName: string;
+  size?: number;
+}
+
+const { districtName, stateName, size = 80 } = Astro.props;
+const map = generateDistrictMap(districtName, stateName, size);
+---
+
+{map && (
+  <svg
+    class="district-map-icon"
+    viewBox={map.viewBox}
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label={`${districtName} in ${stateName}`}
+    width={size}
+    height={size}
+  >
+    {map.statePaths.map(d => (
+      <path d={d} fill="#cbd5e1" stroke="#64748b" stroke-width="0.5" />
+    ))}
+    {map.targetPath && (
+      <path d={map.targetPath} fill="#2563eb" stroke="#1e40af" stroke-width="1.5" />
+    )}
+  </svg>
+)}
+
+<style>
+  .district-map-icon {
+    display: block;
+    flex-shrink: 0;
+  }
+</style>

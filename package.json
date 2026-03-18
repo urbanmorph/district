@@ -9,6 +9,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^6.0.5"
+    "astro": "^6.0.5",
+    "d3-geo": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0"
   }
 }

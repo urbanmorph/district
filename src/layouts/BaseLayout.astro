@@ -2,9 +2,10 @@
 interface Props {
   title: string;
   description?: string;
+  districtCount?: number;
 }
 
-const { title, description = 'Development status across 780 districts in India' } = Astro.props;
+const { title, description = 'Development status across India\'s districts', districtCount } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -30,7 +31,7 @@ const base = import.meta.env.BASE_URL;
                         <span class="header-flag" aria-hidden="true">&#x1F1EE;&#x1F1F3;</span>
                         <div>
                             <h1 class="header-title">India District Development Dashboard</h1>
-                            <p class="header-subtitle">Development status across 780 districts</p>
+                            <p class="header-subtitle">Development status across {districtCount || 640} districts</p>
                         </div>
                     </a>
                 </div>

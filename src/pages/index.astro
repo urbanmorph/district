@@ -33,12 +33,12 @@ const top5 = rankedDistricts.slice(0, 5);
 const bottom5 = rankedDistricts.slice(-5).reverse();
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="Home" districtCount={totalDistricts}>
   <!-- KPI Strip -->
   <div class="kpi-strip" style="margin: -1.25rem 0 0; position: relative; z-index: 10;">
     <div class="kpi-card animate-up delay-1">
       <div class="kpi-accent" style="background: var(--primary);"></div>
-      <div class="kpi-value">{totalDistricts || 780}</div>
+      <div class="kpi-value">{totalDistricts}</div>
       <div class="kpi-label">Districts</div>
     </div>
     <div class="kpi-card animate-up delay-2">

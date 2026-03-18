@@ -4,33 +4,33 @@
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "571",
-  "lastUpdated": "2026-03-16",
+  "lastUpdated": "2026-03-17",
   "demographics": {
-    "population": 2840000,
-    "rural": 1880000,
-    "ruralPercent": 66.2,
-    "urban": 960000,
-    "urbanPercent": 33.8,
+    "population": 2566326,
+    "rural": 1730884,
+    "ruralPercent": 67.44,
+    "urban": 835442,
+    "urbanPercent": 32.56,
     "literacyRate": 64.85,
-    "sexRatio": 961,
-    "area_sq_km": 16224,
-    "density": 175,
+    "sexRatio": 971,
+    "area_sq_km": 10951,
+    "density": 233,
     "agriculturalWorkers": 58.46
   },
   "economy": {
-    "gddp_crores": 41500,
-    "perCapitaIncome": 124998,
-    "perCapitaIncomeEstimate2026": 146000,
-    "stateAvgPerCapita2026": 285000,
+    "gddp_crores": 49265,
+    "perCapitaIncome": 143360,
+    "perCapitaIncomeEstimate2026": 155000,
+    "stateAvgPerCapita2026": 310000,
     "gddpComposition": {
       "agriculture": 25.5,
       "industry": 20.8,
       "services": 53.7
     },
     "gddpValues_crores": {
-      "agriculture": 10327,
-      "industry": 8424,
-      "services": 21749
+      "agriculture": 12563,
+      "industry": 10247,
+      "services": 26455
     },
     "growthRate": 7.5
   },
@@ -38,8 +38,8 @@
     "perCapitaIncome": {
       "stateRank": "30/30",
       "status": "Lowest in Karnataka",
-      "value": 124998,
-      "year": "2021-22"
+      "value": 143360,
+      "year": "2023-24"
     },
     "gddpTotal": {
       "stateRank": "14/30",
@@ -57,7 +57,7 @@
     }
   },
   "keySectors": [
-    "Pulses & Dal Milling (500+ mills, Tur Dal GI tag)",
+    "Pulses & Dal Milling (~300 active mills, Tur Dal GI tag)",
     "Agriculture (890,897 ha net sown area, 25.5% of GDDP)",
     "Garments & Textiles (PM MITRA approved, 26,000 jobs target)",
     "Limestone & Cement (2.5-4 billion MT reserves)",
@@ -65,21 +65,21 @@
     "Pharma Packaging (proximity to Hyderabad Pharma City)"
   ],
   "strengths": [
-    "Largest tur dal producing district in India with GI tag",
-    "500+ existing dal mills providing processing base",
+    "Largest tur dal producing district in India with GI tag (GI #353)",
+    "~300 active dal mills providing processing base",
     "Strategic location on NH-44/NH-50 corridor (Bangalore-Hyderabad)",
-    "PM MITRA funding of Rs 390 crore approved for textile park",
+    "PM MITRA textile park: 1,000 acres, DPR finalized, Rs 50.9 Cr released",
     "Massive limestone reserves (2.5-4 billion MT, 200-400 year supply)",
     "4 universities providing skilled workforce base",
     "Low land and labor costs compared to Bangalore/Hyderabad"
   ],
   "challenges": [
-    "Lowest per capita income in Karnataka (Rs 1,24,998 vs state avg Rs 2,85,000)",
+    "Lowest per capita income in Karnataka (Rs 1,43,360 vs state avg Rs 3,10,000)",
     "Very low irrigation coverage (13.4% vs state average)",
     "High out-migration to Bangalore (43% of migrants)",
     "Low CD ratio (64.5% vs state average 78.2%)",
     "Limited industrial infrastructure and CETP facilities",
-    "Dal mill upgradation only 15% complete (75/500)"
+    "Dal mill upgradation only 15% complete (45/300 active mills)"
   ],
   "opportunities": [
     "PM MITRA textile park can create 26,000 direct jobs",
@@ -288,6 +288,7 @@
             "name": "Water Security Infrastructure",
             "budget": 2200,
             "progress": 75,
+            "owner": "water",
             "items": [
               "Borewell rehabilitation: 285/357 completed",
               "New borewells: 1,450/2,200 drilled",
@@ -300,6 +301,7 @@
             "name": "Rural Connectivity",
             "budget": 800,
             "progress": 80,
+            "owner": "infrastructure",
             "items": [
               "Village-to-market roads: 480/600 km",
               "All-weather roads to dal mills: 80/100 km"
@@ -309,6 +311,7 @@
             "name": "Power Infrastructure",
             "budget": 500,
             "progress": 65,
+            "owner": "energy",
             "items": [
               "Feeder separation in progress",
               "Sub-station upgrades: 18/25 completed"
@@ -327,6 +330,7 @@
             "name": "Agro-Processing Clusters",
             "budget": 2400,
             "progress": 15,
+            "owner": "agro-processing",
             "items": [
               "Dal mills upgraded: 45/300",
               "New jobs created: 1,350/9,000",
@@ -337,6 +341,7 @@
             "name": "FPO Development",
             "budget": 300,
             "progress": 30,
+            "owner": "fpo",
             "items": [
               "FPOs formed: 15/50",
               "Farmers covered: 30,000/100,000"
@@ -346,6 +351,7 @@
             "name": "Skill Development",
             "budget": 600,
             "progress": 25,
+            "owner": "skill-development",
             "items": [
               "Youth trained: 9,000/36,000",
               "Placements: 7,200/30,600"
@@ -355,6 +361,7 @@
             "name": "MSME Ecosystem",
             "budget": 2500,
             "progress": 20,
+            "owner": "msme",
             "items": [
               "New MSMEs: 500/2,500",
               "Jobs created: 5,000/25,000"
@@ -1689,6 +1696,63 @@
         "Geographic boundaries"
       ],
       "type": "Geography"
+    },
+    {
+      "name": "Department of Water Resources, Karnataka",
+      "url": "https://waterresources.karnataka.gov.in",
+      "fields": [
+        "Borewell rehabilitation",
+        "Micro-irrigation coverage",
+        "Farm ponds",
+        "Solar pump installations"
+      ],
+      "type": "Roadmap"
+    },
+    {
+      "name": "PMGSY (Pradhan Mantri Gram Sadak Yojana)",
+      "url": "https://pmgsy.nic.in",
+      "fields": [
+        "Rural road connectivity",
+        "Village-to-market roads"
+      ],
+      "type": "Roadmap"
+    },
+    {
+      "name": "GESCOM (Gulbarga Electricity Supply Company)",
+      "url": "https://gescom.karnataka.gov.in",
+      "fields": [
+        "Feeder separation",
+        "Sub-station upgrades"
+      ],
+      "type": "Roadmap"
+    },
+    {
+      "name": "NABARD",
+      "url": "https://nabard.org",
+      "fields": [
+        "FPO formation",
+        "RIDF financing",
+        "Agricultural credit"
+      ],
+      "type": "Finance"
+    },
+    {
+      "name": "Karnataka Skill Development Corporation",
+      "url": "https://kaushalkar.karnataka.gov.in",
+      "fields": [
+        "Youth training",
+        "Placement data"
+      ],
+      "type": "Roadmap"
+    },
+    {
+      "name": "Ministry of Food Processing Industries (PMFME)",
+      "url": "https://pmfme.mofpi.gov.in",
+      "fields": [
+        "Dal mill upgradation",
+        "Agro-processing clusters"
+      ],
+      "type": "Roadmap"
     }
   ]
 }

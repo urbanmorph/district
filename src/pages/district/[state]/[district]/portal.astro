@@ -1,0 +1,829 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import DistrictSection from '../../../../components/DistrictSection.astro';
+import Roadmap from '../../../../components/Roadmap.astro';
+import RoleSwitcher from '../../../../components/RoleSwitcher.astro';
+import { formatCurrency, formatPopulation, getStates } from '../../../../lib/data-loader';
+import { getAvailableRoles } from '../../../../lib/roles';
+
+export function getStaticPaths() {
+  const states = getStates();
+  return states.flatMap(s =>
+    s.districts.map(d => ({
+      params: { state: s.slug, district: d.id },
+      props: { district: d, stateName: s.name, stateSlug: s.slug }
+    }))
+  );
+}
+
+const { district: d, stateName, stateSlug } = Astro.props;
+const roadmap = (d as any).roadmap;
+const industries = (d as any).industries;
+const fpos = (d as any).fpos;
+const industrialLand = (d as any).industrialLand;
+const creditData = (d as any).creditData;
+const msme = (d as any).msme;
+const investments = (d as any).investments;
+const liveData = (d as any).liveData;
+const availableRoles = getAvailableRoles(d);
+
+function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
+function fmtNum(v: number) { return v.toLocaleString('en-IN'); }
+function fmtRs(v: number) {
+  if (v >= 10000000) return `₹${(v / 10000000).toFixed(1)} Cr`;
+  if (v >= 100000) return `₹${(v / 100000).toFixed(1)}L`;
+  return `₹${v.toLocaleString('en-IN')}`;
+}
+---
+
+<BaseLayout title={`${d.name} Portal`} description={`Detailed development portal for ${d.name} district, ${stateName}`}>
+  <nav class="breadcrumb">
+    <a href="/">India</a>
+    <span class="sep">&rsaquo;</span>
+    <a href={`/state/${stateSlug}`}>{stateName}</a>
+    <span class="sep">&rsaquo;</span>
+    <a href={`/district/${stateSlug}/${d.id}`}>{d.name}</a>
+    <span class="sep">&rsaquo;</span>
+    <strong style="color:var(--gray-800);">Portal</strong>
+  </nav>
+
+  <div class="portal-hero animate-up">
+    <h2 class="portal-title">{d.name} Development Portal</h2>
+    <p class="portal-subtitle">{stateName} &middot; Detailed data across {[industries, fpos, industrialLand, creditData, msme, investments, liveData, roadmap].filter(Boolean).length} datasets</p>
+  </div>
+
+  <!-- Role Switcher -->
+  {availableRoles.length > 1 && (
+    <RoleSwitcher roles={availableRoles} activeRole={null} />
+  )}
+  <script type="application/json" id="roles-data" set:html={JSON.stringify(availableRoles)} />
+
+  <!-- Development Roadmap -->
+  {roadmap && (
+    <DistrictSection section="roadmap">
+      <div class="panel animate-up portal-section">
+        <Roadmap roadmap={roadmap} activeRole={null} />
+      </div>
+    </DistrictSection>
+  )}
+
+  <!-- Industries — Full Detail -->
+  {industries?.sectors?.length > 0 && (
+    <DistrictSection section="industries">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Industry Sectors</h3>
+
+        {/* Overview stats */}
+        {industries.overview && (
+          <div class="panel" style="margin-bottom:1.25rem;">
+            <div class="portal-stats-row">
+              {industries.overview.totalInvestment && <div class="portal-stat"><span class="portal-stat-value">{fmtCr(industries.overview.totalInvestment)}</span><span class="portal-stat-label">Investment Pipeline</span></div>}
+              {industries.overview.totalJobs && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industries.overview.totalJobs)}</span><span class="portal-stat-label">Jobs Target</span></div>}
+              {industries.overview.gddpContribution && <div class="portal-stat"><span class="portal-stat-value">{fmtCr(industries.overview.gddpContribution)}</span><span class="portal-stat-label">GDDP Contribution</span></div>}
+              {industries.overview.status && <div class="portal-stat"><span class="portal-stat-value">{industries.overview.status}</span><span class="portal-stat-label">Status</span></div>}
+            </div>
+          </div>
+        )}
+
+        {/* Sector cards — full detail */}
+        {industries.sectors.map((sector: any) => (
+          <div class="panel sector-detail-card">
+            <div class="sector-detail-header">
+              <div>
+                <h4 class="sector-detail-name">{sector.name}</h4>
+                {sector.priorityNote && <p class="sector-detail-note">{sector.priorityNote}</p>}
+              </div>
+              {sector.priority && (
+                <span class={`priority-badge priority-${sector.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>{sector.priority}</span>
+              )}
+            </div>
+
+            <div class="sector-detail-grid">
+              {/* Investment */}
+              {sector.investment && (
+                <div class="detail-block">
+                  <h5 class="detail-block-title">Investment</h5>
+                  <div class="detail-value-large">{fmtCr(sector.investment.total)}</div>
+                  {sector.investment.breakdown && (
+                    <div class="detail-breakdown">
+                      {Object.entries(sector.investment.breakdown).map(([k, v]: [string, any]) => (
+                        <div class="detail-row"><span class="detail-row-label">{k}</span><span class="detail-row-value">{fmtCr(v)}</span></div>
+                      ))}
+                    </div>
+                  )}
+                  {sector.investment.financing && (
+                    <div class="detail-breakdown" style="margin-top:0.5rem;">
+                      <div class="detail-sub-title">Financing</div>
+                      {Object.entries(sector.investment.financing).map(([k, v]: [string, any]) => (
+                        <div class="detail-row"><span class="detail-row-label">{k}</span><span class="detail-row-value">{fmtCr(v)}</span></div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Jobs */}
+              {sector.impact?.jobs && (
+                <div class="detail-block">
+                  <h5 class="detail-block-title">Employment Impact</h5>
+                  <div class="detail-value-large">{fmtNum(sector.impact.jobs.total)} jobs</div>
+                  <div class="detail-breakdown">
+                    <div class="detail-row"><span class="detail-row-label">Direct</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.direct)}</span></div>
+                    <div class="detail-row"><span class="detail-row-label">Indirect</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.indirect)}</span></div>
+                    {sector.impact.jobs.skillLevel && <div class="detail-row"><span class="detail-row-label">Skill</span><span class="detail-row-value">{sector.impact.jobs.skillLevel}</span></div>}
+                    {sector.impact.jobs.salary && <div class="detail-row"><span class="detail-row-label">Salary</span><span class="detail-row-value">{sector.impact.jobs.salary}</span></div>}
+                  </div>
+                </div>
+              )}
+
+              {/* Revenue */}
+              {sector.impact?.revenue && (
+                <div class="detail-block">
+                  <h5 class="detail-block-title">Revenue (2034)</h5>
+                  <div class="detail-value-large">{fmtCr(sector.impact.revenue.year2034)}</div>
+                  {sector.impact.revenue.exportPercent && (
+                    <div class="detail-breakdown">
+                      <div class="detail-row"><span class="detail-row-label">Export share</span><span class="detail-row-value">{sector.impact.revenue.exportPercent}%</span></div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Timeline */}
+              {sector.timeline && (
+                <div class="detail-block">
+                  <h5 class="detail-block-title">Timeline</h5>
+                  <div class="detail-breakdown">
+                    {Object.entries(sector.timeline).filter(([k]) => k.startsWith('phase')).map(([k, v]: [string, any]) => (
+                      <div class="detail-row timeline-row"><span class="detail-row-value">{v}</span></div>
+                    ))}
+                    {sector.timeline.firstRevenue && <div class="detail-row"><span class="detail-row-label">First revenue</span><span class="detail-row-value">{sector.timeline.firstRevenue}</span></div>}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Products */}
+            {sector.products?.length > 0 && (
+              <div class="detail-section">
+                <h5 class="detail-block-title">Products</h5>
+                <div class="detail-chips">{sector.products.map((p: string) => <span class="detail-chip">{p}</span>)}</div>
+              </div>
+            )}
+
+            {/* Buyers */}
+            {sector.buyers && (
+              <div class="detail-section">
+                <h5 class="detail-block-title">Target Buyers</h5>
+                <div class="buyers-grid">
+                  {Object.entries(sector.buyers).map(([category, list]: [string, any]) => (
+                    <div class="buyer-group">
+                      <span class="buyer-category">{category}</span>
+                      <span class="buyer-list">{list.join(', ')}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Risks */}
+            {sector.risks?.length > 0 && (
+              <div class="detail-section">
+                <h5 class="detail-block-title">Risks</h5>
+                <div class="risks-list">
+                  {sector.risks.map((r: any) => (
+                    <div class="risk-item">
+                      <span class={`risk-severity severity-${r.severity}`}>{r.severity}</span>
+                      <div class="risk-content">
+                        <span class="risk-text">{r.risk}</span>
+                        <span class="risk-mitigation">{r.mitigation}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Footer: confidence + recommendation */}
+            <div class="sector-detail-footer">
+              {sector.confidence && <span class="sector-confidence">{sector.confidence}</span>}
+              {sector.location && <span class="sector-location">{sector.location}</span>}
+            </div>
+            {sector.recommendation && <p class="sector-recommendation">{sector.recommendation}</p>}
+          </div>
+        ))}
+
+        {/* Comparison table */}
+        {industries.comparison?.length > 0 && (
+          <div class="panel" style="padding:0; overflow:hidden;">
+            <h4 class="comparison-title">Sector Comparison</h4>
+            <div class="table-scroll">
+              <table class="portal-table">
+                <thead>
+                  <tr>
+                    <th>Sector</th>
+                    <th>Investment</th>
+                    <th>Direct Jobs</th>
+                    <th>Revenue 2034</th>
+                    <th>GDDP %</th>
+                    <th>Time to Revenue</th>
+                    <th>Risk</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {industries.comparison.map((row: any) => (
+                    <tr>
+                      <td class="table-name">{row.industry}</td>
+                      <td>{fmtCr(row.investment_crores)}</td>
+                      <td>{fmtNum(row.directJobs)}</td>
+                      <td>{fmtCr(row.revenue2034_crores)}</td>
+                      <td>{row.gddpPercent}%</td>
+                      <td>{row.timeToRevenue}</td>
+                      <td>{row.risk}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- FPOs -->
+  {fpos && (
+    <DistrictSection section="fpos">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Farmer Producer Organisations</h3>
+        <div class="panel" style="margin-bottom:1.25rem;">
+          <div class="portal-stats-row">
+            {fpos.summary && <>
+              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.totalFPOs}</span><span class="portal-stat-label">Total FPOs</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.activeFPOs}</span><span class="portal-stat-label">Active</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.targetBy2032}</span><span class="portal-stat-label">Target (2032)</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.percentComplete}%</span><span class="portal-stat-label">Progress</span></div>
+            </>}
+            {fpos.financialMetrics && <>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(fpos.financialMetrics.totalMemberFarmers)}</span><span class="portal-stat-label">Member Farmers</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(fpos.financialMetrics.totalAnnualTurnover)}</span><span class="portal-stat-label">Annual Turnover</span></div>
+            </>}
+          </div>
+        </div>
+
+        {fpos.fpoDetails?.length > 0 && (
+          <div class="panel" style="padding:0; overflow:hidden;">
+            <div class="table-scroll">
+              <table class="portal-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Commodities</th>
+                    <th>Members</th>
+                    <th>Turnover</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fpos.fpoDetails.map((fpo: any) => (
+                    <tr>
+                      <td class="table-name">{fpo.name}</td>
+                      <td>{fpo.location}</td>
+                      <td>{fpo.commodities?.join(', ')}</td>
+                      <td>{fmtNum(fpo.memberFarmers)}</td>
+                      <td>{fpo.annualTurnover ? fmtRs(fpo.annualTurnover) : '-'}</td>
+                      <td><span class={`status-badge status-${fpo.status.toLowerCase().replace(/\s/g, '-')}`}>{fpo.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- Industrial Land -->
+  {industrialLand && (
+    <DistrictSection section="industrial-land">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Industrial Land</h3>
+
+        {industrialLand.summary && (
+          <div class="panel" style="margin-bottom:1.25rem;">
+            <div class="portal-stats-row">
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.totalIndustrialLand)} acres</span><span class="portal-stat-label">Total Industrial Land</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.availableForAllotment)} acres</span><span class="portal-stat-label">Available</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandRequirement)} acres</span><span class="portal-stat-label">Pipeline Requirement</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandGap)} acres</span><span class="portal-stat-label">Land Gap</span></div>
+            </div>
+          </div>
+        )}
+
+        {/* Industrial areas */}
+        {industrialLand.industrialAreas?.map((area: any) => (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">{area.name} — {area.location}</h4>
+            <div class="portal-stats-row" style="margin-bottom:0.75rem;">
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.totalArea)} ac</span><span class="portal-stat-label">Total</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.developedArea)} ac</span><span class="portal-stat-label">Developed</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.availableForAllotment)} ac</span><span class="portal-stat-label">Available</span></div>
+            </div>
+            {area.infrastructureStatus && (
+              <div class="infra-grid">
+                {Object.entries(area.infrastructureStatus).map(([k, v]: [string, any]) => (
+                  <div class="infra-item"><span class="infra-label">{k}</span><span class="infra-value">{v}</span></div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* Infrastructure readiness */}
+        {industrialLand.infrastructureReadiness && (
+          <div class="panel">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Infrastructure Readiness</h4>
+            <div class="infra-ratings">
+              {Object.entries(industrialLand.infrastructureReadiness).map(([k, v]: [string, any]) => (
+                <div class="infra-rating-item">
+                  <div class="infra-rating-header">
+                    <span class="infra-rating-name">{k}</span>
+                    <span class={`infra-rating-status status-text-${v.status.toLowerCase().replace(/\s/g, '-')}`}>{v.status}</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar" style={`width:${v.rating}%`}></div>
+                  </div>
+                  {v.gap && <p class="infra-gap">{v.gap}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- Credit & Banking -->
+  {creditData && (
+    <DistrictSection section="credit">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Credit & Banking</h3>
+        {creditData.summary && (
+          <div class="panel" style="margin-bottom:1.25rem;">
+            <div class="portal-stats-row">
+              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(creditData.summary.totalCredit)}</span><span class="portal-stat-label">Total Credit</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(creditData.summary.totalDeposits)}</span><span class="portal-stat-label">Total Deposits</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{creditData.summary.creditDepositRatio}%</span><span class="portal-stat-label">CD Ratio</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{creditData.summary.stateAvgCDRatio}%</span><span class="portal-stat-label">State Avg CD Ratio</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(creditData.summary.totalBankBranches)}</span><span class="portal-stat-label">Bank Branches</span></div>
+            </div>
+          </div>
+        )}
+
+        {/* Sector-wise credit */}
+        {creditData.sectorWiseCredit && (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Sector-wise Credit</h4>
+            {Object.entries(creditData.sectorWiseCredit).map(([sector, data]: [string, any]) => (
+              <div class="credit-sector">
+                <div class="credit-sector-header">
+                  <span class="credit-sector-name">{sector}</span>
+                  <span class="credit-sector-value">{fmtRs(data.outstanding)} ({data.percentOfTotal}%)</span>
+                </div>
+                {data.achievement && (
+                  <div class="progress-bar-container" style="margin-bottom:0.25rem;">
+                    <div class="progress-bar" style={`width:${Math.min(data.achievement, 100)}%`}></div>
+                  </div>
+                )}
+                {data.achievement && <span class="credit-achievement">{data.achievement}% of target achieved</span>}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Challenges */}
+        {creditData.challenges?.length > 0 && (
+          <div class="panel">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Challenges</h4>
+            {creditData.challenges.map((c: any) => (
+              <div class="credit-challenge">
+                <span class="credit-challenge-issue">{c.issue}</span>
+                <span class="credit-challenge-gap">Current: {c.current} | Target: {c.target} | Gap: {c.gap}</span>
+                <span class="credit-challenge-impact">{c.impact}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- MSME -->
+  {msme && (
+    <DistrictSection section="msme">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">MSME Registrations</h3>
+        <div class="panel">
+          <div class="portal-stats-row" style="margin-bottom:1rem;">
+            <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.total)}</span><span class="portal-stat-label">Total MSMEs</span></div>
+            <div class="portal-stat"><span class="portal-stat-value">{fmtRs(msme.statistics.totalInvestment)}</span><span class="portal-stat-label">Total Investment</span></div>
+            <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.totalEmployment)}</span><span class="portal-stat-label">Employment</span></div>
+            {msme.growthTrends?.yearOverYear && <div class="portal-stat"><span class="portal-stat-value">{msme.growthTrends.yearOverYear}</span><span class="portal-stat-label">YoY Growth</span></div>}
+          </div>
+
+          {msme.statistics.bySector && (
+            <div style="margin-bottom:1rem;">
+              <h5 class="detail-block-title">By Sector</h5>
+              <div class="msme-breakdown">
+                {Object.entries(msme.statistics.bySector).map(([k, v]: [string, any]) => (
+                  <div class="msme-bar-item">
+                    <span class="msme-bar-label">{k}</span>
+                    <div class="msme-bar-track">
+                      <div class="msme-bar-fill" style={`width:${(v / msme.statistics.total * 100)}%`}></div>
+                    </div>
+                    <span class="msme-bar-value">{fmtNum(v)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {msme.statistics.byYear && (
+            <div>
+              <h5 class="detail-block-title">Registrations by Year</h5>
+              <div class="msme-breakdown">
+                {Object.entries(msme.statistics.byYear).map(([year, count]: [string, any]) => (
+                  <div class="msme-bar-item">
+                    <span class="msme-bar-label">{year}</span>
+                    <div class="msme-bar-track">
+                      <div class="msme-bar-fill" style={`width:${(count / Math.max(...Object.values(msme.statistics.byYear) as number[]) * 100)}%`}></div>
+                    </div>
+                    <span class="msme-bar-value">{fmtNum(count)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- Investment Proposals -->
+  {investments && (
+    <DistrictSection section="investments">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Investment Proposals</h3>
+        {investments.summary && (
+          <div class="panel" style="margin-bottom:1.25rem;">
+            <div class="portal-stats-row">
+              <div class="portal-stat"><span class="portal-stat-value">{investments.summary.totalProposals}</span><span class="portal-stat-label">Total Proposals</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{investments.summary.approvedProposals}</span><span class="portal-stat-label">Approved</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.proposedInvestment)}</span><span class="portal-stat-label">Proposed</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.realizedInvestment)}</span><span class="portal-stat-label">Realized</span></div>
+              <div class="portal-stat"><span class="portal-stat-value">{investments.summary.realizationRate}%</span><span class="portal-stat-label">Realization Rate</span></div>
+            </div>
+          </div>
+        )}
+
+        {investments.majorProposals?.length > 0 && (
+          <div class="panel" style="padding:0; overflow:hidden; margin-bottom:1rem;">
+            <h4 class="comparison-title">Major Proposals</h4>
+            <div class="table-scroll">
+              <table class="portal-table">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Investor</th>
+                    <th>Sector</th>
+                    <th>Investment</th>
+                    <th>Jobs</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {investments.majorProposals.map((p: any) => (
+                    <tr>
+                      <td class="table-name">{p.projectName}</td>
+                      <td>{p.investor}</td>
+                      <td>{p.sector}</td>
+                      <td>{fmtRs(p.investment)}</td>
+                      <td>{fmtNum(p.projectedJobs)}</td>
+                      <td><span class="status-badge">{p.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {investments.bottlenecks?.length > 0 && (
+          <div class="panel">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Bottlenecks</h4>
+            {investments.bottlenecks.map((b: any) => (
+              <div class="bottleneck-item">
+                <span class="bottleneck-stage">{b.stage}</span>
+                <span class="bottleneck-detail">{b.delayedProposals} proposals delayed, avg {b.avgDelay} days</span>
+                <span class="bottleneck-impact">{b.impact}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- Live Data -->
+  {liveData && (
+    <DistrictSection section="live-data">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Live Data <span class="live-badge">Snapshot</span></h3>
+        <div class="live-data-grid">
+          {/* Commodity Prices */}
+          {liveData.commodityPrices && (
+            <div class="panel">
+              <h4 class="detail-block-title">Commodity Prices</h4>
+              {Object.entries(liveData.commodityPrices).map(([key, data]: [string, any]) => (
+                <div class="commodity-item">
+                  <div class="commodity-header">
+                    <span class="commodity-name">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span class="commodity-price">{data.unit === 'Rs/quintal' ? `₹${fmtNum(data.price)}/q` : `₹${fmtNum(data.price)}`}</span>
+                  </div>
+                  <div class="commodity-meta">
+                    <span class="commodity-market">{data.market}</span>
+                    {data.percentChange !== undefined && (
+                      <span class={`commodity-change ${data.percentChange >= 0 ? 'positive' : 'negative'}`}>
+                        {data.percentChange >= 0 ? '+' : ''}{data.percentChange}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Rainfall */}
+          {liveData.rainfall && (
+            <div class="panel">
+              <h4 class="detail-block-title">Rainfall</h4>
+              <div class="rainfall-grid">
+                {liveData.rainfall.today && (
+                  <div class="rainfall-item"><span class="rainfall-label">Today</span><span class="rainfall-value">{liveData.rainfall.today.amount} mm</span></div>
+                )}
+                {liveData.rainfall.thisWeek && (
+                  <div class="rainfall-item"><span class="rainfall-label">This week</span><span class="rainfall-value">{liveData.rainfall.thisWeek.amount} mm</span></div>
+                )}
+                {liveData.rainfall.thisMonth && (
+                  <div class="rainfall-item">
+                    <span class="rainfall-label">This month</span>
+                    <span class="rainfall-value">{liveData.rainfall.thisMonth.amount} mm</span>
+                    {liveData.rainfall.thisMonth.deviation !== undefined && (
+                      <span class={`rainfall-deviation ${liveData.rainfall.thisMonth.deviation >= 0 ? 'positive' : 'negative'}`}>
+                        {liveData.rainfall.thisMonth.deviation >= 0 ? '+' : ''}{liveData.rainfall.thisMonth.deviation}%
+                      </span>
+                    )}
+                  </div>
+                )}
+                {liveData.rainfall.thisSeason && (
+                  <div class="rainfall-item">
+                    <span class="rainfall-label">This season</span>
+                    <span class="rainfall-value">{liveData.rainfall.thisSeason.amount} mm (normal: {liveData.rainfall.thisSeason.normalAmount})</span>
+                    {liveData.rainfall.thisSeason.status && <span class={`rainfall-status status-${liveData.rainfall.thisSeason.status.toLowerCase()}`}>{liveData.rainfall.thisSeason.status}</span>}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- Data Sources -->
+  {(d as any).dataSources?.length > 0 && (
+    <DistrictSection section="data-sources">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Data Sources</h3>
+        <div class="panel" style="padding:0; overflow:hidden;">
+          <div class="table-scroll">
+            <table class="portal-table">
+              <thead>
+                <tr><th>Source</th><th>Type</th><th>Fields</th></tr>
+              </thead>
+              <tbody>
+                {(d as any).dataSources.map((src: any) => (
+                  <tr>
+                    <td>{src.url ? <a href={src.url} target="_blank" rel="noopener" class="source-link">{src.name}</a> : src.name}</td>
+                    <td><span class="source-type-badge">{src.type}</span></td>
+                    <td class="source-fields-cell">{src.fields?.join(', ')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </DistrictSection>
+  )}
+</BaseLayout>
+
+<style>
+  .portal-hero { margin-bottom: 1.5rem; }
+  .portal-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--gray-900); }
+  .portal-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
+  .portal-section { margin-bottom: 2rem; }
+
+  /* Shared stats row */
+  .portal-stats-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .portal-stat { display: flex; flex-direction: column; }
+  .portal-stat-value { font-size: 1.25rem; font-weight: 800; color: var(--gray-900); }
+  .portal-stat-label { font-size: 0.6875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* Shared table */
+  .table-scroll { overflow-x: auto; }
+  .portal-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+  .portal-table th {
+    padding: 0.625rem 1rem; text-align: left; font-size: 0.6875rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--gray-500); background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+  }
+  .portal-table td {
+    padding: 0.5rem 1rem; font-size: 0.8125rem;
+    border-bottom: 1px solid var(--gray-100); color: var(--gray-700); vertical-align: top;
+  }
+  .portal-table tr:last-child td { border-bottom: none; }
+  .portal-table tr:hover { background: var(--gray-50); }
+  .table-name { font-weight: 600; color: var(--gray-800); }
+  .comparison-title {
+    padding: 0.75rem 1rem; font-size: 0.875rem; font-weight: 700;
+    color: var(--gray-800); background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+  }
+
+  /* Sector detail cards */
+  .sector-detail-card { margin-bottom: 1.25rem; border-top: 3px solid var(--teal); }
+  .sector-detail-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+  .sector-detail-name { font-size: 1.125rem; font-weight: 700; color: var(--gray-900); }
+  .sector-detail-note { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+  .priority-badge {
+    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.25rem 0.625rem; border-radius: 4px; white-space: nowrap;
+  }
+  .priority-highest { color: #065f46; background: var(--green-light); }
+  .priority-high { color: #92400e; background: var(--yellow-light); }
+  .priority-mediumhigh, .priority-medium { color: var(--primary-dark); background: var(--primary-light); }
+
+  .sector-detail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem; }
+  .detail-block { padding: 0.75rem; background: var(--gray-50); border-radius: 6px; }
+  .detail-block-title { font-size: 0.75rem; font-weight: 700; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.375rem; }
+  .detail-value-large { font-size: 1.125rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.5rem; }
+  .detail-breakdown { display: flex; flex-direction: column; gap: 0.125rem; }
+  .detail-sub-title { font-size: 0.625rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+  .detail-row { display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.75rem; }
+  .detail-row-label { color: var(--gray-500); }
+  .detail-row-value { color: var(--gray-800); font-weight: 600; }
+  .timeline-row { flex-direction: column; }
+  .timeline-row .detail-row-value { font-weight: 500; color: var(--gray-600); }
+
+  .detail-section { margin-bottom: 0.75rem; }
+  .detail-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+  .detail-chip {
+    font-size: 0.75rem; padding: 0.25rem 0.625rem;
+    background: var(--gray-50); border: 1px solid var(--gray-200);
+    border-radius: 4px; color: var(--gray-700);
+  }
+
+  .buyers-grid { display: flex; flex-direction: column; gap: 0.375rem; }
+  .buyer-group { display: flex; gap: 0.5rem; font-size: 0.75rem; }
+  .buyer-category { font-weight: 700; color: var(--gray-600); text-transform: capitalize; min-width: 80px; }
+  .buyer-list { color: var(--gray-700); }
+
+  .risks-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .risk-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .risk-severity {
+    font-size: 0.5625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.125rem 0.375rem; border-radius: 3px; white-space: nowrap; flex-shrink: 0; margin-top: 0.125rem;
+  }
+  .severity-critical { color: #991b1b; background: var(--red-light); }
+  .severity-high { color: #92400e; background: var(--yellow-light); }
+  .severity-medium { color: var(--primary-dark); background: var(--primary-light); }
+  .severity-low { color: #065f46; background: var(--green-light); }
+  .risk-content { display: flex; flex-direction: column; }
+  .risk-text { font-size: 0.8125rem; font-weight: 600; color: var(--gray-800); }
+  .risk-mitigation { font-size: 0.75rem; color: var(--gray-500); }
+
+  .sector-detail-footer { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--gray-100); }
+  .sector-confidence { font-size: 0.8125rem; font-weight: 700; color: var(--teal); }
+  .sector-location { font-size: 0.8125rem; color: var(--gray-500); }
+  .sector-recommendation { font-size: 0.8125rem; font-weight: 600; color: var(--green-dark); margin-top: 0.375rem; }
+
+  /* Status badges */
+  .status-badge {
+    font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap;
+    color: var(--teal); background: rgba(13,148,136,0.08);
+  }
+  .status-active { color: #065f46; background: var(--green-light); }
+  .status-under-formation { color: #92400e; background: var(--yellow-light); }
+
+  /* Infrastructure */
+  .infra-grid { display: flex; flex-direction: column; gap: 0.375rem; }
+  .infra-item { display: flex; gap: 0.5rem; font-size: 0.75rem; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100); }
+  .infra-item:last-child { border-bottom: none; }
+  .infra-label { font-weight: 700; color: var(--gray-600); text-transform: capitalize; min-width: 70px; }
+  .infra-value { color: var(--gray-700); }
+
+  .infra-ratings { display: flex; flex-direction: column; gap: 1rem; }
+  .infra-rating-item { }
+  .infra-rating-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+  .infra-rating-name { font-size: 0.8125rem; font-weight: 600; color: var(--gray-700); text-transform: capitalize; }
+  .status-text-good { color: var(--green); }
+  .status-text-moderate { color: var(--yellow); }
+  .status-text-critical-gap { color: var(--red); }
+  .infra-gap { font-size: 0.6875rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+  .progress-bar-container { height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--teal)); }
+
+  /* Credit */
+  .credit-sector { margin-bottom: 0.875rem; }
+  .credit-sector-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+  .credit-sector-name { font-size: 0.8125rem; font-weight: 700; color: var(--gray-700); text-transform: capitalize; }
+  .credit-sector-value { font-size: 0.8125rem; font-weight: 600; color: var(--gray-800); }
+  .credit-achievement { font-size: 0.6875rem; color: var(--gray-500); }
+
+  .credit-challenge { display: flex; flex-direction: column; gap: 0.125rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); }
+  .credit-challenge:last-child { border-bottom: none; }
+  .credit-challenge-issue { font-size: 0.8125rem; font-weight: 700; color: var(--gray-800); }
+  .credit-challenge-gap { font-size: 0.75rem; color: var(--gray-600); }
+  .credit-challenge-impact { font-size: 0.75rem; color: var(--red); font-weight: 500; }
+
+  /* MSME bars */
+  .msme-breakdown { display: flex; flex-direction: column; gap: 0.5rem; }
+  .msme-bar-item { display: flex; align-items: center; gap: 0.75rem; }
+  .msme-bar-label { font-size: 0.75rem; font-weight: 600; color: var(--gray-600); min-width: 100px; text-transform: capitalize; }
+  .msme-bar-track { flex: 1; height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .msme-bar-fill { height: 100%; border-radius: 3px; background: var(--primary); }
+  .msme-bar-value { font-size: 0.75rem; font-weight: 700; color: var(--gray-800); min-width: 40px; text-align: right; }
+
+  /* Investment bottlenecks */
+  .bottleneck-item { display: flex; flex-direction: column; gap: 0.125rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); }
+  .bottleneck-item:last-child { border-bottom: none; }
+  .bottleneck-stage { font-size: 0.8125rem; font-weight: 700; color: var(--gray-800); }
+  .bottleneck-detail { font-size: 0.75rem; color: var(--gray-600); }
+  .bottleneck-impact { font-size: 0.75rem; color: var(--red); font-weight: 500; }
+
+  /* Live data */
+  .live-badge {
+    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--orange); background: var(--orange-light);
+    padding: 0.125rem 0.5rem; border-radius: 3px; vertical-align: middle; margin-left: 0.5rem;
+  }
+  .live-data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .commodity-item { padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100); }
+  .commodity-item:last-child { border-bottom: none; }
+  .commodity-header { display: flex; justify-content: space-between; }
+  .commodity-name { font-size: 0.8125rem; font-weight: 600; color: var(--gray-800); text-transform: capitalize; }
+  .commodity-price { font-size: 0.9375rem; font-weight: 800; color: var(--gray-900); }
+  .commodity-meta { display: flex; justify-content: space-between; margin-top: 0.125rem; }
+  .commodity-market { font-size: 0.6875rem; color: var(--gray-500); }
+  .commodity-change { font-size: 0.6875rem; font-weight: 700; }
+  .commodity-change.positive { color: var(--green); }
+  .commodity-change.negative { color: var(--red); }
+
+  .rainfall-grid { display: flex; flex-direction: column; gap: 0.5rem; }
+  .rainfall-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100); }
+  .rainfall-item:last-child { border-bottom: none; }
+  .rainfall-label { font-size: 0.75rem; color: var(--gray-500); min-width: 80px; }
+  .rainfall-value { font-size: 0.8125rem; font-weight: 700; color: var(--gray-800); }
+  .rainfall-deviation { font-size: 0.6875rem; font-weight: 700; }
+  .rainfall-deviation.positive { color: var(--green); }
+  .rainfall-deviation.negative { color: var(--red); }
+  .rainfall-status { font-size: 0.625rem; font-weight: 700; text-transform: uppercase; padding: 0.125rem 0.375rem; border-radius: 3px; }
+  .rainfall-status.status-deficient { color: #92400e; background: var(--yellow-light); }
+  .rainfall-status.status-normal { color: #065f46; background: var(--green-light); }
+  .rainfall-status.status-excess { color: var(--primary-dark); background: var(--primary-light); }
+
+  /* Source table */
+  .source-link { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .source-link:hover { text-decoration: underline; }
+  .source-type-badge {
+    font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--teal); background: rgba(13,148,136,0.08);
+    padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap;
+  }
+  .source-fields-cell { font-size: 0.75rem; color: var(--gray-500); }
+
+  @media (max-width: 1024px) {
+    .sector-detail-grid { grid-template-columns: repeat(2, 1fr); }
+    .live-data-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .portal-title { font-size: 1.375rem; }
+    .sector-detail-grid { grid-template-columns: 1fr; }
+    .portal-stats-row { gap: 1rem; }
+  }
+</style>

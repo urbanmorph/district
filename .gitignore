@@ -33,3 +33,4 @@ data/geo/india-districts.geojson
 
 # Vercel
 .vercel/
+.vercel

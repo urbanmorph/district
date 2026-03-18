@@ -1,0 +1,83 @@
+[
+  {
+    "id": "full",
+    "name": "Full Dashboard",
+    "icon": "\ud83d\udcca",
+    "description": "Complete view of all sections and data",
+    "sections": ["kpi-strip", "location", "economy", "demographics", "sectors", "strengths-challenges", "roadmap", "industries", "data-sources"],
+    "roadmapOwners": [],
+    "alwaysAvailable": true
+  },
+  {
+    "id": "dc",
+    "name": "District Collector",
+    "icon": "\ud83c\udfdb\ufe0f",
+    "description": "Executive overview of all sectors and roadmap",
+    "sections": ["kpi-strip", "location", "economy", "demographics", "sectors", "strengths-challenges", "roadmap", "industries", "data-sources"],
+    "roadmapOwners": [],
+    "requires": ["demographics"]
+  },
+  {
+    "id": "agriculture",
+    "name": "Agriculture Officer",
+    "icon": "\ud83c\udf3e",
+    "description": "Rural demographics, irrigation, crop and FPO data",
+    "sections": ["kpi-strip", "demographics", "sectors", "strengths-challenges", "roadmap", "data-sources"],
+    "roadmapOwners": ["water", "agriculture", "fpo", "agro-processing"],
+    "requires": ["demographics"]
+  },
+  {
+    "id": "health",
+    "name": "Health Officer",
+    "icon": "\ud83c\udfe5",
+    "description": "Demographics and health indicators",
+    "sections": ["kpi-strip", "demographics", "strengths-challenges", "roadmap", "data-sources"],
+    "roadmapOwners": ["health"],
+    "requires": ["demographics"]
+  },
+  {
+    "id": "education",
+    "name": "Education Officer",
+    "icon": "\ud83c\udf93",
+    "description": "Literacy, skill development, and education roadmap",
+    "sections": ["kpi-strip", "demographics", "sectors", "strengths-challenges", "roadmap", "data-sources"],
+    "roadmapOwners": ["education", "skill-development"],
+    "requires": ["demographics"]
+  },
+  {
+    "id": "revenue",
+    "name": "Revenue / Land Officer",
+    "icon": "\ud83d\udcdc",
+    "description": "Area, density, land acquisition, and revenue data",
+    "sections": ["kpi-strip", "location", "demographics", "roadmap", "data-sources"],
+    "roadmapOwners": ["land", "revenue", "industrial-land"],
+    "requires": ["demographics"]
+  },
+  {
+    "id": "industrial",
+    "name": "Industrial Development",
+    "icon": "\ud83c\udfed",
+    "description": "Industrial zones, MSME clusters, and manufacturing",
+    "sections": ["kpi-strip", "economy", "sectors", "strengths-challenges", "roadmap", "industries", "data-sources"],
+    "roadmapOwners": ["industrial-land", "msme", "industry", "kiadb"],
+    "requires": ["industries"]
+  },
+  {
+    "id": "water",
+    "name": "Water Resources",
+    "icon": "\ud83d\udca7",
+    "description": "Water security, irrigation, and watershed management",
+    "sections": ["kpi-strip", "demographics", "strengths-challenges", "roadmap", "data-sources"],
+    "roadmapOwners": ["water", "irrigation"],
+    "requiresRoadmapOwner": ["water", "irrigation"]
+  },
+  {
+    "id": "minister",
+    "name": "Minister's View",
+    "icon": "\ud83c\uddf3",
+    "description": "Consolidated executive summary across all dimensions",
+    "sections": ["kpi-strip", "economy", "demographics", "sectors", "strengths-challenges", "roadmap", "industries", "data-sources"],
+    "roadmapOwners": [],
+    "requires": ["demographics"]
+  }
+]

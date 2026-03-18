@@ -1,0 +1,341 @@
+---
+interface RoadmapTask {
+  name: string;
+  budget: number;
+  progress: number;
+  items: string[];
+  owner?: string;
+}
+
+interface RoadmapPhase {
+  name: string;
+  years: string;
+  budget: number;
+  progress: number;
+  status: string;
+  description?: string;
+  components?: RoadmapTask[];
+}
+
+interface Props {
+  roadmap: {
+    totalInvestment: number;
+    targetRank?: string;
+    perCapitaGoal?: number;
+    jobsToCreate?: number;
+    phases: Record<string, RoadmapPhase>;
+    financing?: { source: string; amount: number; percent: number; details: string }[];
+  };
+  activeRole?: string | null;
+}
+
+const { roadmap, activeRole } = Astro.props;
+
+const phaseKeys = Object.keys(roadmap.phases).sort();
+const phases = phaseKeys.map(k => ({ id: k, ...roadmap.phases[k] }));
+
+// Icons for component names
+function getIcon(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.includes('water') || lower.includes('irrigation')) return '\u{1F4A7}';
+  if (lower.includes('road') || lower.includes('connect')) return '\u{1F6E3}\uFE0F';
+  if (lower.includes('power') || lower.includes('energy') || lower.includes('electric')) return '\u26A1';
+  if (lower.includes('agro') || lower.includes('agri') || lower.includes('dal') || lower.includes('fpo') || lower.includes('farm')) return '\u{1F33E}';
+  if (lower.includes('skill') || lower.includes('train') || lower.includes('education')) return '\u{1F393}';
+  if (lower.includes('msme') || lower.includes('industr') || lower.includes('manufactur')) return '\u{1F3ED}';
+  if (lower.includes('health') || lower.includes('hospital')) return '\u{1F3E5}';
+  if (lower.includes('urban') || lower.includes('city') || lower.includes('smart')) return '\u{1F3D9}\uFE0F';
+  if (lower.includes('textile') || lower.includes('garment')) return '\u{1F9F5}';
+  if (lower.includes('cement') || lower.includes('limestone') || lower.includes('mining')) return '\u26CF\uFE0F';
+  if (lower.includes('aerospace')) return '\u{1F680}';
+  if (lower.includes('pharma') || lower.includes('drug')) return '\u{1F48A}';
+  if (lower.includes('tourism') || lower.includes('heritage')) return '\u{1F3DB}\uFE0F';
+  return '\u{1F4CB}';
+}
+
+function getStatusColor(status: string): string {
+  if (status === 'green') return 'var(--green)';
+  if (status === 'yellow') return 'var(--yellow)';
+  if (status === 'red') return 'var(--red)';
+  return 'var(--gray-400)';
+}
+
+function isOwned(component: RoadmapTask, role: string | null | undefined): boolean {
+  if (!role || role === 'full' || role === 'dc') return true;
+  if (!component.owner) return false;
+  return component.owner === role;
+}
+---
+
+<div class="roadmap">
+  <div class="roadmap-header">
+    <h3 class="section-title">Development Roadmap</h3>
+    <div class="roadmap-summary">
+      <div class="roadmap-stat">
+        <span class="roadmap-stat-value">{'\u20B9'}{roadmap.totalInvestment.toLocaleString('en-IN')} Cr</span>
+        <span class="roadmap-stat-label">Total Investment</span>
+      </div>
+      {roadmap.jobsToCreate && (
+        <div class="roadmap-stat">
+          <span class="roadmap-stat-value">{roadmap.jobsToCreate.toLocaleString('en-IN')}</span>
+          <span class="roadmap-stat-label">Jobs Target</span>
+        </div>
+      )}
+      {roadmap.targetRank && (
+        <div class="roadmap-stat">
+          <span class="roadmap-stat-value">{roadmap.targetRank}</span>
+          <span class="roadmap-stat-label">Target Rank</span>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Phase tabs -->
+  <div class="phase-tabs" id="phase-tabs">
+    {phases.map((phase, i) => (
+      <button
+        class={`phase-tab ${i === 0 ? 'active' : ''}`}
+        data-phase={phase.id}
+        style={`--status-color: ${getStatusColor(phase.status)}`}
+      >
+        <span class="phase-tab-name">{phase.name}</span>
+        <span class="phase-tab-years">{phase.years}</span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Phase content panels -->
+  {phases.map((phase, i) => (
+    <div class={`phase-panel ${i === 0 ? 'active' : ''}`} data-phase-panel={phase.id}>
+      <div class="phase-meta">
+        <span class="phase-budget">{'\u20B9'}{phase.budget.toLocaleString('en-IN')} Cr</span>
+        {phase.progress > 0 && (
+          <span class="phase-progress-label">{phase.progress}% complete</span>
+        )}
+        {phase.status === 'notstarted' && (
+          <span class="phase-not-started">Not yet started</span>
+        )}
+      </div>
+
+      {phase.description && !phase.components && (
+        <p class="phase-description">{phase.description}</p>
+      )}
+
+      {phase.components && phase.components.length > 0 && (
+        <div class="roadmap-components">
+          {phase.components.map(comp => {
+            const owned = isOwned(comp, activeRole);
+            return (
+              <div class={`roadmap-component ${owned ? '' : 'dimmed'}`} data-owner={comp.owner || ''}>
+                <div class="component-header">
+                  <div class="component-title-row">
+                    <span class="component-icon">{getIcon(comp.name)}</span>
+                    <span class="component-name">{comp.name}</span>
+                  </div>
+                  <div class="component-meta">
+                    <span class="component-budget">{'\u20B9'}{comp.budget.toLocaleString('en-IN')} Cr</span>
+                    {comp.owner && (
+                      <span class="component-owner">{comp.owner.toUpperCase()}</span>
+                    )}
+                  </div>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="progress-bar" style={`width: ${comp.progress}%`}></div>
+                </div>
+                <span class="progress-text">{comp.progress}%</span>
+                {comp.items && comp.items.length > 0 && (
+                  <ul class="component-tasks">
+                    {comp.items.map(item => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  ))}
+
+  <!-- Financing breakdown -->
+  {roadmap.financing && roadmap.financing.length > 0 && (
+    <div class="financing-section">
+      <h4 class="financing-title">Financing Mix</h4>
+      <div class="financing-bar">
+        {roadmap.financing.map((f, i) => {
+          const colors = ['var(--primary)', 'var(--teal)', 'var(--orange)', 'var(--green)'];
+          return (
+            <div
+              class="financing-segment"
+              style={`width: ${f.percent}%; background: ${colors[i % colors.length]}`}
+              title={`${f.source}: ${'\u20B9'}${f.amount} Cr (${f.percent}%)`}
+            ></div>
+          );
+        })}
+      </div>
+      <div class="financing-legend">
+        {roadmap.financing.map((f, i) => {
+          const colors = ['var(--primary)', 'var(--teal)', 'var(--orange)', 'var(--green)'];
+          return (
+            <div class="financing-item">
+              <span class="financing-dot" style={`background: ${colors[i % colors.length]}`}></span>
+              <span class="financing-name">{f.source}</span>
+              <span class="financing-amount">{'\u20B9'}{f.amount.toLocaleString('en-IN')} Cr ({f.percent}%)</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .roadmap { margin-bottom: 2rem; }
+
+  .roadmap-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;
+  }
+  .roadmap-summary { display: flex; gap: 1.5rem; }
+  .roadmap-stat { display: flex; flex-direction: column; align-items: flex-end; }
+  .roadmap-stat-value { font-size: 1.25rem; font-weight: 800; color: var(--gray-900); }
+  .roadmap-stat-label { font-size: 0.6875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* Phase tabs */
+  .phase-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 1.25rem;
+    border-bottom: 2px solid var(--gray-100); padding-bottom: 0;
+  }
+  .phase-tab {
+    padding: 0.625rem 1.25rem; border: none; background: none;
+    cursor: pointer; border-bottom: 3px solid transparent;
+    font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+    color: var(--gray-500); transition: all 0.2s; display: flex;
+    flex-direction: column; align-items: center; gap: 0.125rem;
+    margin-bottom: -2px;
+  }
+  .phase-tab:hover { color: var(--gray-700); }
+  .phase-tab.active {
+    color: var(--gray-900);
+    border-bottom-color: var(--status-color, var(--primary));
+  }
+  .phase-tab-name { font-size: 0.875rem; }
+  .phase-tab-years { font-size: 0.6875rem; font-weight: 400; color: var(--gray-400); }
+  .phase-tab.active .phase-tab-years { color: var(--gray-500); }
+
+  /* Phase panels */
+  .phase-panel { display: none; }
+  .phase-panel.active { display: block; }
+
+  .phase-meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem; font-size: 0.8125rem;
+  }
+  .phase-budget {
+    font-weight: 700; color: var(--gray-800);
+    background: var(--gray-100); padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+  }
+  .phase-progress-label { color: var(--green-dark); font-weight: 600; }
+  .phase-not-started { color: var(--gray-400); font-style: italic; }
+  .phase-description { font-size: 0.875rem; color: var(--gray-600); line-height: 1.6; }
+
+  /* Components */
+  .roadmap-components { display: flex; flex-direction: column; gap: 1rem; }
+
+  .roadmap-component {
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius); padding: 1.25rem;
+    transition: opacity 0.3s, transform 0.2s;
+  }
+  .roadmap-component:hover { border-color: var(--gray-300); box-shadow: var(--shadow-sm); }
+  .roadmap-component.dimmed { opacity: 0.4; }
+
+  .component-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .component-title-row { display: flex; align-items: center; gap: 0.5rem; }
+  .component-icon { font-size: 1.125rem; }
+  .component-name { font-size: 0.9375rem; font-weight: 700; color: var(--gray-800); }
+  .component-meta { display: flex; align-items: center; gap: 0.75rem; }
+  .component-budget { font-size: 0.8125rem; font-weight: 700; color: var(--teal); }
+  .component-owner {
+    font-size: 0.625rem; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--primary-dark); background: var(--primary-light);
+    padding: 0.125rem 0.5rem; border-radius: 3px;
+  }
+
+  /* Progress bar */
+  .progress-bar-container {
+    height: 8px; background: var(--gray-100); border-radius: 4px;
+    overflow: hidden; margin-bottom: 0.25rem;
+  }
+  .progress-bar {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--teal));
+    transition: width 0.5s ease;
+  }
+  .progress-text { font-size: 0.6875rem; font-weight: 600; color: var(--gray-500); }
+
+  /* Tasks */
+  .component-tasks {
+    list-style: none; margin-top: 0.75rem;
+    border-top: 1px solid var(--gray-100); padding-top: 0.625rem;
+  }
+  .component-tasks li {
+    font-size: 0.8125rem; color: var(--gray-600); padding: 0.25rem 0;
+    padding-left: 1rem; position: relative;
+  }
+  .component-tasks li::before {
+    content: '\2022'; position: absolute; left: 0; color: var(--gray-400);
+  }
+
+  /* Financing */
+  .financing-section {
+    margin-top: 1.5rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--gray-100);
+  }
+  .financing-title {
+    font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+    color: var(--gray-800); margin-bottom: 0.75rem;
+  }
+  .financing-bar {
+    display: flex; height: 10px; border-radius: 5px;
+    overflow: hidden; margin-bottom: 0.75rem;
+  }
+  .financing-segment { transition: width 0.5s; }
+  .financing-legend { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .financing-item { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; }
+  .financing-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .financing-name { color: var(--gray-600); }
+  .financing-amount { color: var(--gray-800); font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .roadmap-header { flex-direction: column; }
+    .roadmap-summary { gap: 1rem; }
+    .roadmap-stat { align-items: flex-start; }
+    .phase-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .component-header { flex-direction: column; }
+  }
+</style>
+
+<script is:inline>
+  // Phase tab switching
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.phase-tab');
+    const panels = document.querySelectorAll('.phase-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const phaseId = tab.getAttribute('data-phase');
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.querySelector(`[data-phase-panel="${phaseId}"]`);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  });
+</script>

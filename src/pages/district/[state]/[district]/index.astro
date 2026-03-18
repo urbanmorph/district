@@ -1,6 +1,7 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { loadAllDistricts, formatCurrency, formatPopulation, getStates } from '../../../lib/data-loader';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import DistrictMapStatic from '../../../../components/DistrictMapStatic.astro';
+import { formatCurrency, formatPopulation, getStates } from '../../../../lib/data-loader';
 
 export function getStaticPaths() {
   const states = getStates();
@@ -13,10 +14,14 @@ export function getStaticPaths() {
 }
 
 const { district: d, stateName, stateSlug } = Astro.props;
-const base = import.meta.env.BASE_URL;
 const eco = d.economy || {};
 const demo = d.demographics || {};
 const comp = eco.gddpComposition || {};
+const industries = (d as any).industries;
+
+// Check if this district has detailed portal data
+const hasPortalData = !!((d as any).roadmap || industries || (d as any).fpos || (d as any).industrialLand || (d as any).creditData || (d as any).msme || (d as any).investments || (d as any).liveData);
+const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
 ---
 
 <BaseLayout title={d.name} description={`Development dashboard for ${d.name} district, ${stateName}`}>
@@ -29,8 +34,11 @@ const comp = eco.gddpComposition || {};
   </nav>
 
   <div class="district-hero animate-up">
-    <h2 class="district-name">{d.name}</h2>
-    <p class="district-subtitle">{stateName} &middot; Last updated: {d.lastUpdated || 'March 2026'}</p>
+    <DistrictMapStatic districtName={d.name} stateName={stateName} size={80} />
+    <div>
+      <h2 class="district-name">{d.name}</h2>
+      <p class="district-subtitle">{stateName} &middot; Last updated: {d.lastUpdated || 'March 2026'}</p>
+    </div>
   </div>
 
   <!-- KPI Strip -->
@@ -60,15 +68,9 @@ const comp = eco.gddpComposition || {};
     </div>
   </div>
 
-  <!-- Location Map -->
-  <div class="panel animate-up delay-5" style="margin-bottom:2rem;">
-    <h3 class="section-title" style="font-size:1.125rem;">Location</h3>
-    <div id="district-map" style="width:100%;height:280px;border-radius:var(--radius);overflow:hidden;"></div>
-  </div>
-
-  <!-- GDDP + Demographics -->
-  <div class="gddp-demo animate-up delay-5">
-    {(comp.agriculture || comp.industry || comp.services) && (
+  <!-- GDDP Composition + Demographics -->
+  {(comp.agriculture || comp.industry || comp.services) && (
+    <div class="gddp-demo animate-up delay-5">
       <div class="panel">
         <h3 class="section-title">GDDP Composition</h3>
         <div class="donut-wrapper">
@@ -83,9 +85,9 @@ const comp = eco.gddpComposition || {};
                 const indLen = (indPct / 100) * c;
                 const agriLen = (agriPct / 100) * c;
                 return [
-                  { color: 'var(--teal)', len: servLen, offset: 0, label: 'Services' },
-                  { color: 'var(--primary)', len: indLen, offset: -servLen, label: 'Industry' },
-                  { color: 'var(--green)', len: agriLen, offset: -(servLen + indLen), label: 'Agriculture' },
+                  { color: 'var(--teal)', len: servLen, offset: 0 },
+                  { color: 'var(--primary)', len: indLen, offset: -servLen },
+                  { color: 'var(--green)', len: agriLen, offset: -(servLen + indLen) },
                 ].map(seg => (
                   <circle fill="none" stroke={seg.color} stroke-width="28" cx="90" cy="90" r={r}
                     stroke-dasharray={`${seg.len} ${c - seg.len}`}
@@ -117,9 +119,23 @@ const comp = eco.gddpComposition || {};
           </div>
         </div>
       </div>
-    )}
 
-    <div class="panel">
+      <div class="panel">
+        <h3 class="section-title">Demographics</h3>
+        <div class="demo-grid">
+          <div class="demo-item"><div class="demo-value">{demo.area_sq_km ? `${demo.area_sq_km.toLocaleString('en-IN')} km²` : 'N/A'}</div><div class="demo-label">Area</div></div>
+          <div class="demo-item"><div class="demo-value">{demo.rural && demo.urban && demo.population ? `${((demo.rural/demo.population)*100).toFixed(1)}% / ${((demo.urban/demo.population)*100).toFixed(1)}%` : 'N/A'}</div><div class="demo-label">Rural / Urban</div></div>
+          <div class="demo-item"><div class="demo-value">{demo.literacyRate ? `${demo.literacyRate}%` : 'N/A'}</div><div class="demo-label">Literacy Rate</div></div>
+          <div class="demo-item"><div class="demo-value">{demo.sexRatio || 'N/A'}</div><div class="demo-label">Sex Ratio (per 1000)</div></div>
+          <div class="demo-item"><div class="demo-value">{demo.density ? `${demo.density} / km²` : 'N/A'}</div><div class="demo-label">Population Density</div></div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Demographics (standalone for districts without GDDP) -->
+  {!(comp.agriculture || comp.industry || comp.services) && demo.population && (
+    <div class="panel animate-up delay-5" style="margin-bottom:2rem;">
       <h3 class="section-title">Demographics</h3>
       <div class="demo-grid">
         <div class="demo-item"><div class="demo-value">{demo.area_sq_km ? `${demo.area_sq_km.toLocaleString('en-IN')} km²` : 'N/A'}</div><div class="demo-label">Area</div></div>
@@ -129,18 +145,6 @@ const comp = eco.gddpComposition || {};
         <div class="demo-item"><div class="demo-value">{demo.density ? `${demo.density} / km²` : 'N/A'}</div><div class="demo-label">Population Density</div></div>
       </div>
     </div>
-  </div>
-
-  <!-- Key Sectors -->
-  {d.keySectors?.length > 0 && (
-    <section class="animate-up delay-5">
-      <h3 class="section-title">Key Sectors</h3>
-      <div class="sectors-row">
-        {d.keySectors.map(sector => (
-          <div class="sector-pill">{sector}</div>
-        ))}
-      </div>
-    </section>
   )}
 
   <!-- Strengths / Challenges / Opportunities -->
@@ -171,6 +175,56 @@ const comp = eco.gddpComposition || {};
         </div>
       )}
     </div>
+  )}
+
+  <!-- Key Sectors -->
+  {d.keySectors?.length > 0 && (
+    <section class="animate-up" style="margin-bottom:2rem;">
+      <h3 class="section-title">Key Sectors</h3>
+      <div class="sectors-row">
+        {d.keySectors.map(sector => (
+          <div class="sector-pill">{sector}</div>
+        ))}
+      </div>
+      {industries?.overview && (
+        <div class="panel sector-overview-panel">
+          <div class="sector-overview-stats">
+            {industries.overview.totalInvestment && (
+              <div class="overview-stat">
+                <span class="overview-stat-value">₹{industries.overview.totalInvestment.toLocaleString('en-IN')} Cr</span>
+                <span class="overview-stat-label">Investment Pipeline</span>
+              </div>
+            )}
+            {industries.overview.totalJobs && (
+              <div class="overview-stat">
+                <span class="overview-stat-value">{industries.overview.totalJobs.toLocaleString('en-IN')}</span>
+                <span class="overview-stat-label">Jobs Target</span>
+              </div>
+            )}
+            {industries.sectors && (
+              <div class="overview-stat">
+                <span class="overview-stat-value">{industries.sectors.length}</span>
+                <span class="overview-stat-label">Focus Sectors</span>
+              </div>
+            )}
+          </div>
+          <a href={portalUrl} class="portal-cta">
+            Explore detailed sector data, roadmap & role-based views
+            <span class="portal-cta-arrow">&rarr;</span>
+          </a>
+        </div>
+      )}
+    </section>
+  )}
+
+  <!-- Portal CTA (for districts with portal data but no keySectors) -->
+  {hasPortalData && !(d.keySectors?.length > 0) && (
+    <section class="animate-up" style="margin-bottom:2rem;">
+      <a href={portalUrl} class="panel portal-cta-block">
+        <span class="portal-cta-block-text">Explore detailed data portal</span>
+        <span class="portal-cta-arrow">&rarr;</span>
+      </a>
+    </section>
   )}
 
   <!-- Data Sources -->
@@ -209,7 +263,7 @@ const comp = eco.gddpComposition || {};
 </BaseLayout>
 
 <style>
-  .district-hero { margin-bottom: 1.5rem; }
+  .district-hero { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
   .district-name { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--gray-900); }
   .district-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
 
@@ -240,6 +294,33 @@ const comp = eco.gddpComposition || {};
     padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 500;
     color: var(--gray-700); box-shadow: var(--shadow-sm);
   }
+
+  /* Sector overview + CTA */
+  .sector-overview-panel { display: flex; flex-direction: column; gap: 1rem; }
+  .sector-overview-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .overview-stat { display: flex; flex-direction: column; }
+  .overview-stat-value { font-size: 1.375rem; font-weight: 800; color: var(--gray-900); }
+  .overview-stat-label { font-size: 0.6875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+  .sector-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .portal-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.875rem 1.25rem; margin-top: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-light), rgba(13,148,136,0.08));
+    border: 1px solid rgba(37,99,235,0.15); border-radius: var(--radius);
+    color: var(--primary-dark); font-size: 0.875rem; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .portal-cta:hover { background: linear-gradient(135deg, #bfdbfe, rgba(13,148,136,0.12)); box-shadow: var(--shadow-sm); }
+  .portal-cta-arrow { font-size: 1.125rem; }
+
+  .portal-cta-block {
+    display: flex; align-items: center; justify-content: space-between;
+    text-decoration: none; transition: all 0.2s;
+    background: linear-gradient(135deg, var(--primary-light), rgba(13,148,136,0.08));
+    border: 1px solid rgba(37,99,235,0.15);
+  }
+  .portal-cta-block:hover { box-shadow: var(--shadow-md); }
+  .portal-cta-block-text { color: var(--primary-dark); font-size: 0.9375rem; font-weight: 600; }
 
   .sco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
   .sco-card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--gray-100); border-top: 3px solid transparent; }
@@ -281,60 +362,13 @@ const comp = eco.gddpComposition || {};
   .source-fields { font-size: 0.75rem; color: var(--gray-500); }
   .sources-footer { padding: 0.75rem 1.25rem; font-size: 0.75rem; color: var(--gray-400); background: var(--gray-50); border-top: 1px solid var(--gray-100); }
 
-  @media (max-width: 1024px) { .gddp-demo { grid-template-columns: 1fr; } .sco-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 768px) { .district-name { font-size: 1.5rem; } .donut-wrapper { flex-direction: column; } }
+  @media (max-width: 1024px) {
+    .gddp-demo { grid-template-columns: 1fr; }
+    .sco-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .district-name { font-size: 1.5rem; }
+    .donut-wrapper { flex-direction: column; }
+  }
 </style>
 
-<script is:inline define:vars={{ districtName: d.name, stateName, stateSlug }}>
-  const mapEl = document.getElementById('district-map');
-  if (mapEl) {
-    const map = new maplibregl.Map({
-      container: 'district-map',
-      style: { version: 8, sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#f8fafc' } }] },
-      center: [80, 20], zoom: 4, minZoom: 3, maxZoom: 10
-    });
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
-
-    map.on('load', () => {
-      fetch('/geo/india-districts-simple.geojson')
-        .then(r => r.json())
-        .then(data => {
-          const stateDistricts = {
-            type: 'FeatureCollection',
-            features: data.features.filter(f => {
-              const s = (f.properties.state || '').toLowerCase();
-              return s === stateName.toLowerCase() || s.includes(stateName.toLowerCase().split(' ')[0]);
-            })
-          };
-          if (stateDistricts.features.length === 0) return;
-
-          stateDistricts.features.forEach(f => {
-            const name = (f.properties.name || '').toLowerCase();
-            const target = districtName.toLowerCase();
-            f.properties.isTarget = (name === target || name.includes(target) || target.includes(name)) ? 1 : 0;
-          });
-
-          map.addSource('districts', { type: 'geojson', data: stateDistricts });
-          map.addLayer({ id: 'district-fills', type: 'fill', source: 'districts',
-            paint: {
-              'fill-color': ['case', ['==', ['get', 'isTarget'], 1], '#2563eb', '#e0e7ff'],
-              'fill-opacity': ['case', ['==', ['get', 'isTarget'], 1], 0.4, 0.25]
-            }
-          });
-          map.addLayer({ id: 'district-borders', type: 'line', source: 'districts',
-            paint: {
-              'line-color': ['case', ['==', ['get', 'isTarget'], 1], '#1e40af', '#94a3b8'],
-              'line-width': ['case', ['==', ['get', 'isTarget'], 1], 2.5, 0.7]
-            }
-          });
-
-          const bounds = new maplibregl.LngLatBounds();
-          stateDistricts.features.forEach(f => {
-            const ac = c => { if (typeof c[0]==='number') bounds.extend(c); else c.forEach(ac); };
-            ac(f.geometry.coordinates);
-          });
-          map.fitBounds(bounds, { padding: 30, maxZoom: 8 });
-        });
-    });
-  }
-</script>

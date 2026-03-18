@@ -1,0 +1,174 @@
+---
+interface Role {
+  id: string;
+  name: string;
+  icon: string;
+  sections: string[];
+  roadmapOwners?: string[];
+}
+
+interface Props {
+  roles: Role[];
+  activeRole?: string | null;
+}
+
+const { roles, activeRole } = Astro.props;
+const currentRole = roles.find(r => r.id === activeRole) || roles[0];
+---
+
+<div class="role-switcher" id="role-switcher">
+  <label class="role-label" for="role-select">View as:</label>
+  <div class="role-select-wrapper">
+    <select id="role-select" class="role-select">
+      {roles.map(role => (
+        <option value={role.id} selected={role.id === currentRole.id}>
+          {role.icon} {role.name}
+        </option>
+      ))}
+    </select>
+  </div>
+</div>
+
+{activeRole && activeRole !== 'full' && (
+  <div class="role-banner" data-role-banner>
+    <span class="role-banner-icon">{currentRole.icon}</span>
+    <span class="role-banner-text">
+      <strong>{currentRole.name}</strong> — Showing relevant sections and roadmap items
+    </span>
+    <a href="?" class="role-banner-clear" title="Clear role filter">&times;</a>
+  </div>
+)}
+
+<style>
+  .role-switcher {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.25rem; padding: 0.75rem 1rem;
+    background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  }
+  .role-label {
+    font-size: 0.8125rem; font-weight: 600; color: var(--gray-600);
+    white-space: nowrap;
+  }
+  .role-select-wrapper { position: relative; flex: 1; max-width: 320px; }
+  .role-select {
+    width: 100%; padding: 0.5rem 2rem 0.5rem 0.75rem;
+    font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+    color: var(--gray-800); background: var(--gray-50);
+    border: 1px solid var(--gray-200); border-radius: 6px;
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+  }
+  .role-select:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+  .role-banner {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+    background: var(--primary-light); border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: var(--radius); font-size: 0.8125rem;
+  }
+  .role-banner-icon { font-size: 1.25rem; }
+  .role-banner-text { flex: 1; color: var(--primary-dark); }
+  .role-banner-clear {
+    font-size: 1.25rem; color: var(--primary); text-decoration: none;
+    padding: 0 0.25rem; line-height: 1; font-weight: 700;
+  }
+  .role-banner-clear:hover { color: var(--primary-dark); }
+
+  @media (max-width: 768px) {
+    .role-select-wrapper { max-width: none; }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('role-select');
+    if (!select) return;
+
+    // Read role config from inline JSON
+    const rolesData = document.getElementById('roles-data');
+    if (!rolesData) return;
+
+    let roles;
+    try {
+      roles = JSON.parse(rolesData.textContent || '[]');
+    } catch { return; }
+
+    const roleMap = {};
+    roles.forEach(r => { roleMap[r.id] = r; });
+
+    // Set initial value from URL
+    const params = new URLSearchParams(window.location.search);
+    const urlRole = params.get('role');
+    if (urlRole && roleMap[urlRole]) {
+      select.value = urlRole;
+    }
+
+    select.addEventListener('change', () => {
+      const roleId = select.value;
+      if (roleId === 'full') {
+        // Remove role param
+        const url = new URL(window.location);
+        url.searchParams.delete('role');
+        window.history.pushState({}, '', url);
+      } else {
+        const url = new URL(window.location);
+        url.searchParams.set('role', roleId);
+        window.history.pushState({}, '', url);
+      }
+      applyRole(roleId);
+    });
+
+    // Apply role on load if URL has one
+    if (urlRole && roleMap[urlRole]) {
+      applyRole(urlRole);
+    }
+
+    function applyRole(roleId) {
+      const role = roleMap[roleId];
+      if (!role) return;
+
+      // Toggle section visibility
+      const sections = document.querySelectorAll('[data-section]');
+      sections.forEach(sec => {
+        const sectionName = sec.getAttribute('data-section');
+        if (roleId === 'full' || role.sections.includes(sectionName)) {
+          sec.style.display = '';
+          sec.classList.remove('role-hidden');
+        } else {
+          sec.style.display = 'none';
+          sec.classList.add('role-hidden');
+        }
+      });
+
+      // Toggle roadmap component highlighting
+      const components = document.querySelectorAll('.roadmap-component');
+      components.forEach(comp => {
+        const owner = comp.getAttribute('data-owner');
+        if (roleId === 'full' || roleId === 'dc' || !role.roadmapOwners || role.roadmapOwners.length === 0) {
+          comp.classList.remove('dimmed');
+        } else if (owner && role.roadmapOwners.includes(owner)) {
+          comp.classList.remove('dimmed');
+        } else {
+          comp.classList.add('dimmed');
+        }
+      });
+
+      // Update banner
+      const banner = document.querySelector('[data-role-banner]');
+      if (banner) {
+        if (roleId === 'full') {
+          banner.style.display = 'none';
+        } else {
+          banner.style.display = '';
+          const icon = banner.querySelector('.role-banner-icon');
+          const text = banner.querySelector('.role-banner-text');
+          if (icon) icon.textContent = role.icon;
+          if (text) text.innerHTML = `<strong>${role.name}</strong> — Showing relevant sections and roadmap items`;
+        }
+      }
+    }
+  });
+</script>
