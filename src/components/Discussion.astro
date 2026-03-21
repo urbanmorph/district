@@ -300,8 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '</div>' +
       '<div class="comment-content">' + renderMarkdown(comment.body) + '</div>' +
       '<div class="comment-actions">' +
-        '<button class="comment-action-btn like-btn" data-id="' + comment.id + '">' +
-          '\uD83D\uDC4D ' + (comment.like_count || 0) +
+        '<button class="comment-action-btn like-btn' + (userLikedIds.has(comment.id) ? ' liked' : '') + '" data-id="' + comment.id + '">' +
+          (userLikedIds.has(comment.id) ? '\uD83D\uDC4D' : '\uD83D\uDC4D') + ' ' + (comment.like_count || 0) +
         '</button>' +
         '<button class="comment-action-btn reply-btn" data-id="' + comment.id + '">' +
           '\uD83D\uDCAC Reply' +
@@ -324,9 +324,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return card;
   }
 
+  let userLikedIds = new Set();
+
+  async function fetchUserLikes() {
+    const fp = getFingerprint();
+    const url = API + '/discussion_likes?voter_fingerprint=eq.' + fp + '&select=comment_id';
+    const res = await fetch(url, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } });
+    if (!res.ok) return;
+    const data = await res.json();
+    userLikedIds = new Set(data.map(l => l.comment_id));
+  }
+
   async function loadComments() {
     const sort = document.getElementById('discussion-sort').value;
-    const data = await fetchComments(sort);
+    const [data] = await Promise.all([fetchComments(sort), fetchUserLikes()]);
     comments = data;
 
     const list = document.getElementById('comments-list');
@@ -453,20 +464,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Like
+  // Like / Unlike toggle
   document.getElementById('comments-list').addEventListener('click', async (e) => {
     const likeBtn = e.target.closest('.like-btn');
     if (likeBtn) {
       const commentId = likeBtn.dataset.id;
       const fp = getFingerprint();
-      try {
-        await fetch(API + '/discussion_likes', {
+
+      // Check if already liked
+      const checkUrl = API + '/discussion_likes?comment_id=eq.' + commentId + '&voter_fingerprint=eq.' + fp;
+      const checkRes = await fetch(checkUrl, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } });
+      const existing = await checkRes.json();
+
+      if (existing.length > 0) {
+        // Unlike: delete the like
+        await fetch(API + '/discussion_likes?comment_id=eq.' + commentId + '&voter_fingerprint=eq.' + fp, {
+          method: 'DELETE',
+          headers: headers
+        });
+      } else {
+        // Like: insert
+        const res = await fetch(API + '/discussion_likes', {
           method: 'POST',
           headers: headers,
           body: JSON.stringify({ comment_id: commentId, voter_fingerprint: fp })
         });
-        loadComments();
-      } catch (err) { /* duplicate like, ignore */ }
+        if (!res.ok) {
+          // Conflict (already liked) — try unlike instead
+          await fetch(API + '/discussion_likes?comment_id=eq.' + commentId + '&voter_fingerprint=eq.' + fp, {
+            method: 'DELETE',
+            headers: headers
+          });
+        }
+      }
+      loadComments();
       return;
     }
 
