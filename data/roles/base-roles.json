@@ -72,11 +72,20 @@
     "requiresRoadmapOwner": ["water", "irrigation"]
   },
   {
+    "id": "kdem",
+    "name": "KDEM / Digital Economy",
+    "icon": "\ud83d\udcbb",
+    "description": "Beyond Bengaluru digital economy, startups, agritech, ESDM",
+    "sections": ["kpi-strip", "economy", "sectors", "strengths-challenges", "roadmap", "industries", "kdem", "data-sources"],
+    "roadmapOwners": ["skill-development", "msme", "agro-processing"],
+    "requires": ["kdem"]
+  },
+  {
     "id": "minister",
     "name": "Minister's View",
     "icon": "\ud83c\uddf3",
     "description": "Consolidated executive summary across all dimensions",
-    "sections": ["kpi-strip", "economy", "demographics", "sectors", "strengths-challenges", "roadmap", "industries", "data-sources"],
+    "sections": ["kpi-strip", "economy", "demographics", "sectors", "strengths-challenges", "roadmap", "industries", "kdem", "data-sources"],
     "roadmapOwners": [],
     "requires": ["demographics"]
   }

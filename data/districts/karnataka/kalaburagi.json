@@ -104,7 +104,51 @@
       "PM MITRA Scheme (Ministry of Textiles)",
       "Survey of India"
     ],
-    "lastVerified": "2026-03-16"
+    "lastVerified": "2026-03-17"
+  },
+  "kdem": {
+    "clusterName": "Kalyana Karnataka AI Hub",
+    "tier": 2,
+    "tierLabel": "Build & Nurture",
+    "brandPosition": "Agritech & Biotech Hub for North Karnataka",
+    "targets2030": {
+      "startups": 50,
+      "jobs": 10000,
+      "digitalRevenue_crores": 3000
+    },
+    "anchorCompanies": [
+      { "name": "XCEL Corp R&D", "status": "Operational", "sector": "Technology" }
+    ],
+    "verticalFocus": ["Agritech", "Biotech", "Digitizing Sectors"],
+    "leapIncubation": {
+      "active": true,
+      "fund_crores": 1000,
+      "duration": "5 years",
+      "focus": "Agritech startups"
+    },
+    "landCostMultiplier": 0.50,
+    "landCostNote": "50% of Bengaluru rates",
+    "currentTraction": {
+      "newCompanies": 12,
+      "expandedCompanies": 3,
+      "jobsCreated": 850,
+      "period": "FY23-26",
+      "confidence": 3
+    },
+    "digitalProximity": [
+      "500+ dal mills ready for agritech digitization",
+      "15 FPOs as agritech distribution network",
+      "Agricultural university for R&D partnerships",
+      "NH-44/NH-50 corridor connectivity to Bengaluru & Hyderabad tech hubs"
+    ],
+    "policies": [
+      { "name": "Karnataka IT-BT Policy 2025-2030", "relevance": "Tier 2 city incentives, 25% capital subsidy" },
+      { "name": "LEAP Agritech Incubation", "relevance": "Rs 1,000 Cr fund, active in Kalaburagi" },
+      { "name": "Karnataka Startup Policy", "relevance": "ELEVATE program eligibility, seed funding" },
+      { "name": "Beyond Bengaluru Seed Fund", "relevance": "Rs 75 Cr cluster development allocation" }
+    ],
+    "dashboardUrl": "https://kdem.vercel.app",
+    "source": "KDEM / beyondbengaluru.com"
   },
   "kpis": [
     {
@@ -1753,6 +1797,17 @@
         "Agro-processing clusters"
       ],
       "type": "Roadmap"
+    },
+    {
+      "name": "KDEM / Beyond Bengaluru",
+      "url": "https://kdem.vercel.app",
+      "fields": [
+        "Digital economy targets",
+        "Cluster traction",
+        "LEAP incubation",
+        "Startup ecosystem"
+      ],
+      "type": "Digital Economy"
     }
   ]
 }

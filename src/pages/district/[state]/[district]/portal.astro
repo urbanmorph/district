@@ -26,6 +26,7 @@ const creditData = (d as any).creditData;
 const msme = (d as any).msme;
 const investments = (d as any).investments;
 const liveData = (d as any).liveData;
+const kdem = (d as any).kdem;
 const availableRoles = getAvailableRoles(d);
 
 function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
@@ -50,7 +51,7 @@ function fmtRs(v: number) {
 
   <div class="portal-hero animate-up">
     <h2 class="portal-title">{d.name} Development Portal</h2>
-    <p class="portal-subtitle">{stateName} &middot; Detailed data across {[industries, fpos, industrialLand, creditData, msme, investments, liveData, roadmap].filter(Boolean).length} datasets</p>
+    <p class="portal-subtitle">{stateName} &middot; Detailed data across {[industries, fpos, industrialLand, creditData, msme, investments, liveData, roadmap, kdem].filter(Boolean).length} datasets</p>
   </div>
 
   <!-- Portal Tabs -->
@@ -256,6 +257,153 @@ function fmtRs(v: number) {
               </table>
             </div>
           </div>
+        )}
+      </section>
+    </DistrictSection>
+  )}
+
+  <!-- KDEM / Beyond Bengaluru -->
+  {kdem && (
+    <DistrictSection section="kdem">
+      <section class="animate-up portal-section">
+        <h3 class="section-title">Digital Economy — Beyond Bengaluru</h3>
+
+        <div class="panel" style="margin-bottom:1.25rem; border-top: 3px solid var(--primary);">
+          <div class="kdem-header">
+            <div>
+              <h4 class="kdem-cluster-name">{kdem.clusterName}</h4>
+              <p class="kdem-brand">{kdem.brandPosition}</p>
+            </div>
+            <span class={`kdem-tier tier-${kdem.tier}`}>Tier {kdem.tier} — {kdem.tierLabel}</span>
+          </div>
+
+          <div class="portal-stats-row" style="margin-top:1rem;">
+            {kdem.targets2030?.startups && (
+              <div class="portal-stat">
+                <span class="portal-stat-value">{kdem.targets2030.startups}</span>
+                <span class="portal-stat-label">Startups (2030 Target)</span>
+              </div>
+            )}
+            {kdem.targets2030?.jobs && (
+              <div class="portal-stat">
+                <span class="portal-stat-value">{fmtNum(kdem.targets2030.jobs)}</span>
+                <span class="portal-stat-label">Jobs (2030 Target)</span>
+              </div>
+            )}
+            {kdem.targets2030?.digitalRevenue_crores && (
+              <div class="portal-stat">
+                <span class="portal-stat-value">{fmtCr(kdem.targets2030.digitalRevenue_crores)}</span>
+                <span class="portal-stat-label">Digital Revenue Target</span>
+              </div>
+            )}
+            {kdem.landCostMultiplier && (
+              <div class="portal-stat">
+                <span class="portal-stat-value">{kdem.landCostMultiplier}x</span>
+                <span class="portal-stat-label">Land Cost vs Bengaluru</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Current Traction */}
+        {kdem.currentTraction && (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Current Traction ({kdem.currentTraction.period})</h4>
+            <div class="portal-stats-row">
+              <div class="portal-stat">
+                <span class="portal-stat-value">{kdem.currentTraction.newCompanies}</span>
+                <span class="portal-stat-label">New Companies</span>
+              </div>
+              {kdem.currentTraction.expandedCompanies && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{kdem.currentTraction.expandedCompanies}</span>
+                  <span class="portal-stat-label">Expanded</span>
+                </div>
+              )}
+              <div class="portal-stat">
+                <span class="portal-stat-value">{fmtNum(kdem.currentTraction.jobsCreated)}</span>
+                <span class="portal-stat-label">Jobs Created</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Vertical Focus + Anchors */}
+        <div class="panel" style="margin-bottom:1rem;">
+          <div class="kdem-two-col">
+            <div>
+              <h4 class="detail-block-title">Focus Verticals</h4>
+              <div class="kdem-tags">
+                {kdem.verticalFocus.map((v: string) => (
+                  <span class="kdem-tag">{v}</span>
+                ))}
+              </div>
+            </div>
+            {kdem.anchorCompanies?.length > 0 && (
+              <div>
+                <h4 class="detail-block-title">Anchor Companies</h4>
+                {kdem.anchorCompanies.map((c: any) => (
+                  <div class="kdem-anchor">
+                    <span class="kdem-anchor-name">{c.name}</span>
+                    <span class={`kdem-anchor-status status-${c.status.toLowerCase()}`}>{c.status}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* LEAP Incubation */}
+        {kdem.leapIncubation?.active && (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.5rem;">LEAP Agritech Incubation</h4>
+            <div class="portal-stats-row">
+              <div class="portal-stat">
+                <span class="portal-stat-value">{fmtCr(kdem.leapIncubation.fund_crores)}</span>
+                <span class="portal-stat-label">Fund Size</span>
+              </div>
+              <div class="portal-stat">
+                <span class="portal-stat-value">{kdem.leapIncubation.duration}</span>
+                <span class="portal-stat-label">Duration</span>
+              </div>
+              <div class="portal-stat">
+                <span class="portal-stat-value">{kdem.leapIncubation.focus}</span>
+                <span class="portal-stat-label">Focus</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Digital Proximity */}
+        {kdem.digitalProximity?.length > 0 && (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.5rem;">Digital Proximity Advantages</h4>
+            <ul class="kdem-proximity-list">
+              {kdem.digitalProximity.map((item: string) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Policies */}
+        {kdem.policies?.length > 0 && (
+          <div class="panel" style="margin-bottom:1rem;">
+            <h4 class="detail-block-title" style="margin-bottom:0.5rem;">Applicable Policies</h4>
+            {kdem.policies.map((p: any) => (
+              <div class="kdem-policy">
+                <span class="kdem-policy-name">{p.name}</span>
+                <span class="kdem-policy-relevance">{p.relevance}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Link to KDEM dashboard */}
+        {kdem.dashboardUrl && (
+          <a href={kdem.dashboardUrl} target="_blank" rel="noopener" class="kdem-dashboard-link">
+            View full KDEM dashboard &rarr;
+          </a>
         )}
       </section>
     </DistrictSection>
@@ -850,6 +998,54 @@ function fmtRs(v: number) {
     padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap;
   }
   .source-fields-cell { font-size: 0.75rem; color: var(--gray-500); }
+
+  /* KDEM */
+  .kdem-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+  .kdem-cluster-name { font-size: 1.125rem; font-weight: 700; color: var(--gray-900); }
+  .kdem-brand { font-size: 0.8125rem; color: var(--gray-500); margin-top: 0.125rem; }
+  .kdem-tier {
+    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.25rem 0.75rem; border-radius: 4px; white-space: nowrap;
+  }
+  .tier-1 { color: #065f46; background: var(--green-light); }
+  .tier-2 { color: var(--primary-dark); background: var(--primary-light); }
+  .tier-3 { color: #92400e; background: var(--yellow-light); }
+
+  .kdem-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .kdem-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.375rem; }
+  .kdem-tag {
+    font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.625rem;
+    background: var(--primary-light); color: var(--primary-dark);
+    border-radius: 4px;
+  }
+  .kdem-anchor { display: flex; justify-content: space-between; align-items: center; padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100); }
+  .kdem-anchor:last-child { border-bottom: none; }
+  .kdem-anchor-name { font-size: 0.8125rem; font-weight: 600; color: var(--gray-800); }
+  .kdem-anchor-status {
+    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.125rem 0.5rem; border-radius: 3px;
+  }
+  .status-operational { color: #065f46; background: var(--green-light); }
+  .status-planned { color: #92400e; background: var(--yellow-light); }
+
+  .kdem-proximity-list { list-style: none; }
+  .kdem-proximity-list li {
+    font-size: 0.8125rem; color: var(--gray-700); padding: 0.375rem 0;
+    border-bottom: 1px solid var(--gray-100); padding-left: 1rem; position: relative;
+  }
+  .kdem-proximity-list li:last-child { border-bottom: none; }
+  .kdem-proximity-list li::before { content: '\2022'; position: absolute; left: 0; color: var(--primary); }
+
+  .kdem-policy { display: flex; flex-direction: column; gap: 0.0625rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); }
+  .kdem-policy:last-child { border-bottom: none; }
+  .kdem-policy-name { font-size: 0.8125rem; font-weight: 700; color: var(--gray-800); }
+  .kdem-policy-relevance { font-size: 0.75rem; color: var(--gray-500); }
+
+  .kdem-dashboard-link {
+    display: inline-block; font-size: 0.8125rem; font-weight: 600;
+    color: var(--primary); text-decoration: none;
+  }
+  .kdem-dashboard-link:hover { text-decoration: underline; }
 
   @media (max-width: 1024px) {
     .sector-detail-grid { grid-template-columns: repeat(2, 1fr); }

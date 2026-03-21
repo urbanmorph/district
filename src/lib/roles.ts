@@ -60,6 +60,7 @@ export function getAvailableRoles(district: DistrictCore): Role[] {
     economy: !!district.economy?.gddp_crores,
     industries: !!(district as any).industries,
     roadmap: !!(district as any).roadmap,
+    kdem: !!(district as any).kdem,
   };
 
   // Check for per-district role overrides

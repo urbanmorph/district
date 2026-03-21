@@ -20,7 +20,7 @@ const comp = eco.gddpComposition || {};
 const industries = (d as any).industries;
 
 // Check if this district has detailed portal data
-const hasPortalData = !!((d as any).roadmap || industries || (d as any).fpos || (d as any).industrialLand || (d as any).creditData || (d as any).msme || (d as any).investments || (d as any).liveData);
+const hasPortalData = !!((d as any).roadmap || industries || (d as any).fpos || (d as any).industrialLand || (d as any).creditData || (d as any).msme || (d as any).investments || (d as any).liveData || (d as any).kdem);
 const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
 ---
 
@@ -208,10 +208,24 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
               </div>
             )}
           </div>
-          <a href={portalUrl} class="portal-cta">
-            Explore detailed sector data, roadmap & role-based views
-            <span class="portal-cta-arrow">&rarr;</span>
-          </a>
+          <div class="portal-cta-group">
+            <a href={portalUrl} class="portal-cta-primary">
+              <span class="portal-cta-icon">&#x1F4CA;</span>
+              <span class="portal-cta-content">
+                <span class="portal-cta-heading">Explore the Development Portal</span>
+                <span class="portal-cta-desc">Detailed sector data, roadmap, industries, credit & investment data</span>
+              </span>
+              <span class="portal-cta-arrow">&rarr;</span>
+            </a>
+            <a href={`${portalUrl}?tab=discuss`} class="portal-cta-discuss">
+              <span class="portal-cta-icon">&#x1F4AC;</span>
+              <span class="portal-cta-content">
+                <span class="portal-cta-heading">Join the Discussion</span>
+                <span class="portal-cta-desc">Share insights, ask questions, or comment on this district's development</span>
+              </span>
+              <span class="portal-cta-arrow">&rarr;</span>
+            </a>
+          </div>
         </div>
       )}
     </section>
@@ -220,10 +234,24 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
   <!-- Portal CTA (for districts with portal data but no keySectors) -->
   {hasPortalData && !(d.keySectors?.length > 0) && (
     <section class="animate-up" style="margin-bottom:2rem;">
-      <a href={portalUrl} class="panel portal-cta-block">
-        <span class="portal-cta-block-text">Explore detailed data portal</span>
-        <span class="portal-cta-arrow">&rarr;</span>
-      </a>
+      <div class="portal-cta-group">
+        <a href={portalUrl} class="portal-cta-primary">
+          <span class="portal-cta-icon">&#x1F4CA;</span>
+          <span class="portal-cta-content">
+            <span class="portal-cta-heading">Explore the Development Portal</span>
+            <span class="portal-cta-desc">Detailed data, roadmap & role-based views</span>
+          </span>
+          <span class="portal-cta-arrow">&rarr;</span>
+        </a>
+        <a href={`${portalUrl}?tab=discuss`} class="portal-cta-discuss">
+          <span class="portal-cta-icon">&#x1F4AC;</span>
+          <span class="portal-cta-content">
+            <span class="portal-cta-heading">Join the Discussion</span>
+            <span class="portal-cta-desc">Share insights, ask questions, or comment on this district's development</span>
+          </span>
+          <span class="portal-cta-arrow">&rarr;</span>
+        </a>
+      </div>
     </section>
   )}
 
@@ -302,25 +330,34 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
   .overview-stat-value { font-size: 1.375rem; font-weight: 800; color: var(--gray-900); }
   .overview-stat-label { font-size: 0.6875rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
   .sector-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .portal-cta {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.875rem 1.25rem; margin-top: 0.5rem;
-    background: linear-gradient(135deg, var(--primary-light), rgba(13,148,136,0.08));
-    border: 1px solid rgba(37,99,235,0.15); border-radius: var(--radius);
-    color: var(--primary-dark); font-size: 0.875rem; font-weight: 600;
+  /* Portal CTA */
+  .portal-cta-group { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.75rem; }
+  .portal-cta-primary, .portal-cta-discuss {
+    display: flex; align-items: center; gap: 0.875rem;
+    padding: 1rem 1.25rem; border-radius: var(--radius);
     text-decoration: none; transition: all 0.2s;
   }
-  .portal-cta:hover { background: linear-gradient(135deg, #bfdbfe, rgba(13,148,136,0.12)); box-shadow: var(--shadow-sm); }
-  .portal-cta-arrow { font-size: 1.125rem; }
+  .portal-cta-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: 1px solid var(--primary-dark); color: white;
+  }
+  .portal-cta-primary:hover { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .portal-cta-primary .portal-cta-heading { color: white; }
+  .portal-cta-primary .portal-cta-desc { color: rgba(255,255,255,0.8); }
+  .portal-cta-primary .portal-cta-arrow { color: rgba(255,255,255,0.9); }
 
-  .portal-cta-block {
-    display: flex; align-items: center; justify-content: space-between;
-    text-decoration: none; transition: all 0.2s;
-    background: linear-gradient(135deg, var(--primary-light), rgba(13,148,136,0.08));
-    border: 1px solid rgba(37,99,235,0.15);
+  .portal-cta-discuss {
+    background: white; border: 1px solid var(--gray-200);
   }
-  .portal-cta-block:hover { box-shadow: var(--shadow-md); }
-  .portal-cta-block-text { color: var(--primary-dark); font-size: 0.9375rem; font-weight: 600; }
+  .portal-cta-discuss:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+  .portal-cta-discuss .portal-cta-heading { color: var(--gray-800); }
+  .portal-cta-discuss .portal-cta-desc { color: var(--gray-500); }
+
+  .portal-cta-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .portal-cta-content { flex: 1; display: flex; flex-direction: column; gap: 0.125rem; }
+  .portal-cta-heading { font-size: 0.9375rem; font-weight: 700; }
+  .portal-cta-desc { font-size: 0.75rem; }
+  .portal-cta-arrow { font-size: 1.25rem; flex-shrink: 0; color: var(--gray-400); }
 
   .sco-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
   .sco-card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--gray-100); border-top: 3px solid transparent; }
