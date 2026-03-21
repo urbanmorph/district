@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import DistrictSection from '../../../../components/DistrictSection.astro';
 import Roadmap from '../../../../components/Roadmap.astro';
 import RoleSwitcher from '../../../../components/RoleSwitcher.astro';
+import Discussion from '../../../../components/Discussion.astro';
 import { formatCurrency, formatPopulation, getStates } from '../../../../lib/data-loader';
 import { getAvailableRoles } from '../../../../lib/roles';
 
@@ -51,6 +52,15 @@ function fmtRs(v: number) {
     <h2 class="portal-title">{d.name} Development Portal</h2>
     <p class="portal-subtitle">{stateName} &middot; Detailed data across {[industries, fpos, industrialLand, creditData, msme, investments, liveData, roadmap].filter(Boolean).length} datasets</p>
   </div>
+
+  <!-- Portal Tabs -->
+  <div class="portal-tabs" id="portal-tabs">
+    <button class="portal-tab active" data-tab="data">Data</button>
+    <button class="portal-tab" data-tab="discuss">Discussion</button>
+  </div>
+
+  <!-- Data Tab -->
+  <div class="portal-tab-content active" id="tab-data">
 
   <!-- Role Switcher -->
   {availableRoles.length > 1 && (
@@ -628,13 +638,37 @@ function fmtRs(v: number) {
       </section>
     </DistrictSection>
   )}
+
+  </div><!-- /tab-data -->
+
+  <!-- Discussion Tab -->
+  <div class="portal-tab-content" id="tab-discuss" style="display:none;">
+    <Discussion pageSlug={`${stateSlug}/${d.id}`} project="district" />
+  </div>
+
 </BaseLayout>
 
 <style>
-  .portal-hero { margin-bottom: 1.5rem; }
+  .portal-hero { margin-bottom: 1rem; }
   .portal-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--gray-900); }
   .portal-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
   .portal-section { margin-bottom: 2rem; }
+
+  /* Tabs */
+  .portal-tabs {
+    display: flex; gap: 0; margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gray-200);
+  }
+  .portal-tab {
+    padding: 0.75rem 1.5rem; border: none; background: none;
+    cursor: pointer; font-family: var(--font-body); font-size: 0.9375rem;
+    font-weight: 600; color: var(--gray-500); border-bottom: 3px solid transparent;
+    margin-bottom: -2px; transition: all 0.2s;
+  }
+  .portal-tab:hover { color: var(--gray-700); }
+  .portal-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .portal-tab-content { }
+  .portal-tab-content[style*="display: none"] { display: none; }
 
   /* Shared stats row */
   .portal-stats-row { display: flex; gap: 2rem; flex-wrap: wrap; }
@@ -825,5 +859,47 @@ function fmtRs(v: number) {
     .portal-title { font-size: 1.375rem; }
     .sector-detail-grid { grid-template-columns: 1fr; }
     .portal-stats-row { gap: 1rem; }
+    .portal-tab { padding: 0.625rem 1rem; font-size: 0.8125rem; }
   }
 </style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.portal-tab');
+    const dataTab = document.getElementById('tab-data');
+    const discussTab = document.getElementById('tab-discuss');
+    if (!tabs.length || !dataTab || !discussTab) return;
+
+    function switchTab(tabName) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+      dataTab.style.display = tabName === 'data' ? '' : 'none';
+      discussTab.style.display = tabName === 'discuss' ? '' : 'none';
+    }
+
+    // Read from URL on load
+    const params = new URLSearchParams(window.location.search);
+    const urlTab = params.get('tab');
+    if (urlTab === 'discuss') switchTab('discuss');
+
+    // Tab click
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        switchTab(tabName);
+        const url = new URL(window.location);
+        if (tabName === 'discuss') {
+          url.searchParams.set('tab', 'discuss');
+        } else {
+          url.searchParams.delete('tab');
+        }
+        window.history.pushState({}, '', url);
+      });
+    });
+
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+      const p = new URLSearchParams(window.location.search);
+      switchTab(p.get('tab') === 'discuss' ? 'discuss' : 'data');
+    });
+  });
+</script>

@@ -1,0 +1,553 @@
+---
+interface Props {
+  pageSlug: string;
+  project?: string;
+}
+
+const { pageSlug, project = 'district' } = Astro.props;
+
+const SUPABASE_URL = 'https://abblyaukkoxmgzwretvm.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiYmx5YXVra294bWd6d3JldHZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMzE4NTQsImV4cCI6MjA4MzgwNzg1NH0.neJmkUmGFPfXMC5PZNRhaXIGEefj_b79L_YceXl5jxU';
+---
+
+<div class="discussion" id="discussion" data-page-slug={pageSlug} data-project={project}>
+  <!-- New comment form -->
+  <div class="panel comment-form-panel">
+    <h4 class="comment-form-title">Start a new discussion</h4>
+    <div class="comment-form" id="new-comment-form">
+      <input type="text" class="comment-name-input" id="comment-author" placeholder="Your name" maxlength="50" />
+      <!-- Honeypot -->
+      <input type="text" class="comment-hp" id="comment-hp" tabindex="-1" autocomplete="off" />
+      <div class="editor-container">
+        <div class="editor-toolbar">
+          <button type="button" class="tb-btn" data-action="bold" title="Bold"><strong>B</strong></button>
+          <button type="button" class="tb-btn" data-action="italic" title="Italic"><em>I</em></button>
+          <button type="button" class="tb-btn" data-action="link" title="Insert link">&#x1F517;</button>
+          <button type="button" class="tb-btn" data-action="image" title="Insert image URL">&#x1F4F7;</button>
+          <button type="button" class="tb-btn" data-action="quote" title="Blockquote">&ldquo;</button>
+          <button type="button" class="tb-btn" data-action="list" title="List">1.</button>
+          <div class="tb-spacer"></div>
+          <button type="button" class="tb-btn tb-preview-btn" data-action="preview">Preview</button>
+          <button type="button" class="tb-btn tb-edit-btn active" data-action="edit">Edit</button>
+        </div>
+        <textarea class="comment-body" id="comment-body" placeholder="Share your thoughts... (Markdown supported)" minlength="10" maxlength="2000" rows="4"></textarea>
+        <div class="comment-preview" id="comment-preview" style="display:none;"></div>
+      </div>
+      <div class="comment-form-footer">
+        <span class="comment-hint">Supports Markdown &middot; Images via <code>![alt](url)</code></span>
+        <button type="button" class="comment-submit-btn" id="comment-submit">Post</button>
+      </div>
+    </div>
+    <div class="comment-form-message" id="comment-message" style="display:none;"></div>
+  </div>
+
+  <!-- Sort controls -->
+  <div class="discussion-controls" id="discussion-controls" style="display:none;">
+    <span class="discussion-count" id="discussion-count"></span>
+    <select class="discussion-sort" id="discussion-sort">
+      <option value="newest">Newest first</option>
+      <option value="oldest">Oldest first</option>
+      <option value="popular">Most liked</option>
+    </select>
+  </div>
+
+  <!-- Comments list -->
+  <div class="comments-list" id="comments-list">
+    <div class="comments-loading" id="comments-loading">Loading discussion...</div>
+    <div class="comments-empty" id="comments-empty" style="display:none;">
+      <p>No discussions yet. Be the first to share your thoughts.</p>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .discussion { max-width: 100%; }
+
+  /* Form */
+  .comment-form-panel { margin-bottom: 1.5rem; }
+  .comment-form-title { font-size: 0.9375rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; }
+  .comment-name-input {
+    width: 100%; max-width: 300px; padding: 0.5rem 0.75rem; margin-bottom: 0.75rem;
+    font-family: var(--font-body); font-size: 0.875rem;
+    border: 1px solid var(--gray-200); border-radius: 6px; color: var(--gray-800);
+    background: var(--gray-50);
+  }
+  .comment-name-input:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+  .comment-hp { position: absolute; left: -9999px; }
+
+  /* Editor */
+  .editor-container { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; }
+  .editor-toolbar {
+    display: flex; align-items: center; gap: 0.125rem; padding: 0.375rem 0.5rem;
+    background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+  }
+  .tb-btn {
+    background: none; border: none; cursor: pointer; padding: 0.25rem 0.5rem;
+    font-family: var(--font-body); font-size: 0.8125rem; color: var(--gray-600);
+    border-radius: 4px; line-height: 1;
+  }
+  .tb-btn:hover { background: var(--gray-200); color: var(--gray-800); }
+  .tb-btn.active { background: var(--gray-200); color: var(--gray-900); font-weight: 600; }
+  .tb-spacer { flex: 1; }
+  .tb-preview-btn, .tb-edit-btn { font-size: 0.75rem; }
+
+  .comment-body {
+    width: 100%; min-height: 100px; padding: 0.75rem; border: none; resize: vertical;
+    font-family: var(--font-body); font-size: 0.875rem; color: var(--gray-800);
+    line-height: 1.6; background: white;
+  }
+  .comment-body:focus { outline: none; }
+  .comment-preview {
+    padding: 0.75rem; min-height: 100px; font-size: 0.875rem; color: var(--gray-800);
+    line-height: 1.6; background: white;
+  }
+  .comment-preview img { max-width: 100%; border-radius: 6px; margin: 0.5rem 0; }
+  .comment-preview a { color: var(--primary); }
+  .comment-preview blockquote { border-left: 3px solid var(--gray-300); padding-left: 0.75rem; color: var(--gray-600); margin: 0.5rem 0; }
+  .comment-preview code { background: var(--gray-100); padding: 0.125rem 0.375rem; border-radius: 3px; font-size: 0.8125rem; }
+
+  .comment-form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
+  .comment-hint { font-size: 0.6875rem; color: var(--gray-400); }
+  .comment-hint code { font-size: 0.625rem; background: var(--gray-100); padding: 0.0625rem 0.25rem; border-radius: 2px; }
+  .comment-submit-btn {
+    padding: 0.5rem 1.25rem; background: var(--primary); color: white;
+    border: none; border-radius: 6px; font-family: var(--font-body);
+    font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .comment-submit-btn:hover { background: var(--primary-dark); }
+  .comment-submit-btn:disabled { background: var(--gray-300); cursor: not-allowed; }
+
+  .comment-form-message {
+    margin-top: 0.75rem; padding: 0.625rem 0.875rem; border-radius: 6px;
+    font-size: 0.8125rem; font-weight: 500;
+  }
+  .comment-form-message.success { background: var(--green-light); color: var(--green-dark); }
+  .comment-form-message.error { background: var(--red-light); color: var(--red-dark); }
+
+  /* Controls */
+  .discussion-controls {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1rem;
+  }
+  .discussion-count { font-size: 0.8125rem; font-weight: 600; color: var(--gray-600); }
+  .discussion-sort {
+    padding: 0.375rem 0.625rem; font-family: var(--font-body); font-size: 0.75rem;
+    border: 1px solid var(--gray-200); border-radius: 6px; color: var(--gray-700);
+    background: white; cursor: pointer;
+  }
+
+  /* Comments */
+  .comments-loading, .comments-empty {
+    text-align: center; padding: 2rem; color: var(--gray-400); font-size: 0.875rem;
+  }
+
+  /* Comment card */
+  .comment-card {
+    background: white; border: 1px solid var(--gray-200); border-radius: var(--radius);
+    padding: 1rem 1.25rem; margin-bottom: 0.75rem;
+  }
+  .comment-card.reply { margin-left: 2rem; border-left: 3px solid var(--gray-200); }
+  .comment-header { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.5rem; }
+  .comment-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--primary-light);
+    color: var(--primary-dark); display: flex; align-items: center; justify-content: center;
+    font-size: 0.6875rem; font-weight: 700; flex-shrink: 0;
+  }
+  .comment-meta { flex: 1; }
+  .comment-author { font-size: 0.8125rem; font-weight: 700; color: var(--gray-800); }
+  .comment-time { font-size: 0.6875rem; color: var(--gray-400); }
+  .comment-content { font-size: 0.875rem; color: var(--gray-700); line-height: 1.6; }
+  .comment-content img { max-width: 100%; border-radius: 6px; margin: 0.5rem 0; }
+  .comment-content a { color: var(--primary); }
+  .comment-content blockquote { border-left: 3px solid var(--gray-300); padding-left: 0.75rem; color: var(--gray-600); margin: 0.5rem 0; }
+  .comment-content code { background: var(--gray-100); padding: 0.125rem 0.375rem; border-radius: 3px; font-size: 0.8125rem; }
+  .comment-actions { display: flex; gap: 1rem; margin-top: 0.75rem; }
+  .comment-action-btn {
+    background: none; border: none; cursor: pointer; font-family: var(--font-body);
+    font-size: 0.75rem; color: var(--gray-500); display: flex; align-items: center; gap: 0.25rem;
+    padding: 0.25rem 0; transition: color 0.2s;
+  }
+  .comment-action-btn:hover { color: var(--gray-700); }
+  .comment-action-btn.liked { color: var(--primary); }
+
+  /* Reply form (inline) */
+  .reply-form { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--gray-100); }
+  .reply-form .comment-name-input { max-width: 200px; font-size: 0.8125rem; padding: 0.375rem 0.625rem; }
+  .reply-form .comment-body { min-height: 60px; font-size: 0.8125rem; }
+  .reply-form-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.375rem; }
+  .reply-cancel-btn {
+    padding: 0.375rem 0.75rem; background: none; border: 1px solid var(--gray-200);
+    border-radius: 6px; font-family: var(--font-body); font-size: 0.75rem;
+    color: var(--gray-600); cursor: pointer;
+  }
+  .reply-submit-btn {
+    padding: 0.375rem 0.75rem; background: var(--primary); color: white;
+    border: none; border-radius: 6px; font-family: var(--font-body);
+    font-size: 0.75rem; font-weight: 600; cursor: pointer;
+  }
+
+  .replies-toggle {
+    background: none; border: none; cursor: pointer; font-family: var(--font-body);
+    font-size: 0.75rem; color: var(--primary); padding: 0.25rem 0; margin-top: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .comment-card.reply { margin-left: 1rem; }
+    .comment-name-input { max-width: 100%; }
+  }
+</style>
+
+<script is:inline define:vars={{ SUPABASE_URL, SUPABASE_ANON_KEY }}>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('discussion');
+  if (!container) return;
+
+  const pageSlug = container.dataset.pageSlug;
+  const project = container.dataset.project;
+  const API = SUPABASE_URL + '/rest/v1';
+  const headers = {
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+    'Content-Type': 'application/json',
+    'Prefer': 'return=representation'
+  };
+
+  let comments = [];
+  let lastPostTime = 0;
+
+  // Simple markdown renderer (no external dependency)
+  function renderMarkdown(text) {
+    let html = text
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      // Images: ![alt](url)
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy" />')
+      // Links: [text](url)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      // Bold: **text**
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // Italic: *text*
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      // Code: `text`
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Blockquote: > text
+      .replace(/^&gt;\s?(.+)$/gm, '<blockquote>$1</blockquote>')
+      // Line breaks
+      .replace(/\n/g, '<br>');
+    return html;
+  }
+
+  function timeAgo(dateStr) {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    const days = Math.floor(hrs / 24);
+    if (days < 30) return days + 'd ago';
+    const months = Math.floor(days / 30);
+    return months + 'mo ago';
+  }
+
+  function getInitials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  function getFingerprint() {
+    const nav = navigator.userAgent + navigator.language + screen.width;
+    let hash = 0;
+    for (let i = 0; i < nav.length; i++) {
+      hash = ((hash << 5) - hash) + nav.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'fp_' + Math.abs(hash).toString(36);
+  }
+
+  async function fetchComments(sort) {
+    const order = sort === 'oldest' ? 'created_at.asc' : sort === 'popular' ? 'like_count.desc' : 'created_at.desc';
+    const url = API + '/discussion_comments?page_slug=eq.' + encodeURIComponent(pageSlug) + '&status=eq.visible&order=' + order;
+    const res = await fetch(url, { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } });
+    if (!res.ok) return [];
+    return res.json();
+  }
+
+  function buildTree(flatComments) {
+    const map = {};
+    const roots = [];
+    flatComments.forEach(c => { map[c.id] = { ...c, replies: [] }; });
+    flatComments.forEach(c => {
+      if (c.parent_id && map[c.parent_id]) {
+        map[c.parent_id].replies.push(map[c.id]);
+      } else {
+        roots.push(map[c.id]);
+      }
+    });
+    return roots;
+  }
+
+  function renderComment(comment, isReply) {
+    const card = document.createElement('div');
+    card.className = 'comment-card' + (isReply ? ' reply' : '');
+    card.dataset.id = comment.id;
+
+    card.innerHTML =
+      '<div class="comment-header">' +
+        '<div class="comment-avatar">' + getInitials(comment.author_name) + '</div>' +
+        '<div class="comment-meta">' +
+          '<span class="comment-author">' + comment.author_name.replace(/</g, '&lt;') + '</span>' +
+          '<span class="comment-time"> &middot; ' + timeAgo(comment.created_at) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="comment-content">' + renderMarkdown(comment.body) + '</div>' +
+      '<div class="comment-actions">' +
+        '<button class="comment-action-btn like-btn" data-id="' + comment.id + '">' +
+          '\uD83D\uDC4D ' + (comment.like_count || 0) +
+        '</button>' +
+        '<button class="comment-action-btn reply-btn" data-id="' + comment.id + '">' +
+          '\uD83D\uDCAC Reply' +
+        '</button>' +
+        '<button class="comment-action-btn flag-btn" data-id="' + comment.id + '">' +
+          '\u2691 Flag' +
+        '</button>' +
+      '</div>';
+
+    // Render replies
+    if (comment.replies && comment.replies.length > 0) {
+      const repliesContainer = document.createElement('div');
+      repliesContainer.className = 'replies-container';
+      comment.replies.forEach(r => {
+        repliesContainer.appendChild(renderComment(r, true));
+      });
+      card.appendChild(repliesContainer);
+    }
+
+    return card;
+  }
+
+  async function loadComments() {
+    const sort = document.getElementById('discussion-sort').value;
+    const data = await fetchComments(sort);
+    comments = data;
+
+    const list = document.getElementById('comments-list');
+    const loading = document.getElementById('comments-loading');
+    const empty = document.getElementById('comments-empty');
+    const controls = document.getElementById('discussion-controls');
+    const count = document.getElementById('discussion-count');
+
+    loading.style.display = 'none';
+
+    if (data.length === 0) {
+      empty.style.display = '';
+      controls.style.display = 'none';
+      return;
+    }
+
+    empty.style.display = 'none';
+    controls.style.display = '';
+    const topLevel = data.filter(c => !c.parent_id);
+    count.textContent = data.length + ' comment' + (data.length !== 1 ? 's' : '') + ' \u00B7 ' + topLevel.length + ' thread' + (topLevel.length !== 1 ? 's' : '');
+
+    const tree = buildTree(data);
+    // Clear old comments (keep loading/empty divs)
+    list.querySelectorAll('.comment-card').forEach(c => c.remove());
+    tree.forEach(comment => {
+      list.appendChild(renderComment(comment, false));
+    });
+  }
+
+  // Toolbar actions
+  document.querySelectorAll('.editor-toolbar .tb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.action;
+      const textarea = btn.closest('.editor-container').querySelector('textarea') || document.getElementById('comment-body');
+      const preview = btn.closest('.editor-container').querySelector('.comment-preview') || document.getElementById('comment-preview');
+
+      if (action === 'preview') {
+        textarea.style.display = 'none';
+        preview.style.display = '';
+        preview.innerHTML = renderMarkdown(textarea.value || '<em>Nothing to preview</em>');
+        btn.classList.add('active');
+        btn.closest('.editor-toolbar').querySelector('[data-action="edit"]').classList.remove('active');
+        return;
+      }
+      if (action === 'edit') {
+        textarea.style.display = '';
+        preview.style.display = 'none';
+        btn.classList.add('active');
+        btn.closest('.editor-toolbar').querySelector('[data-action="preview"]').classList.remove('active');
+        return;
+      }
+
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selected = textarea.value.substring(start, end);
+      let insert = '';
+
+      if (action === 'bold') insert = '**' + (selected || 'bold text') + '**';
+      else if (action === 'italic') insert = '*' + (selected || 'italic text') + '*';
+      else if (action === 'link') insert = '[' + (selected || 'link text') + '](https://)';
+      else if (action === 'image') insert = '![' + (selected || 'description') + '](https://image-url)';
+      else if (action === 'quote') insert = '> ' + (selected || 'quote');
+      else if (action === 'list') insert = '1. ' + (selected || 'item');
+
+      textarea.focus();
+      textarea.setRangeText(insert, start, end, 'end');
+    });
+  });
+
+  // Submit comment
+  document.getElementById('comment-submit').addEventListener('click', async () => {
+    const author = document.getElementById('comment-author').value.trim();
+    const body = document.getElementById('comment-body').value.trim();
+    const hp = document.getElementById('comment-hp').value;
+    const msg = document.getElementById('comment-message');
+    const btn = document.getElementById('comment-submit');
+
+    // Honeypot
+    if (hp) return;
+
+    if (!author || author.length < 2) { showMessage(msg, 'Please enter your name (at least 2 characters).', 'error'); return; }
+    if (!body || body.length < 10) { showMessage(msg, 'Comment must be at least 10 characters.', 'error'); return; }
+
+    // Rate limit (30s cooldown)
+    if (Date.now() - lastPostTime < 30000) {
+      showMessage(msg, 'Please wait before posting again.', 'error'); return;
+    }
+
+    // Link limit
+    const linkCount = (body.match(/https?:\/\//g) || []).length;
+    if (linkCount > 3) { showMessage(msg, 'Maximum 3 links per comment.', 'error'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Posting...';
+
+    try {
+      const res = await fetch(API + '/discussion_comments', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          page_slug: pageSlug,
+          project: project,
+          author_name: author,
+          body: body,
+          ip_hash: getFingerprint(),
+          status: 'visible'
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || 'Failed to post');
+      }
+
+      lastPostTime = Date.now();
+      document.getElementById('comment-body').value = '';
+      showMessage(msg, 'Comment posted!', 'success');
+      loadComments();
+    } catch (e) {
+      showMessage(msg, 'Error: ' + e.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Post';
+    }
+  });
+
+  // Like
+  document.getElementById('comments-list').addEventListener('click', async (e) => {
+    const likeBtn = e.target.closest('.like-btn');
+    if (likeBtn) {
+      const commentId = likeBtn.dataset.id;
+      const fp = getFingerprint();
+      try {
+        await fetch(API + '/discussion_likes', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({ comment_id: commentId, voter_fingerprint: fp })
+        });
+        loadComments();
+      } catch (err) { /* duplicate like, ignore */ }
+      return;
+    }
+
+    // Reply button
+    const replyBtn = e.target.closest('.reply-btn');
+    if (replyBtn) {
+      const card = replyBtn.closest('.comment-card');
+      if (card.querySelector('.reply-form')) return; // already open
+
+      const parentId = replyBtn.dataset.id;
+      const form = document.createElement('div');
+      form.className = 'reply-form';
+      form.innerHTML =
+        '<input type="text" class="comment-name-input" placeholder="Your name" maxlength="50" />' +
+        '<div class="editor-container">' +
+          '<textarea class="comment-body" placeholder="Write your reply..." rows="3" minlength="10" maxlength="2000"></textarea>' +
+        '</div>' +
+        '<div class="reply-form-actions">' +
+          '<button class="reply-cancel-btn">Cancel</button>' +
+          '<button class="reply-submit-btn">Reply</button>' +
+        '</div>';
+
+      card.appendChild(form);
+
+      form.querySelector('.reply-cancel-btn').addEventListener('click', () => form.remove());
+      form.querySelector('.reply-submit-btn').addEventListener('click', async () => {
+        const rAuthor = form.querySelector('.comment-name-input').value.trim();
+        const rBody = form.querySelector('.comment-body').value.trim();
+        if (!rAuthor || rAuthor.length < 2 || !rBody || rBody.length < 10) return;
+
+        if (Date.now() - lastPostTime < 30000) return;
+
+        try {
+          await fetch(API + '/discussion_comments', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+              page_slug: pageSlug,
+              project: project,
+              parent_id: parentId,
+              author_name: rAuthor,
+              body: rBody,
+              ip_hash: getFingerprint(),
+              status: 'visible'
+            })
+          });
+          lastPostTime = Date.now();
+          form.remove();
+          loadComments();
+        } catch (err) { /* ignore */ }
+      });
+      return;
+    }
+
+    // Flag button
+    const flagBtn = e.target.closest('.flag-btn');
+    if (flagBtn) {
+      const commentId = flagBtn.dataset.id;
+      if (!confirm('Flag this comment as inappropriate?')) return;
+      try {
+        // Increment flag_count via RPC or direct update
+        // Since RLS only allows select/insert, we use an RPC approach
+        // For now, just show feedback
+        flagBtn.textContent = '\u2691 Flagged';
+        flagBtn.style.color = 'var(--red)';
+        flagBtn.disabled = true;
+      } catch (err) { /* ignore */ }
+    }
+  });
+
+  // Sort change
+  document.getElementById('discussion-sort').addEventListener('change', loadComments);
+
+  function showMessage(el, text, type) {
+    el.textContent = text;
+    el.className = 'comment-form-message ' + type;
+    el.style.display = '';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  // Initial load
+  loadComments();
+});
+</script>
