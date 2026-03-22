@@ -18,6 +18,9 @@ export function getStaticPaths() {
 }
 
 const { district: d, stateName, stateSlug } = Astro.props;
+const eco = d.economy || {} as any;
+const demo = d.demographics || {} as any;
+const comp = eco.gddpComposition || {};
 const roadmap = (d as any).roadmap;
 const industries = (d as any).industries;
 const fpos = (d as any).fpos;
@@ -27,6 +30,8 @@ const msme = (d as any).msme;
 const investments = (d as any).investments;
 const liveData = (d as any).liveData;
 const kdem = (d as any).kdem;
+const communityInsights = (d as any).communityInsights;
+const communityItems: string[] = communityInsights?.verifiedItems || [];
 const availableRoles = getAvailableRoles(d);
 
 function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
@@ -36,6 +41,14 @@ function fmtRs(v: number) {
   if (v >= 100000) return `₹${(v / 100000).toFixed(1)}L`;
   return `₹${v.toLocaleString('en-IN')}`;
 }
+function isCommunity(text: string): boolean {
+  return communityItems.some(item => text.toLowerCase().includes(item.toLowerCase()));
+}
+
+// Phase data for goals/next steps
+const phases = roadmap ? Object.keys(roadmap.phases).sort().map(k => ({ id: k, ...roadmap.phases[k] })) : [];
+const phase1 = phases.length > 0 ? phases[0] : null;
+const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.progress < 100) || [];
 ---
 
 <BaseLayout title={`${d.name} Portal`} description={`Detailed development portal for ${d.name} district, ${stateName}`}>
@@ -56,12 +69,290 @@ function fmtRs(v: number) {
 
   <!-- Portal Tabs -->
   <div class="portal-tabs" id="portal-tabs">
-    <button class="portal-tab active" data-tab="data">Data</button>
+    <button class="portal-tab active" data-tab="today">Today</button>
+    <button class="portal-tab" data-tab="data">Data by Role</button>
     <button class="portal-tab" data-tab="discuss">Discussion</button>
   </div>
 
-  <!-- Data Tab -->
-  <div class="portal-tab-content active" id="tab-data">
+  <!-- Today Tab -->
+  <div class="portal-tab-content active" id="tab-today">
+
+  <!-- ① Today -->
+  <div id="today" class="portal-section">
+    <h3 class="section-title">{d.name} Today</h3>
+
+    {/* KPI strip */}
+    <div class="kpi-strip" style="margin-bottom:1.25rem;">
+      {eco.perCapitaIncome && (
+        <div class="kpi-card">
+          <div class="kpi-accent" style="background:var(--teal);"></div>
+          <div class="kpi-value">{formatCurrency(eco.perCapitaIncome)}</div>
+          <div class="kpi-label">Per Capita Income</div>
+          {d.rankings?.perCapitaIncome?.stateRank && <div class="kpi-trend negative">Rank {d.rankings.perCapitaIncome.stateRank} in {stateName}</div>}
+        </div>
+      )}
+      {eco.gddp_crores && (
+        <div class="kpi-card">
+          <div class="kpi-accent" style="background:var(--primary);"></div>
+          <div class="kpi-value">₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</div>
+          <div class="kpi-label">GDDP</div>
+        </div>
+      )}
+      {demo.population && (
+        <div class="kpi-card">
+          <div class="kpi-accent" style="background:var(--orange);"></div>
+          <div class="kpi-value">{formatPopulation(demo.population)}</div>
+          <div class="kpi-label">Population</div>
+        </div>
+      )}
+      {demo.density && (
+        <div class="kpi-card">
+          <div class="kpi-accent" style="background:var(--green);"></div>
+          <div class="kpi-value">{demo.density}/km²</div>
+          <div class="kpi-label">Density</div>
+        </div>
+      )}
+    </div>
+
+    {/* GDDP + Demographics */}
+    {(comp.agriculture || comp.industry || comp.services || demo.population) && (
+      <div class="today-two-col">
+        {(comp.agriculture || comp.industry || comp.services) && (
+          <div class="panel">
+            <h4 class="portal-sub-title">GDDP Composition</h4>
+            <div class="today-donut-row">
+              <div class="today-donut">
+                <svg viewBox="0 0 140 140">
+                  {(() => {
+                    const r = 54, c = 2 * Math.PI * r;
+                    const servLen = ((comp.services || 0) / 100) * c;
+                    const indLen = ((comp.industry || 0) / 100) * c;
+                    const agriLen = ((comp.agriculture || 0) / 100) * c;
+                    return [
+                      { color: 'var(--teal)', len: servLen, offset: 0 },
+                      { color: 'var(--primary)', len: indLen, offset: -servLen },
+                      { color: 'var(--green)', len: agriLen, offset: -(servLen + indLen) },
+                    ].map(seg => (
+                      <circle fill="none" stroke={seg.color} stroke-width="22" cx="70" cy="70" r={r}
+                        stroke-dasharray={`${seg.len} ${c - seg.len}`}
+                        stroke-dashoffset={seg.offset} />
+                    ));
+                  })()}
+                </svg>
+                <div class="today-donut-center">
+                  <span class="today-donut-val">{eco.gddp_crores ? `₹${(eco.gddp_crores/1000).toFixed(0)}K` : ''}</span>
+                  <span class="today-donut-unit">Cr</span>
+                </div>
+              </div>
+              <div class="today-legend">
+                <div><span class="today-dot" style="background:var(--teal)"></span> Services {comp.services}%</div>
+                <div><span class="today-dot" style="background:var(--green)"></span> Agriculture {comp.agriculture}%</div>
+                <div><span class="today-dot" style="background:var(--primary)"></span> Industry {comp.industry}%</div>
+              </div>
+            </div>
+          </div>
+        )}
+        {demo.population && (
+          <div class="panel">
+            <h4 class="portal-sub-title">Demographics</h4>
+            <div class="today-demo">
+              {demo.area_sq_km && <div class="today-demo-row"><span>Area</span><strong>{demo.area_sq_km.toLocaleString('en-IN')} km²</strong></div>}
+              {demo.rural && demo.population && <div class="today-demo-row"><span>Rural / Urban</span><strong>{((demo.rural/demo.population)*100).toFixed(1)}% / {((demo.urban/demo.population)*100).toFixed(1)}%</strong></div>}
+              {demo.literacyRate && <div class="today-demo-row"><span>Literacy</span><strong>{demo.literacyRate}%</strong></div>}
+              {demo.sexRatio && <div class="today-demo-row"><span>Sex Ratio</span><strong>{demo.sexRatio} per 1000</strong></div>}
+              {eco.growthRate && <div class="today-demo-row"><span>Growth Rate</span><strong>{eco.growthRate}%</strong></div>}
+            </div>
+          </div>
+        )}
+      </div>
+    )}
+
+  </div>
+
+  <!-- Live Data -->
+  {liveData && (
+    <div id="livedata" class="portal-section">
+      <h3 class="section-title">Live Data <span class="live-badge">Snapshot</span></h3>
+      <div class="live-data-grid">
+        {liveData.commodityPrices && (
+          <div class="panel">
+            <h4 class="detail-block-title">Commodity Prices</h4>
+            {Object.entries(liveData.commodityPrices).map(([key, data]: [string, any]) => (
+              <div class="commodity-item">
+                <div class="commodity-header">
+                  <span class="commodity-name">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  <span class="commodity-price">{data.unit === 'Rs/quintal' ? `₹${fmtNum(data.price)}/q` : `₹${fmtNum(data.price)}`}</span>
+                </div>
+                <div class="commodity-meta">
+                  <span class="commodity-market">{data.market}</span>
+                  {data.percentChange !== undefined && (
+                    <span class={`commodity-change ${data.percentChange >= 0 ? 'positive' : 'negative'}`}>
+                      {data.percentChange >= 0 ? '+' : ''}{data.percentChange}%
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {liveData.rainfall && (
+          <div class="panel">
+            <h4 class="detail-block-title">Rainfall</h4>
+            <div class="rainfall-grid">
+              {liveData.rainfall.today && <div class="rainfall-item"><span class="rainfall-label">Today</span><span class="rainfall-value">{liveData.rainfall.today.amount} mm</span></div>}
+              {liveData.rainfall.thisWeek && <div class="rainfall-item"><span class="rainfall-label">This week</span><span class="rainfall-value">{liveData.rainfall.thisWeek.amount} mm</span></div>}
+              {liveData.rainfall.thisMonth && (
+                <div class="rainfall-item">
+                  <span class="rainfall-label">This month</span>
+                  <span class="rainfall-value">{liveData.rainfall.thisMonth.amount} mm</span>
+                  {liveData.rainfall.thisMonth.deviation !== undefined && <span class={`rainfall-deviation ${liveData.rainfall.thisMonth.deviation >= 0 ? 'positive' : 'negative'}`}>{liveData.rainfall.thisMonth.deviation >= 0 ? '+' : ''}{liveData.rainfall.thisMonth.deviation}%</span>}
+                </div>
+              )}
+              {liveData.rainfall.thisSeason && (
+                <div class="rainfall-item">
+                  <span class="rainfall-label">This season</span>
+                  <span class="rainfall-value">{liveData.rainfall.thisSeason.amount} mm (normal: {liveData.rainfall.thisSeason.normalAmount})</span>
+                  {liveData.rainfall.thisSeason.status && <span class={`rainfall-status status-${liveData.rainfall.thisSeason.status.toLowerCase()}`}>{liveData.rainfall.thisSeason.status}</span>}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- ② Strengths & Challenges -->
+  {(d.strengths?.length || d.challenges?.length) && (
+    <div id="strengths" class="portal-section">
+      <h3 class="section-title">Strengths & Challenges</h3>
+      <div class="sc-two-col">
+        {d.strengths?.length > 0 && (
+          <div class="panel sc-panel">
+            <div class="sc-header sc-green">What's working</div>
+            <ul class="sc-items">
+              {d.strengths.map(s => (
+                <li><span class="sc-mark sc-check">✓</span>{s}{isCommunity(s) && <span class="community-pill">community</span>}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {d.challenges?.length > 0 && (
+          <div class="panel sc-panel">
+            <div class="sc-header sc-red">What needs attention</div>
+            <ul class="sc-items">
+              {d.challenges.map(c => (
+                <li><span class="sc-mark sc-cross">✗</span>{c}{isCommunity(c) && <span class="community-pill">community</span>}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- ③ Opportunities (links to industries section below) -->
+  {d.opportunities?.length > 0 && (
+    <div id="opportunities" class="portal-section">
+      <h3 class="section-title">Opportunities</h3>
+      <div class="panel">
+        <ul class="opp-items">
+          {d.opportunities.map(o => (
+            <li><span class="opp-bolt">⚡</span>{o}{isCommunity(o) && <span class="community-pill">community</span>}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )}
+
+  <!-- ④ Goals -->
+  {roadmap && (
+    <div id="goals" class="portal-section">
+      <h3 class="section-title">Goals</h3>
+      <div class="goals-row">
+        {roadmap.perCapitaGoal && eco.perCapitaIncome && (
+          <div class="panel goal-card">
+            <div class="goal-from">{formatCurrency(eco.perCapitaIncome)}</div>
+            <div class="goal-arrow">→</div>
+            <div class="goal-to">{formatCurrency(roadmap.perCapitaGoal)}</div>
+            <div class="goal-label">Per Capita Income</div>
+          </div>
+        )}
+        {roadmap.targetRank && d.rankings?.perCapitaIncome?.stateRank && (
+          <div class="panel goal-card">
+            <div class="goal-from">{d.rankings.perCapitaIncome.stateRank}</div>
+            <div class="goal-arrow">→</div>
+            <div class="goal-to">{roadmap.targetRank}</div>
+            <div class="goal-label">State Rank</div>
+          </div>
+        )}
+        {roadmap.jobsToCreate && (
+          <div class="panel goal-card">
+            <div class="goal-to">{fmtNum(roadmap.jobsToCreate)}</div>
+            <div class="goal-label">New Jobs Target</div>
+          </div>
+        )}
+        {roadmap.totalInvestment && (
+          <div class="panel goal-card">
+            <div class="goal-to">{fmtCr(roadmap.totalInvestment)}</div>
+            <div class="goal-label">Investment Target</div>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- ⑥ Next Steps -->
+  {nextSteps.length > 0 && (
+    <div id="nextsteps" class="portal-section">
+      <h3 class="section-title">Next Steps</h3>
+      <div class="panel">
+        {nextSteps.map((step: any) => (
+          <div class="nextstep-item">
+            <div class="nextstep-header">
+              <span class="nextstep-name">{step.name}</span>
+              <span class="nextstep-pct">{step.progress}%</span>
+            </div>
+            <div class="nextstep-bar"><div class="nextstep-fill" style={`width:${step.progress}%`}></div></div>
+            {step.items?.length > 0 && (
+              <ul class="nextstep-tasks">
+                {step.items.slice(0, 3).map((item: string) => <li>{item}</li>)}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+
+  <!-- Data Sources (Today tab copy) -->
+  {(d as any).dataSources?.length > 0 && (
+    <div id="sources" class="portal-section">
+      <h3 class="section-title">Data Sources</h3>
+      <div class="panel" style="padding:0; overflow:hidden;">
+        <div class="table-scroll">
+          <table class="portal-table">
+            <thead><tr><th>Source</th><th>Type</th><th>Fields</th></tr></thead>
+            <tbody>
+              {(d as any).dataSources.map((src: any) => (
+                <tr>
+                  <td>{src.url ? <a href={src.url} target="_blank" rel="noopener" class="source-link">{src.name}</a> : src.name}</td>
+                  <td><span class="source-type-badge">{src.type}</span></td>
+                  <td class="source-fields-cell">{src.fields?.join(', ')}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )}
+
+  </div><!-- /tab-today -->
+
+  <!-- Data by Role Tab -->
+  <div class="portal-tab-content" id="tab-data" style="display:none;">
 
   <!-- Role Switcher -->
   {availableRoles.length > 1 && (
@@ -69,18 +360,20 @@ function fmtRs(v: number) {
   )}
   <script type="application/json" id="roles-data" set:html={JSON.stringify(availableRoles)} />
 
-  <!-- Development Roadmap -->
+  <!-- ⑤ Development Roadmap -->
   {roadmap && (
-    <DistrictSection section="roadmap">
-      <div class="panel animate-up portal-section">
-        <Roadmap roadmap={roadmap} activeRole={null} />
-      </div>
-    </DistrictSection>
+    <div id="roadmap">
+      <DistrictSection section="roadmap">
+        <div class="panel animate-up portal-section">
+          <Roadmap roadmap={roadmap} activeRole={null} />
+        </div>
+      </DistrictSection>
+    </div>
   )}
 
   <!-- Industries — Full Detail -->
   {industries?.sectors?.length > 0 && (
-    <DistrictSection section="industries">
+    <div id="industries"><DistrictSection section="industries">
       <section class="animate-up portal-section">
         <h3 class="section-title">Industry Sectors</h3>
 
@@ -259,12 +552,12 @@ function fmtRs(v: number) {
           </div>
         )}
       </section>
-    </DistrictSection>
+    </DistrictSection></div>
   )}
 
   <!-- KDEM / Beyond Bengaluru -->
   {kdem && (
-    <DistrictSection section="kdem">
+    <div id="kdem"><DistrictSection section="kdem">
       <section class="animate-up portal-section">
         <h3 class="section-title">Digital Economy — Beyond Bengaluru</h3>
 
@@ -406,7 +699,7 @@ function fmtRs(v: number) {
           </a>
         )}
       </section>
-    </DistrictSection>
+    </DistrictSection></div>
   )}
 
   <!-- FPOs -->
@@ -694,73 +987,7 @@ function fmtRs(v: number) {
     </DistrictSection>
   )}
 
-  <!-- Live Data -->
-  {liveData && (
-    <DistrictSection section="live-data">
-      <section class="animate-up portal-section">
-        <h3 class="section-title">Live Data <span class="live-badge">Snapshot</span></h3>
-        <div class="live-data-grid">
-          {/* Commodity Prices */}
-          {liveData.commodityPrices && (
-            <div class="panel">
-              <h4 class="detail-block-title">Commodity Prices</h4>
-              {Object.entries(liveData.commodityPrices).map(([key, data]: [string, any]) => (
-                <div class="commodity-item">
-                  <div class="commodity-header">
-                    <span class="commodity-name">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-                    <span class="commodity-price">{data.unit === 'Rs/quintal' ? `₹${fmtNum(data.price)}/q` : `₹${fmtNum(data.price)}`}</span>
-                  </div>
-                  <div class="commodity-meta">
-                    <span class="commodity-market">{data.market}</span>
-                    {data.percentChange !== undefined && (
-                      <span class={`commodity-change ${data.percentChange >= 0 ? 'positive' : 'negative'}`}>
-                        {data.percentChange >= 0 ? '+' : ''}{data.percentChange}%
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Rainfall */}
-          {liveData.rainfall && (
-            <div class="panel">
-              <h4 class="detail-block-title">Rainfall</h4>
-              <div class="rainfall-grid">
-                {liveData.rainfall.today && (
-                  <div class="rainfall-item"><span class="rainfall-label">Today</span><span class="rainfall-value">{liveData.rainfall.today.amount} mm</span></div>
-                )}
-                {liveData.rainfall.thisWeek && (
-                  <div class="rainfall-item"><span class="rainfall-label">This week</span><span class="rainfall-value">{liveData.rainfall.thisWeek.amount} mm</span></div>
-                )}
-                {liveData.rainfall.thisMonth && (
-                  <div class="rainfall-item">
-                    <span class="rainfall-label">This month</span>
-                    <span class="rainfall-value">{liveData.rainfall.thisMonth.amount} mm</span>
-                    {liveData.rainfall.thisMonth.deviation !== undefined && (
-                      <span class={`rainfall-deviation ${liveData.rainfall.thisMonth.deviation >= 0 ? 'positive' : 'negative'}`}>
-                        {liveData.rainfall.thisMonth.deviation >= 0 ? '+' : ''}{liveData.rainfall.thisMonth.deviation}%
-                      </span>
-                    )}
-                  </div>
-                )}
-                {liveData.rainfall.thisSeason && (
-                  <div class="rainfall-item">
-                    <span class="rainfall-label">This season</span>
-                    <span class="rainfall-value">{liveData.rainfall.thisSeason.amount} mm (normal: {liveData.rainfall.thisSeason.normalAmount})</span>
-                    {liveData.rainfall.thisSeason.status && <span class={`rainfall-status status-${liveData.rainfall.thisSeason.status.toLowerCase()}`}>{liveData.rainfall.thisSeason.status}</span>}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-    </DistrictSection>
-  )}
-
-  <!-- Data Sources -->
+  <!-- Data Sources (Data by Role tab copy) -->
   {(d as any).dataSources?.length > 0 && (
     <DistrictSection section="data-sources">
       <section class="animate-up portal-section">
@@ -768,9 +995,7 @@ function fmtRs(v: number) {
         <div class="panel" style="padding:0; overflow:hidden;">
           <div class="table-scroll">
             <table class="portal-table">
-              <thead>
-                <tr><th>Source</th><th>Type</th><th>Fields</th></tr>
-              </thead>
+              <thead><tr><th>Source</th><th>Type</th><th>Fields</th></tr></thead>
               <tbody>
                 {(d as any).dataSources.map((src: any) => (
                   <tr>
@@ -801,6 +1026,77 @@ function fmtRs(v: number) {
   .portal-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--gray-900); }
   .portal-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
   .portal-section { margin-bottom: 2rem; }
+
+  /* Today section */
+  .portal-sub-title { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+  .today-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .today-donut-row { display: flex; align-items: center; gap: 1.25rem; }
+  .today-donut { position: relative; width: 140px; height: 140px; flex-shrink: 0; }
+  .today-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .today-donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .today-donut-val { font-size: 1.125rem; font-weight: 800; color: var(--gray-900); line-height: 1; }
+  .today-donut-unit { font-size: 0.5625rem; color: var(--gray-500); text-transform: uppercase; }
+  .today-legend { display: flex; flex-direction: column; gap: 0.375rem; font-size: 0.75rem; color: var(--gray-600); }
+  .today-dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 0.375rem; }
+  .today-demo { display: flex; flex-direction: column; }
+  .today-demo-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.8125rem; }
+  .today-demo-row:last-child { border-bottom: none; }
+  .today-demo-row span { color: var(--gray-500); }
+  .today-demo-row strong { color: var(--gray-800); }
+
+  .today-live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: 0.375rem; box-shadow: 0 0 0 2px rgba(16,185,129,0.2); }
+  .today-live-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .today-live-item { display: flex; flex-direction: column; gap: 0.0625rem; }
+  .today-live-name { font-size: 0.6875rem; color: var(--gray-500); text-transform: capitalize; }
+  .today-live-price { font-size: 0.9375rem; font-weight: 800; color: var(--gray-900); }
+  .today-live-change { font-size: 0.6875rem; font-weight: 700; }
+  .today-live-change.up { color: var(--green); }
+  .today-live-change.down { color: var(--red); }
+  .today-live-market { font-size: 0.5625rem; color: var(--gray-400); }
+
+  /* Strengths & Challenges */
+  .sc-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .sc-panel { padding: 1.25rem; }
+  .sc-header { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding-bottom: 0.625rem; margin-bottom: 0.5rem; border-bottom: 2px solid; }
+  .sc-green { color: var(--green-dark); border-color: var(--green); }
+  .sc-red { color: var(--red-dark); border-color: var(--red); }
+  .sc-items { list-style: none; }
+  .sc-items li { font-size: 0.8125rem; color: var(--gray-700); padding: 0.3125rem 0; display: flex; align-items: flex-start; gap: 0.375rem; line-height: 1.4; }
+  .sc-mark { flex-shrink: 0; font-weight: 700; font-size: 0.6875rem; margin-top: 0.125rem; }
+  .sc-check { color: var(--green); }
+  .sc-cross { color: var(--red); }
+  .community-pill {
+    display: inline-block; font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--green-dark); background: var(--green-light);
+    padding: 0.0625rem 0.3125rem; border-radius: 2px; margin-left: 0.25rem;
+    vertical-align: middle; white-space: nowrap;
+  }
+
+  /* Opportunities */
+  .opp-items { list-style: none; }
+  .opp-items li { font-size: 0.8125rem; color: var(--gray-700); padding: 0.375rem 0; display: flex; align-items: flex-start; gap: 0.375rem; line-height: 1.4; border-bottom: 1px solid var(--gray-100); }
+  .opp-items li:last-child { border-bottom: none; }
+  .opp-bolt { color: var(--yellow); flex-shrink: 0; }
+
+  /* Goals */
+  .goals-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .goal-card { flex: 1; min-width: 120px; text-align: center; padding: 1.25rem 1rem; }
+  .goal-from { font-size: 1rem; font-weight: 700; color: var(--gray-400); }
+  .goal-arrow { font-size: 1rem; color: var(--gray-300); margin: 0.25rem 0; }
+  .goal-to { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
+  .goal-label { font-size: 0.625rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.5rem; }
+
+  /* Next Steps */
+  .nextstep-item { margin-bottom: 1rem; }
+  .nextstep-item:last-child { margin-bottom: 0; }
+  .nextstep-header { display: flex; justify-content: space-between; margin-bottom: 0.375rem; }
+  .nextstep-name { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
+  .nextstep-pct { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); }
+  .nextstep-bar { height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .nextstep-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--teal)); }
+  .nextstep-tasks { list-style: none; margin-top: 0.375rem; }
+  .nextstep-tasks li { font-size: 0.75rem; color: var(--gray-500); padding: 0.125rem 0 0.125rem 0.75rem; position: relative; }
+  .nextstep-tasks li::before { content: '\00B7'; position: absolute; left: 0; color: var(--gray-400); }
 
   /* Tabs */
   .portal-tabs {
@@ -1050,32 +1346,60 @@ function fmtRs(v: number) {
   @media (max-width: 1024px) {
     .sector-detail-grid { grid-template-columns: repeat(2, 1fr); }
     .live-data-grid { grid-template-columns: 1fr; }
+    .today-two-col { grid-template-columns: 1fr; }
+    .sc-two-col { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     .portal-title { font-size: 1.375rem; }
     .sector-detail-grid { grid-template-columns: 1fr; }
     .portal-stats-row { gap: 1rem; }
-    .portal-tab { padding: 0.625rem 1rem; font-size: 0.8125rem; }
+    .portal-tabs { gap: 0; }
+    .portal-tab { padding: 0.5rem 0.75rem; font-size: 0.75rem; flex: 1; text-align: center; }
+    .goals-row { flex-direction: column; }
+    .goal-card { min-width: auto; }
+    .today-donut-row { flex-direction: column; align-items: flex-start; }
+    .kdem-header { flex-direction: column; }
+    .kdem-two-col { grid-template-columns: 1fr; }
+    .opp-sectors { flex-direction: column; }
+    .opp-card { min-width: auto; }
+    .live-data-grid { grid-template-columns: 1fr; }
+    .infra-label { min-width: 60px; }
+    .msme-bar-label { min-width: 70px; }
+    .buyer-category { min-width: 60px; }
+    .portal-hero { margin-bottom: 0.75rem; }
   }
 </style>
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.portal-tab');
+    const todayTab = document.getElementById('tab-today');
     const dataTab = document.getElementById('tab-data');
     const discussTab = document.getElementById('tab-discuss');
-    if (!tabs.length || !dataTab || !discussTab) return;
+    if (!tabs.length || !todayTab || !dataTab || !discussTab) return;
+
+    const allPanels = { today: todayTab, data: dataTab, discuss: discussTab };
 
     function switchTab(tabName) {
+      if (!allPanels[tabName]) tabName = 'today';
       tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
-      dataTab.style.display = tabName === 'data' ? '' : 'none';
-      discussTab.style.display = tabName === 'discuss' ? '' : 'none';
+      Object.entries(allPanels).forEach(([name, el]) => {
+        el.style.display = name === tabName ? '' : 'none';
+      });
+
+      // Scroll to anchor if hash present
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
     }
 
     // Read from URL on load
     const params = new URLSearchParams(window.location.search);
     const urlTab = params.get('tab');
-    if (urlTab === 'discuss') switchTab('discuss');
+    if (urlTab && allPanels[urlTab]) {
+      switchTab(urlTab);
+    }
 
     // Tab click
     tabs.forEach(tab => {
@@ -1083,11 +1407,12 @@ function fmtRs(v: number) {
         const tabName = tab.dataset.tab;
         switchTab(tabName);
         const url = new URL(window.location);
-        if (tabName === 'discuss') {
-          url.searchParams.set('tab', 'discuss');
-        } else {
+        if (tabName === 'today') {
           url.searchParams.delete('tab');
+        } else {
+          url.searchParams.set('tab', tabName);
         }
+        url.hash = '';
         window.history.pushState({}, '', url);
       });
     });
@@ -1095,7 +1420,19 @@ function fmtRs(v: number) {
     // Handle browser back/forward
     window.addEventListener('popstate', () => {
       const p = new URLSearchParams(window.location.search);
-      switchTab(p.get('tab') === 'discuss' ? 'discuss' : 'data');
+      switchTab(p.get('tab') || 'today');
     });
+
+    // Handle hash-based navigation (from index cards)
+    if (window.location.hash) {
+      const hash = window.location.hash.slice(1);
+      const todaySections = ['today', 'strengths', 'opportunities', 'goals', 'nextsteps', 'livedata', 'sources'];
+      const dataSections = ['roadmap', 'industries', 'kdem'];
+      if (dataSections.includes(hash)) {
+        switchTab('data');
+      } else if (todaySections.includes(hash)) {
+        switchTab('today');
+      }
+    }
   });
 </script>
