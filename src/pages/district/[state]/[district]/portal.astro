@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import DistrictMapStatic from '../../../../components/DistrictMapStatic.astro';
 import DistrictSection from '../../../../components/DistrictSection.astro';
 import Roadmap from '../../../../components/Roadmap.astro';
 import RoleSwitcher from '../../../../components/RoleSwitcher.astro';
@@ -51,25 +52,22 @@ const phase1 = phases.length > 0 ? phases[0] : null;
 const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.progress < 100) || [];
 ---
 
-<BaseLayout title={`${d.name} Portal`} description={`Detailed development portal for ${d.name} district, ${stateName}`}>
-  <nav class="breadcrumb">
-    <a href="/">India</a>
-    <span class="sep">&rsaquo;</span>
-    <a href={`/state/${stateSlug}`}>{stateName}</a>
-    <span class="sep">&rsaquo;</span>
-    <a href={`/district/${stateSlug}/${d.id}`}>{d.name}</a>
-    <span class="sep">&rsaquo;</span>
-    <strong style="color:var(--gray-800);">Portal</strong>
-  </nav>
-
-  <div class="portal-hero animate-up">
-    <h2 class="portal-title">{d.name} Development Portal</h2>
-    <p class="portal-subtitle">{stateName} &middot; Detailed data across {[industries, fpos, industrialLand, creditData, msme, investments, liveData, roadmap, kdem].filter(Boolean).length} datasets</p>
-  </div>
+<BaseLayout
+  title={`${d.name} Portal`}
+  description={`Detailed development portal for ${d.name} district, ${stateName}`}
+  headerTitle={`${d.name} Development Portal`}
+  breadcrumb={[
+    { label: 'India', href: '/' },
+    { label: stateName, href: `/state/${stateSlug}` },
+    { label: d.name, href: `/district/${stateSlug}/${d.id}` },
+    { label: 'Portal' }
+  ]}
+>
+  <DistrictMapStatic slot="header-icon" districtName={d.name} stateName={stateName} size={40} />
 
   <!-- Portal Tabs -->
   <div class="portal-tabs" id="portal-tabs">
-    <button class="portal-tab active" data-tab="today">Today</button>
+    <button class="portal-tab active" data-tab="today">Baseline</button>
     <button class="portal-tab" data-tab="data">Data by Role</button>
     <button class="portal-tab" data-tab="discuss">Discussion</button>
   </div>
@@ -79,7 +77,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   <!-- ① Today -->
   <div id="today" class="portal-section">
-    <h3 class="section-title">{d.name} Today</h3>
+    <h3 class="section-title">{d.name} Baseline</h3>
 
     {/* KPI strip */}
     <div class="kpi-strip" style="margin-bottom:1.25rem;">
@@ -171,7 +169,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   <!-- Live Data -->
   {liveData && (
-    <div id="livedata" class="portal-section">
+    <div id="livedata" class="portal-section alt">
       <h3 class="section-title">Live Data <span class="live-badge">Snapshot</span></h3>
       <div class="live-data-grid">
         {liveData.commodityPrices && (
@@ -253,7 +251,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   <!-- ③ Opportunities (links to industries section below) -->
   {d.opportunities?.length > 0 && (
-    <div id="opportunities" class="portal-section">
+    <div id="opportunities" class="portal-section alt">
       <h3 class="section-title">Opportunities</h3>
       <div class="panel">
         <ul class="opp-items">
@@ -304,7 +302,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   <!-- ⑥ Next Steps -->
   {nextSteps.length > 0 && (
-    <div id="nextsteps" class="portal-section">
+    <div id="nextsteps" class="portal-section alt">
       <h3 class="section-title">Next Steps</h3>
       <div class="panel">
         {nextSteps.map((step: any) => (
@@ -1022,10 +1020,24 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 </BaseLayout>
 
 <style>
-  .portal-hero { margin-bottom: 1rem; }
-  .portal-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--gray-900); }
-  .portal-subtitle { font-size: 0.875rem; color: var(--gray-500); margin-top: 0.125rem; }
-  .portal-section { margin-bottom: 2rem; }
+  .portal-section {
+    margin-bottom: 0; padding: 2rem 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .portal-section.alt { background: var(--gray-50); }
+  .portal-section .section-title { margin-bottom: 1.25rem; }
+
+  /* Alternating bands for DistrictSection wrappers in Data tab */
+  #tab-data > div:nth-child(even),
+  #tab-data > [data-section]:nth-child(even) {
+    background: var(--gray-50); padding: 1.75rem 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  #tab-data > div:nth-child(odd),
+  #tab-data > [data-section]:nth-child(odd) {
+    background: white; padding: 1.75rem 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
 
   /* Today section */
   .portal-sub-title { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }

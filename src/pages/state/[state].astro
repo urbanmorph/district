@@ -30,12 +30,14 @@ function pciClass(pci: number) {
 }
 ---
 
-<BaseLayout title={stateData.name}>
-  <nav class="breadcrumb">
-    <a href="/">India</a>
-    <span class="sep">&rsaquo;</span>
-    <strong style="color:var(--gray-800);">{stateData.name}</strong>
-  </nav>
+<BaseLayout
+  title={stateData.name}
+  headerTitle={`${stateData.name} Development Dashboard`}
+  breadcrumb={[
+    { label: 'India', href: '/' },
+    { label: stateData.name }
+  ]}
+>
 
   <div class="kpi-strip">
     <div class="kpi-card animate-up delay-1">
