@@ -71,7 +71,12 @@
     "PM MITRA textile park: 1,000 acres, DPR finalized, Rs 50.9 Cr released",
     "Massive limestone reserves (2.5-4 billion MT, 200-400 year supply)",
     "4 universities providing skilled workforce base",
-    "Low land and labor costs compared to Bangalore/Hyderabad"
+    "Low land and labor costs compared to Bangalore/Hyderabad",
+    "Super speciality hospitals: 371-bed Jayadeva Heart Hospital (Dec 2024), ESIC hospital, child speciality (Rs 90 Cr) planned",
+    "Karnataka High Court permanent bench since 2013 (covers Bidar, Bijapur, Kalaburagi, Raichur)",
+    "Kalaburagi Airport (GBI) with Star Air Bengaluru flights (6 days/week)",
+    "Vande Bharat Express to Bengaluru operational (6 days/week, via Yadgir, Raichur, Guntakal)",
+    "24x7 water supply project underway (World Bank KUWSMP, $279M)"
   ],
   "challenges": [
     "Lowest per capita income in Karnataka (Rs 1,43,360 vs state avg Rs 3,10,000)",
@@ -79,7 +84,9 @@
     "High out-migration to Bangalore (43% of migrants)",
     "Low CD ratio (64.5% vs state average 78.2%)",
     "Limited industrial infrastructure and CETP facilities",
-    "Dal mill upgradation only 15% complete (45/300 active mills)"
+    "Dal mill upgradation only 15% complete (45/300 active mills)",
+    "No 4-lane highway connecting Bidar-Kalaburagi-Ballari-Chitradurga to Bengaluru (DPR stage, partial Bharatmala widening)",
+    "Poor rail connectivity between districts and to Hyderabad"
   ],
   "opportunities": [
     "PM MITRA textile park can create 26,000 direct jobs",
@@ -87,8 +94,35 @@
     "Pharma packaging for Hyderabad Pharma City Phase 2",
     "Agro-processing value chain modernization",
     "50 FPO formation covering 100,000 farmers",
-    "Solar energy and micro-irrigation expansion"
+    "Solar energy and micro-irrigation expansion",
+    "Surat-Chennai Expressway under construction through district (Akkalkot-Yadgir section 136km, completion Dec 2025)",
+    "Mumbai-Hyderabad high-speed rail: station planned at Kalaburagi (DPR submitted, Budget 2026-27)",
+    "LEAP incubation centre launched Apr 2025 (Beyond Bengaluru, agritech/deep tech focus)",
+    "Hyderabad western growth spillover — city expanding 80-100km from Karnataka border"
   ],
+  "communityInsights": {
+    "count": 4,
+    "summary": "Hospital infrastructure, Surat-Chennai expressway, Mumbai-Hyderabad high-speed rail, and LEAP incubation centre updates were verified and added from community discussion.",
+    "verifiedItems": [
+      "Super speciality hospitals",
+      "High Court permanent bench",
+      "Kalaburagi Airport",
+      "Vande Bharat Express",
+      "24x7 water supply",
+      "4-lane highway",
+      "Poor rail connectivity",
+      "Surat-Chennai Expressway",
+      "Mumbai-Hyderabad high-speed rail",
+      "LEAP incubation centre",
+      "Hyderabad western growth"
+    ],
+    "contributors": ["Shashank", "Kalaburagi Vision 2040"],
+    "unverified": [
+      "Cold storage/warehouse gap for horticulture",
+      "Oil processing opportunity (groundnut/sunflower)",
+      "Automotive ancillary potential"
+    ]
+  },
   "dataCompleteness": {
     "level": "full",
     "sources": [
@@ -122,9 +156,11 @@
     "verticalFocus": ["Agritech", "Biotech", "Digitizing Sectors"],
     "leapIncubation": {
       "active": true,
+      "inaugurated": "2025-04-09",
       "fund_crores": 1000,
       "duration": "5 years",
-      "focus": "Agritech startups"
+      "focus": "Agritech startups",
+      "includes": ["Incubation Centre", "Offshore Development Centre (ODC)"]
     },
     "landCostMultiplier": 0.50,
     "landCostNote": "50% of Bengaluru rates",
@@ -1797,6 +1833,32 @@
         "Agro-processing clusters"
       ],
       "type": "Roadmap"
+    },
+    {
+      "name": "NHAI / Bharatmala Pariyojana",
+      "url": "https://bharatmala.nhai.gov.in",
+      "fields": [
+        "Surat-Chennai Expressway progress",
+        "NH 150A widening status"
+      ],
+      "type": "Infrastructure"
+    },
+    {
+      "name": "South Western Railway",
+      "url": "https://sw.indianrailways.gov.in",
+      "fields": [
+        "Vande Bharat Express schedule",
+        "Rail connectivity"
+      ],
+      "type": "Infrastructure"
+    },
+    {
+      "name": "NHSRCL (National High Speed Rail Corporation)",
+      "url": "https://nhsrcl.in",
+      "fields": [
+        "Mumbai-Hyderabad high-speed rail corridor"
+      ],
+      "type": "Infrastructure"
     },
     {
       "name": "KDEM / Beyond Bengaluru",

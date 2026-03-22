@@ -63,6 +63,14 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 <style is:global>
   .discussion { max-width: 100%; }
 
+  /* Pinned comment */
+  .comment-card.pinned { border: 1px solid rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(209,250,229,0.3), white); }
+  .pinned-label {
+    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--green-dark); margin-bottom: 0.5rem;
+  }
+  .avatar-system { background: var(--green-light); color: var(--green-dark); }
+
   /* Form */
   .comment-form-panel { margin-bottom: 1.5rem; }
   .comment-form-title { font-size: 0.9375rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.75rem; }
@@ -287,12 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderComment(comment, isReply) {
     const card = document.createElement('div');
-    card.className = 'comment-card' + (isReply ? ' reply' : '');
+    card.className = 'comment-card' + (isReply ? ' reply' : '') + (comment.pinned ? ' pinned' : '');
     card.dataset.id = comment.id;
 
     card.innerHTML =
+      (comment.pinned ? '<div class="pinned-label">\uD83D\uDCCC PINNED</div>' : '') +
       '<div class="comment-header">' +
-        '<div class="comment-avatar">' + getInitials(comment.author_name) + '</div>' +
+        '<div class="comment-avatar' + (comment.pinned ? ' avatar-system' : '') + '">' + getInitials(comment.author_name) + '</div>' +
         '<div class="comment-meta">' +
           '<span class="comment-author">' + comment.author_name.replace(/</g, '&lt;') + '</span>' +
           '<span class="comment-time"> &middot; ' + timeAgo(comment.created_at) + '</span>' +
@@ -360,6 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
     count.textContent = data.length + ' comment' + (data.length !== 1 ? 's' : '') + ' \u00B7 ' + topLevel.length + ' thread' + (topLevel.length !== 1 ? 's' : '');
 
     const tree = buildTree(data);
+    // Sort pinned to top
+    tree.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
     // Clear old comments (keep loading/empty divs)
     list.querySelectorAll('.comment-card').forEach(c => c.remove());
     tree.forEach(comment => {

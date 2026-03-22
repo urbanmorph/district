@@ -22,6 +22,10 @@ const industries = (d as any).industries;
 // Check if this district has detailed portal data
 const hasPortalData = !!((d as any).roadmap || industries || (d as any).fpos || (d as any).industrialLand || (d as any).creditData || (d as any).msme || (d as any).investments || (d as any).liveData || (d as any).kdem);
 const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
+const communityItems: string[] = (d as any).communityInsights?.verifiedItems || [];
+function isCommunity(text: string): boolean {
+  return communityItems.some(item => text.toLowerCase().includes(item.toLowerCase()));
+}
 ---
 
 <BaseLayout title={d.name} description={`Development dashboard for ${d.name} district, ${stateName}`}>
@@ -154,7 +158,7 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
         <div class="sco-card strengths">
           <div class="sco-header"><div class="sco-title">Strengths</div></div>
           <ul class="sco-list">
-            {d.strengths.map(s => <li><span class="bullet"></span>{s}</li>)}
+            {d.strengths.map(s => <li><span class="bullet"></span>{s}{isCommunity(s) && <span class="community-badge">community</span>}</li>)}
           </ul>
         </div>
       )}
@@ -162,7 +166,7 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
         <div class="sco-card challenges">
           <div class="sco-header"><div class="sco-title">Challenges</div></div>
           <ul class="sco-list">
-            {d.challenges.map(c => <li><span class="bullet"></span>{c}</li>)}
+            {d.challenges.map(c => <li><span class="bullet"></span>{c}{isCommunity(c) && <span class="community-badge">community</span>}</li>)}
           </ul>
         </div>
       )}
@@ -170,7 +174,7 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
         <div class="sco-card opportunities">
           <div class="sco-header"><div class="sco-title">Opportunities</div></div>
           <ul class="sco-list">
-            {d.opportunities.map(o => <li><span class="bullet"></span>{o}</li>)}
+            {d.opportunities.map(o => <li><span class="bullet"></span>{o}{isCommunity(o) && <span class="community-badge">community</span>}</li>)}
           </ul>
         </div>
       )}
@@ -220,8 +224,8 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
             <a href={`${portalUrl}?tab=discuss`} class="portal-cta-discuss">
               <span class="portal-cta-icon">&#x1F4AC;</span>
               <span class="portal-cta-content">
-                <span class="portal-cta-heading">Join the Discussion</span>
-                <span class="portal-cta-desc">Share insights, ask questions, or comment on this district's development</span>
+                <span class="portal-cta-heading">Join the Discussion{(d as any).communityInsights?.count ? ` — ${(d as any).communityInsights.count} community insights added` : ''}</span>
+                <span class="portal-cta-desc">Share what you know — verified contributions are added to the district's data</span>
               </span>
               <span class="portal-cta-arrow">&rarr;</span>
             </a>
@@ -375,6 +379,12 @@ const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
   .strengths .bullet { background: var(--green); }
   .challenges .bullet { background: var(--red); }
   .opportunities .bullet { background: var(--primary); }
+  .community-badge {
+    display: inline-block; font-size: 0.5625rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--green-dark); background: var(--green-light);
+    padding: 0.0625rem 0.375rem; border-radius: 3px; margin-left: 0.375rem;
+    vertical-align: middle; white-space: nowrap;
+  }
 
   .sources-panel { padding: 0; overflow: hidden; margin-bottom: 2rem; }
   .sources-table { width: 100%; border-collapse: collapse; }
