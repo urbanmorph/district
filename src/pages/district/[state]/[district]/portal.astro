@@ -70,6 +70,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     <button class="portal-tab active" data-tab="today">Baseline</button>
     <button class="portal-tab" data-tab="data">Data by Role</button>
     <button class="portal-tab" data-tab="discuss">Discussion</button>
+    <button class="portal-tab" data-tab="sources">Sources</button>
   </div>
 
   <!-- Today Tab -->
@@ -323,29 +324,6 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     </div>
   )}
 
-
-  <!-- Data Sources (Today tab copy) -->
-  {(d as any).dataSources?.length > 0 && (
-    <div id="sources" class="portal-section">
-      <h3 class="section-title">Data Sources</h3>
-      <div class="panel" style="padding:0; overflow:hidden;">
-        <div class="table-scroll">
-          <table class="portal-table">
-            <thead><tr><th>Source</th><th>Type</th><th>Fields</th></tr></thead>
-            <tbody>
-              {(d as any).dataSources.map((src: any) => (
-                <tr>
-                  <td>{src.url ? <a href={src.url} target="_blank" rel="noopener" class="source-link">{src.name}</a> : src.name}</td>
-                  <td><span class="source-type-badge">{src.type}</span></td>
-                  <td class="source-fields-cell">{src.fields?.join(', ')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  )}
 
   </div><!-- /tab-today -->
 
@@ -985,11 +963,19 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     </DistrictSection>
   )}
 
-  <!-- Data Sources (Data by Role tab copy) -->
-  {(d as any).dataSources?.length > 0 && (
-    <DistrictSection section="data-sources">
-      <section class="animate-up portal-section">
+  </div><!-- /tab-data -->
+
+  <!-- Discussion Tab -->
+  <div class="portal-tab-content" id="tab-discuss" style="display:none;">
+    <Discussion pageSlug={`${stateSlug}/${d.id}`} project="district" />
+  </div>
+
+  <!-- Sources Tab -->
+  <div class="portal-tab-content" id="tab-sources" style="display:none;">
+    {(d as any).dataSources?.length > 0 ? (
+      <div id="sources" class="portal-section">
         <h3 class="section-title">Data Sources</h3>
+        <p class="sources-summary">{(d as any).dataSources.length} sources {d.dataCompleteness?.lastVerified ? `· Last verified: ${d.dataCompleteness.lastVerified}` : ''}</p>
         <div class="panel" style="padding:0; overflow:hidden;">
           <div class="table-scroll">
             <table class="portal-table">
@@ -1006,38 +992,69 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
             </table>
           </div>
         </div>
-      </section>
-    </DistrictSection>
-  )}
-
-  </div><!-- /tab-data -->
-
-  <!-- Discussion Tab -->
-  <div class="portal-tab-content" id="tab-discuss" style="display:none;">
-    <Discussion pageSlug={`${stateSlug}/${d.id}`} project="district" />
+      </div>
+    ) : (
+      <div class="portal-section">
+        <p style="color:var(--gray-400); text-align:center; padding:2rem;">No data sources documented for this district.</p>
+      </div>
+    )}
   </div>
 
 </BaseLayout>
 
 <style>
+  /* ── Section rhythm ── */
   .portal-section {
-    margin-bottom: 0; padding: 2rem 1.5rem;
-    border-bottom: 1px solid var(--gray-200);
+    margin: 0; padding: 2.5rem 2rem;
+    border: none; position: relative;
   }
-  .portal-section.alt { background: var(--gray-50); }
-  .portal-section .section-title { margin-bottom: 1.25rem; }
+  .portal-section + .portal-section { border-top: none; }
 
-  /* Alternating bands for DistrictSection wrappers in Data tab */
+  /* Alternating tint — white vs slate wash */
+  .portal-section.alt {
+    background: #eef2f7;
+  }
+  .portal-section.alt .panel {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
+  }
+
+  /* Section title accent bar */
+  .portal-section .section-title {
+    margin-bottom: 1.5rem; padding-left: 0.875rem;
+    border-left: 3px solid var(--primary); position: relative;
+  }
+  .portal-section.alt .section-title { border-left-color: var(--teal); }
+
+  /* Data by Role tab — alternating bands on DistrictSection wrappers */
+  #tab-data > div,
+  #tab-data > [data-section] {
+    padding: 2.5rem 2rem; border: none;
+  }
   #tab-data > div:nth-child(even),
   #tab-data > [data-section]:nth-child(even) {
-    background: var(--gray-50); padding: 1.75rem 1.5rem;
-    border-bottom: 1px solid var(--gray-200);
+    background: #eef2f7;
+  }
+  #tab-data > div:nth-child(even) .panel,
+  #tab-data > [data-section]:nth-child(even) .panel {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
   }
   #tab-data > div:nth-child(odd),
   #tab-data > [data-section]:nth-child(odd) {
-    background: white; padding: 1.75rem 1.5rem;
-    border-bottom: 1px solid var(--gray-200);
+    background: white;
   }
+  #tab-data > div .section-title,
+  #tab-data > [data-section] .section-title {
+    padding-left: 0.875rem;
+    border-left: 3px solid var(--primary);
+  }
+  #tab-data > div:nth-child(even) .section-title,
+  #tab-data > [data-section]:nth-child(even) .section-title {
+    border-left-color: var(--teal);
+  }
+
+  /* Tab content containers — no double borders */
+  .portal-tab-content { border: none; }
+  #tab-today, #tab-data { border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
 
   /* Today section */
   .portal-sub-title { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
@@ -1306,6 +1323,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap;
   }
   .source-fields-cell { font-size: 0.75rem; color: var(--gray-500); }
+  .sources-summary { font-size: 0.8125rem; color: var(--gray-500); margin-bottom: 1rem; }
 
   /* KDEM */
   .kdem-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
@@ -1367,6 +1385,8 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     .portal-stats-row { gap: 1rem; }
     .portal-tabs { gap: 0; }
     .portal-tab { padding: 0.5rem 0.75rem; font-size: 0.75rem; flex: 1; text-align: center; }
+    .portal-section { padding: 1.75rem 1.25rem; }
+    #tab-data > div, #tab-data > [data-section] { padding: 1.75rem 1.25rem; }
     .goals-row { flex-direction: column; }
     .goal-card { min-width: auto; }
     .today-donut-row { flex-direction: column; align-items: flex-start; }
@@ -1388,9 +1408,10 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     const todayTab = document.getElementById('tab-today');
     const dataTab = document.getElementById('tab-data');
     const discussTab = document.getElementById('tab-discuss');
+    const sourcesTab = document.getElementById('tab-sources');
     if (!tabs.length || !todayTab || !dataTab || !discussTab) return;
 
-    const allPanels = { today: todayTab, data: dataTab, discuss: discussTab };
+    const allPanels = { today: todayTab, data: dataTab, discuss: discussTab, sources: sourcesTab };
 
     function switchTab(tabName) {
       if (!allPanels[tabName]) tabName = 'today';
@@ -1438,8 +1459,9 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     // Handle hash-based navigation (from index cards)
     if (window.location.hash) {
       const hash = window.location.hash.slice(1);
-      const todaySections = ['today', 'strengths', 'opportunities', 'goals', 'nextsteps', 'livedata', 'sources'];
+      const todaySections = ['today', 'strengths', 'opportunities', 'goals', 'nextsteps', 'livedata'];
       const dataSections = ['roadmap', 'industries', 'kdem'];
+      if (hash === 'sources') { switchTab('sources'); }
       if (dataSections.includes(hash)) {
         switchTab('data');
       } else if (todaySections.includes(hash)) {

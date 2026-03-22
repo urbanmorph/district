@@ -143,16 +143,16 @@ const currentRole = roles.find(r => r.id === activeRole) || roles[0];
         }
       });
 
-      // Toggle roadmap component highlighting
+      // Toggle roadmap component visibility
       const components = document.querySelectorAll('.roadmap-component');
       components.forEach(comp => {
         const owner = comp.getAttribute('data-owner');
         if (roleId === 'full' || roleId === 'dc' || !role.roadmapOwners || role.roadmapOwners.length === 0) {
-          comp.classList.remove('dimmed');
+          comp.style.display = '';
         } else if (owner && role.roadmapOwners.includes(owner)) {
-          comp.classList.remove('dimmed');
+          comp.style.display = '';
         } else {
-          comp.classList.add('dimmed');
+          comp.style.display = 'none';
         }
       });
 
