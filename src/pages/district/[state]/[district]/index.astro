@@ -204,17 +204,19 @@ const nextStepCount = phase1?.components?.filter((c: any) => c.progress > 0 && c
       </a>
     )}
 
-    {/* ⑦ Data Sources */}
-    {dataSources.length > 0 && (
-      <a href={`${portalUrl}#sources`} class="card animate-up">
-        <div class="card-icon">📚</div>
+    {/* ⑦ Industry Sectors */}
+    {industries?.sectors?.length > 0 && (
+      <a href={`${portalUrl}?tab=data#industries`} class="card animate-up">
+        <div class="card-icon">🏭</div>
         <div class="card-body">
-          <div class="card-title">Data Sources</div>
+          <div class="card-title">Industry Sectors</div>
           <div class="card-kpi-row">
-            <span class="card-kpi">{dataSources.length} sources</span>
-            {d.dataCompleteness?.lastVerified && <span class="card-kpi">Verified {d.dataCompleteness.lastVerified}</span>}
+            <span class="card-kpi">{industries.sectors.length} sectors</span>
+            {industries.overview?.totalInvestment && <span class="card-kpi">₹{industries.overview.totalInvestment.toLocaleString('en-IN')} Cr</span>}
+            {industries.overview?.totalJobs && <span class="card-kpi">{industries.overview.totalJobs.toLocaleString('en-IN')} jobs</span>}
           </div>
-          <div class="card-teaser">{dataSources.slice(0, 4).map((s: any) => s.name).join(' · ')}</div>
+          <div class="card-teaser">{industries.sectors.map((s: any) => s.name).join(' · ')}</div>
+          {industries.overview?.status && <div class="card-sub">{industries.overview.status}</div>}
         </div>
         <span class="card-arrow">→</span>
       </a>
