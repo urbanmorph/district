@@ -112,24 +112,17 @@ const nextStepCount = phase1?.components?.filter((c: any) => c.progress > 0 && c
     )}
 
     {/* ③ Opportunities */}
-    {(sectorCount > 0 || d.opportunities?.length) && (
+    {d.opportunities?.length > 0 && (
       <a href={`${portalUrl}#opportunities`} class="card animate-up delay-3">
         <div class="card-icon">⚡</div>
         <div class="card-body">
           <div class="card-title">Opportunities</div>
           <div class="card-kpi-row">
-            {sectorCount > 0 && <span class="card-kpi">{sectorCount} sectors</span>}
-            {totalJobs > 0 && <span class="card-kpi">{totalJobs.toLocaleString('en-IN')} jobs</span>}
-            {industries?.overview?.totalInvestment && <span class="card-kpi">₹{industries.overview.totalInvestment.toLocaleString('en-IN')} Cr</span>}
+            <span class="card-kpi">{d.opportunities.length} identified</span>
           </div>
-          {industries?.sectors?.length > 0 && (
-            <div class="card-teaser">{industries.sectors.map((s: any) => s.name).join(' · ')}</div>
-          )}
-          {d.opportunities?.length > 0 && (
-            <ul class="card-teaser-list">
-              {d.opportunities.slice(0, 2).map(o => <li>⚡ {o.length > 55 ? o.slice(0, 52) + '...' : o}</li>)}
-            </ul>
-          )}
+          <ul class="card-teaser-list">
+            {d.opportunities.slice(0, 3).map(o => <li>⚡ {o.length > 60 ? o.slice(0, 57) + '...' : o}</li>)}
+          </ul>
         </div>
         <span class="card-arrow">→</span>
       </a>
