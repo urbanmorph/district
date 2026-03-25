@@ -5,6 +5,7 @@ import DistrictSection from '../../../../components/DistrictSection.astro';
 import Roadmap from '../../../../components/Roadmap.astro';
 import RoleSwitcher from '../../../../components/RoleSwitcher.astro';
 import Discussion from '../../../../components/Discussion.astro';
+import RoleDashboard from '../../../../components/RoleDashboard.astro';
 import { formatCurrency, formatPopulation, getStates } from '../../../../lib/data-loader';
 import { getAvailableRoles } from '../../../../lib/roles';
 
@@ -33,6 +34,8 @@ const liveData = (d as any).liveData;
 const kdem = (d as any).kdem;
 const communityInsights = (d as any).communityInsights;
 const communityItems: string[] = communityInsights?.verifiedItems || [];
+const roleDashboards = (d as any).roleDashboards || {};
+const districtAlerts = (d as any).alerts || [];
 const availableRoles = getAvailableRoles(d);
 
 function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
@@ -68,7 +71,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   <!-- Portal Tabs -->
   <div class="portal-tabs" id="portal-tabs">
     <button class="portal-tab active" data-tab="today">Baseline</button>
-    <button class="portal-tab" data-tab="data">Data by Role</button>
+    <button class="portal-tab" data-tab="data">Dashboard</button>
     <button class="portal-tab" data-tab="discuss">Discussion</button>
     <button class="portal-tab" data-tab="sources">Sources</button>
   </div>
@@ -327,7 +330,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   </div><!-- /tab-today -->
 
-  <!-- Data by Role Tab -->
+  <!-- Dashboard Tab -->
   <div class="portal-tab-content" id="tab-data" style="display:none;">
 
   <!-- Role Switcher -->
@@ -336,6 +339,48 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   )}
   <script type="application/json" id="roles-data" set:html={JSON.stringify(availableRoles)} />
 
+  <!-- Role Selector (shown when no role selected) -->
+  <div id="role-no-selection" class="portal-section">
+    <h3 class="section-title">Who's In Charge?</h3>
+    <p class="role-selector-desc">Select a role to see a dashboard customized for their responsibilities.</p>
+    <div class="role-selector-grid">
+      {availableRoles.filter(r => r.id !== 'full').map(role => (
+        <button class="role-card" data-select-role={role.id}>
+          <span class="role-card-icon">{role.icon}</span>
+          <span class="role-card-name">{role.name}</span>
+          <span class="role-card-desc">{role.description}</span>
+          <span class="role-card-arrow">Select →</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Pre-rendered role dashboards (hidden, toggled by JS) -->
+  {availableRoles.filter(r => r.id !== 'full' && roleDashboards[r.id]).map(role => (
+    <div data-role-dashboard={role.id} style="display:none;" class="portal-section">
+      <RoleDashboard
+        role={role}
+        dashData={roleDashboards[role.id]}
+        alerts={districtAlerts.filter((a: any) => a.roles.includes(role.id))}
+        roadmap={roadmap}
+        liveData={liveData}
+        portalUrl={`/district/${stateSlug}/${d.id}/portal`}
+      />
+    </div>
+  ))}
+
+  <!-- Fallback for roles without custom dashboards -->
+  {availableRoles.filter(r => r.id !== 'full' && !roleDashboards[r.id]).map(role => (
+    <div data-role-dashboard={role.id} style="display:none;" class="portal-section">
+      <div class="rd-fallback">
+        <span class="rd-fallback-icon">{role.icon}</span>
+        <h3>{role.name}</h3>
+        <p>Custom dashboard not yet available for this district. Showing filtered data below.</p>
+      </div>
+    </div>
+  ))}
+
+  <!-- Existing filtered sections (shown below dashboard) -->
   <!-- ⑤ Development Roadmap -->
   {roadmap && (
     <div id="roadmap">
@@ -1056,6 +1101,27 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   .portal-tab-content { border: none; }
   #tab-today, #tab-data { border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
 
+  /* Role selector */
+  .role-selector-desc { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 1.25rem; }
+  .role-selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .role-card {
+    display: flex; flex-direction: column; gap: 0.375rem;
+    padding: 1.25rem; background: white; border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg); cursor: pointer; text-align: left;
+    font-family: var(--font-body); transition: all 0.2s;
+  }
+  .role-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .role-card-icon { font-size: 1.5rem; }
+  .role-card-name { font-size: 0.9375rem; font-weight: 700; color: var(--gray-900); }
+  .role-card-desc { font-size: 0.75rem; color: var(--gray-500); line-height: 1.4; flex: 1; }
+  .role-card-arrow { font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem; }
+
+  /* Fallback */
+  .rd-fallback { text-align: center; padding: 3rem 2rem; color: var(--gray-500); }
+  .rd-fallback-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+  .rd-fallback h3 { font-size: 1.125rem; color: var(--gray-700); margin-bottom: 0.5rem; }
+  .rd-fallback p { font-size: 0.875rem; }
+
   /* Today section */
   .portal-sub-title { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
   .today-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -1399,6 +1465,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     .msme-bar-label { min-width: 70px; }
     .buyer-category { min-width: 60px; }
     .portal-hero { margin-bottom: 0.75rem; }
+    .role-selector-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 
@@ -1413,25 +1480,103 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
     const allPanels = { today: todayTab, data: dataTab, discuss: discussTab, sources: sourcesTab };
 
+    // Role dashboard elements
+    const roleSelector = document.getElementById('role-no-selection');
+    const roleDashboards = document.querySelectorAll('[data-role-dashboard]');
+    const roleSelect = document.getElementById('role-select');
+
     function switchTab(tabName) {
       if (!allPanels[tabName]) tabName = 'today';
       tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
       Object.entries(allPanels).forEach(([name, el]) => {
-        el.style.display = name === tabName ? '' : 'none';
+        if (el) el.style.display = name === tabName ? '' : 'none';
       });
-
-      // Scroll to anchor if hash present
       if (window.location.hash) {
         const target = document.querySelector(window.location.hash);
         if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
       }
     }
 
-    // Read from URL on load
+    function switchRole(roleId) {
+      // Show/hide role selector vs dashboard
+      if (roleSelector) {
+        roleSelector.style.display = (!roleId || roleId === 'full') ? '' : 'none';
+      }
+      roleDashboards.forEach(el => {
+        el.style.display = el.getAttribute('data-role-dashboard') === roleId ? '' : 'none';
+      });
+      // Update role select dropdown if exists
+      if (roleSelect) roleSelect.value = roleId || 'full';
+
+      // Also apply the existing section/roadmap filtering from RoleSwitcher
+      const rolesDataEl = document.getElementById('roles-data');
+      if (rolesDataEl) {
+        try {
+          const roles = JSON.parse(rolesDataEl.textContent || '[]');
+          const roleMap = {};
+          roles.forEach(r => { roleMap[r.id] = r; });
+          const role = roleMap[roleId];
+          if (role) {
+            // Toggle sections
+            document.querySelectorAll('[data-section]').forEach(sec => {
+              const sn = sec.getAttribute('data-section');
+              if (roleId === 'full' || role.sections.includes(sn)) {
+                sec.style.display = '';
+              } else {
+                sec.style.display = 'none';
+              }
+            });
+            // Toggle roadmap components
+            document.querySelectorAll('.roadmap-component').forEach(comp => {
+              const owner = comp.getAttribute('data-owner');
+              if (roleId === 'full' || roleId === 'dc' || !role.roadmapOwners || role.roadmapOwners.length === 0) {
+                comp.style.display = '';
+              } else if (owner && role.roadmapOwners.includes(owner)) {
+                comp.style.display = '';
+              } else {
+                comp.style.display = 'none';
+              }
+            });
+          }
+        } catch(e) {}
+      }
+
+      // Update URL
+      const url = new URL(window.location);
+      if (roleId && roleId !== 'full') {
+        url.searchParams.set('role', roleId);
+      } else {
+        url.searchParams.delete('role');
+      }
+      window.history.pushState({}, '', url);
+    }
+
+    // Role card clicks
+    document.querySelectorAll('[data-select-role]').forEach(card => {
+      card.addEventListener('click', () => {
+        const roleId = card.getAttribute('data-select-role');
+        switchRole(roleId);
+      });
+    });
+
+    // Role select dropdown change (from RoleSwitcher)
+    if (roleSelect) {
+      roleSelect.addEventListener('change', () => {
+        switchRole(roleSelect.value);
+      });
+    }
+
+    // Read URL params on load
     const params = new URLSearchParams(window.location.search);
     const urlTab = params.get('tab');
+    const urlRole = params.get('role');
+
     if (urlTab && allPanels[urlTab]) {
       switchTab(urlTab);
+    }
+    if (urlRole) {
+      switchRole(urlRole);
+      if (!urlTab) switchTab('data'); // Auto-switch to Dashboard tab when role in URL
     }
 
     // Tab click
@@ -1450,23 +1595,22 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
       });
     });
 
-    // Handle browser back/forward
+    // Browser back/forward
     window.addEventListener('popstate', () => {
       const p = new URLSearchParams(window.location.search);
       switchTab(p.get('tab') || 'today');
+      const r = p.get('role');
+      if (r) switchRole(r);
     });
 
-    // Handle hash-based navigation (from index cards)
+    // Hash-based navigation
     if (window.location.hash) {
       const hash = window.location.hash.slice(1);
       const todaySections = ['today', 'strengths', 'opportunities', 'goals', 'nextsteps', 'livedata'];
       const dataSections = ['roadmap', 'industries', 'kdem'];
-      if (hash === 'sources') { switchTab('sources'); }
-      if (dataSections.includes(hash)) {
-        switchTab('data');
-      } else if (todaySections.includes(hash)) {
-        switchTab('today');
-      }
+      if (hash === 'sources') switchTab('sources');
+      else if (dataSections.includes(hash)) switchTab('data');
+      else if (todaySections.includes(hash)) switchTab('today');
     }
   });
 </script>

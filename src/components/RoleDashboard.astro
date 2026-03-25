@@ -1,0 +1,287 @@
+---
+interface KPI {
+  label: string;
+  value: string | number;
+  target?: string | number;
+  status: 'critical' | 'warning' | 'good';
+}
+
+interface Action {
+  title: string;
+  progress: number;
+  budget: number;
+  timeline: string;
+}
+
+interface Alert {
+  id: number;
+  severity: 'red' | 'yellow';
+  title: string;
+  roles: string[];
+  deadline?: string;
+  impact: string;
+}
+
+interface RoleDashData {
+  headline: string;
+  kpis: KPI[];
+  actions: Action[];
+  showLiveData?: string[];
+  showSections?: string[];
+}
+
+interface Props {
+  role: { id: string; name: string; icon: string; description: string };
+  dashData: RoleDashData;
+  alerts: Alert[];
+  roadmap: any;
+  liveData: any;
+  portalUrl: string;
+}
+
+const { role, dashData, alerts, roadmap, liveData, portalUrl } = Astro.props;
+
+const phases = roadmap ? Object.keys(roadmap.phases).sort().map(k => ({ id: k, ...roadmap.phases[k] })) : [];
+const roleOwners = (() => {
+  // Map role IDs to roadmap owner values
+  const map: Record<string, string[]> = {
+    dc: [], // sees all
+    agriculture: ['water', 'agriculture', 'fpo', 'agro-processing'],
+    industrial: ['industrial-land', 'msme', 'industry', 'kiadb'],
+    water: ['water', 'irrigation'],
+  };
+  return map[role.id] || [];
+})();
+
+function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
+---
+
+<div class="rd">
+  <!-- Challenge headline -->
+  <div class="rd-challenge">
+    <div class="rd-challenge-label">Your Challenge</div>
+    <p class="rd-headline">{dashData.headline}</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="rd-kpis">
+    {dashData.kpis.map(kpi => (
+      <div class={`rd-kpi rd-kpi-${kpi.status}`}>
+        <div class="rd-kpi-value">{kpi.value}</div>
+        {kpi.target && <div class="rd-kpi-target">target: {kpi.target}</div>}
+        <div class="rd-kpi-label">{kpi.label}</div>
+        <span class={`rd-kpi-badge badge-${kpi.status}`}>
+          {kpi.status === 'critical' ? 'Critical' : kpi.status === 'warning' ? 'Needs Attention' : 'On Track'}
+        </span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Alerts -->
+  {alerts.length > 0 && (
+    <div class="rd-section">
+      <div class="rd-section-title">Alerts</div>
+      <div class="rd-alerts">
+        {alerts.map(alert => (
+          <div class={`rd-alert rd-alert-${alert.severity}`}>
+            <span class="rd-alert-icon">{alert.severity === 'red' ? '🔴' : '🟡'}</span>
+            <div class="rd-alert-content">
+              <div class="rd-alert-title">{alert.title}</div>
+              <div class="rd-alert-meta">
+                {alert.deadline && <span>Deadline: {alert.deadline}</span>}
+                <span>{alert.impact}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- What You Need To Do -->
+  {dashData.actions.length > 0 && (
+    <div class="rd-section">
+      <div class="rd-section-title">What You Need To Do</div>
+      <div class="rd-actions">
+        {dashData.actions.map(action => (
+          <div class="rd-action">
+            <div class="rd-action-header">
+              <span class="rd-action-title">{action.title}</span>
+              <span class="rd-action-pct">{action.progress}%</span>
+            </div>
+            <div class="rd-action-bar"><div class="rd-action-fill" style={`width:${action.progress}%`}></div></div>
+            <div class="rd-action-meta">
+              <span>{fmtCr(action.budget)}</span>
+              <span>{action.timeline}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Your Roadmap Items -->
+  {phases.length > 0 && (
+    <div class="rd-section">
+      <div class="rd-section-title">Your Roadmap Items</div>
+      <div class="rd-roadmap">
+        {phases.map(phase => {
+          const components = phase.components?.filter((c: any) => {
+            if (role.id === 'dc') return true;
+            if (!c.owner) return false;
+            return roleOwners.includes(c.owner);
+          }) || [];
+          if (components.length === 0) return null;
+          return (
+            <div class="rd-phase">
+              <div class="rd-phase-label">{phase.name} ({phase.years})</div>
+              {components.map((comp: any) => (
+                <div class="rd-comp">
+                  <div class="rd-comp-header">
+                    <span class="rd-comp-name">{comp.name}</span>
+                    <span class="rd-comp-pct">{comp.progress}%</span>
+                  </div>
+                  <div class="rd-comp-bar"><div class="rd-comp-fill" style={`width:${comp.progress}%`}></div></div>
+                  {comp.items?.slice(0, 2).map((item: string) => (
+                    <div class="rd-comp-item">{item}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  )}
+
+  <!-- Live Data -->
+  {liveData && dashData.showLiveData?.length > 0 && (
+    <div class="rd-section">
+      <div class="rd-section-title">Live Data</div>
+      <div class="rd-live">
+        {dashData.showLiveData.includes('commodityPrices') && liveData.commodityPrices && (
+          Object.entries(liveData.commodityPrices).map(([key, data]: [string, any]) => (
+            <span class="rd-live-item">
+              <span class="rd-live-name">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+              <strong>₹{data.price?.toLocaleString('en-IN')}/q</strong>
+              {data.percentChange !== undefined && <span class={data.percentChange >= 0 ? 'rd-up' : 'rd-down'}>{data.percentChange >= 0 ? '+' : ''}{data.percentChange}%</span>}
+            </span>
+          ))
+        )}
+        {dashData.showLiveData.includes('rainfall') && liveData.rainfall?.thisSeason && (
+          <span class="rd-live-item">
+            <span class="rd-live-name">Rainfall</span>
+            <strong>{liveData.rainfall.thisSeason.amount}mm</strong>
+            <span class="rd-down">{liveData.rainfall.thisSeason.status}</span>
+          </span>
+        )}
+      </div>
+    </div>
+  )}
+
+  <!-- Links to detail sections -->
+  {dashData.showSections?.length > 0 && (
+    <div class="rd-section">
+      <div class="rd-section-title">Explore Details</div>
+      <div class="rd-links">
+        {dashData.showSections.map(section => (
+          <a href={`${portalUrl}?tab=data#${section}`} class="rd-link">{section.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())} →</a>
+        ))}
+        <a href={`${portalUrl}#today`} class="rd-link">Full Baseline →</a>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .rd { }
+
+  /* Challenge */
+  .rd-challenge { margin-bottom: 1.5rem; }
+  .rd-challenge-label {
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--gray-500); margin-bottom: 0.375rem;
+  }
+  .rd-headline { font-size: 1rem; color: var(--gray-800); line-height: 1.6; margin: 0; }
+
+  /* KPIs */
+  .rd-kpis { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .rd-kpi {
+    flex: 1; min-width: 130px; padding: 1rem;
+    background: white; border-radius: var(--radius); border: 1px solid var(--gray-200);
+  }
+  .rd-kpi-value { font-size: 1.375rem; font-weight: 800; color: var(--gray-900); }
+  .rd-kpi-target { font-size: 0.6875rem; color: var(--gray-500); margin-top: 0.125rem; }
+  .rd-kpi-label { font-size: 0.6875rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 0.375rem; }
+  .rd-kpi-badge {
+    display: inline-block; font-size: 0.5625rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; padding: 0.125rem 0.375rem; border-radius: 3px; margin-top: 0.375rem;
+  }
+  .badge-critical { color: var(--red-dark); background: var(--red-light); }
+  .badge-warning { color: #92400e; background: var(--yellow-light); }
+  .badge-good { color: var(--green-dark); background: var(--green-light); }
+
+  /* Sections */
+  .rd-section { margin-bottom: 1.5rem; }
+  .rd-section-title {
+    font-family: var(--font-display); font-size: 0.9375rem; font-weight: 700;
+    color: var(--gray-800); margin-bottom: 0.75rem;
+    padding-left: 0.75rem; border-left: 3px solid var(--primary);
+  }
+
+  /* Alerts */
+  .rd-alerts { display: flex; flex-direction: column; gap: 0.5rem; }
+  .rd-alert { display: flex; gap: 0.625rem; padding: 0.75rem; border-radius: var(--radius); }
+  .rd-alert-red { background: var(--red-light); }
+  .rd-alert-yellow { background: var(--yellow-light); }
+  .rd-alert-icon { flex-shrink: 0; font-size: 0.875rem; }
+  .rd-alert-content { flex: 1; }
+  .rd-alert-title { font-size: 0.875rem; font-weight: 700; color: var(--gray-900); }
+  .rd-alert-meta { font-size: 0.75rem; color: var(--gray-600); margin-top: 0.125rem; display: flex; gap: 0.75rem; }
+
+  /* Actions */
+  .rd-actions { display: flex; flex-direction: column; gap: 1rem; }
+  .rd-action { }
+  .rd-action-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+  .rd-action-title { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
+  .rd-action-pct { font-size: 0.8125rem; font-weight: 700; color: var(--gray-500); }
+  .rd-action-bar { height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
+  .rd-action-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--teal)); }
+  .rd-action-meta { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+
+  /* Roadmap */
+  .rd-roadmap { display: flex; flex-direction: column; gap: 1rem; }
+  .rd-phase { }
+  .rd-phase-label { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+  .rd-comp { margin-bottom: 0.75rem; padding: 0.75rem; background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); }
+  .rd-comp-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+  .rd-comp-name { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
+  .rd-comp-pct { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); }
+  .rd-comp-bar { height: 5px; background: var(--gray-100); border-radius: 3px; overflow: hidden; margin-bottom: 0.375rem; }
+  .rd-comp-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--primary), var(--teal)); }
+  .rd-comp-item { font-size: 0.75rem; color: var(--gray-600); }
+
+  /* Live data */
+  .rd-live { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .rd-live-item { display: flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; color: var(--gray-700); }
+  .rd-live-name { color: var(--gray-500); text-transform: capitalize; }
+  .rd-up { color: var(--green); font-weight: 700; }
+  .rd-down { color: var(--red); font-weight: 700; }
+
+  /* Links */
+  .rd-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .rd-link {
+    font-size: 0.8125rem; font-weight: 600; color: var(--primary);
+    text-decoration: none; padding: 0.375rem 0.75rem;
+    border: 1px solid var(--primary-light); border-radius: var(--radius);
+    background: white; transition: all 0.2s; text-transform: capitalize;
+  }
+  .rd-link:hover { background: var(--primary-light); }
+
+  @media (max-width: 768px) {
+    .rd-kpis { flex-direction: column; }
+    .rd-kpi { min-width: auto; }
+    .rd-alert-meta { flex-direction: column; gap: 0.125rem; }
+    .rd-live { flex-direction: column; gap: 0.5rem; }
+  }
+</style>

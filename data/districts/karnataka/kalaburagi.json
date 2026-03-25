@@ -123,6 +123,78 @@
       "Automotive ancillary potential"
     ]
   },
+  "alerts": [
+    { "id": 1, "severity": "red", "title": "Solar Pump Installation 40% Behind Schedule", "roles": ["agriculture", "water", "dc"], "deadline": "2026-06-30", "impact": "38,000 ha micro-irrigation target at risk" },
+    { "id": 2, "severity": "red", "title": "PM MITRA Land Acquisition Deadline", "roles": ["dc", "industrial", "revenue"], "deadline": "2026-03-31", "impact": "26,000 jobs, Rs 390 Cr funding at risk if land not identified" },
+    { "id": 3, "severity": "yellow", "title": "FPO Formation Pace Below Target", "roles": ["agriculture", "dc"], "impact": "15/50 formed, need 3x acceleration for 2032 target" },
+    { "id": 4, "severity": "yellow", "title": "Industrial CETP Not Yet Planned", "roles": ["industrial", "dc"], "impact": "Pharma and textile zones cannot operate without effluent treatment" },
+    { "id": 5, "severity": "yellow", "title": "Aerospace AS9100 Certification Risk", "roles": ["industrial"], "impact": "60% first-time fail rate, need consultant from Day 1" },
+    { "id": 6, "severity": "red", "title": "Borewell Rehabilitation Deadline Q2 2026", "roles": ["water", "dc"], "deadline": "2026-06-30", "impact": "72 borewells remaining, completion needed for monsoon season" }
+  ],
+  "roleDashboards": {
+    "dc": {
+      "headline": "Lowest PCI in Karnataka (Rs 1.43L vs Rs 3.10L state avg). Rs 20,150 Cr investment plan across 3 phases, targeting 156,700 jobs and rank improvement from 30/30 to 15/30.",
+      "kpis": [
+        { "label": "Per Capita Income", "value": "Rs 1.43L", "target": "Rs 2.50L", "status": "critical" },
+        { "label": "State Rank", "value": "30/30", "target": "15/30", "status": "critical" },
+        { "label": "Phase 1 Progress", "value": "80%", "status": "good" },
+        { "label": "Jobs Created", "value": "~8,000", "target": "156,700", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "PM MITRA land acquisition (1,000 acres)", "progress": 40, "budget": 390, "timeline": "2026-Q2" },
+        { "title": "Complete Foundation Phase", "progress": 80, "budget": 4000, "timeline": "2026-2029" },
+        { "title": "LEAP incubation first cohort", "progress": 20, "budget": 1000, "timeline": "2026" }
+      ],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["industries", "fpos", "credit", "msme", "investments"]
+    },
+    "agriculture": {
+      "headline": "Irrigation coverage at 13.4% (rank 26/30) — 67% of farmers are rainfed. ~300 dal mills operate but only 45 upgraded. 15 of 50 target FPOs formed.",
+      "kpis": [
+        { "label": "Irrigation Coverage", "value": "13.4%", "target": "25%", "status": "critical" },
+        { "label": "FPOs Active", "value": "15", "target": "50", "status": "warning" },
+        { "label": "Dal Mills Upgraded", "value": "45/300", "status": "critical" },
+        { "label": "Farmers in FPOs", "value": "30,000", "target": "100,000", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Expand micro-irrigation to 50,000 ha", "progress": 76, "budget": 2200, "timeline": "2026-2029" },
+        { "title": "Form 35 new FPOs", "progress": 30, "budget": 300, "timeline": "2029-2032" },
+        { "title": "Upgrade 255 remaining dal mills", "progress": 15, "budget": 2400, "timeline": "2029-2032" }
+      ],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["fpos", "credit"]
+    },
+    "industrial": {
+      "headline": "4 focus sectors with Rs 2,450 Cr pipeline targeting 56,700 jobs. PM MITRA textile park (1,000 acres) is critical path — land acquisition at 40%.",
+      "kpis": [
+        { "label": "Focus Sectors", "value": "4", "status": "good" },
+        { "label": "Investment Pipeline", "value": "Rs 2,450 Cr", "status": "good" },
+        { "label": "Jobs Target", "value": "56,700", "status": "warning" },
+        { "label": "Land Available", "value": "200 acres", "target": "1,200 acres", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "PM MITRA 1,000 acre land acquisition", "progress": 40, "budget": 390, "timeline": "2026-Q2" },
+        { "title": "Aerospace cluster land + AS9100 prep", "progress": 10, "budget": 800, "timeline": "2027" },
+        { "title": "CETP for pharma/textile zones", "progress": 0, "budget": 150, "timeline": "2027" }
+      ],
+      "showSections": ["industries", "investments", "msme"]
+    },
+    "water": {
+      "headline": "119,327 ha irrigated (13.4%) of 890,897 ha net sown area — target 222,000 ha by 2034. Borewell rehabilitation 80% complete, but solar pump installation critically behind at 24%.",
+      "kpis": [
+        { "label": "Area Irrigated", "value": "119,327 ha", "target": "222,000 ha", "status": "critical" },
+        { "label": "Borewells", "value": "285/357", "status": "good" },
+        { "label": "Solar Pumps", "value": "450/1,910", "status": "critical" },
+        { "label": "Farm Ponds", "value": "2,100/3,250", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Complete borewell rehabilitation", "progress": 80, "budget": 500, "timeline": "2026" },
+        { "title": "Accelerate solar pump installation", "progress": 24, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Micro-irrigation expansion to 50,000 ha", "progress": 76, "budget": 1300, "timeline": "2026-2029" }
+      ],
+      "showLiveData": ["rainfall"]
+    }
+  },
   "dataCompleteness": {
     "level": "full",
     "sources": [
