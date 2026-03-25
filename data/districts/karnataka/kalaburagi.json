@@ -129,7 +129,10 @@
     { "id": 3, "severity": "yellow", "title": "FPO Formation Pace Below Target", "roles": ["agriculture", "dc"], "impact": "15/50 formed, need 3x acceleration for 2032 target" },
     { "id": 4, "severity": "yellow", "title": "Industrial CETP Not Yet Planned", "roles": ["industrial", "dc"], "impact": "Pharma and textile zones cannot operate without effluent treatment" },
     { "id": 5, "severity": "yellow", "title": "Aerospace AS9100 Certification Risk", "roles": ["industrial"], "impact": "60% first-time fail rate, need consultant from Day 1" },
-    { "id": 6, "severity": "red", "title": "Borewell Rehabilitation Deadline Q2 2026", "roles": ["water", "dc"], "deadline": "2026-06-30", "impact": "72 borewells remaining, completion needed for monsoon season" }
+    { "id": 6, "severity": "red", "title": "Borewell Rehabilitation Deadline Q2 2026", "roles": ["water", "dc"], "deadline": "2026-06-30", "impact": "72 borewells remaining, completion needed for monsoon season" },
+    { "id": 7, "severity": "yellow", "title": "Skill Development 25% Behind Schedule", "roles": ["education", "dc"], "impact": "9,000/36,000 trained, placement pipeline at risk" },
+    { "id": 8, "severity": "red", "title": "Land Acquisition Critical for 3 Projects", "roles": ["revenue", "dc", "industrial"], "deadline": "2026-Q2", "impact": "PM MITRA, Aerospace, Pharma all blocked on 1,532 acres" },
+    { "id": 9, "severity": "yellow", "title": "KDEM Startup Target Needs Acceleration", "roles": ["kdem", "dc"], "impact": "12/50 startups, need 3x pace for 2030 target" }
   ],
   "roleDashboards": {
     "dc": {
@@ -193,6 +196,81 @@
         { "title": "Micro-irrigation expansion to 50,000 ha", "progress": 76, "budget": 1300, "timeline": "2026-2029" }
       ],
       "showLiveData": ["rainfall"]
+    },
+    "health": {
+      "headline": "371-bed Jayadeva Heart Hospital opened Dec 2024. Child super-speciality (Rs 90 Cr) planned. ESIC hospital operational. 156,700 new jobs will require occupational health infrastructure.",
+      "kpis": [
+        { "label": "Sex Ratio", "value": "971", "target": "1000", "status": "warning" },
+        { "label": "Literacy Rate", "value": "64.85%", "target": "75%", "status": "warning" },
+        { "label": "Population", "value": "25.7L", "status": "good" },
+        { "label": "Hospitals", "value": "3 super-speciality", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Child super-speciality hospital (IGICH branch)", "progress": 10, "budget": 90, "timeline": "2026-2028" },
+        { "title": "Occupational health facilities for industrial zones", "progress": 0, "budget": 50, "timeline": "2027-2029" }
+      ],
+      "showSections": []
+    },
+    "education": {
+      "headline": "Literacy at 64.85% (below state avg). 4 universities but skill-gap persists — 43% out-migration to Bangalore. Skill development is 25% complete (9,000/36,000 youth trained).",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "64.85%", "target": "75%", "status": "warning" },
+        { "label": "Youth Trained", "value": "9,000", "target": "36,000", "status": "critical" },
+        { "label": "Placements", "value": "7,200", "target": "30,600", "status": "critical" },
+        { "label": "Universities", "value": "4", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Skill development program (36,000 youth)", "progress": 25, "budget": 600, "timeline": "2029-2032" },
+        { "title": "ITI curriculum for aerospace/pharma", "progress": 5, "budget": 100, "timeline": "2026-2028" },
+        { "title": "LEAP agritech incubation training", "progress": 20, "budget": 200, "timeline": "2026-2029" }
+      ],
+      "showSections": []
+    },
+    "revenue": {
+      "headline": "1,625 acres needed across PM MITRA (1,000), Aerospace (500), Pharma (200). Only 93 acres acquired so far. Land acquisition is the single biggest bottleneck across all industrial plans.",
+      "kpis": [
+        { "label": "Land Required", "value": "1,625 acres", "status": "critical" },
+        { "label": "Land Acquired", "value": "93 acres", "target": "1,625 acres", "status": "critical" },
+        { "label": "Acquisition Gap", "value": "1,532 acres", "status": "critical" },
+        { "label": "Area", "value": "10,951 km²", "status": "good" }
+      ],
+      "actions": [
+        { "title": "PM MITRA 1,000 acres (Sedam/Chittapur)", "progress": 40, "budget": 390, "timeline": "2026-Q2" },
+        { "title": "Aerospace cluster 500 acres", "progress": 10, "budget": 200, "timeline": "2026-2027" },
+        { "title": "Pharma zone 200 acres", "progress": 22, "budget": 100, "timeline": "2026-2027" }
+      ],
+      "showSections": []
+    },
+    "kdem": {
+      "headline": "Kalaburagi designated 'Kalyana Karnataka AI Hub' under Beyond Bengaluru. LEAP incubation centre launched Apr 2025. 12 new companies, 850 jobs in FY23-26. Target: 50 startups, 10,000 jobs by 2030.",
+      "kpis": [
+        { "label": "New Companies", "value": "12", "target": "50", "status": "warning" },
+        { "label": "Jobs Created", "value": "850", "target": "10,000", "status": "critical" },
+        { "label": "LEAP Fund", "value": "Rs 1,000 Cr", "status": "good" },
+        { "label": "Land Cost", "value": "0.5x Bengaluru", "status": "good" }
+      ],
+      "actions": [
+        { "title": "LEAP incubation first cohort", "progress": 20, "budget": 1000, "timeline": "2026" },
+        { "title": "Offshore Development Centre setup", "progress": 15, "budget": 50, "timeline": "2026-2027" },
+        { "title": "Attract 38 more startups", "progress": 24, "budget": 75, "timeline": "2027-2030" }
+      ],
+      "showSections": []
+    },
+    "minister": {
+      "headline": "Kalaburagi: lowest PCI in Karnataka (Rs 1.43L vs Rs 3.10L). Rs 20,150 Cr 8-year plan across 3 phases. Foundation Phase 80% complete. 4 industrial sectors, 156,700 jobs target. Beyond Bengaluru AI Hub active.",
+      "kpis": [
+        { "label": "PCI", "value": "Rs 1.43L", "target": "Rs 2.50L", "status": "critical" },
+        { "label": "State Rank", "value": "30/30", "target": "15/30", "status": "critical" },
+        { "label": "Total Investment", "value": "Rs 20,150 Cr", "status": "good" },
+        { "label": "Phase 1", "value": "80%", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Foundation Phase completion", "progress": 80, "budget": 4000, "timeline": "2026-2029" },
+        { "title": "PM MITRA textile park activation", "progress": 40, "budget": 390, "timeline": "2026-Q2" },
+        { "title": "Beyond Bengaluru — KDEM targets", "progress": 17, "budget": 1075, "timeline": "2026-2030" }
+      ],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["industries", "fpos", "credit", "msme", "investments"]
     }
   },
   "dataCompleteness": {
