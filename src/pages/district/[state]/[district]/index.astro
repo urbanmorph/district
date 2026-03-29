@@ -78,51 +78,32 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
             <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned investment across all phases'}</div>
           </div>
         )}
+        {d.rankings?.hdi && (
+          <div class="goal-item">
+            <div class="goal-value">HDI {d.rankings.hdi.value} → {(d.rankings.hdi.value + 0.1).toFixed(2)}</div>
+            <div class="goal-desc">Human Development Index (rank {d.rankings.hdi.stateRank}, state avg {d.rankings.hdi.stateAvg})</div>
+          </div>
+        )}
       </div>
       <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
     </div>
 
-    {/* Card 2: Industries & Sectors */}
+    {/* Card 2: What Needs To Be Done */}
     <div class="card card-sectors">
-      <h2 class="card-heading">🏭 Industries & Sectors</h2>
+      <h2 class="card-heading">🏗️ What Needs To Be Done?</h2>
       <div class="card-content">
-        {/* GDDP Composition bars */}
-        {(comp.services || comp.agriculture || comp.industry) && (
-          <div class="sector-group">
-            <div class="sector-group-title">Existing Sectors (GDDP Composition)</div>
-            {comp.services && (
-              <div class="bar-row">
-                <span class="bar-label">Services</span>
-                <div class="bar-track"><div class="bar-fill bar-services" style={`width:${comp.services}%`}></div></div>
-                <span class="bar-pct">{comp.services}%</span>
-              </div>
-            )}
-            {comp.agriculture && (
-              <div class="bar-row">
-                <span class="bar-label">Agriculture</span>
-                <div class="bar-track"><div class="bar-fill bar-agri" style={`width:${comp.agriculture}%`}></div></div>
-                <span class="bar-pct">{comp.agriculture}%</span>
-              </div>
-            )}
-            {comp.industry && (
-              <div class="bar-row">
-                <span class="bar-label">Industry</span>
-                <div class="bar-track"><div class="bar-fill bar-industry" style={`width:${comp.industry}%`}></div></div>
-                <span class="bar-pct">{comp.industry}%</span>
-              </div>
-            )}
-          </div>
-        )}
-
         {/* Core programs from roadmap */}
         {phases.length > 0 && (
           <div class="sector-group">
             <div class="sector-group-title">Core Programs</div>
-            {phases.flatMap(p => p.components || []).slice(0, 4).map((comp: any) => (
-              <div class="program-item">
-                <strong>{comp.name}</strong> — {comp.items?.[0] || `₹${comp.budget?.toLocaleString('en-IN')} Cr`}
-              </div>
-            ))}
+            <div class="program-cards">
+              {phases.flatMap(p => p.components || []).slice(0, 4).map((c: any) => (
+                <div class="program-card">
+                  <div class="program-card-name">{c.name}</div>
+                  <div class="program-card-detail">{c.items?.[0] || `₹${c.budget?.toLocaleString('en-IN')} Cr`}</div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -130,16 +111,26 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
         {industries?.sectors?.length > 0 && (
           <div class="sector-group">
             <div class="sector-group-title">{industries.sectors.length} New Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</div>
-            {industries.sectors.slice(0, 3).map((s: any) => (
-              <div class="program-item">
-                <strong>{s.name}</strong> — {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs, {s.priority}
-              </div>
-            ))}
+            <div class="program-cards">
+              {industries.sectors.slice(0, 4).map((s: any) => (
+                <div class="program-card">
+                  <div class="program-card-name">{s.name}</div>
+                  <div class="program-card-detail">{s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs · {s.priority}</div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
+        {/* Digital Economy */}
         {kdem && (
-          <div class="kdem-line">💻 {kdem.clusterName} — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030</div>
+          <div class="sector-group">
+            <div class="sector-group-title">Digital Economy — Beyond Bengaluru</div>
+            <div class="program-card">
+              <div class="program-card-name">{kdem.clusterName}</div>
+              <div class="program-card-detail">{kdem.targets2030?.startups} startups · {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030</div>
+            </div>
+          </div>
         )}
       </div>
       <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
@@ -229,22 +220,13 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     margin-bottom: 0.75rem; padding-bottom: 0.375rem;
     border-bottom: 1px solid var(--gray-100);
   }
-  .bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-  .bar-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-800); min-width: 90px; }
-  .bar-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 5px; }
-  .bar-services { background: var(--primary); }
-  .bar-agri { background: var(--green); }
-  .bar-industry { background: var(--orange); }
-  .bar-pct { font-size: 0.875rem; font-weight: 800; color: var(--gray-900); min-width: 48px; text-align: right; }
-
-  .program-item { font-size: 0.875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 0.5rem; }
-  .program-item strong { color: var(--gray-900); font-weight: 700; }
-
-  .kdem-line {
-    font-size: 0.875rem; color: var(--gray-700); padding: 0.75rem 0;
-    margin-top: 0.75rem; border-top: 1px solid var(--gray-100);
+  .program-cards { display: flex; flex-direction: column; gap: 0.5rem; }
+  .program-card {
+    padding: 0.75rem 1rem; background: var(--gray-50);
+    border-radius: 8px; border: 1px solid var(--gray-100);
   }
+  .program-card-name { font-size: 0.875rem; font-weight: 700; color: var(--gray-900); }
+  .program-card-detail { font-size: 0.8125rem; color: var(--gray-500); margin-top: 0.125rem; }
 
   /* ── What Next ── */
   .action-card {

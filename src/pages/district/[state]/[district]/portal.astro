@@ -114,6 +114,14 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           <div class="kpi-label">Density</div>
         </div>
       )}
+      {d.rankings?.hdi && (
+        <div class="kpi-card">
+          <div class="kpi-accent" style="background:var(--yellow);"></div>
+          <div class="kpi-value">{d.rankings.hdi.value}</div>
+          <div class="kpi-label">HDI ({d.rankings.hdi.year})</div>
+          <div class="kpi-trend caution">Rank {d.rankings.hdi.stateRank}</div>
+        </div>
+      )}
     </div>
 
     {/* GDDP + Demographics */}
@@ -298,6 +306,14 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           <div class="panel goal-card">
             <div class="goal-to">{fmtCr(roadmap.totalInvestment)}</div>
             <div class="goal-label">Investment Target</div>
+          </div>
+        )}
+        {d.rankings?.hdi && (
+          <div class="panel goal-card">
+            <div class="goal-from">{d.rankings.hdi.value}</div>
+            <div class="goal-arrow">→</div>
+            <div class="goal-to">{(d.rankings.hdi.value + 0.1).toFixed(2)}</div>
+            <div class="goal-label">HDI</div>
           </div>
         )}
       </div>

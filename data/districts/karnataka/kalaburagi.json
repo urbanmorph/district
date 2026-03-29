@@ -54,6 +54,13 @@
       "stateRank": "26/30",
       "value": 13.4,
       "status": "Critical constraint"
+    },
+    "hdi": {
+      "value": 0.539,
+      "stateRank": "29/30",
+      "stateAvg": 0.645,
+      "year": "2022",
+      "source": "Karnataka Human Development Report 2022"
     }
   },
   "keySectors": [
