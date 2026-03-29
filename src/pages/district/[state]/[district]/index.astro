@@ -16,17 +16,25 @@ export function getStaticPaths() {
 const { district: d, stateName, stateSlug } = Astro.props;
 const eco = d.economy || {} as any;
 const demo = d.demographics || {} as any;
+const comp = eco.gddpComposition || {};
 const roadmap = (d as any).roadmap;
 const industries = (d as any).industries;
 const kdem = (d as any).kdem;
-const communityInsights = (d as any).communityInsights;
+const roleDashboards = (d as any).roleDashboards || {};
 const portalUrl = `/district/${stateSlug}/${d.id}/portal`;
-const discussUrl = `${portalUrl}?tab=discuss`;
 
+// Roadmap phases + components
 const phases = roadmap ? Object.keys(roadmap.phases).sort().map(k => ({ id: k, ...roadmap.phases[k] })) : [];
-const phase1 = phases.length > 0 ? phases[0] : null;
-const phase1Progress = phase1?.progress || 0;
-const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.progress < 100) || [];
+
+// Collect "who does what" from roleDashboards actions
+const whoDoesWhat: { role: string; action: string }[] = [];
+const roleNames: Record<string, string> = { dc: 'District Collector', agriculture: 'Agriculture Officer', industrial: 'KIADB Officer', water: 'Water Resources', revenue: 'Revenue Officer', education: 'Education Officer', health: 'Health Officer', kdem: 'KDEM Officer', minister: 'Minister' };
+for (const [roleId, data] of Object.entries(roleDashboards)) {
+  const rd = data as any;
+  if (rd.actions?.[0]) {
+    whoDoesWhat.push({ role: roleNames[roleId] || roleId, action: rd.actions[0].title + (rd.actions[0].progress !== undefined ? ` — ${rd.actions[0].progress}%` : '') });
+  }
+}
 ---
 
 <BaseLayout
@@ -41,294 +49,249 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 >
   <DistrictMapStatic slot="header-icon" districtName={d.name} stateName={stateName} size={40} />
 
-  <!-- Row 1 -->
   <div class="cards-row">
-    <a href={`${portalUrl}#today`} class="card card-left animate-up delay-1">
-      <div class="card-body">
-        <div class="card-title">Baseline: {d.lastUpdated?.slice(0, 4) || '2026'}</div>
-        <ul class="card-lines">
-          {demo.population && demo.density && <li>Population: {formatPopulation(demo.population)}, {demo.density}/km²</li>}
-          {eco.perCapitaIncome && <li>Per Capita Income: {formatCurrency(eco.perCapitaIncome)}</li>}
-          {eco.gddp_crores && <li>GDDP: ₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</li>}
-          {d.rankings?.perCapitaIncome?.stateRank && <li>State Rank: {d.rankings.perCapitaIncome.stateRank}</li>}
-          {demo.literacyRate && <li>Literacy: {demo.literacyRate}%</li>}
-          {eco.gddpComposition && <li>Economy: {eco.gddpComposition.services}% services, {eco.gddpComposition.agriculture}% agri, {eco.gddpComposition.industry}% industry</li>}
-        </ul>
+    {/* Card 1: Goals */}
+    <div class="card card-goals">
+      <h2 class="card-heading">🎯 Goals</h2>
+      <div class="card-content">
+        {roadmap?.targetRank && d.rankings?.perCapitaIncome?.stateRank && (
+          <div class="goal-item">
+            <div class="goal-value">Rank {d.rankings.perCapitaIncome.stateRank} → {roadmap.targetRank}</div>
+            <div class="goal-desc">Per capita income ranking among {stateName}'s districts by 2034</div>
+          </div>
+        )}
+        {roadmap?.perCapitaGoal && eco.perCapitaIncome && (
+          <div class="goal-item">
+            <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
+            <div class="goal-desc">Per capita income — doubling in 8 years</div>
+          </div>
+        )}
+        {roadmap?.jobsToCreate && (
+          <div class="goal-item">
+            <div class="goal-value">{roadmap.jobsToCreate.toLocaleString('en-IN')} New Jobs</div>
+            <div class="goal-desc">{industries?.sectors ? `${industries.overview?.totalJobs?.toLocaleString('en-IN') || ''} from ${industries.sectors.length} new industries` : 'Across all sectors'}</div>
+          </div>
+        )}
+        {roadmap?.totalInvestment && (
+          <div class="goal-item">
+            <div class="goal-value">₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr Investment</div>
+            <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned investment across all phases'}</div>
+          </div>
+        )}
       </div>
-      <span class="card-arrow">→</span>
-    </a>
+      <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
+    </div>
 
-    {roadmap && (
-      <a href={`${portalUrl}#goals`} class="card card-left animate-up delay-2">
-        <div class="card-body">
-          <div class="card-title">Goals: 2034</div>
-          <div class="card-goals">
-            {roadmap.perCapitaGoal && eco.perCapitaIncome && (
-              <div class="card-goal-pair">
-                <span class="goal-now">{formatCurrency(eco.perCapitaIncome)}</span>
-                <span class="goal-sep">→</span>
-                <span class="goal-future">{formatCurrency(roadmap.perCapitaGoal)}</span>
-                <span class="goal-what">PCI</span>
+    {/* Card 2: Industries & Sectors */}
+    <div class="card card-sectors">
+      <h2 class="card-heading">🏭 Industries & Sectors</h2>
+      <div class="card-content">
+        {/* GDDP Composition bars */}
+        {(comp.services || comp.agriculture || comp.industry) && (
+          <div class="sector-group">
+            <div class="sector-group-title">Existing Sectors (GDDP Composition)</div>
+            {comp.services && (
+              <div class="bar-row">
+                <span class="bar-label">Services</span>
+                <div class="bar-track"><div class="bar-fill bar-services" style={`width:${comp.services}%`}></div></div>
+                <span class="bar-pct">{comp.services}%</span>
               </div>
             )}
-            {roadmap.targetRank && d.rankings?.perCapitaIncome?.stateRank && (
-              <div class="card-goal-pair">
-                <span class="goal-now">{d.rankings.perCapitaIncome.stateRank}</span>
-                <span class="goal-sep">→</span>
-                <span class="goal-future">{roadmap.targetRank}</span>
-                <span class="goal-what">Rank</span>
+            {comp.agriculture && (
+              <div class="bar-row">
+                <span class="bar-label">Agriculture</span>
+                <div class="bar-track"><div class="bar-fill bar-agri" style={`width:${comp.agriculture}%`}></div></div>
+                <span class="bar-pct">{comp.agriculture}%</span>
+              </div>
+            )}
+            {comp.industry && (
+              <div class="bar-row">
+                <span class="bar-label">Industry</span>
+                <div class="bar-track"><div class="bar-fill bar-industry" style={`width:${comp.industry}%`}></div></div>
+                <span class="bar-pct">{comp.industry}%</span>
               </div>
             )}
           </div>
-          <ul class="card-lines">
-            {roadmap.jobsToCreate && <li>Jobs target: {roadmap.jobsToCreate.toLocaleString('en-IN')}</li>}
-            {roadmap.totalInvestment && <li>Investment: ₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr</li>}
-            <li>HDI: target TBD</li>
-          </ul>
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-    )}
+        )}
 
-    {roadmap && (
-      <a href={`${portalUrl}?tab=data#roadmap`} class="card card-hero animate-up delay-3">
-        <div class="card-body">
-          <div class="card-title">Strategic Roadmap</div>
-          <div class="sr-phases">
-            {phases.map(phase => (
-              <div class="sr-phase">
-                <div class="sr-phase-header">
-                  <span class="sr-phase-name">{phase.name} {phase.years}</span>
-                  <span class="sr-phase-budget">₹{phase.budget?.toLocaleString('en-IN')} Cr</span>
-                </div>
-                {phase.progress > 0 ? (
-                  <div class="sr-bar"><div class="sr-bar-fill" style={`width:${phase.progress}%`}></div></div>
-                ) : (
-                  <div class="sr-not-started">Not started</div>
-                )}
-                {phase.components && (
-                  <div class="sr-components">{phase.components.map((c: any) => c.name).join(' · ')}</div>
-                )}
-                {phase.description && !phase.components && (
-                  <div class="sr-components">{phase.description}</div>
-                )}
+        {/* Core programs from roadmap */}
+        {phases.length > 0 && (
+          <div class="sector-group">
+            <div class="sector-group-title">Core Programs</div>
+            {phases.flatMap(p => p.components || []).slice(0, 4).map((comp: any) => (
+              <div class="program-item">
+                <strong>{comp.name}</strong> — {comp.items?.[0] || `₹${comp.budget?.toLocaleString('en-IN')} Cr`}
               </div>
             ))}
           </div>
-          <div class="sr-summary">
-            {industries?.sectors && <span>{industries.sectors.length} focus sectors</span>}
-            {roadmap.jobsToCreate && <span>{roadmap.jobsToCreate.toLocaleString('en-IN')} jobs</span>}
-            {roadmap.totalInvestment && <span>₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr total</span>}
+        )}
+
+        {/* New industries */}
+        {industries?.sectors?.length > 0 && (
+          <div class="sector-group">
+            <div class="sector-group-title">{industries.sectors.length} New Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</div>
+            {industries.sectors.slice(0, 3).map((s: any) => (
+              <div class="program-item">
+                <strong>{s.name}</strong> — {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs, {s.priority}
+              </div>
+            ))}
           </div>
-          {kdem && (
-            <div class="sr-kdem">
-              💻 {kdem.clusterName} · {kdem.targets2030?.startups} startups · {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030
+        )}
+
+        {kdem && (
+          <div class="kdem-line">💻 {kdem.clusterName} — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030</div>
+        )}
+      </div>
+      <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
+    </div>
+
+    {/* Card 3: Who Should Do What Next */}
+    <div class="card card-whatnext">
+      <h2 class="card-heading">👥 Who Should Do What Next?</h2>
+      <div class="card-content">
+        {whoDoesWhat.length > 0 ? (
+          whoDoesWhat.slice(0, 5).map(item => (
+            <div class="action-card">
+              <div class="action-role">{item.role}</div>
+              <div class="action-text">{item.action}</div>
             </div>
-          )}
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-    )}
+          ))
+        ) : (
+          <div class="empty-state">Role-based actions will appear once roadmap data is available.</div>
+        )}
+      </div>
+      <a href={`${portalUrl}?tab=data`} class="card-more">View details →</a>
+    </div>
   </div>
 
-  <!-- Row 2 -->
-  <div class="cards-row">
-    {(d.strengths?.length > 0 || d.challenges?.length > 0) && (
-      <a href={`${portalUrl}#strengths`} class="card card-left animate-up delay-4">
-        <div class="card-body">
-          <div class="card-title">Strengths & Challenges</div>
-          <div class="card-kpi-row">
-            {d.strengths?.length > 0 && <span class="card-kpi green">✓ {d.strengths.length}</span>}
-            {d.challenges?.length > 0 && <span class="card-kpi red">✗ {d.challenges.length}</span>}
-          </div>
-          <ul class="card-teaser-list">
-            {d.strengths?.slice(0, 2).map(s => <li class="teaser-strength">✓ {s.length > 55 ? s.slice(0, 52) + '...' : s}</li>)}
-            {d.challenges?.slice(0, 1).map(c => <li class="teaser-challenge">✗ {c.length > 55 ? c.slice(0, 52) + '...' : c}</li>)}
-          </ul>
-          {communityInsights?.count > 0 && <div class="card-badge">{communityInsights.count} community insights added</div>}
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-    )}
-
-    {d.opportunities?.length > 0 && (
-      <a href={`${portalUrl}#opportunities`} class="card card-left animate-up delay-5">
-        <div class="card-body">
-          <div class="card-title">Opportunities</div>
-          <div class="card-kpi-row">
-            <span class="card-kpi">{d.opportunities.length} identified</span>
-          </div>
-          <ul class="card-teaser-list">
-            {d.opportunities.slice(0, 3).map(o => <li>⚡ {o.length > 55 ? o.slice(0, 52) + '...' : o}</li>)}
-          </ul>
-        </div>
-        <span class="card-arrow">→</span>
-      </a>
-    )}
-
-    <div class="card card-hero animate-up delay-6">
-      <div class="card-body">
-        <a href={`${portalUrl}#nextsteps`} class="card-title card-title-link">What Next</a>
-        {nextSteps.length > 0 ? (
-          <div class="wn-actions">
-            <div class="wn-label">Who needs to do what:</div>
-            {nextSteps.slice(0, 4).map((step: any) => (
-              <div class="wn-step">
-                <div class="wn-step-header">
-                  <span class="wn-step-name">{step.name}</span>
-                  <span class="wn-step-pct">{step.progress}%</span>
-                </div>
-                <div class="wn-bar"><div class="wn-bar-fill" style={`width:${step.progress}%`}></div></div>
-                {step.items?.length > 0 && <div class="wn-step-detail">{step.items[0]}</div>}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div class="wn-empty">Roadmap actions will appear here once data is available.</div>
-        )}
-        <div class="wn-divider"></div>
-        <div class="wn-community-row">
-          <span class="wn-community-icon">💬</span>
-          <div>
-            {communityInsights?.count > 0 ? (
-              <span class="wn-community-text"><strong>{communityInsights.count} community insights</strong> added to data</span>
-            ) : (
-              <span class="wn-community-text">Be the first to share what you know</span>
-            )}
-            <a href={discussUrl} class="wn-community-link">Join the discussion →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  {/* CTA links */}
+  <div class="cta-row">
+    <a href={`${portalUrl}`} class="cta-link cta-baseline">
+      <span class="cta-icon">📊</span>
+      <span class="cta-text">Baseline Data</span>
+    </a>
+    <a href={`${portalUrl}?tab=data`} class="cta-link cta-dashboard">
+      <span class="cta-icon">🎛️</span>
+      <span class="cta-text">Role Dashboards</span>
+    </a>
+    <a href={`${portalUrl}?tab=discuss`} class="cta-link cta-discuss">
+      <span class="cta-icon">💬</span>
+      <span class="cta-text">Discussion</span>
+    </a>
   </div>
 </BaseLayout>
 
 <style>
-  /* Rows layout */
+  /* ── Layout ── */
   .cards-row {
-    display: flex; gap: 1rem; padding-top: 0;
-    margin-bottom: 1rem; align-items: stretch;
+    display: flex; gap: 1.5rem; padding-top: 2rem;
+    margin-bottom: 1.75rem; align-items: stretch;
   }
-  .cards-row:first-child { padding-top: 1.5rem; }
 
-  /* Base card */
+  /* ── Card base ── */
   .card {
-    display: flex; align-items: flex-start; gap: 0.75rem;
-    border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-    padding: 1.25rem; text-decoration: none; color: inherit;
-    transition: all 0.2s; position: relative;
+    flex: 1; min-width: 0; display: flex; flex-direction: column;
+    background: white; border-radius: 12px;
+    padding: 2rem 1.75rem 1.25rem; transition: box-shadow 0.2s;
+    border: 1px solid var(--gray-200);
   }
-  .card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 
-  /* Left cards — blue tint */
-  .card-left {
-    flex: 1 1 0; min-width: 0;
-    background: #f0f4fb; border-left: 3px solid #bfdbfe;
+  .card-heading {
+    font-family: var(--font-display); font-size: 1.25rem; font-weight: 700;
+    color: var(--gray-900); margin-bottom: 1.5rem; padding-bottom: 0.875rem;
+    border-bottom: 2px solid var(--gray-200); letter-spacing: -0.01em;
   }
-  .card-left:hover { border-color: var(--primary); border-left-color: var(--primary); }
+  .card-content { flex: 1; }
+  .card-more {
+    display: block; text-align: center; padding: 0.875rem 0 0;
+    margin-top: auto; border-top: 1px solid var(--gray-200);
+    font-size: 0.875rem; font-weight: 700; color: var(--primary);
+    text-decoration: none; letter-spacing: 0.01em;
+  }
+  .card-more:hover { color: var(--primary-darker, #1d4ed8); }
 
-  /* Hero cards — warm amber tint, takes 2x space */
-  .card-hero {
-    flex: 2 1 0; min-width: 0;
-    background: #fef9f0; border-left: 3px solid #fde68a;
-    overflow: hidden;
+  /* ── Goals ── */
+  .goal-item { padding: 1rem 0; border-bottom: 1px solid var(--gray-100); }
+  .goal-item:last-child { border-bottom: none; }
+  .goal-value {
+    font-size: 1.25rem; font-weight: 800; color: var(--gray-900);
+    margin-bottom: 0.375rem; letter-spacing: -0.01em;
   }
-  .card-hero:hover { border-color: #f59e0b; border-left-color: #f59e0b; }
+  .goal-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.55; }
 
-  .card-body { flex: 1; min-width: 0; }
-  .card-title {
-    font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-    color: var(--gray-900); margin-bottom: 0.625rem;
+  /* ── Sectors ── */
+  .sector-group { margin-bottom: 1.5rem; }
+  .sector-group:last-child { margin-bottom: 0; }
+  .sector-group-title {
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--gray-400);
+    margin-bottom: 0.75rem; padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--gray-100);
   }
-  .card-title-link { text-decoration: none; color: var(--gray-900); display: block; }
-  .card-title-link:hover { color: var(--primary); }
-  .card-arrow {
-    font-size: 1.125rem; color: var(--gray-400); flex-shrink: 0;
-    transition: color 0.2s; margin-top: 0.125rem;
-  }
-  .card:hover .card-arrow { color: var(--gray-900); }
+  .bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .bar-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-800); min-width: 90px; }
+  .bar-track { flex: 1; height: 10px; background: var(--gray-100); border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; }
+  .bar-services { background: var(--primary); }
+  .bar-agri { background: var(--green); }
+  .bar-industry { background: var(--orange); }
+  .bar-pct { font-size: 0.875rem; font-weight: 800; color: var(--gray-900); min-width: 48px; text-align: right; }
 
-  /* Card content */
-  .card-lines { list-style: none; margin: 0; }
-  .card-lines li { font-size: 0.875rem; color: var(--gray-700); line-height: 1.8; }
-  .card-kpi-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.375rem; }
-  .card-kpi {
-    font-size: 0.8125rem; font-weight: 800; color: var(--gray-900);
-    background: var(--gray-100); padding: 0.1875rem 0.5rem; border-radius: 4px;
-  }
-  .card-kpi.green { color: var(--green-dark); background: var(--green-light); }
-  .card-kpi.red { color: var(--red-dark); background: var(--red-light); }
-  .card-teaser-list { list-style: none; margin: 0.25rem 0; }
-  .card-teaser-list li { font-size: 0.8125rem; color: var(--gray-700); line-height: 1.6; }
-  .teaser-strength { color: var(--green-dark); }
-  .teaser-challenge { color: var(--red-dark); }
-  .card-badge {
-    font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
-    color: var(--green-dark); background: var(--green-light);
-    padding: 0.1875rem 0.5rem; border-radius: 3px; display: inline-block; margin-top: 0.375rem;
-  }
+  .program-item { font-size: 0.875rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 0.5rem; }
+  .program-item strong { color: var(--gray-900); font-weight: 700; }
 
-  /* Goals */
-  .card-goals { display: flex; flex-direction: column; gap: 0.375rem; margin-bottom: 0.375rem; }
-  .card-goal-pair { display: flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; }
-  .goal-now { color: var(--gray-500); font-weight: 700; }
-  .goal-sep { color: var(--gray-900); font-weight: 800; }
-  .goal-future { color: var(--primary); font-weight: 800; }
-  .goal-what { color: var(--gray-500); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.04em; }
-
-  /* Strategic Roadmap hero */
-  .sr-phases { display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 1rem; }
-  .sr-phase { }
-  .sr-phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
-  .sr-phase-name { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
-  .sr-phase-budget { font-size: 0.8125rem; font-weight: 800; color: var(--gray-900); }
-  .sr-bar { height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
-  .sr-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #f59e0b, #f97316); }
-  .sr-not-started { font-size: 0.75rem; color: var(--gray-400); font-style: italic; }
-  .sr-components { font-size: 0.8125rem; color: var(--gray-600); margin-top: 0.25rem; line-height: 1.4; }
-  .sr-summary {
-    display: flex; gap: 1rem; flex-wrap: wrap; padding-top: 0.75rem;
-    border-top: 1px solid rgba(0,0,0,0.06); font-size: 0.8125rem; font-weight: 700; color: var(--gray-800);
-  }
-  .sr-kdem {
-    margin-top: 0.625rem; font-size: 0.8125rem; color: var(--primary-dark);
-    padding: 0.5rem 0.75rem; background: rgba(37,99,235,0.06); border-radius: 6px;
+  .kdem-line {
+    font-size: 0.875rem; color: var(--gray-700); padding: 0.75rem 0;
+    margin-top: 0.75rem; border-top: 1px solid var(--gray-100);
   }
 
-  /* What Next hero */
-  .wn-actions { margin-bottom: 0.75rem; }
-  .wn-label { font-size: 0.75rem; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.625rem; }
-  .wn-step { margin-bottom: 0.75rem; }
-  .wn-step:last-child { margin-bottom: 0; }
-  .wn-step-header { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
-  .wn-step-name { font-size: 0.875rem; font-weight: 700; color: var(--gray-800); }
-  .wn-step-pct { font-size: 0.8125rem; font-weight: 700; color: var(--gray-500); }
-  .wn-bar { height: 5px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
-  .wn-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #f59e0b, #f97316); }
-  .wn-step-detail { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
-  .wn-empty { font-size: 0.8125rem; color: var(--gray-400); padding: 1rem 0; }
-  .wn-divider { border-top: 1px solid rgba(0,0,0,0.06); margin: 0.75rem 0; }
-  .wn-community { }
-  .wn-community-row { display: flex; align-items: flex-start; gap: 0.625rem; }
-  .wn-community-icon { font-size: 1.125rem; flex-shrink: 0; }
-  .wn-community-text { font-size: 0.8125rem; color: var(--gray-700); display: block; }
-  .wn-community-link {
-    font-size: 0.8125rem; font-weight: 700; color: var(--primary);
-    text-decoration: none; display: block; margin-top: 0.25rem;
+  /* ── What Next ── */
+  .action-card {
+    padding: 1rem 1rem 1rem 1.25rem; margin-bottom: 0.75rem;
+    border-radius: 8px; background: var(--gray-50);
+    border-left: 3px solid var(--gray-300);
   }
-  .wn-community-link:hover { text-decoration: underline; }
+  .action-card:last-child { margin-bottom: 0; }
+  .action-role { font-size: 0.9375rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.25rem; }
+  .action-text { font-size: 0.875rem; color: var(--gray-600); line-height: 1.55; }
+  .empty-state { font-size: 0.875rem; color: var(--gray-400); padding: 2.5rem 1rem; text-align: center; }
 
-  /* Responsive */
+  /* ── CTA row ── */
+  .cta-row { display: flex; gap: 0.75rem; margin-bottom: 2.5rem; }
+  .cta-link {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.625rem;
+    padding: 1rem 1.25rem; border-radius: 8px;
+    text-decoration: none; font-size: 0.9375rem; font-weight: 700;
+    transition: all 0.15s; letter-spacing: 0.01em;
+  }
+  .cta-icon { font-size: 1.125rem; }
+  .cta-baseline {
+    background: var(--primary); color: white; border: none;
+  }
+  .cta-baseline:hover { background: var(--primary-dark); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+  .cta-dashboard {
+    background: var(--gray-900); color: white; border: none;
+  }
+  .cta-dashboard:hover { background: var(--gray-800); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .cta-discuss {
+    background: white; color: var(--gray-800); border: 2px solid var(--gray-300);
+  }
+  .cta-discuss:hover { border-color: var(--gray-900); background: var(--gray-50); }
+
+  /* ── Responsive ── */
   @media (max-width: 1024px) {
     .cards-row { flex-wrap: wrap; }
-    .card-left { flex: 1 1 calc(50% - 0.5rem); }
-    .card-hero { flex: 1 1 100%; order: 3; }
+    .card { flex: 1 1 100%; }
   }
   @media (max-width: 768px) {
-    .cards-row { flex-direction: column; }
-    .card-left { flex: 1 1 100%; }
-    .card-hero { flex: 1 1 100%; }
-    .card { padding: 1rem; }
-    .sr-summary { flex-direction: column; gap: 0.25rem; }
+    .cards-row { flex-direction: column; gap: 1rem; padding-top: 1.25rem; }
+    .card { padding: 1.5rem 1.25rem 1rem; }
+    .card-heading { font-size: 1.125rem; margin-bottom: 1rem; }
+    .goal-value { font-size: 1.125rem; }
+    .cta-row { flex-direction: column; }
+    .cta-link { padding: 0.875rem; }
+    .bar-label { min-width: 70px; font-size: 0.8125rem; }
+    .bar-pct { font-size: 0.8125rem; }
   }
 </style>
