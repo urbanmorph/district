@@ -59,8 +59,16 @@
       "value": 0.539,
       "stateRank": "29/30",
       "stateAvg": 0.645,
+      "stateBest": 0.738,
+      "stateBestDistrict": "Bengaluru Urban",
       "year": "2022",
       "source": "Karnataka Human Development Report 2022"
+    },
+    "pciStateBest": {
+      "value": 855960,
+      "district": "Bengaluru Urban",
+      "year": "2024-25",
+      "source": "Karnataka Economic Survey 2024-25"
     }
   },
   "keySectors": [
@@ -511,7 +519,7 @@
   "roadmap": {
     "totalInvestment": 20150,
     "targetRank": "15/30",
-    "perCapitaGoal": 250000,
+    "perCapitaGoal": 500000,
     "jobsToCreate": 156700,
     "phases": {
       "phase1": {

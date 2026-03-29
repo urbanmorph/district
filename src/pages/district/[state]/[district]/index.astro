@@ -54,16 +54,22 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     <div class="card card-goals">
       <h2 class="card-heading">🎯 Goals</h2>
       <div class="card-content">
-        {roadmap?.targetRank && d.rankings?.perCapitaIncome?.stateRank && (
+        {d.rankings?.hdi && (
           <div class="goal-item">
-            <div class="goal-value">Rank {d.rankings.perCapitaIncome.stateRank} → {roadmap.targetRank}</div>
-            <div class="goal-desc">Per capita income ranking among {stateName}'s districts by 2034</div>
+            <div class="goal-value">HDI {d.rankings.hdi.value} → {d.rankings.hdi.stateBest ? (d.rankings.hdi.value + (d.rankings.hdi.stateBest - d.rankings.hdi.value) / 2).toFixed(3) : (d.rankings.hdi.value + 0.1).toFixed(2)}</div>
+            <div class="goal-desc">Human Development Index — {d.rankings.hdi.stateBest ? `closing half the gap to ${d.rankings.hdi.stateBestDistrict} (${d.rankings.hdi.stateBest})` : `rank ${d.rankings.hdi.stateRank}`}</div>
           </div>
         )}
-        {roadmap?.perCapitaGoal && eco.perCapitaIncome && (
+        {roadmap?.perCapitaGoal && eco.perCapitaIncome && d.rankings?.pciStateBest && (
           <div class="goal-item">
             <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
-            <div class="goal-desc">Per capita income — doubling in 8 years</div>
+            <div class="goal-desc">Per capita income — closing half the gap to {d.rankings.pciStateBest.district} ({formatCurrency(d.rankings.pciStateBest.value)})</div>
+          </div>
+        )}
+        {roadmap?.perCapitaGoal && eco.perCapitaIncome && !d.rankings?.pciStateBest && (
+          <div class="goal-item">
+            <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
+            <div class="goal-desc">Per capita income target</div>
           </div>
         )}
         {roadmap?.jobsToCreate && (
@@ -78,13 +84,8 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
             <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned investment across all phases'}</div>
           </div>
         )}
-        {d.rankings?.hdi && (
-          <div class="goal-item">
-            <div class="goal-value">HDI {d.rankings.hdi.value} → {(d.rankings.hdi.value + 0.1).toFixed(2)}</div>
-            <div class="goal-desc">Human Development Index (rank {d.rankings.hdi.stateRank}, state avg {d.rankings.hdi.stateAvg})</div>
-          </div>
-        )}
       </div>
+      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
       <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
     </div>
 
@@ -133,6 +134,7 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
           </div>
         )}
       </div>
+      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
       <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
     </div>
 
@@ -151,6 +153,7 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
           <div class="empty-state">Role-based actions will appear once roadmap data is available.</div>
         )}
       </div>
+      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
       <a href={`${portalUrl}?tab=data`} class="card-more">View details →</a>
     </div>
   </div>
@@ -193,7 +196,22 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     color: var(--gray-900); margin-bottom: 1.5rem; padding-bottom: 0.875rem;
     border-bottom: 2px solid var(--gray-200); letter-spacing: -0.01em;
   }
-  .card-content { flex: 1; }
+  .card-content { flex: 1; max-height: 280px; overflow: hidden; position: relative; transition: max-height 0.3s ease; }
+  .card-content.expanded { max-height: none; }
+  .card-content:not(.expanded)::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40px; background: linear-gradient(transparent, white);
+    pointer-events: none;
+  }
+  .card-whatnext .card-content:not(.expanded)::after { background: linear-gradient(transparent, #fffcf5); }
+  .card-expand {
+    display: none; text-align: center; padding: 0.5rem 0 0;
+    font-size: 0.8125rem; font-weight: 600; color: var(--gray-500);
+    cursor: pointer; background: none; border: none; font-family: var(--font-body);
+    width: 100%;
+  }
+  .card-expand:hover { color: var(--gray-800); }
+  .card-expand.visible { display: block; }
   .card-more {
     display: block; text-align: center; padding: 0.875rem 0 0;
     margin-top: auto; border-top: 1px solid var(--gray-200);
@@ -277,3 +295,16 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     .bar-pct { font-size: 0.8125rem; }
   }
 </style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.card-content').forEach(el => {
+      if (el.scrollHeight > 280) {
+        const btn = el.nextElementSibling;
+        if (btn && btn.classList.contains('card-expand')) {
+          btn.classList.add('visible');
+        }
+      }
+    });
+  });
+</script>

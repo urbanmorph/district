@@ -288,12 +288,12 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
             <div class="goal-label">Per Capita Income</div>
           </div>
         )}
-        {roadmap.targetRank && d.rankings?.perCapitaIncome?.stateRank && (
+        {d.rankings?.hdi && (
           <div class="panel goal-card">
-            <div class="goal-from">{d.rankings.perCapitaIncome.stateRank}</div>
+            <div class="goal-from">{d.rankings.hdi.value}</div>
             <div class="goal-arrow">→</div>
-            <div class="goal-to">{roadmap.targetRank}</div>
-            <div class="goal-label">State Rank</div>
+            <div class="goal-to">{d.rankings.hdi.stateBest ? (d.rankings.hdi.value + (d.rankings.hdi.stateBest - d.rankings.hdi.value) / 2).toFixed(3) : (d.rankings.hdi.value + 0.1).toFixed(2)}</div>
+            <div class="goal-label">HDI</div>
           </div>
         )}
         {roadmap.jobsToCreate && (
@@ -306,14 +306,6 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           <div class="panel goal-card">
             <div class="goal-to">{fmtCr(roadmap.totalInvestment)}</div>
             <div class="goal-label">Investment Target</div>
-          </div>
-        )}
-        {d.rankings?.hdi && (
-          <div class="panel goal-card">
-            <div class="goal-from">{d.rankings.hdi.value}</div>
-            <div class="goal-arrow">→</div>
-            <div class="goal-to">{(d.rankings.hdi.value + 0.1).toFixed(2)}</div>
-            <div class="goal-label">HDI</div>
           </div>
         )}
       </div>
