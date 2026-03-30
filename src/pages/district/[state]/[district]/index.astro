@@ -53,157 +53,175 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
 >
   <DistrictMapStatic slot="header-icon" districtName={d.name} stateName={stateName} size={40} />
 
-  <!-- Row 1: Baseline | Goals | Core Programs | Industries -->
-  <div class="cards-grid">
-    {/* Baseline */}
-    <div class="card">
-      <h2 class="card-heading">📊 Baseline: {d.lastUpdated?.slice(0, 4) || '2026'}</h2>
-      <div class="card-content">
-        {demo.population && demo.density && <div class="baseline-row"><span class="baseline-label">Population</span><span class="baseline-value">{formatPopulation(demo.population)}, {demo.density}/km²</span></div>}
-        {eco.perCapitaIncome && <div class="baseline-row"><span class="baseline-label">Per Capita Income</span><span class="baseline-value">{formatCurrency(eco.perCapitaIncome)}</span></div>}
-        {eco.gddp_crores && <div class="baseline-row"><span class="baseline-label">GDDP</span><span class="baseline-value">₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</span></div>}
-        {d.rankings?.perCapitaIncome?.stateRank && <div class="baseline-row"><span class="baseline-label">State Rank</span><span class="baseline-value">{d.rankings.perCapitaIncome.stateRank}</span></div>}
-        {d.rankings?.hdi && <div class="baseline-row"><span class="baseline-label">HDI</span><span class="baseline-value">{d.rankings.hdi.value} (rank {d.rankings.hdi.stateRank})</span></div>}
-        {demo.literacyRate && <div class="baseline-row"><span class="baseline-label">Literacy</span><span class="baseline-value">{demo.literacyRate}%</span></div>}
-        {eco.gddpComposition && <div class="baseline-row"><span class="baseline-label">Economy</span><span class="baseline-value">{eco.gddpComposition.services}% services, {eco.gddpComposition.agriculture}% agri, {eco.gddpComposition.industry}% industry</span></div>}
+  <!-- Two pinnable rows -->
+  <div class="cards-rows" id="cards-rows">
+    {/* Row: Context (Baseline, Strengths, Challenges, Opportunities) */}
+    <div class="card-row" data-row="context" id="row-context">
+      <div class="row-header">
+        <span class="row-label">Context</span>
+        <button class="pin-btn" data-pin="context" title="Pin this row to the top">
+          <svg class="pin-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 17v5M5 12h14l-2-7H7z"/></svg> <span class="pin-text">Pin to top</span>
+        </button>
       </div>
-      <a href={`${portalUrl}#today`} class="card-more">View details →</a>
-    </div>
-
-    {/* Goals */}
-    <div class="card">
-      <h2 class="card-heading">🎯 Goals</h2>
-      <div class="card-content">
-        {d.rankings?.hdi && (
-          <div class="goal-item">
-            <div class="goal-value">HDI {d.rankings.hdi.value} → {d.rankings.hdi.stateBest ? (d.rankings.hdi.value + (d.rankings.hdi.stateBest - d.rankings.hdi.value) / 2).toFixed(3) : (d.rankings.hdi.value + 0.1).toFixed(2)}</div>
-            <div class="goal-desc">{d.rankings.hdi.stateBest ? `Close half the gap to ${d.rankings.hdi.stateBestDistrict} (${d.rankings.hdi.stateBest})` : `Rank ${d.rankings.hdi.stateRank}`}</div>
+      <div class="row-cards">
+        {/* Baseline */}
+        <div class="card card-baseline">
+          <h2 class="card-heading">Baseline: {d.lastUpdated?.slice(0, 4) || '2026'}</h2>
+          <div class="card-content">
+            {demo.population && demo.density && <div class="baseline-row"><span class="baseline-label">Population</span><span class="baseline-value">{formatPopulation(demo.population)}, {demo.density}/km²</span></div>}
+            {eco.perCapitaIncome && <div class="baseline-row"><span class="baseline-label">Per Capita Income</span><span class="baseline-value">{formatCurrency(eco.perCapitaIncome)}</span></div>}
+            {eco.gddp_crores && <div class="baseline-row"><span class="baseline-label">GDDP</span><span class="baseline-value">₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</span></div>}
+            {d.rankings?.perCapitaIncome?.stateRank && <div class="baseline-row"><span class="baseline-label">State Rank</span><span class="baseline-value">{d.rankings.perCapitaIncome.stateRank}</span></div>}
+            {d.rankings?.hdi && <div class="baseline-row"><span class="baseline-label">HDI</span><span class="baseline-value">{d.rankings.hdi.value} (rank {d.rankings.hdi.stateRank})</span></div>}
+            {demo.literacyRate && <div class="baseline-row"><span class="baseline-label">Literacy</span><span class="baseline-value">{demo.literacyRate}%</span></div>}
+            {eco.gddpComposition && <div class="baseline-row"><span class="baseline-label">Economy</span><span class="baseline-value">{eco.gddpComposition.services}% services, {eco.gddpComposition.agriculture}% agri, {eco.gddpComposition.industry}% industry</span></div>}
           </div>
-        )}
-        {roadmap?.perCapitaGoal && eco.perCapitaIncome && (
-          <div class="goal-item">
-            <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
-            <div class="goal-desc">{d.rankings?.pciStateBest ? `Close half the gap to ${d.rankings.pciStateBest.district}` : 'Per capita income target'}</div>
-          </div>
-        )}
-        {roadmap?.jobsToCreate && (
-          <div class="goal-item">
-            <div class="goal-value">{roadmap.jobsToCreate.toLocaleString('en-IN')} New Jobs</div>
-            <div class="goal-desc">{industries?.sectors ? `From ${industries.sectors.length} industries + core programs` : 'Across all sectors'}</div>
-          </div>
-        )}
-        {roadmap?.totalInvestment && (
-          <div class="goal-item">
-            <div class="goal-value">₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr Investment</div>
-            <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned'}</div>
-          </div>
-        )}
-      </div>
-      <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
-    </div>
-
-    {/* Challenges */}
-    {d.challenges?.length > 0 && (
-      <div class="card">
-        <h2 class="card-heading">✗ Challenges</h2>
-        <div class="card-content">
-          {d.challenges.slice(0, 5).map(c => <div class="sco-line">{c}</div>)}
-          {d.challenges.length > 5 && <div class="sco-more">{d.challenges.length - 5} more...</div>}
+          <a href={`${portalUrl}#today`} class="card-more">View details →</a>
         </div>
-        <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
-      </div>
-    )}
 
-    {/* Who Should Do What Next */}
-    <div class="card">
-      <h2 class="card-heading">👥 Who Should Do What Next?</h2>
-      <div class="card-content">
-        {whoDoesWhat.length > 0 ? (
-          <Fragment>
-            {whoDoesWhat.slice(0, 4).map(item => (
-              <div class="action-card">
-                <div class="action-role">{item.role}</div>
-                <div class="action-text">{item.action}</div>
-              </div>
-            ))}
-            {whoDoesWhat.length > 4 && <div class="sco-more">{whoDoesWhat.length - 4} more roles...</div>}
-          </Fragment>
-        ) : (
-          <div class="empty-state">Role-based actions will appear once data is available.</div>
-        )}
-      </div>
-      <a href={`${portalUrl}?tab=data`} class="card-more">View details →</a>
-    </div>
-
-    {/* Core Programs */}
-    {phases.length > 0 && (
-      <div class="card">
-        <h2 class="card-heading">🏗️ Core Programs</h2>
-        <div class="card-content">
-          {phases.flatMap(p => p.components || []).map((c: any) => (
-            <div class="program-line">
-              <strong>{c.name}</strong> — {c.items?.[0] || 'In progress'}{c.budget ? ` (₹${c.budget.toLocaleString('en-IN')} cr)` : ''}
+        {/* Strengths */}
+        {d.strengths?.length > 0 && (
+          <div class="card card-strengths">
+            <h2 class="card-heading">Strengths</h2>
+            <div class="card-content">
+              {d.strengths.map(s => <div class="sco-line">{s}</div>)}
             </div>
-          ))}
-          {kdem && (
-            <Fragment>
-              <div class="sector-group-title" style="margin-top:0.75rem;">Digital Economy — Beyond Bengaluru</div>
-              <div class="program-line">
-                <strong>{kdem.clusterName}</strong> — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030
-              </div>
-            </Fragment>
-          )}
-        </div>
-        <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
-      </div>
-    )}
+            <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
+          </div>
+        )}
 
-    {/* Industries */}
-    {industries?.sectors?.length > 0 && (
-      <div class="card">
-        <h2 class="card-heading">🏭 {industries.sectors.length} Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</h2>
-        <div class="card-content">
-          {industries.sectors.map((s: any) => (
-            <div class="industry-line">
-              <div class="industry-line-header">
-                <strong>{s.name}</strong>
-                {s.priority && <span class={`industry-priority p-${s.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>{s.priority}</span>}
-              </div>
-              <div class="industry-line-detail">
-                {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs · ₹{s.investment?.total?.toLocaleString('en-IN')} cr
-                {s.timeline?.firstRevenue && ` · ${s.timeline.firstRevenue}`}
-              </div>
-              {s.priorityNote && <div class="industry-line-note">{s.priorityNote}</div>}
+        {/* Challenges */}
+        {d.challenges?.length > 0 && (
+          <div class="card card-challenges">
+            <h2 class="card-heading">Challenges</h2>
+            <div class="card-content">
+              {d.challenges.map(c => <div class="sco-line">{c}</div>)}
             </div>
-          ))}
-        </div>
-        <a href={`${portalUrl}?tab=data#industries`} class="card-more">View details →</a>
-      </div>
-    )}
+            <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
+          </div>
+        )}
 
-    {/* Strengths */}
-    {d.strengths?.length > 0 && (
-      <div class="card">
-        <h2 class="card-heading">✓ Strengths</h2>
-        <div class="card-content">
-          {d.strengths.slice(0, 5).map(s => <div class="sco-line">{s}</div>)}
-          {d.strengths.length > 5 && <div class="sco-more">{d.strengths.length - 5} more...</div>}
-        </div>
-        <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
+        {/* Opportunities */}
+        {d.opportunities?.length > 0 && (
+          <div class="card card-opportunities">
+            <h2 class="card-heading">Opportunities</h2>
+            <div class="card-content">
+              {d.opportunities.map(o => <div class="sco-line">{o}</div>)}
+            </div>
+            <a href={`${portalUrl}#opportunities`} class="card-more">View details →</a>
+          </div>
+        )}
       </div>
-    )}
+    </div>
 
-    {/* Opportunities */}
-    {d.opportunities?.length > 0 && (
-      <div class="card">
-        <h2 class="card-heading">⚡ Opportunities</h2>
-        <div class="card-content">
-          {d.opportunities.slice(0, 5).map(o => <div class="sco-line">{o}</div>)}
-          {d.opportunities.length > 5 && <div class="sco-more">{d.opportunities.length - 5} more...</div>}
-        </div>
-        <a href={`${portalUrl}#opportunities`} class="card-more">View details →</a>
+    {/* Row: Roadmap (Goals, Core Programs, Industries, Role-based Actions) */}
+    <div class="card-row" data-row="roadmap" id="row-roadmap">
+      <div class="row-header">
+        <span class="row-label">Roadmap</span>
+        <button class="pin-btn" data-pin="roadmap" title="Pin this row to the top">
+          <svg class="pin-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 17v5M5 12h14l-2-7H7z"/></svg> <span class="pin-text">Pin to top</span>
+        </button>
       </div>
-    )}
+      <div class="row-cards">
+        {/* Goals */}
+        <div class="card card-goals">
+          <h2 class="card-heading">Goals</h2>
+          <div class="card-content">
+            {d.rankings?.hdi && (
+              <div class="goal-item">
+                <div class="goal-value">HDI {d.rankings.hdi.value} → {d.rankings.hdi.stateBest ? (d.rankings.hdi.value + (d.rankings.hdi.stateBest - d.rankings.hdi.value) / 2).toFixed(3) : (d.rankings.hdi.value + 0.1).toFixed(2)}</div>
+                <div class="goal-desc">{d.rankings.hdi.stateBest ? `Close half the gap to ${d.rankings.hdi.stateBestDistrict} (${d.rankings.hdi.stateBest})` : `Rank ${d.rankings.hdi.stateRank}`}</div>
+              </div>
+            )}
+            {roadmap?.perCapitaGoal && eco.perCapitaIncome && (
+              <div class="goal-item">
+                <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
+                <div class="goal-desc">{d.rankings?.pciStateBest ? `Close half the gap to ${d.rankings.pciStateBest.district}` : 'Per capita income target'}</div>
+              </div>
+            )}
+            {roadmap?.jobsToCreate && (
+              <div class="goal-item">
+                <div class="goal-value">{roadmap.jobsToCreate.toLocaleString('en-IN')} New Jobs</div>
+                <div class="goal-desc">{industries?.sectors ? `From ${industries.sectors.length} industries + core programs` : 'Across all sectors'}</div>
+              </div>
+            )}
+            {roadmap?.totalInvestment && (
+              <div class="goal-item">
+                <div class="goal-value">₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr Investment</div>
+                <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned'}</div>
+              </div>
+            )}
+          </div>
+          <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
+        </div>
+
+        {/* Core Programs */}
+        {phases.length > 0 && (
+          <div class="card card-programs">
+            <h2 class="card-heading">Core Programs</h2>
+            <div class="card-content">
+              {phases.flatMap(p => p.components || []).map((c: any) => (
+                <div class="program-line">
+                  <strong>{c.name}</strong> — {c.items?.[0] || 'In progress'}{c.budget ? ` (₹${c.budget.toLocaleString('en-IN')} cr)` : ''}
+                </div>
+              ))}
+              {kdem && (
+                <Fragment>
+                  <div class="sector-group-title" style="margin-top:0.75rem;">Digital Economy — Beyond Bengaluru</div>
+                  <div class="program-line">
+                    <strong>{kdem.clusterName}</strong> — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030
+                  </div>
+                </Fragment>
+              )}
+            </div>
+            <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
+          </div>
+        )}
+
+        {/* Industries */}
+        {industries?.sectors?.length > 0 && (
+          <div class="card card-industries">
+            <h2 class="card-heading">{industries.sectors.length} Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</h2>
+            <div class="card-content">
+              {industries.sectors.map((s: any) => (
+                <div class="industry-line">
+                  <div class="industry-line-header">
+                    <strong>{s.name}</strong>
+                    {s.priority && <span class={`industry-priority p-${s.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>{s.priority}</span>}
+                  </div>
+                  <div class="industry-line-detail">
+                    {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs · ₹{s.investment?.total?.toLocaleString('en-IN')} cr
+                    {s.timeline?.firstRevenue && ` · ${s.timeline.firstRevenue}`}
+                  </div>
+                  {s.priorityNote && <div class="industry-line-note">{s.priorityNote}</div>}
+                </div>
+              ))}
+            </div>
+            <a href={`${portalUrl}?tab=data#industries`} class="card-more">View details →</a>
+          </div>
+        )}
+
+        {/* Role-based Actions */}
+        <div class="card card-roles">
+          <h2 class="card-heading">Role-based Actions</h2>
+          <div class="card-content">
+            {whoDoesWhat.length > 0 ? (
+              <Fragment>
+                {whoDoesWhat.map(item => (
+                  <div class="action-card">
+                    <div class="action-role">{item.role}</div>
+                    <div class="action-text">{item.action}</div>
+                  </div>
+                ))}
+              </Fragment>
+            ) : (
+              <div class="empty-state">Role-based actions will appear once data is available.</div>
+            )}
+          </div>
+          <a href={`${portalUrl}?tab=data`} class="card-more">View details →</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   {/* CTA links */}
@@ -223,84 +241,228 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
   </div>
 </BaseLayout>
 
+<script>
+  // Row pinning: swap row order via localStorage
+  (function() {
+    const KEY = 'district-pinned-row';
+    const container = document.getElementById('cards-rows');
+    if (!container) return;
+    const rows = container.querySelectorAll('.card-row');
+    const pinBtns = container.querySelectorAll('.pin-btn');
+
+    function applyPin() {
+      const pinned = localStorage.getItem(KEY);
+      rows.forEach(row => {
+        const id = row.getAttribute('data-row');
+        if (pinned && id === pinned) {
+          (row as HTMLElement).style.order = '-1';
+          row.classList.add('pinned');
+        } else {
+          (row as HTMLElement).style.order = '';
+          row.classList.remove('pinned');
+        }
+      });
+      pinBtns.forEach(btn => {
+        const id = btn.getAttribute('data-pin');
+        const isPinned = id === pinned;
+        const textEl = btn.querySelector('.pin-text');
+        if (textEl) textEl.textContent = isPinned ? 'Pinned' : 'Pin to top';
+        (btn as HTMLElement).classList.toggle('active', isPinned);
+      });
+    }
+
+    pinBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-pin');
+        const current = localStorage.getItem(KEY);
+        if (current === id) {
+          localStorage.removeItem(KEY);
+        } else {
+          localStorage.setItem(KEY, id!);
+        }
+        applyPin();
+      });
+    });
+
+    applyPin();
+  })();
+
+  // Card height clamping — wait for fonts so measurements are correct
+  function clampCards() {
+    const rowEls = document.querySelectorAll('.row-cards');
+    rowEls.forEach(rowEl => {
+      const cards = Array.from(rowEl.querySelectorAll('.card')) as HTMLElement[];
+      if (cards.length === 0) return;
+
+      // Find the baseline card or the shortest card
+      const baselineCard = cards.find(c => c.querySelector('.baseline-row'));
+      let targetH: number;
+      if (baselineCard) {
+        targetH = baselineCard.offsetHeight;
+      } else {
+        targetH = Math.min(...cards.map(c => c.offsetHeight));
+      }
+
+      cards.forEach(card => {
+        const natural = card.scrollHeight;
+        if (natural <= targetH + 4) return;
+
+        card.style.height = targetH + 'px';
+        card.classList.add('card-clamped');
+
+        const content = card.querySelector('.card-content') as HTMLElement;
+        if (content) content.style.overflow = 'hidden';
+
+        // "more..." sits between card-content and card-more (outside overflow)
+        const more = document.createElement('span');
+        more.className = 'more-toggle';
+        more.textContent = 'more...';
+        const cardMore = card.querySelector('.card-more');
+        if (cardMore) {
+          card.insertBefore(more, cardMore);
+        } else {
+          card.appendChild(more);
+        }
+
+        more.addEventListener('click', () => {
+          const expanded = card.classList.toggle('card-expanded');
+          if (expanded) {
+            card.style.height = 'auto';
+            if (content) content.style.overflow = '';
+            more.textContent = 'less';
+          } else {
+            card.style.height = targetH + 'px';
+            if (content) content.style.overflow = 'hidden';
+            more.textContent = 'more...';
+          }
+        });
+      });
+    });
+  }
+
+  // Run after fonts are loaded so offsetHeight is accurate
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(clampCards);
+  } else {
+    window.addEventListener('load', clampCards);
+  }
+</script>
+
 <style>
   /* ── Layout ── */
-  .cards-grid {
+  .cards-rows {
+    display: flex; flex-direction: column; gap: 2rem;
+    padding-top: 1.25rem; margin-bottom: 1.75rem;
+  }
+  .card-row {
+    display: flex; flex-direction: column; gap: 0;
+    background: white; border-radius: 14px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+  .row-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.625rem 1.25rem;
+    background: var(--gray-50); border-bottom: 1px solid var(--gray-100);
+  }
+  .row-label {
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gray-400);
+  }
+  .pin-btn {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    background: none; border: none; border-radius: 4px;
+    padding: 0.1875rem 0.5rem; cursor: pointer;
+    font-size: 0.6875rem; font-weight: 600; color: var(--gray-400);
+    transition: all 0.15s;
+  }
+  .pin-btn:hover { color: var(--gray-600); background: var(--gray-100); }
+  .pin-btn.active { color: var(--primary); background: var(--primary-light, #eff6ff); }
+  .pin-icon { flex-shrink: 0; }
+  .row-cards {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem; padding-top: 1.5rem; margin-bottom: 1.75rem;
-    align-items: start;
+    gap: 0; align-items: start;
   }
 
   /* ── Card base ── */
   .card {
-    flex: 1; min-width: 0; display: flex; flex-direction: column;
-    background: white; border-radius: 12px;
-    padding: 2rem 1.75rem 1.25rem; transition: box-shadow 0.2s;
-    border: 1px solid var(--gray-200);
+    min-width: 0; display: flex; flex-direction: column;
+    background: white;
+    padding: 1.25rem 1.25rem 1rem; transition: background 0.15s;
+    border-right: 1px solid var(--gray-100);
+    border-top: 3px solid transparent;
   }
-  .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .card:last-child { border-right: none; }
+  .card:hover { background: var(--gray-50); }
+
+  /* Card accent colors */
+  .card-baseline { border-top-color: var(--primary); }
+  .card-strengths { border-top-color: var(--green); }
+  .card-challenges { border-top-color: var(--orange); }
+  .card-opportunities { border-top-color: var(--teal); }
+  .card-goals { border-top-color: var(--primary); }
+  .card-programs { border-top-color: var(--primary-dark); }
+  .card-industries { border-top-color: var(--orange); }
+  .card-roles { border-top-color: var(--teal); }
 
   .card-heading {
-    font-family: var(--font-display); font-size: 1.25rem; font-weight: 700;
-    color: var(--gray-900); margin-bottom: 1.5rem; padding-bottom: 0.875rem;
-    border-bottom: 2px solid var(--gray-200); letter-spacing: -0.01em;
+    font-family: var(--font-display); font-size: 1.0625rem; font-weight: 700;
+    color: var(--gray-900); margin-bottom: 0.875rem; padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-100); letter-spacing: -0.01em;
   }
   .card-content { flex: 1; }
-
-  /* "More" indicator */
-  .sco-more { font-size: 0.8125rem; color: var(--gray-400); font-style: italic; padding: 0.375rem 0; }
 
   /* Baseline rows */
   .baseline-row {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
-    font-size: 0.875rem;
+    padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);
+    font-size: 0.8125rem;
   }
   .baseline-row:last-child { border-bottom: none; }
   .baseline-label { color: var(--gray-500); }
   .baseline-value { font-weight: 700; color: var(--gray-900); text-align: right; }
   .card-more {
-    display: block; text-align: center; padding: 0.875rem 0 0;
-    margin-top: auto; border-top: 1px solid var(--gray-200);
-    font-size: 0.875rem; font-weight: 700; color: var(--primary);
-    text-decoration: none; letter-spacing: 0.01em;
+    display: block; text-align: center; padding: 0.625rem 0 0;
+    margin-top: auto; border-top: 1px solid var(--gray-100);
+    font-size: 0.8125rem; font-weight: 600; color: var(--primary);
+    text-decoration: none;
   }
-  .card-more:hover { color: var(--primary-darker, #1d4ed8); }
+  .card-more:hover { color: var(--primary-dark); }
 
   /* ── Goals ── */
-  .goal-item { padding: 1rem 0; border-bottom: 1px solid var(--gray-100); }
+  .goal-item { padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100); }
   .goal-item:last-child { border-bottom: none; }
   .goal-value {
-    font-size: 1.25rem; font-weight: 800; color: var(--gray-900);
-    margin-bottom: 0.375rem; letter-spacing: -0.01em;
+    font-size: 1.0625rem; font-weight: 800; color: var(--gray-900);
+    margin-bottom: 0.125rem; letter-spacing: -0.01em;
   }
-  .goal-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.55; }
+  .goal-desc { font-size: 0.8125rem; color: var(--gray-500); line-height: 1.5; }
 
   /* ── Sectors ── */
-  .sector-group { margin-bottom: 1.5rem; }
+  .sector-group { margin-bottom: 1rem; }
   .sector-group:last-child { margin-bottom: 0; }
   .sector-group-title {
-    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    font-size: 0.6875rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.08em; color: var(--gray-400);
-    margin-bottom: 0.75rem; padding-bottom: 0.375rem;
+    margin-bottom: 0.5rem; padding-bottom: 0.25rem;
     border-bottom: 1px solid var(--gray-100);
   }
   .program-line {
-    font-size: 0.875rem; color: var(--gray-600); line-height: 1.6;
-    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
+    font-size: 0.8125rem; color: var(--gray-600); line-height: 1.55;
+    padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);
   }
   .program-line:last-child { border-bottom: none; }
   .program-line strong { color: var(--gray-900); font-weight: 700; }
 
   /* Industry lines */
   .industry-line {
-    padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100);
+    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
   }
   .industry-line:last-child { border-bottom: none; }
   .industry-line-header {
-    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.125rem;
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.0625rem;
   }
-  .industry-line-header strong { font-size: 0.875rem; color: var(--gray-900); }
+  .industry-line-header strong { font-size: 0.8125rem; color: var(--gray-900); }
   .industry-priority {
     font-size: 0.5625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
     padding: 0.0625rem 0.375rem; border-radius: 3px; white-space: nowrap;
@@ -308,36 +470,45 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
   .p-highest { color: #065f46; background: var(--green-light); }
   .p-high { color: #92400e; background: var(--yellow-light); }
   .p-mediumhigh, .p-medium { color: var(--primary-dark); background: var(--primary-light); }
-  .industry-line-detail { font-size: 0.8125rem; color: var(--gray-600); }
-  .industry-line-note { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.125rem; font-style: italic; }
+  .industry-line-detail { font-size: 0.75rem; color: var(--gray-500); }
+  .industry-line-note { font-size: 0.6875rem; color: var(--gray-400); margin-top: 0.0625rem; font-style: italic; }
 
   /* SCO lines */
   .sco-line {
-    font-size: 0.875rem; color: var(--gray-700); line-height: 1.6;
-    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
+    font-size: 0.8125rem; color: var(--gray-700); line-height: 1.55;
+    padding: 0.375rem 0; border-bottom: 1px solid var(--gray-100);
   }
   .sco-line:last-child { border-bottom: none; }
 
-  /* ── What Next ── */
+  /* ── Role actions ── */
   .action-card {
-    padding: 1rem 1rem 1rem 1.25rem; margin-bottom: 0.75rem;
-    border-radius: 8px; background: var(--gray-50);
-    border-left: 3px solid var(--gray-300);
+    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
   }
-  .action-card:last-child { margin-bottom: 0; }
-  .action-role { font-size: 0.9375rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.25rem; }
-  .action-text { font-size: 0.875rem; color: var(--gray-600); line-height: 1.55; }
-  .empty-state { font-size: 0.875rem; color: var(--gray-400); padding: 2.5rem 1rem; text-align: center; }
+  .action-card:last-child { border-bottom: none; }
+  .action-role { font-size: 0.8125rem; font-weight: 700; color: var(--gray-900); }
+  .action-text { font-size: 0.75rem; color: var(--gray-500); line-height: 1.45; }
+  .empty-state { font-size: 0.8125rem; color: var(--gray-400); padding: 2rem 0.75rem; text-align: center; }
+
+  /* ── Card clamping (global: JS-created elements lack scoped attr) ── */
+  :global(.card-clamped) { overflow: hidden; }
+  :global(.card-clamped) .card-more { display: none; }
+  :global(.card-expanded) .card-more { display: block; }
+  :global(.more-toggle) {
+    display: block; padding: 0.375rem 0 0;
+    font-size: 0.75rem; color: var(--primary);
+    cursor: pointer;
+  }
+  :global(.more-toggle:hover) { color: var(--primary-dark); }
 
   /* ── CTA row ── */
   .cta-row { display: flex; gap: 0.75rem; margin-bottom: 2.5rem; }
   .cta-link {
     flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.625rem;
-    padding: 1rem 1.25rem; border-radius: 8px;
-    text-decoration: none; font-size: 0.9375rem; font-weight: 700;
+    padding: 0.875rem 1rem; border-radius: 8px;
+    text-decoration: none; font-size: 0.875rem; font-weight: 700;
     transition: all 0.15s; letter-spacing: 0.01em;
   }
-  .cta-icon { font-size: 1.125rem; }
+  .cta-icon { font-size: 1rem; }
   .cta-baseline {
     background: var(--primary); color: white; border: none;
   }
@@ -353,15 +524,19 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
 
   /* ── Responsive ── */
   @media (max-width: 1024px) {
-    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .row-cards { grid-template-columns: repeat(2, 1fr); }
+    .card:nth-child(2) { border-right: none; }
+    .card:nth-child(n+3) { border-top-color: transparent; border-top: 1px solid var(--gray-100); }
   }
   @media (max-width: 768px) {
-    .cards-grid { grid-template-columns: 1fr; gap: 1rem; padding-top: 1.25rem; }
-    .card { padding: 1.5rem 1.25rem 1rem; }
-    .card-heading { font-size: 1.125rem; margin-bottom: 1rem; }
-    .goal-value { font-size: 1.125rem; }
+    .row-cards { grid-template-columns: 1fr; }
+    .card { border-right: none; border-top: 1px solid var(--gray-100); border-top-color: var(--gray-100) !important; }
+    .card:first-child { border-top: 3px solid; }
+    .cards-rows { padding-top: 1rem; }
+    .card-heading { font-size: 1rem; }
+    .goal-value { font-size: 1rem; }
     .cta-row { flex-direction: column; }
-    .cta-link { padding: 0.875rem; }
+    .cta-link { padding: 0.75rem; }
   }
 </style>
 
