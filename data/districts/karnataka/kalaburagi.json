@@ -4,7 +4,7 @@
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "571",
-  "lastUpdated": "2026-03-17",
+  "lastUpdated": "2026-03-29",
   "demographics": {
     "population": 2566326,
     "rural": 1730884,
@@ -83,7 +83,8 @@
     "Largest tur dal producing district in India with GI tag (GI #353)",
     "~300 active dal mills providing processing base",
     "Strategic location on NH-44/NH-50 corridor (Bangalore-Hyderabad)",
-    "PM MITRA textile park: 1,000 acres, DPR finalized, Rs 50.9 Cr released",
+    "PM MITRA textile park: 1,550 acres, land transferred, SPV constituted, Rs 50.9 Cr released, total project Rs 1,834 Cr",
+    "Shree Cement Kodla plant OPERATIONAL (3.5 MTPA, Rs 2,400 Cr, commissioned Mar 2026). Second plant Rs 4,800 Cr by 2030",
     "Massive limestone reserves (2.5-4 billion MT, 200-400 year supply)",
     "4 universities providing skilled workforce base",
     "Low land and labor costs compared to Bangalore/Hyderabad",
@@ -110,7 +111,7 @@
     "Agro-processing value chain modernization",
     "50 FPO formation covering 100,000 farmers",
     "Solar energy and micro-irrigation expansion",
-    "Surat-Chennai Expressway under construction through district (Akkalkot-Yadgir section 136km, completion Dec 2025)",
+    "Surat-Chennai Expressway: Akkalkot-Yadgir section (136km) COMPLETED Dec 2025, full expressway Dec 2026",
     "Mumbai-Hyderabad high-speed rail: station planned at Kalaburagi (DPR submitted, Budget 2026-27)",
     "LEAP incubation centre launched Apr 2025 (Beyond Bengaluru, agritech/deep tech focus)",
     "Hyderabad western growth spillover — city expanding 80-100km from Karnataka border"
@@ -154,7 +155,7 @@
       "headline": "Lowest PCI in Karnataka (Rs 1.43L vs Rs 3.10L state avg). Rs 20,150 Cr investment plan across 3 phases, targeting 156,700 jobs and rank improvement from 30/30 to 15/30.",
       "kpis": [
         { "label": "Per Capita Income", "value": "Rs 1.43L", "target": "Rs 2.50L", "status": "critical" },
-        { "label": "State Rank", "value": "30/30", "target": "15/30", "status": "critical" },
+        { "label": "HDI", "value": "0.539", "target": "0.639", "status": "critical" },
         { "label": "Phase 1 Progress", "value": "80%", "status": "good" },
         { "label": "Jobs Created", "value": "~8,000", "target": "156,700", "status": "warning" }
       ],
@@ -163,8 +164,9 @@
         { "title": "Complete Foundation Phase", "progress": 80, "budget": 4000, "timeline": "2026-2029" },
         { "title": "LEAP incubation first cohort", "progress": 20, "budget": 1000, "timeline": "2026" }
       ],
+      "roadmapOwners": [],
       "showLiveData": ["commodityPrices", "rainfall"],
-      "showSections": ["industries", "fpos", "credit", "msme", "investments"]
+      "showSections": ["roadmap", "industries", "kdem", "fpos", "industrial-land", "credit", "msme", "investments"]
     },
     "agriculture": {
       "headline": "Irrigation coverage at 13.4% (rank 26/30) — 67% of farmers are rainfed. ~300 dal mills operate but only 45 upgraded. 15 of 50 target FPOs formed.",
@@ -179,23 +181,25 @@
         { "title": "Form 35 new FPOs", "progress": 30, "budget": 300, "timeline": "2029-2032" },
         { "title": "Upgrade 255 remaining dal mills", "progress": 15, "budget": 2400, "timeline": "2029-2032" }
       ],
+      "roadmapOwners": ["water", "agriculture", "fpo", "agro-processing"],
       "showLiveData": ["commodityPrices", "rainfall"],
-      "showSections": ["fpos", "credit"]
+      "showSections": ["roadmap", "fpos", "credit"]
     },
     "industrial": {
-      "headline": "4 focus sectors with Rs 2,450 Cr pipeline targeting 56,700 jobs. PM MITRA textile park (1,000 acres) is critical path — land acquisition at 40%.",
+      "headline": "5 focus sectors with Rs 10,060 Cr pipeline. Shree Cement Kodla plant OPERATIONAL (Mar 2026, Rs 7,610 Cr). PM MITRA textile park land transferred, tenders issued.",
       "kpis": [
-        { "label": "Focus Sectors", "value": "4", "status": "good" },
-        { "label": "Investment Pipeline", "value": "Rs 2,450 Cr", "status": "good" },
-        { "label": "Jobs Target", "value": "56,700", "status": "warning" },
-        { "label": "Land Available", "value": "200 acres", "target": "1,200 acres", "status": "critical" }
+        { "label": "Focus Sectors", "value": "5", "status": "good" },
+        { "label": "Investment Pipeline", "value": "Rs 10,060 Cr", "status": "good" },
+        { "label": "Cement", "value": "OPERATIONAL", "status": "good" },
+        { "label": "PM MITRA", "value": "Land done, tenders out", "status": "warning" }
       ],
       "actions": [
         { "title": "PM MITRA 1,000 acre land acquisition", "progress": 40, "budget": 390, "timeline": "2026-Q2" },
         { "title": "Aerospace cluster land + AS9100 prep", "progress": 10, "budget": 800, "timeline": "2027" },
         { "title": "CETP for pharma/textile zones", "progress": 0, "budget": 150, "timeline": "2027" }
       ],
-      "showSections": ["industries", "investments", "msme"]
+      "roadmapOwners": ["industrial-land", "msme", "industry", "kiadb"],
+      "showSections": ["roadmap", "industries", "industrial-land", "investments", "msme"]
     },
     "water": {
       "headline": "119,327 ha irrigated (13.4%) of 890,897 ha net sown area — target 222,000 ha by 2034. Borewell rehabilitation 80% complete, but solar pump installation critically behind at 24%.",
@@ -210,7 +214,9 @@
         { "title": "Accelerate solar pump installation", "progress": 24, "budget": 400, "timeline": "2026-2029" },
         { "title": "Micro-irrigation expansion to 50,000 ha", "progress": 76, "budget": 1300, "timeline": "2026-2029" }
       ],
-      "showLiveData": ["rainfall"]
+      "showLiveData": ["rainfall"],
+      "roadmapOwners": ["water", "irrigation"],
+      "showSections": ["roadmap"]
     },
     "health": {
       "headline": "371-bed Jayadeva Heart Hospital opened Dec 2024. Child super-speciality (Rs 90 Cr) planned. ESIC hospital operational. 156,700 new jobs will require occupational health infrastructure.",
@@ -224,6 +230,7 @@
         { "title": "Child super-speciality hospital (IGICH branch)", "progress": 10, "budget": 90, "timeline": "2026-2028" },
         { "title": "Occupational health facilities for industrial zones", "progress": 0, "budget": 50, "timeline": "2027-2029" }
       ],
+      "roadmapOwners": ["health"],
       "showSections": []
     },
     "education": {
@@ -239,7 +246,8 @@
         { "title": "ITI curriculum for aerospace/pharma", "progress": 5, "budget": 100, "timeline": "2026-2028" },
         { "title": "LEAP agritech incubation training", "progress": 20, "budget": 200, "timeline": "2026-2029" }
       ],
-      "showSections": []
+      "roadmapOwners": ["education", "skill-development"],
+      "showSections": ["roadmap"]
     },
     "revenue": {
       "headline": "1,625 acres needed across PM MITRA (1,000), Aerospace (500), Pharma (200). Only 93 acres acquired so far. Land acquisition is the single biggest bottleneck across all industrial plans.",
@@ -254,7 +262,8 @@
         { "title": "Aerospace cluster 500 acres", "progress": 10, "budget": 200, "timeline": "2026-2027" },
         { "title": "Pharma zone 200 acres", "progress": 22, "budget": 100, "timeline": "2026-2027" }
       ],
-      "showSections": []
+      "roadmapOwners": ["land", "revenue", "industrial-land"],
+      "showSections": ["roadmap", "industrial-land"]
     },
     "kdem": {
       "headline": "Kalaburagi designated 'Kalyana Karnataka AI Hub' under Beyond Bengaluru. LEAP incubation centre launched Apr 2025. 12 new companies, 850 jobs in FY23-26. Target: 50 startups, 10,000 jobs by 2030.",
@@ -269,7 +278,8 @@
         { "title": "Offshore Development Centre setup", "progress": 15, "budget": 50, "timeline": "2026-2027" },
         { "title": "Attract 38 more startups", "progress": 24, "budget": 75, "timeline": "2027-2030" }
       ],
-      "showSections": []
+      "roadmapOwners": ["skill-development", "msme"],
+      "showSections": ["roadmap", "kdem"]
     },
     "minister": {
       "headline": "Kalaburagi: lowest PCI in Karnataka (Rs 1.43L vs Rs 3.10L). Rs 20,150 Cr 8-year plan across 3 phases. Foundation Phase 80% complete. 4 industrial sectors, 156,700 jobs target. Beyond Bengaluru AI Hub active.",
@@ -285,7 +295,8 @@
         { "title": "Beyond Bengaluru — KDEM targets", "progress": 17, "budget": 1075, "timeline": "2026-2030" }
       ],
       "showLiveData": ["commodityPrices", "rainfall"],
-      "showSections": ["industries", "fpos", "credit", "msme", "investments"]
+      "roadmapOwners": [],
+      "showSections": ["roadmap", "industries", "kdem", "fpos", "industrial-land", "credit", "msme", "investments"]
     }
   },
   "dataCompleteness": {
@@ -652,11 +663,11 @@
   },
   "industries": {
     "overview": {
-      "totalInvestment": 2450,
-      "totalJobs": 56700,
+      "totalInvestment": 10060,
+      "totalJobs": 57750,
       "gddpContribution": 1242,
       "percentOfTarget": 3.58,
-      "status": "Planning & Feasibility Stage"
+      "status": "Cement operational, textiles in progress, others planning"
     },
     "sectors": [
       {
@@ -746,72 +757,69 @@
       {
         "id": "limestone",
         "name": "Limestone & Cement",
-        "priority": "HIGH",
-        "priorityNote": "2.5-4 billion MT reserves, 200-400 year supply",
+        "priority": "HIGHEST",
+        "priorityNote": "Shree Cement Kodla plant OPERATIONAL (Mar 2026). Rs 7,610 Cr approved.",
         "investment": {
-          "total": 500,
+          "total": 7610,
           "breakdown": {
-            "mining": 100,
-            "crushers": 80,
-            "cement": 320
+            "shreeCementPlant1": 2400,
+            "shreeCementPlant2": 4800,
+            "otherMining": 410
           },
           "financing": {
-            "private": 350,
-            "banks": 100,
-            "government": 50
+            "private": 7200,
+            "banks": 300,
+            "government": 110
           }
         },
         "impact": {
           "jobs": {
-            "direct": 12000,
-            "indirect": 8000,
-            "total": 20000,
+            "direct": 1050,
+            "indirect": 3000,
+            "total": 4050,
             "skillLevel": "Mix (operators, engineers, managers)",
-            "salary": "Rs 15,000-50,000/month"
+            "salary": "Rs 15,000-50,000/month",
+            "plant1Jobs": 300,
+            "plant2Jobs": 750
           },
           "revenue": {
-            "year2034": 750,
-            "cement": 600,
-            "aggregates": 150
+            "year2034": 3000,
+            "cement": 2500,
+            "aggregates": 500
           },
           "gddp": {
-            "contribution": 338,
-            "percentOfTarget": 0.97,
+            "contribution": 1500,
+            "percentOfTarget": 4.3,
             "multiplier": 1.5
           }
         },
         "timeline": {
-          "phase1": "2026-2028: Mining leases, 3 crushers operational",
-          "phase2": "2028-2030: First mini cement plant (1,000 TPD)",
-          "phase3": "2030-2034: Scale to 3,000 TPD, 2nd plant",
-          "firstRevenue": "24-30 months",
-          "fullScale": "96 months"
+          "phase1": "Feb 2026: Shree Cement Kodla 3.5 MTPA clinker line COMMISSIONED",
+          "phase2": "Mar 2026: 3.5 MTPA cement mill COMMISSIONED",
+          "phase3": "2030: Second plant 6 MTPA (under planning)",
+          "firstRevenue": "OPERATIONAL NOW",
+          "fullScale": "2030"
         },
-        "location": "Chincholi, Sedam, Chittapur taluks (existing deposits)",
+        "location": "Kodla, Kalaburagi district (Shree Cement integrated plant)",
         "products": [
-          "Cement (OPC 43/53 grade, PPC)",
-          "Aggregates (construction, road building)",
-          "Ready-mix concrete (urban Kalaburagi)"
+          "Cement (OPC 43/53 grade, PPC) — 3.5 MTPA operational",
+          "Clinker — 3.5 MTPA operational",
+          "Aggregates (construction, road building)"
         ],
         "risks": [
           {
-            "risk": "Mining lease delays (24-36 months)",
-            "severity": "high",
-            "mitigation": "Parallel applications, political support, fast-track"
+            "risk": "Second plant land and clearances",
+            "severity": "medium",
+            "mitigation": "First plant operational, proven execution track"
           },
           {
-            "risk": "Environmental clearances",
+            "risk": "Cement market oversupply nationally",
             "severity": "medium",
-            "mitigation": "Comprehensive EIA, community engagement"
-          },
-          {
-            "risk": "Cement market oversupply",
-            "severity": "medium",
-            "mitigation": "Gradual scaling, specialty cements"
+            "mitigation": "Regional demand from infrastructure projects (expressway, HSR)"
           }
         ],
-        "confidence": "MEDIUM-HIGH (75%)",
-        "recommendation": "PROCEED - Resource proven, but regulatory timeline critical"
+        "confidence": "HIGHEST (95%) — Plant 1 operational",
+        "recommendation": "OPERATIONAL — First plant commissioned. Second plant (6 MTPA, Rs 4,800 Cr) by 2030"
       },
       {
         "id": "aerospace",
@@ -2024,6 +2032,15 @@
         "Mumbai-Hyderabad high-speed rail corridor"
       ],
       "type": "Infrastructure"
+    },
+    {
+      "name": "Shree Cement / Global Cement News",
+      "url": "https://www.globalcement.com/news/itemlist/tag/Karnataka",
+      "fields": [
+        "Kodla plant commissioning",
+        "Cement investment Rs 7,610 Cr"
+      ],
+      "type": "Industry"
     },
     {
       "name": "KDEM / Beyond Bengaluru",

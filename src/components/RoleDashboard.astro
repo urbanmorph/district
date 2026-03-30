@@ -42,16 +42,7 @@ interface Props {
 const { role, dashData, alerts, roadmap, liveData, portalUrl } = Astro.props;
 
 const phases = roadmap ? Object.keys(roadmap.phases).sort().map(k => ({ id: k, ...roadmap.phases[k] })) : [];
-const roleOwners = (() => {
-  // Map role IDs to roadmap owner values
-  const map: Record<string, string[]> = {
-    dc: [], // sees all
-    agriculture: ['water', 'agriculture', 'fpo', 'agro-processing'],
-    industrial: ['industrial-land', 'msme', 'industry', 'kiadb'],
-    water: ['water', 'irrigation'],
-  };
-  return map[role.id] || [];
-})();
+const roleOwners: string[] = dashData.roadmapOwners || [];
 
 function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
 ---

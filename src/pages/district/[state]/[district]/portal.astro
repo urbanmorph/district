@@ -346,6 +346,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     <RoleSwitcher roles={availableRoles} activeRole={null} />
   )}
   <script type="application/json" id="roles-data" set:html={JSON.stringify(availableRoles)} />
+  <script type="application/json" id="role-dashboards-data" set:html={JSON.stringify(roleDashboards)} />
 
   <!-- Role Selector (shown when no role selected) -->
   <div id="role-no-selection" class="portal-section">
@@ -1517,38 +1518,54 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
       // Update role select dropdown if exists
       if (roleSelect) roleSelect.value = roleId || 'full';
 
-      // Also apply the existing section/roadmap filtering from RoleSwitcher
-      const rolesDataEl = document.getElementById('roles-data');
-      if (rolesDataEl) {
-        try {
-          const roles = JSON.parse(rolesDataEl.textContent || '[]');
-          const roleMap = {};
-          roles.forEach(r => { roleMap[r.id] = r; });
-          const role = roleMap[roleId];
-          if (role) {
-            // Toggle sections
-            document.querySelectorAll('[data-section]').forEach(sec => {
-              const sn = sec.getAttribute('data-section');
-              if (roleId === 'full' || role.sections.includes(sn)) {
-                sec.style.display = '';
-              } else {
-                sec.style.display = 'none';
-              }
-            });
-            // Toggle roadmap components
-            document.querySelectorAll('.roadmap-component').forEach(comp => {
-              const owner = comp.getAttribute('data-owner');
-              if (roleId === 'full' || roleId === 'dc' || !role.roadmapOwners || role.roadmapOwners.length === 0) {
-                comp.style.display = '';
-              } else if (owner && role.roadmapOwners.includes(owner)) {
-                comp.style.display = '';
-              } else {
-                comp.style.display = 'none';
-              }
-            });
+      // Use roleDashboards as single source of truth for filtering
+      const rdDataEl = document.getElementById('role-dashboards-data');
+      let rdConfig = {};
+      try { rdConfig = JSON.parse(rdDataEl?.textContent || '{}'); } catch(e) {}
+      const rd = rdConfig[roleId];
+
+      // Toggle detail sections based on roleDashboards.showSections
+      document.querySelectorAll('[data-section]').forEach(sec => {
+        const sn = sec.getAttribute('data-section');
+        if (!roleId || roleId === 'full') {
+          sec.style.display = '';
+        } else if (rd && rd.showSections) {
+          sec.style.display = rd.showSections.includes(sn) ? '' : 'none';
+        } else {
+          sec.style.display = '';
+        }
+      });
+
+      // Also filter wrapper divs with id (roadmap, industries, kdem etc)
+      ['roadmap', 'industries', 'kdem'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (!roleId || roleId === 'full') {
+          el.style.display = '';
+        } else if (rd && rd.showSections) {
+          el.style.display = rd.showSections.includes(id) ? '' : 'none';
+        } else {
+          el.style.display = '';
+        }
+      });
+
+      // Toggle roadmap components based on roleDashboards.roadmapOwners
+      document.querySelectorAll('.roadmap-component').forEach(comp => {
+        const owner = comp.getAttribute('data-owner');
+        if (!roleId || roleId === 'full') {
+          comp.style.display = '';
+        } else if (rd && rd.roadmapOwners !== undefined) {
+          if (rd.roadmapOwners.length === 0) {
+            comp.style.display = ''; // empty array = see all (DC, Minister)
+          } else if (owner && rd.roadmapOwners.includes(owner)) {
+            comp.style.display = '';
+          } else {
+            comp.style.display = 'none';
           }
-        } catch(e) {}
-      }
+        } else {
+          comp.style.display = '';
+        }
+      });
 
       // Update URL
       const url = new URL(window.location);

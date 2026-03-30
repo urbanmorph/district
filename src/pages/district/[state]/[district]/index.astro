@@ -53,164 +53,158 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
 >
   <DistrictMapStatic slot="header-icon" districtName={d.name} stateName={stateName} size={40} />
 
-  <!-- Baseline stats bar -->
-  <div class="stats-bar">
-    {eco.perCapitaIncome && <span class="stat"><strong>{formatCurrency(eco.perCapitaIncome)}</strong> PCI</span>}
-    {eco.gddp_crores && <span class="stat"><strong>₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</strong> GDDP</span>}
-    {demo.population && <span class="stat"><strong>{formatPopulation(demo.population)}</strong> population</span>}
-    {demo.density && <span class="stat"><strong>{demo.density}/km²</strong> density</span>}
-    {demo.literacyRate && <span class="stat"><strong>{demo.literacyRate}%</strong> literacy</span>}
-    {d.rankings?.hdi && <span class="stat"><strong>{d.rankings.hdi.value}</strong> HDI</span>}
-    {d.rankings?.perCapitaIncome?.stateRank && <span class="stat stat-rank"><strong>{d.rankings.perCapitaIncome.stateRank}</strong> rank</span>}
-  </div>
+  <!-- Row 1: Baseline | Goals | Core Programs | Industries -->
+  <div class="cards-grid">
+    {/* Baseline */}
+    <div class="card">
+      <h2 class="card-heading">📊 Baseline: {d.lastUpdated?.slice(0, 4) || '2026'}</h2>
+      <div class="card-content">
+        {demo.population && demo.density && <div class="baseline-row"><span class="baseline-label">Population</span><span class="baseline-value">{formatPopulation(demo.population)}, {demo.density}/km²</span></div>}
+        {eco.perCapitaIncome && <div class="baseline-row"><span class="baseline-label">Per Capita Income</span><span class="baseline-value">{formatCurrency(eco.perCapitaIncome)}</span></div>}
+        {eco.gddp_crores && <div class="baseline-row"><span class="baseline-label">GDDP</span><span class="baseline-value">₹{eco.gddp_crores.toLocaleString('en-IN')} Cr</span></div>}
+        {d.rankings?.perCapitaIncome?.stateRank && <div class="baseline-row"><span class="baseline-label">State Rank</span><span class="baseline-value">{d.rankings.perCapitaIncome.stateRank}</span></div>}
+        {d.rankings?.hdi && <div class="baseline-row"><span class="baseline-label">HDI</span><span class="baseline-value">{d.rankings.hdi.value} (rank {d.rankings.hdi.stateRank})</span></div>}
+        {demo.literacyRate && <div class="baseline-row"><span class="baseline-label">Literacy</span><span class="baseline-value">{demo.literacyRate}%</span></div>}
+        {eco.gddpComposition && <div class="baseline-row"><span class="baseline-label">Economy</span><span class="baseline-value">{eco.gddpComposition.services}% services, {eco.gddpComposition.agriculture}% agri, {eco.gddpComposition.industry}% industry</span></div>}
+      </div>
+      <a href={`${portalUrl}#today`} class="card-more">View details →</a>
+    </div>
 
-  <div class="cards-row">
-    {/* Card 1: Goals */}
-    <div class="card card-goals">
+    {/* Goals */}
+    <div class="card">
       <h2 class="card-heading">🎯 Goals</h2>
       <div class="card-content">
         {d.rankings?.hdi && (
           <div class="goal-item">
             <div class="goal-value">HDI {d.rankings.hdi.value} → {d.rankings.hdi.stateBest ? (d.rankings.hdi.value + (d.rankings.hdi.stateBest - d.rankings.hdi.value) / 2).toFixed(3) : (d.rankings.hdi.value + 0.1).toFixed(2)}</div>
-            <div class="goal-desc">Human Development Index — {d.rankings.hdi.stateBest ? `closing half the gap to ${d.rankings.hdi.stateBestDistrict} (${d.rankings.hdi.stateBest})` : `rank ${d.rankings.hdi.stateRank}`}</div>
+            <div class="goal-desc">{d.rankings.hdi.stateBest ? `Close half the gap to ${d.rankings.hdi.stateBestDistrict} (${d.rankings.hdi.stateBest})` : `Rank ${d.rankings.hdi.stateRank}`}</div>
           </div>
         )}
-        {roadmap?.perCapitaGoal && eco.perCapitaIncome && d.rankings?.pciStateBest && (
+        {roadmap?.perCapitaGoal && eco.perCapitaIncome && (
           <div class="goal-item">
             <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
-            <div class="goal-desc">Per capita income — closing half the gap to {d.rankings.pciStateBest.district} ({formatCurrency(d.rankings.pciStateBest.value)})</div>
-          </div>
-        )}
-        {roadmap?.perCapitaGoal && eco.perCapitaIncome && !d.rankings?.pciStateBest && (
-          <div class="goal-item">
-            <div class="goal-value">{formatCurrency(eco.perCapitaIncome)} → {formatCurrency(roadmap.perCapitaGoal)}</div>
-            <div class="goal-desc">Per capita income target</div>
+            <div class="goal-desc">{d.rankings?.pciStateBest ? `Close half the gap to ${d.rankings.pciStateBest.district}` : 'Per capita income target'}</div>
           </div>
         )}
         {roadmap?.jobsToCreate && (
           <div class="goal-item">
             <div class="goal-value">{roadmap.jobsToCreate.toLocaleString('en-IN')} New Jobs</div>
-            <div class="goal-desc">{industries?.sectors ? `${industries.overview?.totalJobs?.toLocaleString('en-IN') || ''} from ${industries.sectors.length} new industries` : 'Across all sectors'}</div>
+            <div class="goal-desc">{industries?.sectors ? `From ${industries.sectors.length} industries + core programs` : 'Across all sectors'}</div>
           </div>
         )}
         {roadmap?.totalInvestment && (
           <div class="goal-item">
             <div class="goal-value">₹{roadmap.totalInvestment.toLocaleString('en-IN')} Cr Investment</div>
-            <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned investment across all phases'}</div>
+            <div class="goal-desc">{roadmap.financing ? roadmap.financing.map((f: any) => `${f.source} ${f.percent}%`).join(', ') : 'Total planned'}</div>
           </div>
         )}
       </div>
-      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
       <a href={`${portalUrl}#goals`} class="card-more">View details →</a>
     </div>
 
-    {/* Card 2: What Needs To Be Done */}
-    <div class="card card-sectors">
-      <h2 class="card-heading">🏗️ How Can This Be Done?</h2>
-      <div class="card-content">
-        {/* Core programs from roadmap */}
-        {phases.length > 0 && (
-          <div class="sector-group">
-            <div class="sector-group-title">Core Programs</div>
-            {phases.flatMap(p => p.components || []).slice(0, 4).map((c: any) => (
-              <div class="program-line">
-                <strong>{c.name}</strong> — {c.items?.[0] || 'In progress'}{c.budget ? ` (₹${c.budget.toLocaleString('en-IN')} cr)` : ''}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {industries?.sectors?.length > 0 && (
-          <div class="sector-group">
-            <div class="sector-group-title">{industries.sectors.length} New Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</div>
-            {industries.sectors.slice(0, 4).map((s: any) => (
-              <div class="program-line">
-                <strong>{s.name}</strong> — {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs{s.investment?.total ? ` (₹${s.investment.total.toLocaleString('en-IN')} cr)` : ''}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {kdem && (
-          <div class="sector-group">
-            <div class="sector-group-title">Digital Economy — Beyond Bengaluru</div>
-            <div class="program-line">
-              <strong>{kdem.clusterName}</strong> — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030
-            </div>
-          </div>
-        )}
+    {/* Challenges */}
+    {d.challenges?.length > 0 && (
+      <div class="card">
+        <h2 class="card-heading">✗ Challenges</h2>
+        <div class="card-content">
+          {d.challenges.slice(0, 5).map(c => <div class="sco-line">{c}</div>)}
+          {d.challenges.length > 5 && <div class="sco-more">{d.challenges.length - 5} more...</div>}
+        </div>
+        <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
       </div>
-      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
-      <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
-    </div>
+    )}
 
-    {/* Card 3: Who Should Do What Next */}
-    <div class="card card-whatnext">
+    {/* Who Should Do What Next */}
+    <div class="card">
       <h2 class="card-heading">👥 Who Should Do What Next?</h2>
       <div class="card-content">
         {whoDoesWhat.length > 0 ? (
-          whoDoesWhat.slice(0, 5).map(item => (
-            <div class="action-card">
-              <div class="action-role">{item.role}</div>
-              <div class="action-text">{item.action}</div>
-            </div>
-          ))
+          <Fragment>
+            {whoDoesWhat.slice(0, 4).map(item => (
+              <div class="action-card">
+                <div class="action-role">{item.role}</div>
+                <div class="action-text">{item.action}</div>
+              </div>
+            ))}
+            {whoDoesWhat.length > 4 && <div class="sco-more">{whoDoesWhat.length - 4} more roles...</div>}
+          </Fragment>
         ) : (
-          <div class="empty-state">Role-based actions will appear once roadmap data is available.</div>
+          <div class="empty-state">Role-based actions will appear once data is available.</div>
         )}
       </div>
-      <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
       <a href={`${portalUrl}?tab=data`} class="card-more">View details →</a>
     </div>
-  </div>
 
-  {/* Row 2: Strengths, Challenges, Opportunities */}
-  {(d.strengths?.length > 0 || d.challenges?.length > 0 || d.opportunities?.length > 0) && (
-    <div class="cards-row row-2">
-      {d.strengths?.length > 0 && (
-        <div class="card">
-          <h2 class="card-heading">✓ Strengths</h2>
-          <div class="card-content">
-            {d.strengths.slice(0, 5).map(s => (
-              <div class="sco-line">{s}</div>
-            ))}
-          </div>
-          {d.strengths.length > 5 && (
-            <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
+    {/* Core Programs */}
+    {phases.length > 0 && (
+      <div class="card">
+        <h2 class="card-heading">🏗️ Core Programs</h2>
+        <div class="card-content">
+          {phases.flatMap(p => p.components || []).map((c: any) => (
+            <div class="program-line">
+              <strong>{c.name}</strong> — {c.items?.[0] || 'In progress'}{c.budget ? ` (₹${c.budget.toLocaleString('en-IN')} cr)` : ''}
+            </div>
+          ))}
+          {kdem && (
+            <Fragment>
+              <div class="sector-group-title" style="margin-top:0.75rem;">Digital Economy — Beyond Bengaluru</div>
+              <div class="program-line">
+                <strong>{kdem.clusterName}</strong> — {kdem.targets2030?.startups} startups, {kdem.targets2030?.jobs?.toLocaleString('en-IN')} jobs by 2030
+              </div>
+            </Fragment>
           )}
-          <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
         </div>
-      )}
-      {d.challenges?.length > 0 && (
-        <div class="card">
-          <h2 class="card-heading">✗ Challenges</h2>
-          <div class="card-content">
-            {d.challenges.slice(0, 5).map(c => (
-              <div class="sco-line">{c}</div>
-            ))}
-          </div>
-          {d.challenges.length > 5 && (
-            <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
-          )}
-          <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
+        <a href={`${portalUrl}?tab=data#roadmap`} class="card-more">View details →</a>
+      </div>
+    )}
+
+    {/* Industries */}
+    {industries?.sectors?.length > 0 && (
+      <div class="card">
+        <h2 class="card-heading">🏭 {industries.sectors.length} Industries (₹{industries.overview?.totalInvestment?.toLocaleString('en-IN')} Cr)</h2>
+        <div class="card-content">
+          {industries.sectors.map((s: any) => (
+            <div class="industry-line">
+              <div class="industry-line-header">
+                <strong>{s.name}</strong>
+                {s.priority && <span class={`industry-priority p-${s.priority.toLowerCase().replace(/[^a-z]/g, '')}`}>{s.priority}</span>}
+              </div>
+              <div class="industry-line-detail">
+                {s.impact?.jobs?.total?.toLocaleString('en-IN')} jobs · ₹{s.investment?.total?.toLocaleString('en-IN')} cr
+                {s.timeline?.firstRevenue && ` · ${s.timeline.firstRevenue}`}
+              </div>
+              {s.priorityNote && <div class="industry-line-note">{s.priorityNote}</div>}
+            </div>
+          ))}
         </div>
-      )}
-      {d.opportunities?.length > 0 && (
-        <div class="card">
-          <h2 class="card-heading">⚡ Opportunities</h2>
-          <div class="card-content">
-            {d.opportunities.slice(0, 5).map(o => (
-              <div class="sco-line">{o}</div>
-            ))}
-          </div>
-          {d.opportunities.length > 5 && (
-            <button class="card-expand" onclick="this.previousElementSibling.classList.toggle('expanded'); this.textContent = this.previousElementSibling.classList.contains('expanded') ? 'Show less ▴' : 'Show all ▾';">Show all ▾</button>
-          )}
-          <a href={`${portalUrl}#opportunities`} class="card-more">View details →</a>
+        <a href={`${portalUrl}?tab=data#industries`} class="card-more">View details →</a>
+      </div>
+    )}
+
+    {/* Strengths */}
+    {d.strengths?.length > 0 && (
+      <div class="card">
+        <h2 class="card-heading">✓ Strengths</h2>
+        <div class="card-content">
+          {d.strengths.slice(0, 5).map(s => <div class="sco-line">{s}</div>)}
+          {d.strengths.length > 5 && <div class="sco-more">{d.strengths.length - 5} more...</div>}
         </div>
-      )}
-    </div>
-  )}
+        <a href={`${portalUrl}#strengths`} class="card-more">View details →</a>
+      </div>
+    )}
+
+    {/* Opportunities */}
+    {d.opportunities?.length > 0 && (
+      <div class="card">
+        <h2 class="card-heading">⚡ Opportunities</h2>
+        <div class="card-content">
+          {d.opportunities.slice(0, 5).map(o => <div class="sco-line">{o}</div>)}
+          {d.opportunities.length > 5 && <div class="sco-more">{d.opportunities.length - 5} more...</div>}
+        </div>
+        <a href={`${portalUrl}#opportunities`} class="card-more">View details →</a>
+      </div>
+    )}
+  </div>
 
   {/* CTA links */}
   <div class="cta-row">
@@ -230,28 +224,11 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
 </BaseLayout>
 
 <style>
-  /* ── Stats bar ── */
-  .stats-bar {
-    display: flex; flex-wrap: wrap; align-items: center;
-    justify-content: center; gap: 0 0;
-    padding: 0; margin-top: 1.25rem;
-    background: var(--gray-900); color: rgba(255,255,255,0.7);
-    border-radius: 8px; font-size: 0.8125rem;
-    overflow: hidden;
-  }
-  .stat {
-    flex: 1; text-align: center;
-    padding: 0.75rem 0.75rem; border-right: 1px solid rgba(255,255,255,0.1);
-    white-space: nowrap;
-  }
-  .stat:last-child { border-right: none; }
-  .stat strong { color: white; font-weight: 800; letter-spacing: -0.01em; }
-  .stat-rank strong { color: #fca5a5; }
-
   /* ── Layout ── */
-  .cards-row {
-    display: flex; gap: 1.5rem; padding-top: 2rem;
-    margin-bottom: 1.75rem; align-items: stretch;
+  .cards-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem; padding-top: 1.5rem; margin-bottom: 1.75rem;
+    align-items: start;
   }
 
   /* ── Card base ── */
@@ -268,22 +245,20 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     color: var(--gray-900); margin-bottom: 1.5rem; padding-bottom: 0.875rem;
     border-bottom: 2px solid var(--gray-200); letter-spacing: -0.01em;
   }
-  .card-content { flex: 1; max-height: 280px; overflow: hidden; position: relative; transition: max-height 0.3s ease; }
-  .card-content.expanded { max-height: none; }
-  .card-content:not(.expanded)::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 40px; background: linear-gradient(transparent, white);
-    pointer-events: none;
+  .card-content { flex: 1; }
+
+  /* "More" indicator */
+  .sco-more { font-size: 0.8125rem; color: var(--gray-400); font-style: italic; padding: 0.375rem 0; }
+
+  /* Baseline rows */
+  .baseline-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
+    font-size: 0.875rem;
   }
-  .card-whatnext .card-content:not(.expanded)::after { background: linear-gradient(transparent, #fffcf5); }
-  .card-expand {
-    display: none; text-align: center; padding: 0.5rem 0 0;
-    font-size: 0.8125rem; font-weight: 600; color: var(--gray-500);
-    cursor: pointer; background: none; border: none; font-family: var(--font-body);
-    width: 100%;
-  }
-  .card-expand:hover { color: var(--gray-800); }
-  .card-expand.visible { display: block; }
+  .baseline-row:last-child { border-bottom: none; }
+  .baseline-label { color: var(--gray-500); }
+  .baseline-value { font-weight: 700; color: var(--gray-900); text-align: right; }
   .card-more {
     display: block; text-align: center; padding: 0.875rem 0 0;
     margin-top: auto; border-top: 1px solid var(--gray-200);
@@ -317,13 +292,31 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
   .program-line:last-child { border-bottom: none; }
   .program-line strong { color: var(--gray-900); font-weight: 700; }
 
+  /* Industry lines */
+  .industry-line {
+    padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .industry-line:last-child { border-bottom: none; }
+  .industry-line-header {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.125rem;
+  }
+  .industry-line-header strong { font-size: 0.875rem; color: var(--gray-900); }
+  .industry-priority {
+    font-size: 0.5625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 0.0625rem 0.375rem; border-radius: 3px; white-space: nowrap;
+  }
+  .p-highest { color: #065f46; background: var(--green-light); }
+  .p-high { color: #92400e; background: var(--yellow-light); }
+  .p-mediumhigh, .p-medium { color: var(--primary-dark); background: var(--primary-light); }
+  .industry-line-detail { font-size: 0.8125rem; color: var(--gray-600); }
+  .industry-line-note { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.125rem; font-style: italic; }
+
   /* SCO lines */
   .sco-line {
     font-size: 0.875rem; color: var(--gray-700); line-height: 1.6;
     padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100);
   }
   .sco-line:last-child { border-bottom: none; }
-  .row-2 { padding-top: 0; }
 
   /* ── What Next ── */
   .action-card {
@@ -360,30 +353,16 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
 
   /* ── Responsive ── */
   @media (max-width: 1024px) {
-    .cards-row { flex-wrap: wrap; }
-    .card { flex: 1 1 100%; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 768px) {
-    .cards-row { flex-direction: column; gap: 1rem; padding-top: 1.25rem; }
+    .cards-grid { grid-template-columns: 1fr; gap: 1rem; padding-top: 1.25rem; }
     .card { padding: 1.5rem 1.25rem 1rem; }
     .card-heading { font-size: 1.125rem; margin-bottom: 1rem; }
     .goal-value { font-size: 1.125rem; }
     .cta-row { flex-direction: column; }
     .cta-link { padding: 0.875rem; }
-    .bar-label { min-width: 70px; font-size: 0.8125rem; }
-    .bar-pct { font-size: 0.8125rem; }
   }
 </style>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.card-content').forEach(el => {
-      if (el.scrollHeight > 280) {
-        const btn = el.nextElementSibling;
-        if (btn && btn.classList.contains('card-expand')) {
-          btn.classList.add('visible');
-        }
-      }
-    });
-  });
-</script>
+
