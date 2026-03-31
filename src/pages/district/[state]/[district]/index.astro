@@ -392,8 +392,8 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     border-right: 1px solid var(--gray-100);
     border-top: 3px solid transparent;
   }
+  .card:nth-child(even) { background: var(--gray-50); }
   .card:last-child { border-right: none; }
-  .card:hover { background: var(--gray-50); }
 
   /* Card accent colors */
   .card-baseline { border-top-color: var(--primary); }
@@ -422,21 +422,23 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
   .baseline-label { color: var(--gray-500); }
   .baseline-value { font-weight: 700; color: var(--gray-900); text-align: right; }
   .card-more {
-    display: block; text-align: center; padding: 0.625rem 0 0;
-    margin-top: auto; border-top: 1px solid var(--gray-100);
-    font-size: 0.8125rem; font-weight: 600; color: var(--primary);
-    text-decoration: none;
+    display: block; text-align: center; padding: 0.5rem 0;
+    margin: 0.625rem -1.25rem -1rem; border-top: 1px solid var(--gray-100);
+    font-size: 0.75rem; font-weight: 600; color: var(--primary);
+    text-decoration: none; background: var(--gray-50);
+    border-radius: 0 0 0 0;
   }
-  .card-more:hover { color: var(--primary-dark); }
+  .card:nth-child(even) .card-more { background: var(--gray-100); }
+  .card-more:hover { color: var(--primary-dark); background: var(--gray-100); }
 
   /* ── Goals ── */
   .goal-item { padding: 0.625rem 0; border-bottom: 1px solid var(--gray-100); }
   .goal-item:last-child { border-bottom: none; }
   .goal-value {
-    font-size: 1.0625rem; font-weight: 800; color: var(--gray-900);
+    font-size: 0.875rem; font-weight: 800; color: var(--gray-900);
     margin-bottom: 0.125rem; letter-spacing: -0.01em;
   }
-  .goal-desc { font-size: 0.8125rem; color: var(--gray-500); line-height: 1.5; }
+  .goal-desc { font-size: 0.75rem; color: var(--gray-500); line-height: 1.5; }
 
   /* ── Sectors ── */
   .sector-group { margin-bottom: 1rem; }
@@ -494,11 +496,14 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
   :global(.card-clamped) .card-more { display: none; }
   :global(.card-expanded) .card-more { display: block; }
   :global(.more-toggle) {
-    display: block; padding: 0.375rem 0 0;
-    font-size: 0.75rem; color: var(--primary);
-    cursor: pointer;
+    display: block; padding: 0.5rem 0;
+    margin: 0.375rem -1.25rem -1rem; border-top: 1px solid var(--gray-100);
+    font-size: 0.75rem; font-weight: 600; color: var(--primary);
+    cursor: pointer; text-align: center;
+    background: var(--gray-50);
   }
-  :global(.more-toggle:hover) { color: var(--primary-dark); }
+  :global(.card:nth-child(even) .more-toggle) { background: var(--gray-100); }
+  :global(.more-toggle:hover) { color: var(--primary-dark); background: var(--gray-100); }
 
   /* ── CTA row ── */
   .cta-row { display: flex; gap: 0.75rem; margin-bottom: 2.5rem; }
@@ -534,7 +539,7 @@ for (const [roleId, data] of Object.entries(roleDashboards)) {
     .card:first-child { border-top: 3px solid; }
     .cards-rows { padding-top: 1rem; }
     .card-heading { font-size: 1rem; }
-    .goal-value { font-size: 1rem; }
+    .goal-value { font-size: 0.875rem; }
     .cta-row { flex-direction: column; }
     .cta-link { padding: 0.75rem; }
   }

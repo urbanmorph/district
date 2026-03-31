@@ -53,7 +53,7 @@ const searchIndex = [
             <div class="header-content">
                 <div class="header-left">
                     <slot name="header-icon">
-                        <span class="header-flag" aria-hidden="true">&#x1F1EE;&#x1F1F3;</span>
+                        <a href="/"><img src="/district-mocha-logo.png" alt="District Mocha" class="header-logo" /></a>
                     </slot>
                     <div>
                         <a href="/" class="header-home">
@@ -144,6 +144,7 @@ const searchIndex = [
         text-decoration: none;
         color: white;
     }
+    .header-logo { height: 44px; width: auto; border-radius: 4px; }
     .header-flag { font-size: 1.5rem; line-height: 1; }
     .header-title {
         font-family: var(--font-display);
