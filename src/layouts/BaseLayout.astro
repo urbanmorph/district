@@ -52,9 +52,8 @@ const searchIndex = [
         <div class="container">
             <div class="header-content">
                 <div class="header-left">
-                    <slot name="header-icon">
-                        <a href="/"><img src="/district-mocha-logo.png" alt="District Mocha" class="header-logo" /></a>
-                    </slot>
+                    <a href="/"><img src="/district-mocha-logo.png" alt="District Mocha" class="header-logo" /></a>
+                    <slot name="header-icon" />
                     <div>
                         <a href="/" class="header-home">
                             <h1 class="header-title">{headerTitle || 'India District Development Dashboard'}</h1>
@@ -144,7 +143,7 @@ const searchIndex = [
         text-decoration: none;
         color: white;
     }
-    .header-logo { height: 44px; width: auto; border-radius: 4px; }
+    .header-logo { height: 28px; width: auto; }
     .header-flag { font-size: 1.5rem; line-height: 1; }
     .header-title {
         font-family: var(--font-display);
