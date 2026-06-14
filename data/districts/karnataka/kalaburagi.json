@@ -4,7 +4,7 @@
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "571",
-  "lastUpdated": "2026-03-29",
+  "lastUpdated": "2026-06-14",
   "demographics": {
     "population": 2566326,
     "rural": 1730884,
@@ -312,9 +312,11 @@
       "KIADB (Karnataka Industrial Areas Development Board)",
       "Udyog Mitra, Karnataka",
       "PM MITRA Scheme (Ministry of Textiles)",
-      "Survey of India"
+      "Survey of India",
+      "Central Ground Water Board (CGWB)",
+      "NIC HealthGIS"
     ],
-    "lastVerified": "2026-03-17"
+    "lastVerified": "2026-06-14"
   },
   "kdem": {
     "clusterName": "Kalyana Karnataka AI Hub",
@@ -511,11 +513,12 @@
       "target2034Percent": 25
     },
     "demographics": {
-      "totalPopulation": 2840000,
-      "rural": 1880000,
-      "ruralPercent": 66.2,
+      "totalPopulation": 2566326,
+      "rural": 1730884,
+      "ruralPercent": 67.44,
       "agriculturalWorkers": 58.46,
-      "literacy": 64.85
+      "literacy": 64.85,
+      "note": "Aligned to Census 2011 official (was 2,840,000); 2026 projection to be added with date and source"
     },
     "migration": {
       "toBangalore": 43,
@@ -545,6 +548,14 @@
             "budget": 2200,
             "progress": 75,
             "owner": "water",
+            "budgetFlow": { "planned": 2200, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "blockTargeting": {
+              "basis": "CGWB groundwater stage of extraction by block",
+              "expandIn": ["Jevargi", "Yadrami", "Sedam", "Chincholi"],
+              "efficiencyOnly": ["Kalaburagi", "Chittapur"],
+              "restrict": ["Afzalpur"],
+              "note": "New borewell + solar-pump budget to high-headroom blocks; recharge/drip only in Afzalpur (Semi-Critical, 71.5% extraction)"
+            },
             "items": [
               "Borewell rehabilitation: 285/357 completed",
               "New borewells: 1,450/2,200 drilled",
@@ -558,6 +569,7 @@
             "budget": 800,
             "progress": 80,
             "owner": "infrastructure",
+            "budgetFlow": { "planned": 800, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "Village-to-market roads: 480/600 km",
               "All-weather roads to dal mills: 80/100 km"
@@ -568,6 +580,7 @@
             "budget": 500,
             "progress": 65,
             "owner": "energy",
+            "budgetFlow": { "planned": 500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "Feeder separation in progress",
               "Sub-station upgrades: 18/25 completed"
@@ -587,6 +600,7 @@
             "budget": 2400,
             "progress": 15,
             "owner": "agro-processing",
+            "budgetFlow": { "planned": 2400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "Dal mills upgraded: 45/300",
               "New jobs created: 1,350/9,000",
@@ -598,6 +612,7 @@
             "budget": 300,
             "progress": 30,
             "owner": "fpo",
+            "budgetFlow": { "planned": 300, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "FPOs formed: 15/50",
               "Farmers covered: 30,000/100,000"
@@ -608,6 +623,7 @@
             "budget": 600,
             "progress": 25,
             "owner": "skill-development",
+            "budgetFlow": { "planned": 600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "Youth trained: 9,000/36,000",
               "Placements: 7,200/30,600"
@@ -618,6 +634,7 @@
             "budget": 2500,
             "progress": 20,
             "owner": "msme",
+            "budgetFlow": { "planned": 2500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
             "items": [
               "New MSMEs: 500/2,500",
               "Jobs created: 5,000/25,000"
@@ -1846,7 +1863,223 @@
       }
     }
   },
+  "groundwater": {
+    "lastUpdated": "2026-06-14",
+    "source": "Central Ground Water Board (CGWB) — dynamic groundwater resource assessment",
+    "level": "assessment block",
+    "summary": {
+      "blocksAssessed": 11,
+      "safe": 10,
+      "semiCritical": 1,
+      "criticalOrOverExploited": 0,
+      "note": "Afzalpur is the only stressed block (Semi-Critical, 71.5%). Jevargi and Yadrami have the largest headroom for new groundwater-based irrigation."
+    },
+    "byBlock": [
+      { "block": "Afzalpur", "class": "Semi-Critical", "extractionPercent": 71.5 },
+      { "block": "Kalaburagi", "class": "Safe", "extractionPercent": 66.6 },
+      { "block": "Chittapur", "class": "Safe", "extractionPercent": 65.3 },
+      { "block": "Shahabad", "class": "Safe", "extractionPercent": 56.1 },
+      { "block": "Aland", "class": "Safe", "extractionPercent": 54.3 },
+      { "block": "Kamalapur", "class": "Safe", "extractionPercent": 38.4 },
+      { "block": "Kalagi", "class": "Safe", "extractionPercent": 37.8 },
+      { "block": "Chincholi", "class": "Safe", "extractionPercent": 32.9 },
+      { "block": "Sedam", "class": "Safe", "extractionPercent": 30.7 },
+      { "block": "Yadrami", "class": "Safe", "extractionPercent": 11.7 },
+      { "block": "Jevargi", "class": "Safe", "extractionPercent": 8.9 }
+    ],
+    "roadmapImplication": "Directs the Water Security component (Rs 2,200 Cr): expand new borewells and solar pumps in Jevargi, Yadrami, Sedam, Chincholi; restrict to recharge and micro-irrigation in Afzalpur."
+  },
+  "healthFacilities": {
+    "lastUpdated": "2026-06-14",
+    "source": "NIC HealthGIS facility registry",
+    "totalPublicFacilities": 552,
+    "byType": {
+      "subCentres": 426,
+      "primaryHealthCentres": 109,
+      "communityHealthCentres": 17
+    },
+    "accessGap": {
+      "populationBase": 2566326,
+      "norm": "IPHS (plains): 1 sub-centre per 5,000; 1 PHC per 30,000; 1 CHC per 1,20,000",
+      "subCentres": { "present": 426, "norm": 514, "gap": -88 },
+      "primaryHealthCentres": { "present": 109, "norm": 86, "gap": 23 },
+      "communityHealthCentres": { "present": 17, "norm": 21, "gap": -4 },
+      "note": "Sub-centre and CHC shortfall widens as the industrial programme draws in workers; plan occupational + primary care alongside new clusters."
+    }
+  },
+  "projectRegister": {
+    "purpose": "Record-grain tracking that roadmap roll-ups are computed from, not entered as totals. Populated by 11 block-level Data Collection Officers (one per block) on a weekly cadence.",
+    "recordSchema": {
+      "projectId": "unique id from e-procurement",
+      "component": "roadmap component this rolls up to",
+      "block": "assessment / revenue block",
+      "gramPanchayat": "string",
+      "location": "{ lat, lng }",
+      "contractor": "name + contact",
+      "physicalProgressPercent": "0-100",
+      "status": "planned | in-progress | completed | field-verified",
+      "budgetFlow": "{ sanctioned, released, utilised }",
+      "beneficiaryRef": "Aadhaar-hashed",
+      "photo": "geo-tagged, dated",
+      "issueNote": "free text (delays / disputes)",
+      "confidence": "T1 administrative | T2 verified | T3 proxy",
+      "updatedBy": "DCO id",
+      "updatedAt": "ISO date"
+    },
+    "rollupSummary": {
+      "note": "Derived from current roadmap component figures; to be replaced by live records once DCO collection begins.",
+      "waterSecurityProgress": 75,
+      "agroProcessingProgress": 15,
+      "fpoProgress": 30,
+      "skillDevelopmentProgress": 25,
+      "msmeProgress": 20
+    },
+    "records": []
+  },
+  "dataQualityFlags": {
+    "lastReviewed": "2026-06-14",
+    "note": "Disputed or assumption-based figures pending field reconciliation. Each flag names the conflicting values, the settling source, and the owner. 'status' tracks resolution (open | verifying | resolved | accepted-as-proxy). Companion: supporting-docs/kalaburagi-data-collection-plan.md (Validation & ground-truthing register).",
+    "flags": [
+      {
+        "id": 1,
+        "topic": "PM MITRA textile park — land",
+        "fields": ["strengths", "industrialLand.projectWiseLandRequirement.pmMitraTextilePark", "alerts[id=2]"],
+        "conflict": "'1,550 acres land transferred, SPV constituted, Rs 50.9 Cr released' vs '300 acres required, 0 acquired, acquisition pending'",
+        "question": "Is the land 1,550 or 300 acres? Transferred or still pending?",
+        "stakes": "26,000 jobs and Rs 390 Cr funding on the critical path",
+        "groundTruth": "Revenue land records (notification no.) + PM MITRA SPV minutes + Ministry of Textiles sanction order",
+        "owner": ["revenue", "industrial"],
+        "severity": "critical",
+        "status": "open"
+      },
+      {
+        "id": 2,
+        "topic": "Limestone & cement — direct jobs",
+        "fields": ["industries.sectors[id=limestone].impact.jobs.direct", "industries.comparison[Limestone].directJobs"],
+        "conflict": "1,050 (sector record) vs 12,000 (comparison table)",
+        "question": "Order-of-magnitude gap in direct jobs",
+        "stakes": "Distorts the total industrial job target",
+        "groundTruth": "Shree Cement HR headcount + ESIC rolls",
+        "owner": ["industrial"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 3,
+        "topic": "Aerospace — direct jobs",
+        "fields": ["industries.sectors[id=aerospace].impact.jobs.direct", "investments.majorProposals[Aerospace].projectedJobs"],
+        "conflict": "12,000 (plan) vs 1,500 (proposal actually on file)",
+        "question": "Planning aspiration vs committed proposal",
+        "stakes": "10,500-job overstatement if the plan figure is used",
+        "groundTruth": "Udyog Mitra proposal + ESIC once operational",
+        "owner": ["industrial"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 4,
+        "topic": "Industrial land — pipeline requirement",
+        "fields": ["industrialLand.summary.pipelineLandRequirement", "roleDashboards.revenue.kpis[Land Required]"],
+        "conflict": "1,200 acres vs 1,625 acres",
+        "question": "Which is the real total land requirement across projects?",
+        "stakes": "425-acre gap in acquisition planning",
+        "groundTruth": "KIADB project-wise land register",
+        "owner": ["revenue"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 5,
+        "topic": "Total industrial jobs",
+        "fields": ["industries.overview.totalJobs", "roleDashboards.industrial.headline", "roadmap.jobsToCreate"],
+        "conflict": "57,750 vs 56,700 (industrial); 156,700 is whole-roadmap, not industrial",
+        "question": "Reconcile to one ledger; separate industrial from whole-roadmap",
+        "stakes": "Headline target credibility",
+        "groundTruth": "Single jobs ledger (direct = ESIC/EPFO, indirect = labelled estimate)",
+        "owner": ["industrial"],
+        "severity": "medium",
+        "status": "open"
+      },
+      {
+        "id": 6,
+        "topic": "Investment realisation rate",
+        "fields": ["investments.summary.realizationRate", "investments.summary.realizedInvestment"],
+        "conflict": "38.8% realised (Rs 3,280 Cr of Rs 8,450 Cr proposed) — proposed is not realised",
+        "question": "Verify how much capex is actually on the ground",
+        "stakes": "Overstated investment momentum",
+        "groundTruth": "Udyog Mitra tracker + GST / electricity-load cross-check",
+        "owner": ["industrial"],
+        "severity": "medium",
+        "status": "open"
+      },
+      {
+        "id": 7,
+        "topic": "CETP (common effluent treatment)",
+        "fields": ["industrialLand.infrastructureReadiness.effluent", "alerts[id=4]"],
+        "conflict": "Readiness 20/100, 'mandatory, not yet planned'",
+        "question": "Is a CETP DPR / tender actually underway?",
+        "stakes": "PM MITRA and pharma zones cannot operate without it",
+        "groundTruth": "KIADB + KSPCB project status",
+        "owner": ["industrial"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 8,
+        "topic": "MSME — registered vs operating",
+        "fields": ["msme.statistics.total", "msme.statistics.totalEmployment"],
+        "conflict": "2,847 Udyam-registered; Udyam over-counts (includes dormant / re-registered units)",
+        "question": "How many are actually operating?",
+        "stakes": "MSME base and employment overstated",
+        "groundTruth": "Field sample + ESIC employment cross-check",
+        "owner": ["industrial"],
+        "severity": "medium",
+        "status": "open"
+      },
+      {
+        "id": 9,
+        "topic": "Dal mills — count and upgradation",
+        "fields": ["keySectors", "kpis[id=dalmills]", "roadmap.phases.phase2 (Agro-Processing Clusters)"],
+        "conflict": "'~300 active' vs '500+ verified'; '45/300' vs '75/500' upgraded",
+        "question": "The denominator three roadmap targets depend on",
+        "stakes": "Agro-processing targets and value-addition maths",
+        "groundTruth": "One-time field census of operating mills",
+        "owner": ["agriculture", "industrial"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 10,
+        "topic": "Proxy estimates (keep as trend only)",
+        "fields": ["kpis[id=income]", "baseline.migration", "industries.overview (informal jobs)"],
+        "conflict": "Per-capita income, informal jobs and migration are proxy/estimated, not measured",
+        "question": "Use for trend direction, not absolute values",
+        "stakes": "Risk of being read as hard numbers",
+        "groundTruth": "Bank-deposit proxy; railway/bus booking data; periodic survey",
+        "owner": ["m&e"],
+        "severity": "info",
+        "status": "accepted-as-proxy"
+      }
+    ]
+  },
   "dataSources": [
+    {
+      "name": "Central Ground Water Board (CGWB)",
+      "url": "https://cgwb.gov.in",
+      "fields": [
+        "Groundwater stage of extraction by assessment block",
+        "Aquifer classification (Safe / Semi-Critical / Critical / Over-Exploited)"
+      ],
+      "type": "Water"
+    },
+    {
+      "name": "NIC HealthGIS",
+      "url": "https://nhm.gov.in",
+      "fields": [
+        "Public health facility registry (Sub-Centres, PHCs, CHCs) with geolocation"
+      ],
+      "type": "Health"
+    },
     {
       "name": "Census of India 2011",
       "url": "https://censusindia.gov.in",

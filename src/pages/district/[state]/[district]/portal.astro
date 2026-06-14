@@ -31,6 +31,9 @@ const creditData = (d as any).creditData;
 const msme = (d as any).msme;
 const investments = (d as any).investments;
 const liveData = (d as any).liveData;
+const groundwater = (d as any).groundwater;
+const healthFacilities = (d as any).healthFacilities;
+const dataQualityFlags = (d as any).dataQualityFlags;
 const kdem = (d as any).kdem;
 const communityInsights = (d as any).communityInsights;
 const communityItems: string[] = communityInsights?.verifiedItems || [];
@@ -232,6 +235,43 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     </div>
   )}
 
+  <!-- Groundwater by Block -->
+  {groundwater?.byBlock?.length > 0 && (
+    <div id="groundwater" class="portal-section">
+      <h3 class="section-title">Groundwater by Block</h3>
+      {groundwater.roadmapImplication && <p class="gw-intro">{groundwater.roadmapImplication}</p>}
+      <div class="panel" style="padding:0; overflow:hidden;">
+        <div class="table-scroll">
+          <table class="portal-table gw-table">
+            <thead><tr><th>Block</th><th>Status</th><th>Extraction</th><th>Headroom for new irrigation</th></tr></thead>
+            <tbody>
+              {groundwater.byBlock.map((b: any) => {
+                const lc = (b.class || '').toLowerCase();
+                const cls = lc.includes('semi') ? 'gw-semicritical' : (lc.includes('over') || lc === 'critical') ? 'gw-critical' : 'gw-safe';
+                const e = b.extractionPercent;
+                const headroom = e < 40 ? 'High — prioritise new borewells & solar pumps here' : e < 60 ? 'Moderate headroom' : e < 70 ? 'Low — efficiency / micro-irrigation only' : 'None — recharge & drip only';
+                return (
+                  <tr>
+                    <td class="table-name">{b.block}</td>
+                    <td><span class={`gw-badge ${cls}`}>{b.class}</span></td>
+                    <td>
+                      <div class="gw-bar-row">
+                        <div class="gw-bar"><div class={`gw-fill ${cls}`} style={`width:${Math.min(e, 100)}%`}></div></div>
+                        <span class="gw-pct">{e}%</span>
+                      </div>
+                    </td>
+                    <td class="gw-headroom">{headroom}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {groundwater.source && <p class="gw-source">Source: {groundwater.source}</p>}
+    </div>
+  )}
+
   <!-- ② Strengths & Challenges -->
   {(d.strengths?.length || d.challenges?.length) && (
     <div id="strengths" class="portal-section">
@@ -373,6 +413,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         alerts={districtAlerts.filter((a: any) => a.roles.includes(role.id))}
         roadmap={roadmap}
         liveData={liveData}
+        healthFacilities={role.id === 'health' ? healthFacilities : null}
         portalUrl={`/district/${stateSlug}/${d.id}/portal`}
       />
     </div>
@@ -1026,6 +1067,28 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   <!-- Sources Tab -->
   <div class="portal-tab-content" id="tab-sources" style="display:none;">
+    {dataQualityFlags?.flags?.length > 0 && (
+      <div id="dataquality" class="portal-section">
+        <h3 class="section-title">Data to Verify</h3>
+        <p class="sources-summary">{dataQualityFlags.flags.length} datapoints pending field reconciliation{dataQualityFlags.lastReviewed ? ` · Reviewed ${dataQualityFlags.lastReviewed}` : ''}</p>
+        <div class="dq-list">
+          {dataQualityFlags.flags.map((f: any) => (
+            <div class={`dq-item dq-${f.severity}`}>
+              <div class="dq-head">
+                <span class={`dq-sev dq-sev-${f.severity}`}>{f.severity}</span>
+                <span class="dq-topic">{f.topic}</span>
+                <span class="dq-status">{f.status}</span>
+              </div>
+              {f.conflict && <p class="dq-conflict">{f.conflict}</p>}
+              <div class="dq-meta">
+                <span class="dq-gt"><strong>Settle via:</strong> {f.groundTruth}</span>
+                {f.owner?.length > 0 && <span class="dq-owner">{f.owner.join(', ')}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
     {(d as any).dataSources?.length > 0 ? (
       <div id="sources" class="portal-section">
         <h3 class="section-title">Data Sources</h3>
@@ -1477,6 +1540,42 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     .portal-hero { margin-bottom: 0.75rem; }
     .role-selector-grid { grid-template-columns: repeat(2, 1fr); }
   }
+  /* ── Groundwater by block ── */
+  .gw-intro { font-size: 0.9375rem; color: var(--gray-700); line-height: 1.6; margin-bottom: 1rem; max-width: 72ch; }
+  .gw-source { font-size: 0.75rem; color: var(--gray-400); margin-top: 0.5rem; }
+  .gw-table td { vertical-align: middle; }
+  .gw-badge { display: inline-block; font-size: 0.6875rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 3px; white-space: nowrap; }
+  .gw-badge.gw-safe { color: var(--green-dark); background: var(--green-light); }
+  .gw-badge.gw-semicritical { color: #92400e; background: var(--yellow-light); }
+  .gw-badge.gw-critical { color: var(--red-dark); background: var(--red-light); }
+  .gw-bar-row { display: flex; align-items: center; gap: 0.5rem; }
+  .gw-bar { flex: 1; min-width: 80px; max-width: 160px; height: 7px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+  .gw-fill { height: 100%; border-radius: 4px; }
+  .gw-fill.gw-safe { background: var(--green); }
+  .gw-fill.gw-semicritical { background: var(--yellow); }
+  .gw-fill.gw-critical { background: var(--red); }
+  .gw-pct { font-size: 0.75rem; font-weight: 700; color: var(--gray-700); min-width: 40px; }
+  .gw-headroom { font-size: 0.8125rem; color: var(--gray-600); }
+
+  /* ── Data-to-verify panel ── */
+  .dq-list { display: flex; flex-direction: column; gap: 0.625rem; }
+  .dq-item { padding: 0.875rem 1rem; background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); border-left: 3px solid var(--gray-300); }
+  .dq-item.dq-critical { border-left-color: var(--red); }
+  .dq-item.dq-high { border-left-color: var(--orange); }
+  .dq-item.dq-medium { border-left-color: var(--yellow); }
+  .dq-item.dq-info { border-left-color: var(--gray-300); }
+  .dq-head { display: flex; align-items: center; gap: 0.625rem; flex-wrap: wrap; }
+  .dq-sev { font-size: 0.5625rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.125rem 0.375rem; border-radius: 3px; }
+  .dq-sev-critical { color: var(--red-dark); background: var(--red-light); }
+  .dq-sev-high { color: #9a3412; background: #ffedd5; }
+  .dq-sev-medium { color: #92400e; background: var(--yellow-light); }
+  .dq-sev-info { color: var(--gray-600); background: var(--gray-100); }
+  .dq-topic { font-size: 0.9375rem; font-weight: 700; color: var(--gray-900); flex: 1; }
+  .dq-status { font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--gray-400); }
+  .dq-conflict { font-size: 0.8125rem; color: var(--gray-700); margin: 0.5rem 0; line-height: 1.5; }
+  .dq-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.75rem; color: var(--gray-600); }
+  .dq-gt strong { color: var(--gray-700); }
+  .dq-owner { font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--primary-dark); white-space: nowrap; }
 </style>
 
 <script is:inline>
