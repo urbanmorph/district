@@ -1,14 +1,16 @@
 {
   "id": "belgaum",
-  "name": "Belgaum",
+  "name": "Belagavi",
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "555",
-  "lastUpdated": "2026-03-16",
+  "lastUpdated": "2026-06-14",
   "demographics": {
     "population": 4779661,
     "rural": 3488882,
+    "ruralPercent": 72.99,
     "urban": 1290779,
+    "urbanPercent": 27.01,
     "literacyRate": 73.48,
     "sexRatio": 973,
     "area_sq_km": 13433,
@@ -17,6 +19,7 @@
   "economy": {
     "gddp_crores": 154746,
     "perCapitaIncome": 323760,
+    "perCapitaIncomeNote": "State-level estimate, not a measured district figure",
     "gddpComposition": {
       "agriculture": 12.1,
       "industry": 24.5,
@@ -28,57 +31,551 @@
   "rankings": {
     "perCapitaIncome": {
       "stateRank": "",
-      "nationalPercentile": 0
+      "nationalPercentile": 0,
+      "note": "District-level PCI rank not yet sourced; current value is a state-level estimate"
     }
   },
-  "keySectors": [],
-  "strengths": [],
-  "challenges": [],
-  "opportunities": [],
+  "keySectors": [
+    "Aerospace & Precision Manufacturing (Aequs SEZ — India's first aerospace SEZ)",
+    "Foundry, Auto Components & Hydraulics (one of India's largest foundry clusters)",
+    "Sugar & Bioenergy (Karnataka's leading sugar district — ethanol & co-generation)",
+    "Agriculture (sugarcane, tobacco at Nippani, vegetables, dairy)",
+    "Machine Tools & Engineering (Udyambag industrial belt)",
+    "IT & Digital (Beyond Bengaluru cluster)"
+  ],
+  "strengths": [
+    "Aequs Aerospace SEZ — India's first aerospace precision-manufacturing SEZ, supplying global OEMs (Airbus, Boeing supply chains)",
+    "Among India's largest foundry and hydraulic-cylinder clusters (Udyambag / Belagavi industrial belt)",
+    "Karnataka's leading sugarcane and sugar district, with co-generation and ethanol capacity",
+    "High agricultural productivity across the western (assured-rainfall) belt",
+    "Designated Beyond Bengaluru tech cluster with a growing IT/ESDM base",
+    "Divisional headquarters and second seat of the Karnataka legislature (Suvarna Vidhana Soudha)",
+    "Strong connectivity — NH-48 (Pune–Bengaluru), Belagavi (Sambra) airport, major rail junction",
+    "Large, comparatively skilled industrial workforce and established MSME ecosystem"
+  ],
+  "challenges": [
+    "Severe groundwater stress in the eastern blocks — 4 Over-Exploited and 1 Critical (Athani, Saundatti, Ramdurg, Bailahongal, Kagavada)",
+    "Sharp east–west disparity: dry, over-pumped east vs assured-rainfall west",
+    "Health-facility shortfall against population norms, especially Community Health Centres",
+    "Foundry cluster faces modernization and environmental-compliance pressure",
+    "Sugar economy is water-intensive and exposed to price/cane-arrear cycles",
+    "Large rural population dependent on water-stressed agriculture",
+    "District-level economic data (PCI, GDDP) still rests on state-level estimates"
+  ],
+  "opportunities": [
+    "Deepen the Aequs-anchored aerospace ecosystem with tier-2/3 precision suppliers",
+    "Modernize the foundry cluster toward cleaner processes and EV / new-energy components",
+    "Scale sugar-linked ethanol and co-generation under the national biofuel push",
+    "Convert the over-exploited eastern belt to drip, recharge and canal-lift irrigation",
+    "Grow the Beyond Bengaluru tech and GCC footprint on lower land/operating costs",
+    "Expand food processing and dairy value chains off the agricultural base",
+    "Heritage and nature tourism (Kittur, Saundatti Yellamma, Gokak Falls)"
+  ],
+  "groundwater": {
+    "lastUpdated": "2026-06-14",
+    "source": "Central Ground Water Board (CGWB) — dynamic groundwater resource assessment",
+    "level": "assessment block",
+    "summary": {
+      "blocksAssessed": 14,
+      "safe": 5,
+      "semiCritical": 4,
+      "critical": 1,
+      "overExploited": 4,
+      "note": "Belagavi's eastern blocks are severely stressed — 4 Over-Exploited and 1 Critical. Khanapur (11.7%) and Kitthuru (42.1%) in the west retain real headroom."
+    },
+    "byBlock": [
+      { "block": "Kagavada", "class": "Over Exploited", "extractionPercent": 119.4 },
+      { "block": "Saundatti", "class": "Over Exploited", "extractionPercent": 119.4 },
+      { "block": "Bailahongal", "class": "Over Exploited", "extractionPercent": 119.3 },
+      { "block": "Ramdurg", "class": "Over Exploited", "extractionPercent": 110.0 },
+      { "block": "Athani", "class": "Critical", "extractionPercent": 97.5 },
+      { "block": "Gokak", "class": "Semi-Critical", "extractionPercent": 82.0 },
+      { "block": "Chikodi", "class": "Semi-Critical", "extractionPercent": 81.2 },
+      { "block": "Hukkeri", "class": "Semi-Critical", "extractionPercent": 73.2 },
+      { "block": "Mudalagi", "class": "Semi-Critical", "extractionPercent": 70.7 },
+      { "block": "Nippani", "class": "Safe", "extractionPercent": 66.4 },
+      { "block": "Raybag", "class": "Safe", "extractionPercent": 54.8 },
+      { "block": "Belagavi", "class": "Safe", "extractionPercent": 53.6 },
+      { "block": "Kitthuru", "class": "Safe", "extractionPercent": 42.1 },
+      { "block": "Khanapur", "class": "Safe", "extractionPercent": 11.7 }
+    ],
+    "roadmapImplication": "Halt new groundwater extraction in Athani, Saundatti, Ramdurg, Bailahongal and Kagavada — shift to drip, artificial recharge and canal/surface-lift irrigation. New groundwater-based irrigation only has headroom in Khanapur and Kitthuru."
+  },
+  "healthFacilities": {
+    "lastUpdated": "2026-06-14",
+    "source": "NIC HealthGIS facility registry",
+    "totalPublicFacilities": 660,
+    "byType": {
+      "subCentres": 531,
+      "primaryHealthCentres": 119,
+      "communityHealthCentres": 8,
+      "districtHospitals": 1,
+      "talukHospitals": 1
+    },
+    "accessGap": {
+      "populationBase": 4779661,
+      "norm": "IPHS (plains): 1 sub-centre per 5,000; 1 PHC per 30,000; 1 CHC per 1,20,000",
+      "subCentres": { "present": 531, "norm": 956, "gap": -425 },
+      "primaryHealthCentres": { "present": 119, "norm": 159, "gap": -40 },
+      "communityHealthCentres": { "present": 8, "norm": 40, "gap": -32 },
+      "note": "Indicative gap against IPHS norms on 2011 population — to be verified against current population and the actual referral network. The CHC shortfall is the most acute and shapes the secondary-care build-list."
+    }
+  },
+  "kpis": [
+    {
+      "id": "groundwater",
+      "title": "Groundwater-Stressed Blocks",
+      "current": "5 of 14",
+      "percentage": 36,
+      "target": "0 Over-Exploited / Critical",
+      "status": "red",
+      "confidence": "high",
+      "source": "CGWB",
+      "updated": "2026",
+      "details": [
+        "Over-Exploited: Kagavada, Saundatti, Bailahongal, Ramdurg",
+        "Critical: Athani",
+        "Semi-Critical: Gokak, Chikodi, Hukkeri, Mudalagi",
+        "Headroom: Khanapur (11.7%), Kitthuru (42.1%)"
+      ]
+    },
+    {
+      "id": "chc",
+      "title": "Community Health Centres",
+      "current": "8",
+      "percentage": 20,
+      "target": "~40 (IPHS norm)",
+      "status": "red",
+      "confidence": "medium",
+      "source": "NIC HealthGIS / IPHS norm",
+      "updated": "2026",
+      "details": [
+        "Sub-centres: 531 (norm ~956)",
+        "PHCs: 119 (norm ~159)",
+        "CHCs: 8 (norm ~40)",
+        "Gap to verify against current population"
+      ]
+    }
+  ],
+  "roadmap": {
+    "totalInvestment": 18500,
+    "targetRank": "Top 8 in Karnataka",
+    "perCapitaGoal": 450000,
+    "jobsToCreate": 120000,
+    "planningNote": "Indicative UrbanMorph development scaffold for Belagavi. Phase budgets, progress and job figures are planning estimates pending departmental and DPR data; baseline groundwater and health data are from official sources.",
+    "phases": {
+      "phase1": {
+        "name": "Secure",
+        "years": "2026-2029",
+        "budget": 5200,
+        "progress": 5,
+        "status": "yellow",
+        "components": [
+          {
+            "name": "Eastern Belt Water Security",
+            "budget": 2600,
+            "progress": 5,
+            "owner": "water",
+            "budgetFlow": { "planned": 2600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "blockTargeting": {
+              "basis": "CGWB groundwater stage of extraction by block",
+              "expandIn": ["Khanapur", "Kitthuru"],
+              "efficiencyOnly": ["Belagavi", "Raybag", "Nippani"],
+              "restrict": ["Athani", "Saundatti", "Ramdurg", "Bailahongal", "Kagavada"],
+              "note": "Stop new borewells in the 5 Over-Exploited/Critical eastern blocks; convert to drip, recharge and canal-lift. New groundwater irrigation only in Khanapur and Kitthuru."
+            },
+            "items": [
+              "Drip & micro-irrigation conversion in over-exploited blocks",
+              "Artificial recharge and tank rejuvenation, eastern belt",
+              "Canal / surface-lift augmentation to reduce groundwater dependence"
+            ]
+          },
+          {
+            "name": "Rural & Industrial Connectivity",
+            "budget": 1400,
+            "progress": 8,
+            "owner": "infrastructure",
+            "budgetFlow": { "planned": 1400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Last-mile roads to agro-markets and industrial estates",
+              "Sambra airport and rail freight linkages"
+            ]
+          },
+          {
+            "name": "Health Infrastructure Upgrade",
+            "budget": 1200,
+            "progress": 4,
+            "owner": "health",
+            "budgetFlow": { "planned": 1200, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "New Community Health Centres against the norm shortfall",
+              "Sub-centre and PHC strengthening in under-served taluks"
+            ]
+          }
+        ]
+      },
+      "phase2": {
+        "name": "Deepen",
+        "years": "2029-2032",
+        "budget": 7800,
+        "progress": 0,
+        "status": "notstarted",
+        "components": [
+          {
+            "name": "Aerospace & Precision Cluster Expansion",
+            "budget": 2600,
+            "progress": 0,
+            "owner": "industry",
+            "budgetFlow": { "planned": 2600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Tier-2/3 precision-supplier park around the Aequs SEZ",
+              "Aerospace skilling and AS9100 readiness programmes"
+            ]
+          },
+          {
+            "name": "Foundry Cluster Modernization",
+            "budget": 1800,
+            "progress": 0,
+            "owner": "msme",
+            "budgetFlow": { "planned": 1800, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Cleaner-melt and energy-efficiency retrofits",
+              "Shift toward EV / new-energy component lines",
+              "Common testing, treatment and effluent facilities"
+            ]
+          },
+          {
+            "name": "Sugar Bioenergy & Value Addition",
+            "budget": 2000,
+            "progress": 0,
+            "owner": "agro-processing",
+            "budgetFlow": { "planned": 2000, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Ethanol and co-generation capacity expansion",
+              "Cane-to-value diversification, distillery compliance"
+            ]
+          },
+          {
+            "name": "Skilling & Digital Economy",
+            "budget": 1400,
+            "progress": 0,
+            "owner": "skill-development",
+            "budgetFlow": { "planned": 1400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Aerospace, foundry and IT skilling pipelines",
+              "Beyond Bengaluru tech / GCC enablement"
+            ]
+          }
+        ]
+      },
+      "phase3": {
+        "name": "Diversify",
+        "years": "2032-2035",
+        "budget": 5500,
+        "progress": 0,
+        "status": "notstarted",
+        "description": "Food processing and dairy value chains, tourism circuits (Kittur, Saundatti, Gokak Falls), and urban infrastructure for Belagavi city as a divisional growth hub."
+      }
+    },
+    "financing": [
+      { "source": "Central Schemes", "amount": 6475, "percent": 35, "details": "PMKSY, PMFME, RIDF, AMRUT, aerospace & MSME schemes" },
+      { "source": "State Budget", "amount": 4255, "percent": 23, "details": "State schemes & divisional allocations" },
+      { "source": "Bank Credit", "amount": 4810, "percent": 26, "details": "Agriculture, MSME and industrial lending" },
+      { "source": "Private Investment", "amount": 2960, "percent": 16, "details": "Aerospace, foundry, sugar-bioenergy and IT" }
+    ]
+  },
+  "industries": {
+    "overview": {
+      "totalInvestment": 8400,
+      "totalJobs": 62000,
+      "status": "Aerospace SEZ operational and expanding; foundry & sugar clusters established; figures are planning estimates",
+      "confidence": "Planning estimate — pending Udyog Mitra / KIADB verification"
+    },
+    "sectors": [
+      {
+        "id": "aerospace",
+        "name": "Aerospace & Precision Manufacturing",
+        "priority": "HIGHEST",
+        "priorityNote": "Anchored by the Aequs SEZ — India's first aerospace precision-manufacturing SEZ (operational, exporting to global OEM supply chains)",
+        "location": "Aequs SEZ, Hattargi / Belagavi",
+        "products": [
+          "Machined aero-structures and precision components",
+          "Sheet-metal and assemblies for OEM supply chains",
+          "Surface treatment and special-process services"
+        ],
+        "confidence": "Anchor operational; expansion figures are planning estimates",
+        "recommendation": "Deepen the tier-2/3 supplier base and aerospace skilling around the existing SEZ"
+      },
+      {
+        "id": "foundry",
+        "name": "Foundry, Auto Components & Hydraulics",
+        "priority": "HIGH",
+        "priorityNote": "One of India's largest foundry clusters; a major national source of hydraulic cylinders and machine components",
+        "location": "Udyambag and Belagavi industrial belt",
+        "products": [
+          "Iron and alloy castings",
+          "Hydraulic cylinders and components",
+          "Auto and engineering components"
+        ],
+        "confidence": "Cluster established; modernization scope is planning estimate",
+        "recommendation": "Modernize toward cleaner processes, shared facilities and EV / new-energy components"
+      },
+      {
+        "id": "sugar",
+        "name": "Sugar & Bioenergy",
+        "priority": "HIGH",
+        "priorityNote": "Karnataka's leading sugar district with multiple mills, distilleries and co-generation",
+        "location": "Chikodi, Gokak, Athani, Raybag belt",
+        "products": [
+          "Sugar",
+          "Ethanol",
+          "Co-generated power"
+        ],
+        "confidence": "Established sector; expansion figures are planning estimates",
+        "recommendation": "Scale ethanol / co-gen under the biofuel push while cutting cane water intensity"
+      }
+    ]
+  },
+  "kdem": {
+    "clusterName": "Belagavi — Beyond Bengaluru Cluster",
+    "tier": 2,
+    "tierLabel": "Build & Nurture",
+    "brandPosition": "Precision Manufacturing & Engineering-led Digital Hub",
+    "targets2030": {
+      "startups": 60,
+      "jobs": 12000,
+      "digitalRevenue_crores": 3500
+    },
+    "verticalFocus": ["Manufacturing Tech", "Aerospace & Engineering", "Agritech"],
+    "digitalProximity": [
+      "Aerospace SEZ and foundry cluster as deep-tech / Industry 4.0 anchors",
+      "Engineering and technical institutions for talent",
+      "NH-48 and airport connectivity to Pune and Bengaluru"
+    ],
+    "policies": [
+      { "name": "Karnataka IT-BT Policy 2025-2030", "relevance": "Tier-2 city incentives" },
+      { "name": "Beyond Bengaluru Cluster Programme", "relevance": "Belagavi designated cluster" }
+    ],
+    "source": "KDEM / Beyond Bengaluru (planning context)"
+  },
+  "alerts": [
+    { "id": 1, "severity": "red", "title": "Five Eastern Blocks Over-Exploited / Critical", "roles": ["water", "agriculture", "dc"], "impact": "Athani, Saundatti, Ramdurg, Bailahongal, Kagavada — new borewells must stop; shift to drip, recharge and canal-lift", "source": "CGWB" },
+    { "id": 2, "severity": "yellow", "title": "Community Health Centre Shortfall", "roles": ["health", "dc"], "impact": "8 CHCs against an IPHS norm of ~40 for the population — secondary-care build-list needed" },
+    { "id": 3, "severity": "yellow", "title": "Foundry Cluster Modernization Pressure", "roles": ["industrial", "dc"], "impact": "Energy efficiency, cleaner melt and effluent compliance needed to stay competitive and meet norms" },
+    { "id": 4, "severity": "yellow", "title": "Sugar Sector Water Intensity", "roles": ["agriculture", "water"], "impact": "Cane is water-intensive in already-stressed eastern blocks; pair expansion with drip mandates" }
+  ],
+  "roleDashboards": {
+    "dc": {
+      "headline": "Belagavi is a large, industrially diverse district (aerospace SEZ, foundry cluster, sugar) facing a sharp east–west water divide. Indicative Rs 18,500 Cr scaffold across 3 phases targeting ~120,000 jobs and Top-8 state rank.",
+      "kpis": [
+        { "label": "Stressed Blocks", "value": "5/14", "target": "0", "status": "critical" },
+        { "label": "CHCs", "value": "8", "target": "~40", "status": "critical" },
+        { "label": "Per Capita Income", "value": "Rs 3.24L*", "target": "Rs 4.50L", "status": "warning" },
+        { "label": "Industrial Base", "value": "Aerospace + Foundry + Sugar", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Eastern-belt water security (drip + recharge)", "progress": 5, "budget": 2600, "timeline": "2026-2029" },
+        { "title": "Health infrastructure upgrade", "progress": 4, "budget": 1200, "timeline": "2026-2029" },
+        { "title": "Aerospace & foundry cluster deepening", "progress": 0, "budget": 4400, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": [],
+      "showSections": ["roadmap", "industries", "kdem"]
+    },
+    "water": {
+      "headline": "Five eastern blocks are Over-Exploited or Critical (Athani, Saundatti, Ramdurg, Bailahongal, Kagavada). The water programme must cut extraction there and add recharge, while only Khanapur and Kitthuru retain headroom.",
+      "kpis": [
+        { "label": "Over-Exploited Blocks", "value": "4", "target": "0", "status": "critical" },
+        { "label": "Critical Blocks", "value": "1", "target": "0", "status": "critical" },
+        { "label": "Safe Blocks", "value": "5", "status": "warning" },
+        { "label": "Headroom Blocks", "value": "Khanapur, Kitthuru", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Drip & micro-irrigation in over-exploited blocks", "progress": 5, "budget": 1400, "timeline": "2026-2029" },
+        { "title": "Artificial recharge & tank rejuvenation", "progress": 5, "budget": 700, "timeline": "2026-2029" },
+        { "title": "Canal / surface-lift augmentation", "progress": 4, "budget": 500, "timeline": "2026-2030" }
+      ],
+      "roadmapOwners": ["water", "irrigation"],
+      "showSections": ["roadmap"]
+    },
+    "agriculture": {
+      "headline": "A high-output agricultural district (sugarcane, tobacco, dairy) running into a groundwater wall in the east. The shift is from extraction-led to efficiency-led — drip, cane diversification and value addition.",
+      "kpis": [
+        { "label": "Stressed Blocks", "value": "5/14", "status": "critical" },
+        { "label": "Lead Crop", "value": "Sugarcane", "status": "good" },
+        { "label": "Tobacco Market", "value": "Nippani", "status": "good" },
+        { "label": "Irrigation Mode", "value": "Shift to drip", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Drip conversion in cane-growing stressed blocks", "progress": 5, "budget": 1400, "timeline": "2026-2029" },
+        { "title": "Sugar value addition — ethanol / co-gen", "progress": 0, "budget": 2000, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": ["water", "agriculture", "agro-processing"],
+      "showSections": ["roadmap"]
+    },
+    "industrial": {
+      "headline": "Belagavi has an established industrial base most districts lack: the Aequs aerospace SEZ, a major foundry & hydraulics cluster, and a large sugar-bioenergy sector. The agenda is deepening and modernization, not greenfield creation.",
+      "kpis": [
+        { "label": "Aerospace SEZ", "value": "Operational", "status": "good" },
+        { "label": "Foundry Cluster", "value": "Among India's largest", "status": "good" },
+        { "label": "Focus", "value": "Modernize + tier-2/3", "status": "warning" },
+        { "label": "Investment (plan)", "value": "Rs 8,400 Cr*", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Aerospace tier-2/3 supplier park (Aequs ecosystem)", "progress": 0, "budget": 2600, "timeline": "2029-2032" },
+        { "title": "Foundry cleaner-process & EV-component shift", "progress": 0, "budget": 1800, "timeline": "2029-2032" },
+        { "title": "Sugar bioenergy expansion", "progress": 0, "budget": 2000, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": ["industry", "msme", "agro-processing"],
+      "showSections": ["roadmap", "industries", "kdem"]
+    },
+    "health": {
+      "headline": "660 public facilities serve 47.8 lakh people, but Community Health Centres (8 vs ~40 norm) and sub-centres are well short. Secondary care is the binding gap.",
+      "kpis": [
+        { "label": "CHCs", "value": "8", "target": "~40", "status": "critical" },
+        { "label": "Sub-Centres", "value": "531", "target": "~956", "status": "warning" },
+        { "label": "PHCs", "value": "119", "target": "~159", "status": "warning" },
+        { "label": "District Hospitals", "value": "1", "status": "good" }
+      ],
+      "actions": [
+        { "title": "New CHCs against the norm shortfall", "progress": 4, "budget": 800, "timeline": "2026-2029" },
+        { "title": "Sub-centre / PHC strengthening in under-served taluks", "progress": 4, "budget": 400, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["health"],
+      "showSections": ["roadmap"]
+    },
+    "education": {
+      "headline": "Literacy at 73.5% (above the north-Karnataka average). The opportunity is aligning skilling to the district's own clusters — aerospace, foundry, sugar-tech and IT.",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "73.48%", "target": "82%", "status": "warning" },
+        { "label": "Skilling Focus", "value": "Aerospace / Foundry / IT", "status": "good" },
+        { "label": "Tech Cluster", "value": "Beyond Bengaluru", "status": "good" },
+        { "label": "Sex Ratio", "value": "973", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Aerospace & foundry skilling pipelines", "progress": 0, "budget": 800, "timeline": "2029-2032" },
+        { "title": "Beyond Bengaluru tech enablement", "progress": 0, "budget": 600, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": ["skill-development", "education"],
+      "showSections": ["roadmap"]
+    },
+    "kdem": {
+      "headline": "Belagavi is a Beyond Bengaluru cluster with a rare advantage — deep-tech manufacturing anchors (aerospace SEZ, foundry) to build Industry 4.0 and engineering-led digital firms around.",
+      "kpis": [
+        { "label": "Startups (2030)", "value": "60", "status": "warning" },
+        { "label": "Jobs (2030)", "value": "12,000", "status": "warning" },
+        { "label": "Anchors", "value": "Aerospace + Foundry", "status": "good" },
+        { "label": "Cost vs Bengaluru", "value": "Lower", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Manufacturing-tech / Industry 4.0 enablement", "progress": 0, "budget": 600, "timeline": "2029-2032" },
+        { "title": "Engineering talent & GCC outreach", "progress": 0, "budget": 400, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": ["skill-development", "msme"],
+      "showSections": ["roadmap", "kdem"]
+    },
+    "minister": {
+      "headline": "Belagavi: 47.8 lakh people, a diverse industrial base (aerospace SEZ, foundry cluster, sugar) and a serious eastern-belt groundwater crisis. Indicative Rs 18,500 Cr scaffold across 3 phases, ~120,000 jobs, Top-8 state-rank ambition.",
+      "kpis": [
+        { "label": "Stressed Blocks", "value": "5/14", "status": "critical" },
+        { "label": "Industrial Base", "value": "Aerospace + Foundry + Sugar", "status": "good" },
+        { "label": "Total Investment (plan)", "value": "Rs 18,500 Cr*", "status": "good" },
+        { "label": "CHC Gap", "value": "8 / ~40", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "Eastern-belt water security", "progress": 5, "budget": 2600, "timeline": "2026-2029" },
+        { "title": "Aerospace & foundry cluster deepening", "progress": 0, "budget": 4400, "timeline": "2029-2032" },
+        { "title": "Sugar bioenergy & value addition", "progress": 0, "budget": 2000, "timeline": "2029-2032" }
+      ],
+      "roadmapOwners": [],
+      "showSections": ["roadmap", "industries", "kdem"]
+    }
+  },
+  "dataQualityFlags": {
+    "lastReviewed": "2026-06-14",
+    "note": "Belagavi baseline (demographics, groundwater, health facilities) is from official sources. The development roadmap, role dashboards, and sector investment/job figures are an UrbanMorph planning scaffold — targets and estimates to be replaced with departmental, DPR and survey data.",
+    "flags": [
+      {
+        "id": 1,
+        "topic": "Per capita income & GDDP",
+        "fields": ["economy.perCapitaIncome", "economy.gddp_crores"],
+        "conflict": "Values are state-level estimates, not measured district figures",
+        "groundTruth": "Directorate of Economics & Statistics, Karnataka — district domestic product",
+        "owner": ["dc"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 2,
+        "topic": "Roadmap budgets, progress & jobs",
+        "fields": ["roadmap", "roleDashboards", "industries.overview"],
+        "conflict": "Phase budgets, progress percentages and job figures are planning estimates, not adopted allocations or measured delivery",
+        "groundTruth": "Departmental DPRs, KIADB / Udyog Mitra, district budget and scheme MIS",
+        "owner": ["dc", "industrial"],
+        "severity": "high",
+        "status": "open"
+      },
+      {
+        "id": 3,
+        "topic": "Health facility access gap",
+        "fields": ["healthFacilities.accessGap"],
+        "conflict": "Gap computed against IPHS norms on 2011 population; actual referral network and current population not yet applied",
+        "groundTruth": "District Health Office facility audit + current population",
+        "owner": ["health"],
+        "severity": "medium",
+        "status": "open"
+      }
+    ]
+  },
   "dataCompleteness": {
-    "level": "basic",
+    "level": "full",
+    "scaffold": true,
     "sources": [
       "Census of India 2011",
-      "MoSPI (state-level estimates)"
+      "Central Ground Water Board (CGWB)",
+      "NIC HealthGIS",
+      "MoSPI / StatisticsTimes (state-level estimates)",
+      "Survey of India",
+      "UrbanMorph planning scaffold (roadmap & role dashboards)"
     ],
-    "lastVerified": "2026-03-16"
+    "lastVerified": "2026-06-14",
+    "note": "Baseline data official; roadmap and role dashboards are a planning scaffold — see dataQualityFlags."
   },
   "dataSources": [
     {
       "name": "Census of India 2011",
       "url": "https://censusindia.gov.in",
-      "fields": [
-        "Population",
-        "Literacy Rate",
-        "Sex Ratio",
-        "Rural/Urban split"
-      ],
+      "fields": ["Population", "Literacy Rate", "Sex Ratio", "Area", "Density", "Rural/Urban split"],
       "type": "Demographics"
     },
     {
-      "name": "Survey of India",
-      "url": "https://surveyofindia.gov.in",
-      "fields": [
-        "Geographic boundaries"
-      ],
-      "type": "Geography"
+      "name": "Central Ground Water Board (CGWB)",
+      "url": "https://cgwb.gov.in",
+      "fields": ["Groundwater stage of extraction by assessment block", "Aquifer classification"],
+      "type": "Water"
+    },
+    {
+      "name": "NIC HealthGIS",
+      "url": "https://nhm.gov.in",
+      "fields": ["Public health facility registry (Sub-Centres, PHCs, CHCs, hospitals) with geolocation"],
+      "type": "Health"
     },
     {
       "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
       "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
-      "fields": [
-        "Sectoral Composition (state average)"
-      ],
-      "type": "Economy"
+      "fields": ["Sectoral Composition (state average)", "Per Capita Income (estimate)", "GDDP (estimate)"],
+      "type": "Economy (Estimate)"
     },
     {
-      "name": "Estimated from State GSDP (2023-24)",
-      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
-      "fields": [
-        "Per Capita Income (estimated)",
-        "GDDP (estimated)"
-      ],
-      "type": "Economy (Estimate)"
+      "name": "Survey of India",
+      "url": "https://surveyofindia.gov.in",
+      "fields": ["Geographic boundaries"],
+      "type": "Geography"
+    },
+    {
+      "name": "UrbanMorph planning scaffold",
+      "url": "",
+      "fields": ["Development roadmap", "Role dashboards", "Sector planning estimates"],
+      "type": "Planning"
     }
   ]
 }
