@@ -5,6 +5,8 @@ interface RoadmapTask {
   progress: number;
   items: string[];
   owner?: string;
+  budgetFlow?: { planned?: number | null; sanctioned?: number | null; released?: number | null; utilised?: number | null; asOf?: string | null };
+  blockTargeting?: { basis?: string; expandIn?: string[]; efficiencyOnly?: string[]; restrict?: string[]; note?: string };
 }
 
 interface RoadmapPhase {
@@ -143,6 +145,48 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
                   <div class="progress-bar" style={`width: ${comp.progress}%`}></div>
                 </div>
                 <span class="progress-text">{comp.progress}%</span>
+                {comp.budgetFlow && (
+                  <div class="budget-flow">
+                    {[
+                      { label: 'Planned', val: comp.budgetFlow.planned ?? comp.budget },
+                      { label: 'Sanctioned', val: comp.budgetFlow.sanctioned },
+                      { label: 'Released', val: comp.budgetFlow.released },
+                      { label: 'Utilised', val: comp.budgetFlow.utilised },
+                    ].map((s, i) => {
+                      const planned = comp.budgetFlow!.planned ?? comp.budget;
+                      const pct = (s.val != null && planned) ? Math.min((s.val / planned) * 100, 100) : 0;
+                      return (
+                        <div class="bf-stage">
+                          <div class="bf-stage-head">
+                            <span class="bf-label">{s.label}</span>
+                            <span class="bf-val">{s.val != null ? '₹' + s.val.toLocaleString('en-IN') + ' Cr' : '—'}</span>
+                          </div>
+                          <div class="bf-bar"><div class={`bf-fill bf-fill-${i}`} style={`width:${pct}%`}></div></div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+                {comp.budgetFlow && comp.budgetFlow.sanctioned == null && comp.budgetFlow.released == null && comp.budgetFlow.utilised == null && (
+                  <p class="bf-note">Sanctioned {'→'} Released {'→'} Utilised awaiting monthly Finance returns</p>
+                )}
+                {comp.blockTargeting && (
+                  <div class="block-targeting">
+                    <span class="bt-title">Block targeting</span>
+                    <div class="bt-tags">
+                      {comp.blockTargeting.expandIn && comp.blockTargeting.expandIn.length > 0 && (
+                        <span class="bt-tag bt-expand">Expand: {comp.blockTargeting.expandIn.join(', ')}</span>
+                      )}
+                      {comp.blockTargeting.efficiencyOnly && comp.blockTargeting.efficiencyOnly.length > 0 && (
+                        <span class="bt-tag bt-eff">Efficiency: {comp.blockTargeting.efficiencyOnly.join(', ')}</span>
+                      )}
+                      {comp.blockTargeting.restrict && comp.blockTargeting.restrict.length > 0 && (
+                        <span class="bt-tag bt-restrict">Restrict: {comp.blockTargeting.restrict.join(', ')}</span>
+                      )}
+                    </div>
+                    {comp.blockTargeting.note && <p class="bt-note">{comp.blockTargeting.note}</p>}
+                  </div>
+                )}
                 {comp.items && comp.items.length > 0 && (
                   <ul class="component-tasks">
                     {comp.items.map(item => (
@@ -312,12 +356,36 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
   .financing-name { color: var(--gray-600); }
   .financing-amount { color: var(--gray-800); font-weight: 600; }
 
+  /* Budget flow */
+  .budget-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.75rem; }
+  .bf-stage-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.25rem; margin-bottom: 0.25rem; }
+  .bf-label { font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--gray-500); }
+  .bf-val { font-size: 0.6875rem; font-weight: 700; color: var(--gray-800); white-space: nowrap; }
+  .bf-bar { height: 5px; background: var(--gray-100); border-radius: 3px; overflow: hidden; }
+  .bf-fill { height: 100%; border-radius: 3px; background: var(--gray-300); transition: width 0.5s ease; }
+  .bf-fill-0 { background: var(--primary); }
+  .bf-fill-1 { background: var(--teal); }
+  .bf-fill-2 { background: var(--orange); }
+  .bf-fill-3 { background: var(--green); }
+  .bf-note { font-size: 0.6875rem; color: var(--gray-400); font-style: italic; margin-top: 0.5rem; }
+
+  /* Block targeting */
+  .block-targeting { margin-top: 0.75rem; padding-top: 0.625rem; border-top: 1px dashed var(--gray-200); }
+  .bt-title { font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gray-500); }
+  .bt-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.375rem; }
+  .bt-tag { font-size: 0.6875rem; font-weight: 600; padding: 0.125rem 0.5rem; border-radius: 3px; }
+  .bt-expand { color: var(--green-dark); background: var(--green-light); }
+  .bt-eff { color: #92400e; background: var(--yellow-light); }
+  .bt-restrict { color: var(--red-dark); background: var(--red-light); }
+  .bt-note { font-size: 0.75rem; color: var(--gray-600); margin-top: 0.375rem; line-height: 1.5; }
+
   @media (max-width: 768px) {
     .roadmap-header { flex-direction: column; }
     .roadmap-summary { gap: 1rem; }
     .roadmap-stat { align-items: flex-start; }
     .phase-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .component-header { flex-direction: column; }
+    .budget-flow { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 
