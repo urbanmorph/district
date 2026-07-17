@@ -40,10 +40,12 @@ const communityItems: string[] = communityInsights?.verifiedItems || [];
 const roleDashboards = (d as any).roleDashboards || {};
 const districtAlerts = (d as any).alerts || [];
 const availableRoles = getAvailableRoles(d);
+const digitalEconomy = (d as any).digitalEconomy;
 
-function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
-function fmtNum(v: number) { return v.toLocaleString('en-IN'); }
+function fmtCr(v: number) { if (v == null || isNaN(v)) return 'N/A'; return `₹${v.toLocaleString('en-IN')} Cr`; }
+function fmtNum(v: number) { if (v == null || isNaN(v)) return 'N/A'; return v.toLocaleString('en-IN'); }
 function fmtRs(v: number) {
+  if (v == null || isNaN(v)) return 'N/A';
   if (v >= 10000000) return `₹${(v / 10000000).toFixed(1)} Cr`;
   if (v >= 100000) return `₹${(v / 100000).toFixed(1)}L`;
   return `₹${v.toLocaleString('en-IN')}`;
@@ -74,6 +76,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   <!-- Portal Tabs -->
   <div class="portal-tabs" id="portal-tabs">
     <button class="portal-tab active" data-tab="today">Baseline</button>
+    {digitalEconomy && <button class="portal-tab" data-tab="digital">Digital Economy</button>}
     <button class="portal-tab" data-tab="data">Dashboard</button>
     <button class="portal-tab" data-tab="discuss">Discussion</button>
     <button class="portal-tab" data-tab="sources">Sources</button>
@@ -378,6 +381,192 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
 
   </div><!-- /tab-today -->
 
+  <!-- Digital Economy Tab -->
+  {digitalEconomy && (
+  <div class="portal-tab-content" id="tab-digital" style="display:none;">
+
+    <!-- Hero -->
+    <div class="de-hero">
+      <div class="de-hero-glow"></div>
+      <div class="de-hero-inner">
+        <span class="de-hero-badge">KDEM · Beyond Bengaluru</span>
+        <h2 class="de-hero-title">{digitalEconomy.title}</h2>
+        <p class="de-hero-sub">{digitalEconomy.subtitle}</p>
+        {digitalEconomy.narrative && <p class="de-hero-note">{digitalEconomy.narrative}</p>}
+      </div>
+    </div>
+
+    <!-- Hero stat tiles -->
+    {digitalEconomy.hero && (
+      <div class="de-stat-grid">
+        {digitalEconomy.hero.map((h: any) => (
+          <div class="de-stat-card">
+            <div class="de-stat-accent" style={`background:var(--${h.accent || 'primary'})`}></div>
+            <div class="de-stat-value">{h.value}</div>
+            <div class="de-stat-label">{h.label}</div>
+            {h.sub && <div class="de-stat-sub">{h.sub}</div>}
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- 1. Where we have come from -->
+    {digitalEconomy.growthStory && (
+    <div class="portal-section">
+      <h3 class="section-title">{digitalEconomy.growthStory.heading}</h3>
+      <div class="de-grow-col">
+        <div class="de-growth-cards">
+          {digitalEconomy.growthStory.metrics.map((m: any) => (
+            <div class="de-growth-card">
+              <div class="de-growth-label">{m.label}{m.scope && <span class="de-growth-scope">{m.scope}</span>}</div>
+              <div class="de-growth-flow">
+                <div class="de-growth-then"><span>{m.then}</span><small>{m.thenYear}</small></div>
+                <div class="de-growth-arrow">&#8594;</div>
+                <div class="de-growth-now"><span>{m.now}</span><small>{m.nowYear}</small></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="panel de-chart-panel">
+          <h4 class="portal-sub-title">Startups in the Mysuru cluster</h4>
+          {(() => {
+            const pts = digitalEconomy.startupGrowth;
+            const max = 2800;
+            return (
+              <div class="de-bars">
+                {pts.map((p: any) => (
+                  <div class="de-bar-col">
+                    <div class="de-bar-val">{p.display}</div>
+                    <div class="de-bar-track">
+                      <div class={`de-bar-fill${p.isTarget ? ' de-bar-target' : ''}`} style={`height:${Math.max(6, (p.value / max) * 100)}%`}></div>
+                    </div>
+                    <div class="de-bar-year">{p.year}{p.isTarget ? ' target' : ''}</div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+          <p class="de-caption">{digitalEconomy.growthStory.chartNote}</p>
+        </div>
+      </div>
+    </div>
+    )}
+
+    <!-- 2. Where we are going: 2030 vision -->
+    {digitalEconomy.vision2030 && (
+    <div class="de-vision">
+      <div class="de-vision-glow"></div>
+      <div class="de-vision-inner">
+        <span class="de-vision-eyebrow">Where Mysuru is going · 2030</span>
+        <h3 class="de-vision-title">{digitalEconomy.vision2030.headline}</h3>
+        <p class="de-vision-sub">{digitalEconomy.vision2030.subhead}</p>
+        <div class="de-vision-pillars">
+          {digitalEconomy.vision2030.pillars.map((p: any) => (
+            <div class="de-vision-pillar">
+              <div class="de-vision-val">{p.value}</div>
+              <div class="de-vision-lab">{p.label}</div>
+              {p.sub && <div class="de-vision-psub">{p.sub}</div>}
+            </div>
+          ))}
+        </div>
+        {digitalEconomy.vision2030.note && <p class="de-vision-note">{digitalEconomy.vision2030.note}</p>}
+      </div>
+    </div>
+    )}
+
+    <!-- Detail sections -->
+    {digitalEconomy.sections && (
+    <div class="portal-section">
+      <h3 class="section-title">Mysuru's Digital Economy in Detail</h3>
+      <div class="de-vert-grid">
+        {digitalEconomy.sections.map((v: any) => (
+          <div class="de-vert-card">
+            <div class="de-vert-head">
+              <div class="de-vert-name">{v.name}</div>
+              <div class="de-vert-tag">{v.tagline}</div>
+            </div>
+            <div class="de-vert-stats">
+              {v.stats.map((s: any) => (
+                <div class="de-vert-stat">
+                  <span class="de-vert-stat-v">{s.value}</span>
+                  <span class="de-vert-stat-l">{s.label}</span>
+                </div>
+              ))}
+            </div>
+            <ul class="de-vert-list">
+              {v.highlights.map((h: string) => <li>{h}</li>)}
+            </ul>
+            {v.scopeNote && <p class="de-vert-scope">{v.scopeNote}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+    )}
+
+    <!-- Homegrown Mysuru companies -->
+    {digitalEconomy.kaynes && (
+    <div class="portal-section alt">
+      <h3 class="section-title">{digitalEconomy.homegrownHeading || 'Homegrown Mysuru Companies'}</h3>
+      <div class="de-kaynes-featured">
+        <div class="de-kaynes-fhead">
+          <span class="de-kaynes-eyebrow">Featured homegrown company</span>
+          <h4 class="de-kaynes-title">Kaynes Technology</h4>
+          <span class="de-featured-tag">Mysuru-HQ, listed on BSE &amp; NSE</span>
+        </div>
+        <div class="de-kaynes">
+        <div class="de-kaynes-chart">
+          {(() => {
+            const a = digitalEconomy.kaynes.revenueFY21_crores;
+            const b = digitalEconomy.kaynes.revenueFY26_crores;
+            const mult = (b / a).toFixed(1);
+            return (
+              <div class="de-kaynes-bars">
+                <div class="de-kbar">
+                  <div class="de-kbar-val">Rs {a} Cr</div>
+                  <div class="de-kbar-track"><div class="de-kbar-fill" style={`height:${(a / b) * 100}%`}></div></div>
+                  <div class="de-kbar-year">FY21</div>
+                </div>
+                <div class="de-kaynes-mult"><span>{mult}x</span><small>in 5 years</small></div>
+                <div class="de-kbar">
+                  <div class="de-kbar-val">Rs {b.toLocaleString('en-IN')} Cr</div>
+                  <div class="de-kbar-track"><div class="de-kbar-fill de-kbar-hi" style="height:100%"></div></div>
+                  <div class="de-kbar-year">FY26</div>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+        <div class="de-kaynes-body">
+          <p>{digitalEconomy.kaynes.note}</p>
+          <p class="de-caption">{digitalEconomy.kaynes.scope}. Listed: {digitalEconomy.kaynes.listed}.</p>
+        </div>
+        </div>
+      </div>
+      {digitalEconomy.homegrownCompanies && (
+        <h4 class="portal-sub-title" style="margin-top:1.5rem;">More Homegrown Companies</h4>
+      )}
+      {digitalEconomy.homegrownCompanies && (
+        <div class="de-home-grid">
+          {digitalEconomy.homegrownCompanies.map((c: any) => (
+            <div class="de-home-card">
+              <div class="de-home-name">{c.name}</div>
+              <div class="de-home-sector">{c.sector}</div>
+              <div class="de-home-metric"><span class="de-home-val">{c.metric}</span><span class="de-home-mlabel">{c.metricLabel}</span></div>
+              <div class="de-home-milestone">{c.milestone}</div>
+              <p class="de-home-note">{c.note}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {digitalEconomy.homegrownNote && <p class="de-caption" style="margin-top:0.85rem;">{digitalEconomy.homegrownNote}</p>}
+    </div>
+    )}
+
+    {digitalEconomy.sourceNote && <p class="de-source-note">{digitalEconomy.sourceNote}</p>}
+
+  </div><!-- /tab-digital -->
+  )}
+
   <!-- Dashboard Tab -->
   <div class="portal-tab-content" id="tab-data" style="display:none;">
 
@@ -501,10 +690,13 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
               {sector.impact?.jobs && (
                 <div class="detail-block">
                   <h5 class="detail-block-title">Employment Impact</h5>
-                  <div class="detail-value-large">{fmtNum(sector.impact.jobs.total)} jobs</div>
+                  {sector.impact.jobs.total != null && <div class="detail-value-large">{fmtNum(sector.impact.jobs.total)} jobs</div>}
                   <div class="detail-breakdown">
-                    <div class="detail-row"><span class="detail-row-label">Direct</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.direct)}</span></div>
-                    <div class="detail-row"><span class="detail-row-label">Indirect</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.indirect)}</span></div>
+                    {sector.impact.jobs.direct != null && <div class="detail-row"><span class="detail-row-label">Direct</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.direct)}</span></div>}
+                    {sector.impact.jobs.indirect != null && <div class="detail-row"><span class="detail-row-label">Indirect</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.indirect)}</span></div>}
+                    {sector.impact.jobs.anchorEmployment != null && <div class="detail-row"><span class="detail-row-label">Anchor employer</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.anchorEmployment)}</span></div>}
+                    {sector.impact.jobs.target2030 != null && <div class="detail-row"><span class="detail-row-label">2030 target</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.target2030)}</span></div>}
+                    {sector.impact.jobs.currentTalentPool != null && <div class="detail-row"><span class="detail-row-label">Talent pool</span><span class="detail-row-value">{fmtNum(sector.impact.jobs.currentTalentPool)}</span></div>}
                     {sector.impact.jobs.skillLevel && <div class="detail-row"><span class="detail-row-label">Skill</span><span class="detail-row-value">{sector.impact.jobs.skillLevel}</span></div>}
                     {sector.impact.jobs.salary && <div class="detail-row"><span class="detail-row-label">Salary</span><span class="detail-row-value">{sector.impact.jobs.salary}</span></div>}
                   </div>
@@ -514,13 +706,17 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
               {/* Revenue */}
               {sector.impact?.revenue && (
                 <div class="detail-block">
-                  <h5 class="detail-block-title">Revenue (2034)</h5>
-                  <div class="detail-value-large">{fmtCr(sector.impact.revenue.year2034)}</div>
-                  {sector.impact.revenue.exportPercent && (
-                    <div class="detail-breakdown">
-                      <div class="detail-row"><span class="detail-row-label">Export share</span><span class="detail-row-value">{sector.impact.revenue.exportPercent}%</span></div>
-                    </div>
-                  )}
+                  <h5 class="detail-block-title">Revenue / Exports</h5>
+                  {sector.impact.revenue.year2034 != null && <div class="detail-value-large">{fmtCr(sector.impact.revenue.year2034)}</div>}
+                  {sector.impact.revenue.annualRevenue != null && <div class="detail-value-large">{fmtCr(sector.impact.revenue.annualRevenue)} <span style="font-size:0.7rem;font-weight:400;">{sector.impact.revenue.annualRevenueLabel || ''}</span></div>}
+                  {sector.impact.revenue.exportsFY24 != null && <div class="detail-value-large">{fmtCr(sector.impact.revenue.exportsFY24)} <span style="font-size:0.7rem;font-weight:400;">exports FY24</span></div>}
+                  {sector.impact.revenue.automotiveAxlesFY24 != null && <div class="detail-value-large">{fmtCr(sector.impact.revenue.automotiveAxlesFY24)} <span style="font-size:0.7rem;font-weight:400;">Automotive Axles FY24</span></div>}
+                  <div class="detail-breakdown">
+                    {sector.impact.revenue.exportsFY30Projection != null && <div class="detail-row"><span class="detail-row-label">FY30 projection</span><span class="detail-row-value">{fmtCr(sector.impact.revenue.exportsFY30Projection)}</span></div>}
+                    {sector.impact.revenue.stpiUnitsFY24 != null && <div class="detail-row"><span class="detail-row-label">STPI units FY24</span><span class="detail-row-value">{fmtCr(sector.impact.revenue.stpiUnitsFY24)}</span></div>}
+                    {sector.impact.revenue.exportRank && <div class="detail-row"><span class="detail-row-label">Export rank</span><span class="detail-row-value">{sector.impact.revenue.exportRank}</span></div>}
+                    {sector.impact.revenue.exportPercent && <div class="detail-row"><span class="detail-row-label">Export share</span><span class="detail-row-value">{sector.impact.revenue.exportPercent}%</span></div>}
+                  </div>
                 </div>
               )}
 
@@ -599,7 +795,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                     <th>Sector</th>
                     <th>Investment</th>
                     <th>Direct Jobs</th>
-                    <th>Revenue 2034</th>
+                    <th>Revenue</th>
                     <th>GDDP %</th>
                     <th>Time to Revenue</th>
                     <th>Risk</th>
@@ -609,12 +805,12 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                   {industries.comparison.map((row: any) => (
                     <tr>
                       <td class="table-name">{row.industry}</td>
-                      <td>{fmtCr(row.investment_crores)}</td>
-                      <td>{fmtNum(row.directJobs)}</td>
-                      <td>{fmtCr(row.revenue2034_crores)}</td>
-                      <td>{row.gddpPercent}%</td>
-                      <td>{row.timeToRevenue}</td>
-                      <td>{row.risk}</td>
+                      <td>{row.investment_crores != null ? fmtCr(row.investment_crores) : '-'}</td>
+                      <td>{row.directJobs != null ? fmtNum(row.directJobs) : '-'}</td>
+                      <td>{row.revenue2034_crores != null ? fmtCr(row.revenue2034_crores) : '-'}</td>
+                      <td>{row.gddpPercent != null ? `${row.gddpPercent}%` : '-'}</td>
+                      <td>{row.timeToRevenue || '-'}</td>
+                      <td>{row.risk || '-'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -674,20 +870,42 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           <div class="panel" style="margin-bottom:1rem;">
             <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Current Traction ({kdem.currentTraction.period})</h4>
             <div class="portal-stats-row">
-              <div class="portal-stat">
-                <span class="portal-stat-value">{kdem.currentTraction.newCompanies}</span>
-                <span class="portal-stat-label">New Companies</span>
-              </div>
+              {kdem.currentTraction.newCompanies != null && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{kdem.currentTraction.newCompanies}</span>
+                  <span class="portal-stat-label">New Companies</span>
+                </div>
+              )}
               {kdem.currentTraction.expandedCompanies && (
                 <div class="portal-stat">
                   <span class="portal-stat-value">{kdem.currentTraction.expandedCompanies}</span>
                   <span class="portal-stat-label">Expanded</span>
                 </div>
               )}
-              <div class="portal-stat">
-                <span class="portal-stat-value">{fmtNum(kdem.currentTraction.jobsCreated)}</span>
-                <span class="portal-stat-label">Jobs Created</span>
-              </div>
+              {kdem.currentTraction.jobsCreated != null && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{fmtNum(kdem.currentTraction.jobsCreated)}</span>
+                  <span class="portal-stat-label">Jobs Created</span>
+                </div>
+              )}
+              {kdem.currentTraction.softwareExportRank && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{kdem.currentTraction.softwareExportRank}</span>
+                  <span class="portal-stat-label">Software Export Rank</span>
+                </div>
+              )}
+              {kdem.currentTraction.startups && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{kdem.currentTraction.startups}</span>
+                  <span class="portal-stat-label">Startups</span>
+                </div>
+              )}
+              {kdem.currentTraction.plugAndPlaySeats != null && (
+                <div class="portal-stat">
+                  <span class="portal-stat-value">{fmtNum(kdem.currentTraction.plugAndPlaySeatsOccupied)}/{fmtNum(kdem.currentTraction.plugAndPlaySeats)}</span>
+                  <span class="portal-stat-label">Plug & Play Seats</span>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -781,10 +999,11 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         <div class="panel" style="margin-bottom:1.25rem;">
           <div class="portal-stats-row">
             {fpos.summary && <>
-              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.totalFPOs}</span><span class="portal-stat-label">Total FPOs</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.activeFPOs}</span><span class="portal-stat-label">Active</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.targetBy2032}</span><span class="portal-stat-label">Target (2032)</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.percentComplete}%</span><span class="portal-stat-label">Progress</span></div>
+              {fpos.summary.totalFPOs != null && <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.totalFPOs}</span><span class="portal-stat-label">Total FPOs</span></div>}
+              {fpos.summary.nabardSupportedForScaling != null && <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.nabardSupportedForScaling}</span><span class="portal-stat-label">NABARD-supported</span></div>}
+              {fpos.summary.activeFPOs != null && <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.activeFPOs}</span><span class="portal-stat-label">Active</span></div>}
+              {fpos.summary.targetBy2032 != null && <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.targetBy2032}</span><span class="portal-stat-label">Target (2032)</span></div>}
+              {fpos.summary.percentComplete != null && <div class="portal-stat"><span class="portal-stat-value">{fpos.summary.percentComplete}%</span><span class="portal-stat-label">Progress</span></div>}
             </>}
             {fpos.financialMetrics && <>
               <div class="portal-stat"><span class="portal-stat-value">{fmtNum(fpos.financialMetrics.totalMemberFarmers)}</span><span class="portal-stat-label">Member Farmers</span></div>
@@ -813,9 +1032,9 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                       <td class="table-name">{fpo.name}</td>
                       <td>{fpo.location}</td>
                       <td>{fpo.commodities?.join(', ')}</td>
-                      <td>{fmtNum(fpo.memberFarmers)}</td>
+                      <td>{fpo.memberFarmers != null ? fmtNum(fpo.memberFarmers) : '-'}</td>
                       <td>{fpo.annualTurnover ? fmtRs(fpo.annualTurnover) : '-'}</td>
-                      <td><span class={`status-badge status-${fpo.status.toLowerCase().replace(/\s/g, '-')}`}>{fpo.status}</span></td>
+                      <td><span class={`status-badge status-${(fpo.status || '').toLowerCase().replace(/\s/g, '-')}`}>{fpo.status}</span></td>
                     </tr>
                   ))}
                 </tbody>
@@ -836,10 +1055,10 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         {industrialLand.summary && (
           <div class="panel" style="margin-bottom:1.25rem;">
             <div class="portal-stats-row">
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.totalIndustrialLand)} acres</span><span class="portal-stat-label">Total Industrial Land</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.availableForAllotment)} acres</span><span class="portal-stat-label">Available</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandRequirement)} acres</span><span class="portal-stat-label">Pipeline Requirement</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandGap)} acres</span><span class="portal-stat-label">Land Gap</span></div>
+              {industrialLand.summary.totalIndustrialLand != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.totalIndustrialLand)} acres</span><span class="portal-stat-label">Total Industrial Land</span></div>}
+              {industrialLand.summary.availableForAllotment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.availableForAllotment)} acres</span><span class="portal-stat-label">Available</span></div>}
+              {industrialLand.summary.pipelineLandRequirement != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandRequirement)} acres</span><span class="portal-stat-label">Pipeline Requirement</span></div>}
+              {industrialLand.summary.pipelineLandGap != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(industrialLand.summary.pipelineLandGap)} acres</span><span class="portal-stat-label">Land Gap</span></div>}
             </div>
           </div>
         )}
@@ -849,9 +1068,11 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           <div class="panel" style="margin-bottom:1rem;">
             <h4 class="detail-block-title" style="margin-bottom:0.75rem;">{area.name} — {area.location}</h4>
             <div class="portal-stats-row" style="margin-bottom:0.75rem;">
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.totalArea)} ac</span><span class="portal-stat-label">Total</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.developedArea)} ac</span><span class="portal-stat-label">Developed</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.availableForAllotment)} ac</span><span class="portal-stat-label">Available</span></div>
+              {area.totalArea != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.totalArea)} ac</span><span class="portal-stat-label">Total</span></div>}
+              {area.developedArea != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.developedArea)} ac</span><span class="portal-stat-label">Developed</span></div>}
+              {area.availableForAllotment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.availableForAllotment)} ac</span><span class="portal-stat-label">Available</span></div>}
+              {area.allottedPlots != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.allottedPlots)}</span><span class="portal-stat-label">Allotted Plots</span></div>}
+              {area.unitsInProduction != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(area.unitsInProduction)}</span><span class="portal-stat-label">Units in Production</span></div>}
             </div>
             {area.infrastructureStatus && (
               <div class="infra-grid">
@@ -907,12 +1128,12 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         {/* Sector-wise credit */}
         {creditData.sectorWiseCredit && (
           <div class="panel" style="margin-bottom:1rem;">
-            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Sector-wise Credit</h4>
-            {Object.entries(creditData.sectorWiseCredit).map(([sector, data]: [string, any]) => (
+            <h4 class="detail-block-title" style="margin-bottom:0.75rem;">Sector-wise Credit{creditData.sectorWiseCredit.basis === 'yearlyTarget' ? ' (FY26 ACP targets)' : ''}</h4>
+            {Object.entries(creditData.sectorWiseCredit).filter(([_, data]: [string, any]) => data && typeof data === 'object').map(([sector, data]: [string, any]) => (
               <div class="credit-sector">
                 <div class="credit-sector-header">
                   <span class="credit-sector-name">{sector}</span>
-                  <span class="credit-sector-value">{fmtRs(data.outstanding)} ({data.percentOfTotal}%)</span>
+                  <span class="credit-sector-value">{data.outstanding != null ? fmtRs(data.outstanding) : (data.yearlyTarget != null ? fmtRs(data.yearlyTarget) : '-')}{data.percentOfTotal != null ? ` (${data.percentOfTotal}%)` : ''}</span>
                 </div>
                 {data.achievement && (
                   <div class="progress-bar-container" style="margin-bottom:0.25rem;">
@@ -949,11 +1170,29 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         <h3 class="section-title">MSME Registrations</h3>
         <div class="panel">
           <div class="portal-stats-row" style="margin-bottom:1rem;">
-            <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.total)}</span><span class="portal-stat-label">Total MSMEs</span></div>
-            <div class="portal-stat"><span class="portal-stat-value">{fmtRs(msme.statistics.totalInvestment)}</span><span class="portal-stat-label">Total Investment</span></div>
-            <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.totalEmployment)}</span><span class="portal-stat-label">Employment</span></div>
+            <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.total)}</span><span class="portal-stat-label">{msme.statistics.totalLabel || 'Total MSMEs'}</span></div>
+            {msme.statistics.rankInState && <div class="portal-stat"><span class="portal-stat-value">{msme.statistics.rankInState}</span><span class="portal-stat-label">Rank in State</span></div>}
+            {msme.statistics.totalInvestment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtRs(msme.statistics.totalInvestment)}</span><span class="portal-stat-label">Total Investment</span></div>}
+            {msme.statistics.totalEmployment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtNum(msme.statistics.totalEmployment)}</span><span class="portal-stat-label">Employment</span></div>}
             {msme.growthTrends?.yearOverYear && <div class="portal-stat"><span class="portal-stat-value">{msme.growthTrends.yearOverYear}</span><span class="portal-stat-label">YoY Growth</span></div>}
           </div>
+
+          {msme.statistics.byType && (
+            <div style="margin-bottom:1rem;">
+              <h5 class="detail-block-title">By Enterprise Type</h5>
+              <div class="msme-breakdown">
+                {Object.entries(msme.statistics.byType).map(([k, v]: [string, any]) => (
+                  <div class="msme-bar-item">
+                    <span class="msme-bar-label">{k}</span>
+                    <div class="msme-bar-track">
+                      <div class="msme-bar-fill" style={`width:${(v / msme.statistics.total * 100)}%`}></div>
+                    </div>
+                    <span class="msme-bar-value">{fmtNum(v)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {msme.statistics.bySector && (
             <div style="margin-bottom:1rem;">
@@ -998,16 +1237,19 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     <DistrictSection section="investments">
       <section class="animate-up portal-section">
         <h3 class="section-title">Investment Proposals</h3>
-        {investments.summary && (
+        {investments.summary?.totalProposals != null && (
           <div class="panel" style="margin-bottom:1.25rem;">
             <div class="portal-stats-row">
               <div class="portal-stat"><span class="portal-stat-value">{investments.summary.totalProposals}</span><span class="portal-stat-label">Total Proposals</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{investments.summary.approvedProposals}</span><span class="portal-stat-label">Approved</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.proposedInvestment)}</span><span class="portal-stat-label">Proposed</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.realizedInvestment)}</span><span class="portal-stat-label">Realized</span></div>
-              <div class="portal-stat"><span class="portal-stat-value">{investments.summary.realizationRate}%</span><span class="portal-stat-label">Realization Rate</span></div>
+              {investments.summary.approvedProposals != null && <div class="portal-stat"><span class="portal-stat-value">{investments.summary.approvedProposals}</span><span class="portal-stat-label">Approved</span></div>}
+              {investments.summary.proposedInvestment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.proposedInvestment)}</span><span class="portal-stat-label">Proposed</span></div>}
+              {investments.summary.realizedInvestment != null && <div class="portal-stat"><span class="portal-stat-value">{fmtRs(investments.summary.realizedInvestment)}</span><span class="portal-stat-label">Realized</span></div>}
+              {investments.summary.realizationRate != null && <div class="portal-stat"><span class="portal-stat-value">{investments.summary.realizationRate}%</span><span class="portal-stat-label">Realization Rate</span></div>}
             </div>
           </div>
+        )}
+        {investments.summary?.note && (
+          <p style="font-size:0.8125rem;color:var(--gray-500);margin:-0.25rem 0 1rem;">{investments.summary.note}</p>
         )}
 
         {investments.majorProposals?.length > 0 && (
@@ -1031,9 +1273,9 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                       <td class="table-name">{p.projectName}</td>
                       <td>{p.investor}</td>
                       <td>{p.sector}</td>
-                      <td>{fmtRs(p.investment)}</td>
-                      <td>{fmtNum(p.projectedJobs)}</td>
-                      <td><span class="status-badge">{p.status}</span></td>
+                      <td>{p.investment != null ? fmtRs(p.investment) : (p.capacity || '-')}</td>
+                      <td>{p.projectedJobs != null ? fmtNum(p.projectedJobs) : '-'}</td>
+                      <td><span class="status-badge">{p.status || '-'}</span></td>
                     </tr>
                   ))}
                 </tbody>
@@ -1048,7 +1290,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
             {investments.bottlenecks.map((b: any) => (
               <div class="bottleneck-item">
                 <span class="bottleneck-stage">{b.stage}</span>
-                <span class="bottleneck-detail">{b.delayedProposals} proposals delayed, avg {b.avgDelay} days</span>
+                {b.delayedProposals != null && <span class="bottleneck-detail">{b.delayedProposals} proposals delayed, avg {b.avgDelay} days</span>}
                 <span class="bottleneck-impact">{b.impact}</span>
               </div>
             ))}
@@ -1512,6 +1754,204 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   }
   .kdem-dashboard-link:hover { text-decoration: underline; }
 
+  /* ============ Digital Economy tab ============ */
+  #tab-digital { --de-ink: #0b1220; }
+  .de-hero {
+    position: relative; overflow: hidden; border-radius: 16px;
+    padding: 2.25rem 2rem; margin-bottom: 1.5rem;
+    background: linear-gradient(120deg, #0b2a4a 0%, #123a6b 45%, #1e5fa8 100%);
+    color: #fff; box-shadow: 0 18px 40px -18px rgba(11,42,74,0.55);
+  }
+  .de-hero-glow {
+    position: absolute; top: -60%; right: -10%; width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(56,189,248,0.35) 0%, rgba(56,189,248,0) 70%);
+    pointer-events: none;
+  }
+  .de-hero-inner { position: relative; z-index: 1; max-width: 820px; }
+  .de-hero-badge {
+    display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 999px;
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.22); margin-bottom: 0.85rem;
+  }
+  .de-hero-title { font-size: 1.9rem; font-weight: 800; line-height: 1.1; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+  .de-hero-sub { font-size: 0.95rem; opacity: 0.9; margin: 0 0 0.6rem; font-weight: 500; }
+  .de-hero-note { font-size: 0.78rem; opacity: 0.72; margin: 0; line-height: 1.45; }
+
+  .de-stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.85rem; margin-bottom: 1.75rem; }
+  .de-stat-card {
+    position: relative; background: var(--white, #fff); border: 1px solid var(--gray-100);
+    border-radius: 12px; padding: 1.1rem 1rem 1rem; overflow: hidden;
+    box-shadow: 0 4px 14px -10px rgba(11,18,32,0.25); transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .de-stat-card:hover { transform: translateY(-3px); box-shadow: 0 14px 26px -14px rgba(11,18,32,0.35); }
+  .de-stat-accent { position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .de-stat-value { font-size: 1.55rem; font-weight: 800; color: var(--gray-900); line-height: 1.05; letter-spacing: -0.02em; }
+  .de-stat-label { font-size: 0.72rem; font-weight: 600; color: var(--gray-600); margin-top: 0.3rem; line-height: 1.25; }
+  .de-stat-sub { font-size: 0.66rem; color: var(--gray-400); margin-top: 0.15rem; }
+
+  .de-grow-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1rem; }
+  .de-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .de-chart-panel { display: flex; flex-direction: column; }
+  .de-bars { display: flex; align-items: flex-end; justify-content: space-around; gap: 1rem; height: 200px; padding: 0.5rem 0 0; }
+  .de-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .de-bar-val { font-size: 0.8rem; font-weight: 800; color: var(--gray-800); margin-bottom: 0.4rem; }
+  .de-bar-track { width: 46px; flex: 1; display: flex; align-items: flex-end; }
+  .de-bar-fill { width: 100%; border-radius: 7px 7px 0 0; background: linear-gradient(180deg, #2f7bd0, #123a6b); transition: height 0.6s ease; }
+  .de-bar-target { background: linear-gradient(180deg, #f6b53d, #e2892b); }
+  .de-bar-year { font-size: 0.68rem; font-weight: 600; color: var(--gray-500); margin-top: 0.5rem; text-align: center; }
+  .de-caption { font-size: 0.72rem; color: var(--gray-500); line-height: 1.5; margin-top: 0.85rem; }
+
+  .de-support-panel { display: flex; flex-direction: column; }
+  .de-support-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .de-mini { background: var(--gray-50); border-radius: 10px; padding: 0.7rem 0.8rem; }
+  .de-mini-val { display: block; font-size: 1.05rem; font-weight: 800; color: var(--primary); }
+  .de-mini-lab { display: block; font-size: 0.66rem; color: var(--gray-600); margin-top: 0.15rem; }
+  .de-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; }
+  .de-chip { font-size: 0.7rem; font-weight: 600; padding: 0.28rem 0.6rem; border-radius: 999px; background: var(--gray-100); color: var(--gray-700); }
+  .de-chip-solid { background: #eaf2fb; color: #123a6b; border: 1px solid #d6e5f6; }
+
+  .de-target-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem; }
+  .de-target-card {
+    text-align: center; padding: 1.35rem 0.85rem; border-radius: 12px; color: #fff;
+    background: linear-gradient(150deg, #123a6b, #1e5fa8); box-shadow: 0 10px 24px -14px rgba(18,58,107,0.6);
+  }
+  .de-target-val { font-size: 1.5rem; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; }
+  .de-target-lab { font-size: 0.72rem; font-weight: 600; opacity: 0.92; margin-top: 0.35rem; line-height: 1.25; }
+  .de-target-sub { font-size: 0.64rem; opacity: 0.72; margin-top: 0.15rem; }
+
+  .de-kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+  .de-kv { background: var(--gray-50); border-radius: 9px; padding: 0.65rem 0.75rem; }
+  .de-kv strong { display: block; font-size: 1.15rem; font-weight: 800; color: var(--gray-900); }
+  .de-kv span { font-size: 0.68rem; color: var(--gray-600); }
+  .de-callout { font-size: 0.75rem; color: var(--gray-700); line-height: 1.5; margin-top: 0.85rem; padding: 0.7rem 0.8rem; background: #eaf2fb; border-left: 3px solid var(--primary); border-radius: 6px; }
+
+  .de-invest-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+  .de-invest-card { padding: 1.1rem 1rem; border-radius: 12px; }
+  .de-invest-lead { background: linear-gradient(150deg, #0b2a4a, #1e5fa8); color: #fff; }
+  .de-invest-lead .de-invest-val { color: #fff; }
+  .de-invest-lead .de-invest-name, .de-invest-lead .de-invest-meta { color: rgba(255,255,255,0.85); }
+  .de-invest-tag { font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gray-500); }
+  .de-invest-lead .de-invest-tag { color: rgba(255,255,255,0.8); }
+  .de-invest-val { font-size: 1.5rem; font-weight: 800; color: var(--gray-900); margin: 0.35rem 0 0.15rem; letter-spacing: -0.01em; }
+  .de-invest-name { font-size: 0.82rem; font-weight: 700; color: var(--gray-800); }
+  .de-invest-meta { font-size: 0.68rem; color: var(--gray-500); margin-top: 0.2rem; }
+
+  .de-kaynes { display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; align-items: center; }
+  .de-kaynes-bars { display: flex; align-items: flex-end; justify-content: center; gap: 1.1rem; height: 180px; }
+  .de-kbar { display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .de-kbar-val { font-size: 0.78rem; font-weight: 800; color: var(--gray-800); margin-bottom: 0.4rem; white-space: nowrap; }
+  .de-kbar-track { width: 60px; flex: 1; display: flex; align-items: flex-end; }
+  .de-kbar-fill { width: 100%; border-radius: 7px 7px 0 0; background: var(--gray-300); }
+  .de-kbar-hi { background: linear-gradient(180deg, #2f7bd0, #123a6b); }
+  .de-kbar-year { font-size: 0.68rem; font-weight: 600; color: var(--gray-500); margin-top: 0.5rem; }
+  .de-kaynes-mult { text-align: center; padding-bottom: 1.5rem; }
+  .de-kaynes-mult span { display: block; font-size: 2rem; font-weight: 800; color: var(--green); line-height: 1; }
+  .de-kaynes-mult small { font-size: 0.66rem; color: var(--gray-500); }
+  .de-kaynes-body p { font-size: 0.85rem; color: var(--gray-700); line-height: 1.55; margin: 0 0 0.5rem; }
+
+  .de-progress-wrap { margin-top: 1rem; }
+  .de-progress-head { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--gray-600); margin-bottom: 0.35rem; }
+  .de-progress-head strong { color: var(--gray-900); }
+  .de-progress-track { height: 10px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+  .de-progress-fill { height: 100%; background: linear-gradient(90deg, #2f7bd0, #123a6b); border-radius: 999px; }
+
+  .de-vs { font-size: 0.64rem; font-weight: 600; color: var(--gray-400); text-transform: none; letter-spacing: 0; }
+  .de-cost-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .de-cost-row { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 0.6rem; }
+  .de-cost-lab { font-size: 0.75rem; font-weight: 600; color: var(--gray-700); }
+  .de-cost-track { height: 8px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+  .de-cost-fill { height: 100%; background: linear-gradient(90deg, #3aa17e, #1f7a56); border-radius: 999px; }
+  .de-cost-val { font-size: 0.72rem; font-weight: 700; color: var(--green); white-space: nowrap; }
+
+  .de-theme-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem; }
+  .de-theme-card { background: var(--white,#fff); border: 1px solid var(--gray-100); border-top: 3px solid var(--primary); border-radius: 10px; padding: 1rem 0.9rem; }
+  .de-theme-title { font-size: 0.82rem; font-weight: 800; color: var(--gray-900); margin-bottom: 0.4rem; }
+  .de-theme-detail { font-size: 0.7rem; color: var(--gray-600); line-height: 1.45; }
+  .de-source-note { font-size: 0.68rem; color: var(--gray-400); line-height: 1.5; margin-top: 1.5rem; font-style: italic; }
+
+  /* Growth story (then -> now) */
+  .de-growth-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; align-content: start; }
+  .de-growth-card { background: var(--white,#fff); border: 1px solid var(--gray-100); border-radius: 11px; padding: 0.85rem 0.95rem; box-shadow: 0 4px 14px -12px rgba(11,18,32,0.25); }
+  .de-growth-label { font-size: 0.72rem; font-weight: 700; color: var(--gray-600); margin-bottom: 0.55rem; }
+  .de-growth-flow { display: flex; align-items: center; gap: 0.5rem; }
+  .de-growth-then, .de-growth-now { display: flex; flex-direction: column; }
+  .de-growth-then span { font-size: 0.95rem; font-weight: 700; color: var(--gray-400); }
+  .de-growth-now span { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
+  .de-growth-then small, .de-growth-now small { font-size: 0.6rem; color: var(--gray-400); margin-top: 0.05rem; }
+  .de-growth-arrow { font-size: 1.1rem; color: var(--gray-300); font-weight: 700; }
+
+  /* 2030 vision image */
+  .de-vision {
+    position: relative; overflow: hidden; border-radius: 16px; margin: 1.75rem 0;
+    padding: 2.25rem 2rem; color: #fff;
+    background: linear-gradient(120deg, #0a1f3c 0%, #123a6b 40%, #1e5fa8 78%, #2f8fce 100%);
+    box-shadow: 0 20px 44px -20px rgba(11,42,74,0.6);
+  }
+  .de-vision-glow { position: absolute; bottom: -55%; left: 30%; width: 460px; height: 460px; background: radial-gradient(circle, rgba(246,181,61,0.28) 0%, rgba(246,181,61,0) 70%); pointer-events: none; }
+  .de-vision-inner { position: relative; z-index: 1; }
+  .de-vision-eyebrow { display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; opacity: 0.82; margin-bottom: 0.5rem; }
+  .de-vision-title { font-size: 1.75rem; font-weight: 800; margin: 0 0 0.35rem; letter-spacing: -0.01em; }
+  .de-vision-sub { font-size: 0.9rem; opacity: 0.88; margin: 0 0 1.4rem; }
+  .de-vision-pillars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem; }
+  .de-vision-pillar { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 1.05rem 0.85rem; text-align: center; }
+  .de-vision-val { font-size: 1.5rem; font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; }
+  .de-vision-lab { font-size: 0.7rem; font-weight: 600; opacity: 0.92; margin-top: 0.3rem; line-height: 1.25; }
+  .de-vision-psub { font-size: 0.62rem; opacity: 0.7; margin-top: 0.1rem; }
+  .de-vision-note { font-size: 0.7rem; opacity: 0.7; margin: 1.2rem 0 0; }
+
+  /* Five verticals */
+  .de-vert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .de-vert-card { background: var(--white,#fff); border: 1px solid var(--gray-100); border-top: 3px solid var(--primary); border-radius: 12px; padding: 1.25rem 1.25rem 1.35rem; box-shadow: 0 6px 18px -14px rgba(11,18,32,0.3); }
+  .de-vert-head { margin-bottom: 1rem; }
+  .de-vert-name { font-size: 0.98rem; font-weight: 800; color: var(--gray-900); line-height: 1.15; }
+  .de-vert-tag { font-size: 0.7rem; color: var(--gray-500); margin-top: 0.15rem; line-height: 1.3; }
+  .de-vert-scope { font-size: 0.66rem; font-style: italic; color: var(--gray-400); line-height: 1.45; margin-top: 0.85rem; padding-top: 0.6rem; border-top: 1px dashed var(--gray-200); }
+
+  /* Growth-card scope tag */
+  .de-growth-scope { display: inline-block; font-size: 0.56rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #1e5fa8; background: #eaf2fb; border-radius: 5px; padding: 0.05rem 0.35rem; margin-left: 0.4rem; vertical-align: middle; }
+
+  /* Homegrown company cards */
+  .de-home-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+  .de-home-card { background: var(--white,#fff); border: 1px solid var(--gray-100); border-top: 3px solid var(--teal); border-radius: 12px; padding: 1.1rem 1.1rem 1.2rem; box-shadow: 0 6px 18px -14px rgba(11,18,32,0.3); }
+  .de-home-name { font-size: 0.95rem; font-weight: 800; color: var(--gray-900); }
+  .de-home-sector { font-size: 0.68rem; color: var(--gray-500); margin-top: 0.1rem; }
+  .de-home-metric { display: flex; align-items: baseline; gap: 0.4rem; margin: 0.7rem 0 0.15rem; }
+  .de-home-val { font-size: 1.4rem; font-weight: 800; color: var(--primary); line-height: 1; letter-spacing: -0.01em; }
+  .de-home-mlabel { font-size: 0.66rem; color: var(--gray-500); }
+  .de-home-milestone { display: inline-block; font-size: 0.64rem; font-weight: 700; color: #1f7a56; background: #e7f4ee; border-radius: 5px; padding: 0.15rem 0.45rem; margin-bottom: 0.5rem; }
+  .de-home-note { font-size: 0.72rem; color: var(--gray-600); line-height: 1.5; margin: 0; }
+  .de-featured-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #1f7a56; background: #e7f4ee; border-radius: 999px; padding: 0.2rem 0.6rem; }
+  /* Featured Kaynes callout */
+  .de-kaynes-featured {
+    position: relative; background: linear-gradient(180deg, #f2f7fc 0%, var(--white,#fff) 60%);
+    border: 1px solid #d6e5f6; border-left: 5px solid var(--primary); border-radius: 14px;
+    padding: 1.4rem 1.5rem 1.5rem; box-shadow: 0 12px 30px -18px rgba(18,58,107,0.45);
+  }
+  .de-kaynes-fhead { margin-bottom: 1.15rem; }
+  .de-kaynes-eyebrow { display: inline-block; font-size: 0.64rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary); margin-bottom: 0.3rem; }
+  .de-kaynes-title { font-size: 1.45rem; font-weight: 800; color: var(--gray-900); letter-spacing: -0.01em; margin: 0 0 0.5rem; line-height: 1.1; }
+  .de-vert-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+  .de-vert-stat { background: var(--gray-50); border-radius: 9px; padding: 0.6rem 0.5rem; text-align: center; }
+  .de-vert-stat-v { display: block; font-size: 0.95rem; font-weight: 800; color: var(--gray-900); line-height: 1.1; }
+  .de-vert-stat-l { display: block; font-size: 0.6rem; color: var(--gray-500); margin-top: 0.2rem; line-height: 1.2; }
+  .de-vert-list { list-style: none; margin: 0; padding: 0; }
+  .de-vert-list li { position: relative; font-size: 0.76rem; color: var(--gray-700); line-height: 1.5; padding: 0.32rem 0 0.32rem 1rem; border-bottom: 1px solid var(--gray-100); }
+  .de-vert-list li:last-child { border-bottom: none; }
+  .de-vert-list li::before { content: ''; position: absolute; left: 0; top: 0.72rem; width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
+
+  @media (max-width: 1024px) {
+    .de-stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .de-target-grid, .de-theme-grid { grid-template-columns: repeat(3, 1fr); }
+    .de-invest-grid { grid-template-columns: repeat(2, 1fr); }
+    .de-grow-col, .de-two-col, .de-kaynes { grid-template-columns: 1fr; }
+    .de-home-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .de-stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .de-target-grid, .de-theme-grid, .de-invest-grid { grid-template-columns: 1fr 1fr; }
+    .de-hero-title { font-size: 1.5rem; }
+  }
+
   @media (max-width: 1024px) {
     .sector-detail-grid { grid-template-columns: repeat(2, 1fr); }
     .live-data-grid { grid-template-columns: 1fr; }
@@ -1582,12 +2022,13 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
   document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.portal-tab');
     const todayTab = document.getElementById('tab-today');
+    const digitalTab = document.getElementById('tab-digital');
     const dataTab = document.getElementById('tab-data');
     const discussTab = document.getElementById('tab-discuss');
     const sourcesTab = document.getElementById('tab-sources');
     if (!tabs.length || !todayTab || !dataTab || !discussTab) return;
 
-    const allPanels = { today: todayTab, data: dataTab, discuss: discussTab, sources: sourcesTab };
+    const allPanels = { today: todayTab, digital: digitalTab, data: dataTab, discuss: discussTab, sources: sourcesTab };
 
     // Role dashboard elements
     const roleSelector = document.getElementById('role-no-selection');
