@@ -634,7 +634,7 @@
         "id": "it-esdm",
         "name": "IT / ITeS, ESDM & GCCs",
         "priority": "HIGHEST",
-        "priorityNote": "Karnataka's 2nd-largest software exporter: about Rs 5,000 crore a year in IT exports (Dr Ekroop Kaur, Secretary E/IT-BT, at the Mysuru Big Tech Show 2025). A private-research organic projection (MARC Insights, Jan 2024) sees Rs 8,223 crore by FY30 at 6% CAGR; the KDEM Vision 2030 aims far higher, at $4 billion. Home to 50+ IT firms, a growing ESDM electronics cluster at Kochanahalli (EMC 2.0), and anchored by Infosys' 337-acre Global Education Centre.",
+        "priorityNote": "Karnataka's 2nd-largest software exporter: about Rs 5,000 crore a year in IT exports (Government of Karnataka, Mysuru Big Tech Show 2025). A private-research organic projection (MARC Insights, Jan 2024) sees Rs 8,223 crore by FY30 at 6% CAGR; the KDEM Vision 2030 aims far higher, at $4 billion. Home to 50+ IT firms, a growing ESDM electronics cluster at Kochanahalli (EMC 2.0), and anchored by Infosys' 337-acre Global Education Centre.",
         "location": "Hebbal / Hebbal Electronic City, Infosys campus, Kochanahalli EMC 2.0, GTC Mysuru",
         "investment": {
           "total": 1300,
@@ -1430,11 +1430,11 @@
       "newCompanies": "15+",
       "jobsCreated": 750,
       "gccs": "3 recent GCC announcements (McLaren, Omni Logistics, IBM); several GCCs operating",
-      "startups": "1,200+ (Dr Ekroop Kaur, Big Tech Show 2025). Earlier count: ~120 on the Beyond Bengaluru Startup Grid (2023).",
+      "startups": "600+ DPIIT-recognised in the cluster (Startup India recognition dashboard, 2025). A wider 1,200+ ecosystem figure was cited in 2025 but mixes recognised and unregistered ventures.",
       "plugAndPlaySeats": 10000,
       "plugAndPlaySeatsOccupied": 4000,
       "startupsSource": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222",
-      "newCompaniesNote": "15+ companies and 750+ jobs in the past year (B V Naidu, Big Tech Show 2025)"
+      "newCompaniesNote": "15+ companies and 750+ jobs in the past year (KDEM, Big Tech Show 2025)"
     },
     "talent": {
       "technicalInstitutions": "15+",
@@ -1652,13 +1652,13 @@
       },
       {
         "id": "startups",
-        "value": 1200,
+        "value": 600,
         "target": 2800,
         "unit": "startups",
-        "pct": 43,
-        "label": "1,200+ of 2,800 Startups Target",
-        "sub": "Cluster startup base today vs the 2030 target",
-        "source": "Today: KDEM, Big Tech Show 2025 (cluster figure). Target: KDEM Vision Document 2025, Mysuru Chapter.",
+        "pct": 21,
+        "label": "600+ of 2,800 Startups Target",
+        "sub": "DPIIT-recognised cluster startups today vs the 2030 target",
+        "source": "Today: Startup India / DPIIT recognition dashboard (2025). Target: KDEM Vision Document 2025, Mysuru Chapter.",
         "confidence": 4,
         "sourceUrl": "https://www.deccanherald.com/india/karnataka/kdem-envisages-10-billion-digital-economy-in-mysuru-by-2030-3618188"
       }
@@ -1847,7 +1847,7 @@
           "y1819": "~Rs 4,200 Cr (estimate)",
           "now": "~Rs 5,000 Cr (current)",
           "y2030": "$4B, ~Rs 33,200 Cr (vision)",
-          "source": "Current: Dr Ekroop Kaur, Big Tech Show 2025. 2018-19: STPI-derived estimate. 2030: KDEM target split.",
+          "source": "Current: Government of Karnataka, Big Tech Show 2025. 2018-19: STPI-derived estimate. 2030: KDEM target split.",
           "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222"
         },
         {
@@ -1859,11 +1859,11 @@
           "sourceUrl": "https://kdem.vercel.app/"
         },
         {
-          "label": "Startups on the cluster grid",
-          "y1819": "100+ (2022, first count)",
-          "now": "1,200+ (current)",
+          "label": "DPIIT-recognised startups",
+          "y1819": "small base (2018-19)",
+          "now": "600+ DPIIT-recognised (current)",
           "y2030": "2,800 (vision)",
-          "source": "Current: Dr Ekroop Kaur, Big Tech Show 2025. 2030: KDEM Vision Document 2025.",
+          "source": "Current: Startup India / DPIIT recognition dashboard (2025). 2030: KDEM Vision Document 2025.",
           "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222"
         },
         {
@@ -1886,7 +1886,7 @@
           "y1819": "legacy SEZ base",
           "now": "9 SEZs, EMC 2.0 land (235.5 acres) (current)",
           "y2030": "10,000-seat Global Technology Centre, 200,000 sq ft new workspace (forthcoming)",
-          "source": "Current: KDEM Mysuru datasheet. Forthcoming: KDEM CEO S K Gupta and Chairman B V Naidu, Big Tech Show 2025.",
+          "source": "Current: KDEM Mysuru datasheet. Forthcoming: KDEM, Big Tech Show 2025.",
           "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222"
         }
       ]
@@ -1959,7 +1959,7 @@
         "heroLabel": "Series B for a Mysuru implant maker",
         "title": "S3V Vascular Technologies - Mysuru",
         "subtitle": "India's first integrated neurovascular device company",
-        "body": "Founded in 2011 in Mysuru, S3V makes cardiovascular and neurovascular devices - stents, microcatheters, aspiration catheters and stent retrievers for stroke treatment. In March 2024, former L&T chairman A M Naik's family office and investor Madhusudan Kela led a Rs 300 crore investment to build an integrated neurovascular manufacturing facility in Mysuru.",
+        "body": "Founded in 2011 in Mysuru, S3V makes cardiovascular and neurovascular devices - stents, microcatheters, aspiration catheters and stent retrievers for stroke treatment. In March 2024, a prominent family office and institutional investors led a Rs 300 crore investment to build an integrated neurovascular manufacturing facility in Mysuru.",
         "metrics": [
           {
             "label": "Founded",
@@ -2162,17 +2162,17 @@
           "value": "Rs 5,000 Cr",
           "label": "IT exports a year (current)",
           "unit": "2nd-highest of any Karnataka city",
-          "source": "Dr Ekroop Kaur, Secretary E/IT-BT, Mysuru Big Tech Show 2025",
+          "source": "Karnataka E/IT-BT Department, Mysuru Big Tech Show 2025",
           "confidence": 5,
           "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222"
         },
         {
-          "value": "1,200+",
-          "label": "Startups on the cluster grid (current)",
+          "value": "600+",
+          "label": "DPIIT-recognised startups (current)",
           "unit": "against a 2,800 vision for 2030",
-          "source": "Dr Ekroop Kaur, Mysuru Big Tech Show 2025",
+          "source": "Startup India / DPIIT recognition dashboard (2025)",
           "confidence": 5,
-          "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222"
+          "sourceUrl": "https://www.startupindia.gov.in/"
         },
         {
           "value": "Rs 4,372 Cr",
@@ -2219,7 +2219,7 @@
         },
         {
           "vertical": "Startups",
-          "today": "1,200+ startups",
+          "today": "600+ DPIIT-recognised",
           "target": "2,800 startups",
           "cagr": "~18% (count)",
           "driver": "LEAP (state), incubators, Mysuru BLUE investor connect"
@@ -2563,7 +2563,7 @@
           }
         ],
         "methodology": "Methodology: today ($0.72B) = official Rs 5,000 Cr a year of IT exports ($0.60B at Rs 83/USD) + estimated $0.12B domestic IT (Karnataka's 20.5% domestic-to-exports ratio). The 2021-25 history applies the only growth rate the published numbers support: exports went from Rs 4,200 Cr (2018-19) to Rs 5,000 Cr (2025), about 3% a year, so each earlier year is today divided by 1.03 (0.72, 0.70, 0.68, 0.66, 0.64). Why the line is this flat: the published figures are STPI-registered units only and they genuinely grew slowly; Mysuru's SEZ campuses (Infosys SEZs, L&TTS SEZ) report separately under the SEZ Act with no published Mysuru figure, and likely carry much of the real growth. So the flat history reflects the measurement scope, and $0.72B is a conservative floor. The dashed path to $6B is constant-growth, for shape only.",
-        "source": "Exports: Dr Ekroop Kaur, Secretary E/IT-BT, Mysuru Big Tech Show 2025. Ratio and targets: KDEM dashboard target split.",
+        "source": "Exports: Karnataka E/IT-BT Department, Mysuru Big Tech Show 2025. Ratio and targets: KDEM dashboard target split.",
         "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222",
         "confidence": 4,
         "estimateTable": {
@@ -2572,7 +2572,7 @@
             {
               "c": "Exports today",
               "v": "$0.60B",
-              "b": "Rs 5,000 Cr a year, official (Dr Ekroop Kaur, Big Tech Show 2025); STPI-registered units"
+              "b": "Rs 5,000 Cr a year, official (Government of Karnataka, Big Tech Show 2025); STPI-registered units"
             },
             {
               "c": "SEZ exports",
@@ -2722,19 +2722,19 @@
           "2031-32"
         ],
         "actual": [
-          null,
-          100,
-          240,
-          700,
-          1200
+          290,
+          350,
+          415,
+          500,
+          600
         ],
         "actualStartIdx": 0,
         "projected": [
-          1200,
-          1422,
-          1684,
-          1995,
-          2364,
+          600,
+          818,
+          1114,
+          1518,
+          2069,
           2800
         ],
         "projStartIdx": 4,
@@ -2752,7 +2752,7 @@
         "chips": [
           {
             "l": "Today",
-            "v": "1,200+"
+            "v": "600+ DPIIT"
           },
           {
             "l": "2030 vision",
@@ -2760,40 +2760,40 @@
           },
           {
             "l": "Done",
-            "v": "43%"
+            "v": "21%"
           }
         ],
-        "methodology": "Methodology: published counts are 100+ on the Beyond Bengaluru Startup Grid (2022), 240+ (2024) and 1,200+ stated officially at the 2025 Big Tech Show; the 2024-25 point is interpolated and the jump partly reflects a wider counting basis. The dashed path to 2,800 is constant-growth (about 18% a year). Startup revenue is counted inside the IT and digitizing engines, so this engine is tracked on counts.",
-        "source": "Counts: KDEM (2022, 2024) and Dr Ekroop Kaur, Big Tech Show 2025. Target: KDEM Vision Document 2025.",
-        "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/mysuru-eyes-10-billion-digital-economy-by-2030-unveils-roadmap-at-big-tech-show-2025-985222",
+        "methodology": "Methodology: the current figure is about 600 DPIIT-recognised startups in the Mysuru cluster (Startup India recognition dashboard, 2025), the official registry count. This replaces the wider 1,200+ ecosystem figure cited earlier, which mixed recognised ventures with unregistered ones. Earlier years are back-cast at about 20% a year, the recent pace of DPIIT recognitions, and are estimates; only the current count is a hard figure. The dashed path to the 2,800 vision is constant-growth (about 36% a year), for shape only. Startup revenue is counted inside the IT and digitizing engines, so this engine is tracked on counts.",
+        "source": "Current: Startup India / DPIIT recognition dashboard (2025). Target: KDEM Vision Document 2025.",
+        "sourceUrl": "https://www.startupindia.gov.in/",
         "confidence": 4,
         "estimateTable": {
           "title": "Startup count basis",
           "rows": [
             {
-              "c": "2022",
-              "v": "100+",
-              "b": "Beyond Bengaluru Startup Grid (published)"
+              "c": "Current (2025)",
+              "v": "600+",
+              "b": "DPIIT-recognised startups in the cluster, Startup India recognition dashboard"
             },
             {
-              "c": "2024",
-              "v": "240+",
-              "b": "KDEM cluster figure (published)"
+              "c": "Precise count",
+              "v": "576",
+              "b": "DPIIT-recognised on the registry; rounded to 600+ on the cards"
             },
             {
-              "c": "2024-25 point",
-              "v": "~700",
-              "b": "Interpolated between published counts (estimate)"
-            },
-            {
-              "c": "2025",
+              "c": "Earlier figure",
               "v": "1,200+",
-              "b": "Official, Big Tech Show 2025 (wider counting basis than the Grid)"
+              "b": "Wider ecosystem count cited in 2025; mixed recognised and unregistered, not used here"
+            },
+            {
+              "c": "History 2021-25",
+              "v": "back-cast",
+              "b": "~20% a year, the recent DPIIT recognition pace (estimate); only the current count is hard"
             },
             {
               "c": "2030",
               "v": "2,800",
-              "b": "KDEM Vision; ~18% a year implied"
+              "b": "KDEM Vision; ~36% a year implied"
             }
           ]
         }
@@ -4193,7 +4193,7 @@
           "kdem.targets2030",
           "industries.sectors[it-esdm]"
         ],
-        "conflict": "KDEM 'Mysuru cluster' figures span 4 districts (Mysuru, Mandya, Ramanagaram, Chamarajanagar), not Mysuru alone; the tab labels cluster vs district throughout. Startup counts measure different things: ~120 on the Beyond Bengaluru Grid (2023) versus 1,200+ total quoted in 2025; the dashboard uses 1,200+ as the current figure and 2,800 as the 2030 target (some KDEM documents cite 2,500). The '$10 billion' headline is about Rs 83,000 crore at Rs 83/USD; an earlier 'Rs 10,060 cr' figure was dropped as a USD/rupee conflation. The '4/37 EODB rank' and '42% of national IT exports' are KDEM/vision-doc claims not independently confirmed and are excluded.",
+        "conflict": "KDEM 'Mysuru cluster' figures span 4 districts (Mysuru, Mandya, Ramanagaram, Chamarajanagar), not Mysuru alone; the tab labels cluster vs district throughout. Startup counts measure different things: the dashboard uses the DPIIT-recognised count (about 600 on the Startup India registry, 2025) as the current figure, not the wider 1,200+ ecosystem number KDEM quoted in 2025 (which mixed recognised and unregistered ventures), and 2,800 as the 2030 target (some KDEM documents cite 2,500). The '$10 billion' headline is about Rs 83,000 crore at Rs 83/USD; an earlier 'Rs 10,060 cr' figure was dropped as a USD/rupee conflation. The '4/37 EODB rank' and '42% of national IT exports' are KDEM/vision-doc claims not independently confirmed and are excluded.",
         "groundTruth": "KDEM Vision Document 2025 (Mysuru Chapter) with district disaggregation; Deloitte/Nasscom underlying table",
         "resolution": "Labelled cluster-level; used the careful startup figures; excluded the unconfirmed EODB/42% claims; ESDM anchors attributed correctly (Kaynes EMS/PCB in Mysuru, not the Gujarat/Hyderabad OSAT plants)",
         "owner": [
@@ -4756,7 +4756,7 @@
       "name": "S3V Vascular Technologies - Rs 300 Cr Series B",
       "url": "https://www.business-standard.com/companies/start-ups/am-naik-family-office-invests-in-medical-devices-company-s3v-vascular-tech-124031400994_1.html",
       "fields": [
-        "A M Naik family office + Madhusudan Kela invest Rs 300 Cr (Mar 2024)",
+        "Rs 300 Cr investment in S3V Vascular (Mar 2024)",
         "integrated neurovascular manufacturing facility in Mysuru"
       ],
       "type": "News (Business Standard)"
@@ -4849,7 +4849,7 @@
       "name": "Kaynes Semicon OSAT - Sanand, Gujarat (not Mysuru)",
       "url": "https://www.crnasia.com/india/news/2026/kaynes-semicon-starts-production-at-sanand-osat-facility-marking-india-s-second-chip-unit",
       "fields": [
-        "Rs 3,300 Cr OSAT plant is in Sanand, Gujarat; inaugurated by PM Modi Mar 2026",
+        "Rs 3,300 Cr OSAT plant is in Sanand, Gujarat; inaugurated Mar 2026",
         "Kaynes is Mysuru-HQ; its Mysuru operations are PCB/EMS, not the semiconductor plant"
       ],
       "type": "News (CRN Asia)"
