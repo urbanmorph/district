@@ -779,5 +779,1217 @@
       "fields": ["Development roadmap", "Role dashboards", "Phase budget estimates"],
       "type": "Planning"
     }
-  ]
+  ],
+  "digitalEconomy": {
+    "lastUpdated": "2026-08",
+    "heroBadge": "Karnataka Digital Economy Mission · Hubballi-Dharwad-Belagavi Cluster",
+    "title": "Hubballi-Dharwad-Belagavi Digital Economy",
+    "subtitle": "From Rs 1,750 Cr today to Rs 7,425 Cr by 2031-32",
+    "clusterScopeNote": "KDEM tracks Hubballi-Dharwad-Belagavi (HDB) as one cluster of five North Karnataka districts - Belagavi, Dharwad (which includes the Hubballi and Dharwad cities), Bagalkot, Gadag and Haveri. Figures on this tab are for the HDB cluster unless marked otherwise. Targets are from the KDEM HDB Cluster Vision Document 2025, whose horizon year is 2031-32; Karnataka comparison figures are from the KDEM Strategic Dashboard and the Karnataka Economic Survey.",
+    "context": {
+      "heading": "A Rs 2.79 Lakh Crore Economy Where Digital Is Just Beginning",
+      "sub": "The five HDB districts produce about 11% of Karnataka's GDP, and Belagavi alone is the state's third-largest district economy. The digital economy is a small but fast-rising slice.",
+      "gdpChart": {
+        "labels": [
+          "2020-21",
+          "2021-22",
+          "2022-23",
+          "2023-24"
+        ],
+        "karnatakaScaled": [
+          19.5,
+          23.6,
+          27.3,
+          30.8
+        ],
+        "karnatakaActual": [
+          195,
+          236,
+          273,
+          308
+        ],
+        "mysuru": [
+          7.6,
+          9.1,
+          10.1,
+          11.2
+        ],
+        "mysuruLabels": [
+          22.7,
+          27.2,
+          30.4,
+          33.6
+        ],
+        "rightFactor": 3,
+        "legendKarnataka": "Karnataka GSDP (left axis)",
+        "legendMysuru": "HDB cluster GDDP (right axis)",
+        "mysuruGddpCrores": [
+          188714,
+          225359,
+          252364,
+          278607
+        ],
+        "source": "HDB cluster GDDP is the sum of the five districts' Gross District Domestic Product at current prices, Karnataka Economic Survey district tables (2021-22 to 2024-25 editions), converted at Rs 83/USD. Karnataka GSDP is the same Economic Survey series. Karnataka reads on the left axis, HDB on the right; point labels are in USD billion.",
+        "confidence": 5,
+        "sourceUrl": "https://data.opencity.in/dataset/economic-survey-of-karnataka-2024-25"
+      }
+    },
+    "gaugesHeading": "The Cluster Today vs the 2031-32 Vision",
+    "gaugesSub": "Where the HDB cluster stands now against the KDEM Vision Document targets, and how much is done",
+    "gauges": [
+      {
+        "id": "revenue",
+        "value": 1750,
+        "target": 7425,
+        "unit": "Rs Cr",
+        "pct": 24,
+        "label": "Rs 1,750 Cr of Rs 7,425 Cr revenue target",
+        "sub": "HDB digital-economy revenue today (2025) vs the KDEM Vision 2031-32 target (IT and GCCs + ESDM + startups)",
+        "source": "KDEM HDB Cluster Vision Document 2025 (draft revenue projection; not independently published)",
+        "confidence": 3
+      },
+      {
+        "id": "employment",
+        "value": 30000,
+        "target": 150000,
+        "unit": "jobs",
+        "pct": 20,
+        "label": "30,000 of 1,50,000 jobs vision",
+        "sub": "Tech and tech-enabled employment today vs the 1,00,000 to 1,50,000 jobs vision for 2031-32",
+        "source": "Today ~30,000: KDEM 2024 brochure (not independently verified). Vision: KDEM draft vision document",
+        "confidence": 3
+      },
+      {
+        "id": "startups",
+        "value": 850,
+        "target": 2500,
+        "unit": "startups",
+        "pct": 34,
+        "label": "850 of 2,500 startups vision",
+        "sub": "DPIIT-recognised startups in the five HDB districts today (live count) vs the 2,500+ vision for 2031-32",
+        "source": "Startup India / DPIIT recognition portal, live count 11 Aug 2026: Dharwad 366, Belagavi 332, Bagalkot 63, Gadag 46, Haveri 43",
+        "confidence": 5,
+        "sourceUrl": "https://www.startupindia.gov.in/content/sih/en/search.html?roles=Startup"
+      }
+    ],
+    "trajectoriesHeading": "Riding Karnataka's Compounding Growth",
+    "trajectoriesSub": "Karnataka is heading from $159B to $329B. The HDB cluster's own vision is more modest in absolute terms - Rs 1,750 Cr to Rs 7,425 Cr (about $0.2B to $0.9B) by 2031-32 - but it means growing several times faster than the state off a small base.",
+    "trajectories": {
+      "karnataka": {
+        "heading": "Karnataka's Digital Economy: $159B on the Way to $329B",
+        "sub": "Actuals to FY 2024-25, then KDEM's conservative scenario to 2031-32 (optimistic $406B, stretch $454B)",
+        "years": [
+          "2021-22",
+          "2022-23",
+          "2023-24",
+          "2024-25",
+          "2025-26",
+          "2026-27",
+          "2027-28",
+          "2028-29",
+          "2029-30",
+          "2030-31",
+          "2031-32"
+        ],
+        "actual": [
+          106,
+          121,
+          138,
+          159
+        ],
+        "projected": [
+          159,
+          177,
+          196,
+          217,
+          241,
+          267,
+          297,
+          329
+        ],
+        "projStartIdx": 3,
+        "targetValue": 329,
+        "targetLabel": "Conservative: $329B",
+        "fyMarkerIdx": 3,
+        "fyMarkerLabel": "FY 2024-25",
+        "maxY": 500,
+        "ticks": [
+          0,
+          100,
+          200,
+          300,
+          400,
+          500
+        ],
+        "source": "KDEM Strategic Dashboard (NASSCOM Strategic Review 2025, MeitY, KDEM Excel); series as shown on the dashboard",
+        "confidence": 4,
+        "sourceUrl": "https://kdem.vercel.app/",
+        "actualStartIdx": 0
+      },
+      "mysuru": {
+        "heading": "HDB's Path: Rs 1,750 Cr to Rs 7,425 Cr by 2031-32",
+        "sub": "The document's baseline is Rs 1,750 Cr (2025-26); 2021-22 to 2024-25 are an estimated back-cast (solid), and the path to 2031-32 (dashed) runs through the document's 2027 waypoint of Rs 3,650 Cr.",
+        "unit": "Rs Cr",
+        "years": [
+          "2021-22",
+          "2022-23",
+          "2023-24",
+          "2024-25",
+          "2025-26",
+          "2026-27",
+          "2027-28",
+          "2028-29",
+          "2029-30",
+          "2030-31",
+          "2031-32"
+        ],
+        "actual": [
+          1170,
+          1310,
+          1446,
+          1591,
+          1750
+        ],
+        "actualStartIdx": 0,
+        "projected": [
+          1750,
+          2527,
+          3650,
+          4359,
+          5206,
+          6217,
+          7425
+        ],
+        "projStartIdx": 4,
+        "targetValue": 7425,
+        "targetLabel": "Vision 2031-32: Rs 7,425 Cr",
+        "fyMarkerIdx": 4,
+        "fyMarkerLabel": "Today",
+        "maxY": 8000,
+        "ticks": [
+          0,
+          2000,
+          4000,
+          6000,
+          8000
+        ],
+        "source": "Today (Rs 1,750 Cr, 2025-26) and the path: KDEM HDB Cluster Vision Document 2025 (page 25). History 2021-22 to 2024-25: estimated, GDDP-indexed (Karnataka Economic Survey).",
+        "confidence": 3,
+        "methodology": "Methodology: today (~Rs 1,750 Cr, 2025-26) is the vision document's baseline. The 2021-22 to 2024-25 history scales that anchor by the HDB cluster's official GDDP series (Rs 1.89 lakh crore in 2020-21 to Rs 2.79 lakh crore in 2023-24, extended two years at ~10% to 2025-26), i.e. the digital economy is assumed to have tracked the district economy - an estimate, for shape only. The dashed path forward runs through the document's own 2027 waypoint (Rs 3,650 Cr) to Rs 7,425 Cr by 2031-32. At Rs 83/USD this is roughly $0.14B to $0.90B.",
+        "estimateTable": {
+          "title": "The Rs 7,425 Cr target, by stream (2031-32)",
+          "rows": [
+            {
+              "c": "IT companies and GCCs",
+              "v": "Rs 5,625 Cr",
+              "b": "35 companies, 75,000-90,000 jobs, Rs 5-10 lakh per employee (Vision Document, page 25)"
+            },
+            {
+              "c": "ESDM manufacturing",
+              "v": "Rs 1,050 Cr",
+              "b": "10 setups, 15,000-18,000 jobs, Rs 7-12 lakh per employee (Vision Document, page 25)"
+            },
+            {
+              "c": "Startups",
+              "v": "Rs 750 Cr",
+              "b": "2,500 startups, 25,000-30,000 jobs, Rs 3-8 lakh per employee (Vision Document, page 25)"
+            },
+            {
+              "c": "Total 2031-32",
+              "v": "Rs 7,425 Cr",
+              "b": "Sum of the three streams (KDEM's own lower-estimate revenue projection)"
+            },
+            {
+              "c": "Today (2025)",
+              "v": "~Rs 1,750 Cr",
+              "b": "Modelled as jobs x revenue/employee (lower bound), not measured: IT 25k x Rs 5L = Rs 1,250 Cr + ESDM 5k x Rs 7L = Rs 350 Cr + startups 5k x Rs 3L = Rs 150 Cr (page 25)"
+            }
+          ]
+        }
+      }
+    },
+    "pillarsHeading": "Three Streams to Rs 7,425 Cr",
+    "pillarsSub": "The KDEM vision document's revenue projection rests on three streams. Each is graphed from its 2025 baseline (solid dot) to the 2031-32 target (dashed), through the document's 2027 waypoint. The IT and ESDM revenue figures are the document's own; the startup count is rebased to the live DPIIT figure (850, above the document's 2025 estimate of 500).",
+    "waterfall": {
+      "heading": "How the Streams Add Up to Rs 7,425 Cr",
+      "sub": "The document gives IT and GCCs as one Rs 5,625 Cr block; here it is split into exports and domestic using Karnataka's 20.5% domestic-to-exports ratio (KDEM Strategic Dashboard), the way the Mysuru tab does. Worth flagging critically: this IT-heavy split arguably understates ESDM, because HDB's biggest confirmed investments are all electronics manufacturing (Aequs Rs 3,540 Cr, EMC 2.0, Nidec Rs 600 Cr) and its engineering talent skews electronics and mechanical (see the stream heat map above). A projection truer to HDB's industrial base would likely weight ESDM higher.",
+      "unit": "Rs Cr",
+      "total": 7425,
+      "ticks": [
+        0,
+        2000,
+        4000,
+        6000,
+        7425
+      ],
+      "streams": [
+        {
+          "name": "IT Exports",
+          "value": 4668,
+          "share": 63
+        },
+        {
+          "name": "IT Domestic",
+          "value": 957,
+          "share": 13
+        },
+        {
+          "name": "ESDM",
+          "value": 1050,
+          "share": 14
+        },
+        {
+          "name": "Startups",
+          "value": 750,
+          "share": 10
+        }
+      ],
+      "source": "KDEM HDB Cluster Vision Document 2025 (page 25), published on the KDEM resource page; KDEM's own projection, not independently verified",
+      "confidence": 3,
+      "sourceUrl": "https://karnatakadigital.in/resource/"
+    },
+    "pillarGraphs": [
+      {
+        "id": "it",
+        "name": "IT Services & GCCs",
+        "badge": "CORE ENGINE",
+        "unit": "Rs Cr",
+        "years": [
+          "2021-22",
+          "2022-23",
+          "2023-24",
+          "2024-25",
+          "2025-26",
+          "2026-27",
+          "2027-28",
+          "2028-29",
+          "2029-30",
+          "2030-31",
+          "2031-32"
+        ],
+        "actual": [
+          836,
+          936,
+          1033,
+          1136,
+          1250
+        ],
+        "actualStartIdx": 0,
+        "projected": [
+          1250,
+          1768,
+          2500,
+          3062,
+          3750,
+          4593,
+          5625
+        ],
+        "projStartIdx": 4,
+        "targetValue": 5625,
+        "targetLabel": "2031-32: Rs 5,625 Cr",
+        "fyMarkerIdx": 4,
+        "fyMarkerLabel": "Today",
+        "maxY": 6000,
+        "ticks": [
+          0,
+          1500,
+          3000,
+          4500,
+          6000
+        ],
+        "chips": [
+          {
+            "l": "Today (2025)",
+            "v": "Rs 1,250 Cr"
+          },
+          {
+            "l": "2031-32",
+            "v": "Rs 5,625 Cr"
+          },
+          {
+            "l": "IT cos + GCCs",
+            "v": "10 to 35"
+          }
+        ],
+        "methodology": "Methodology: the Rs 1,250 -> Rs 2,500 -> Rs 5,625 Cr revenue path (about 10 -> 35 companies and GCCs) is the KDEM vision document's draft projection and is not independently published; the line runs through those three anchors, with intermediate years interpolated for shape only. The 2021-22 to 2024-25 history (solid) is an estimate - the Rs 1,250 Cr today scaled backwards by the HDB cluster's official GDDP series (Economic Survey), the same basis as the revenue trajectory above. Publicly, HDB set up or expanded 56 companies over three years (38 new + 18 expanded, KDEM Strategic Dashboard, Mar 2026; 23 new in FY24-25 alone), with early movers Zerodha, Aissel, iMerit and IonIdea cited as creating over 4,000 jobs.",
+        "source": "KDEM HDB Cluster Vision Document 2025 (Revenue Projections; Beyond Bengaluru IT/ITES chapter)",
+        "confidence": 4,
+        "sourceUrl": "https://karnatakadigital.in/kdem-enabled-hubballi-dharwad-belagavi-cluster-to-get-8-new-companies/",
+        "estimateTable": {
+          "title": "IT & GCC stream basis",
+          "rows": [
+            {
+              "c": "Today (2025)",
+              "v": "Rs 1,250 Cr",
+              "b": "KDEM model = lower-bound 25,000 jobs x Rs 5 lakh/employee (not measured revenue; Rs 5L/employee is conservative for IT); ~10 companies and GCCs (page 25)"
+            },
+            {
+              "c": "2027",
+              "v": "Rs 2,500 Cr",
+              "b": "20 companies (KDEM draft projection)"
+            },
+            {
+              "c": "2031-32",
+              "v": "Rs 5,625 Cr",
+              "b": "35 companies, 75,000-90,000 jobs (KDEM draft projection)"
+            },
+            {
+              "c": "Anchors",
+              "v": "IIT/IIIT Dharwad, KLE Tech",
+              "b": "Spoke-and-hub with Bengaluru majors; niche focus on AI, cybersecurity, blockchain"
+            },
+            {
+              "c": "Count split",
+              "v": "10 to 35",
+              "b": "Doc splits it 7 IT firms + 3 GCCs today to 25 IT firms + 10 GCCs by 2031-32; anchored by the Tata Hitachi Global Development Centre in Hubballi-Dharwad (200 engineers targeted by 2027, Deccan Herald 2025)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "esdm",
+        "name": "ESDM Manufacturing",
+        "badge": "EMC 2.0 ENGINE",
+        "unit": "Rs Cr",
+        "years": [
+          "2021-22",
+          "2022-23",
+          "2023-24",
+          "2024-25",
+          "2025-26",
+          "2026-27",
+          "2027-28",
+          "2028-29",
+          "2029-30",
+          "2030-31",
+          "2031-32"
+        ],
+        "actual": [
+          234,
+          262,
+          289,
+          318,
+          350
+        ],
+        "actualStartIdx": 0,
+        "projected": [
+          350,
+          495,
+          700,
+          775,
+          857,
+          949,
+          1050
+        ],
+        "projStartIdx": 4,
+        "targetValue": 1050,
+        "targetLabel": "2031-32: Rs 1,050 Cr",
+        "fyMarkerIdx": 4,
+        "fyMarkerLabel": "Today",
+        "maxY": 1200,
+        "ticks": [
+          0,
+          300,
+          600,
+          900,
+          1200
+        ],
+        "chips": [
+          {
+            "l": "Today (2025)",
+            "v": "Rs 350 Cr"
+          },
+          {
+            "l": "2031-32",
+            "v": "Rs 1,050 Cr"
+          },
+          {
+            "l": "Setups",
+            "v": "5 to 10"
+          }
+        ],
+        "methodology": "Methodology: the Rs 350 -> Rs 700 -> Rs 1,050 Cr revenue path (5 -> 10 setups) is the KDEM vision document's draft projection and is not independently published. What IS independently confirmed is the hardware: EMC 2.0 at Kotur-Belur, Dharwad was MeitY-sanctioned in 2023 as Karnataka's second Electronics Manufacturing Cluster - 224.5 acres, Rs 180 Cr project cost (Rs 89 Cr central grant), 9 firms committing Rs 340 Cr and about 2,500 direct jobs, catalysing over Rs 1,500 Cr; the wider Dharwad electronics pipeline is now put at Rs 3,000+ Cr with 18,000+ jobs projected. Aequs is building a Rs 3,540 Cr consumer-electronics cluster (~400 acres, ~20,000 jobs) and Nidec a Rs 600 Cr motor plant (scaling toward 3,000 jobs) in Dharwad. The 2021-22 to 2024-25 history (solid) is estimated by scaling the Rs 350 Cr today backwards on the cluster's official GDDP series (Economic Survey).",
+        "source": "EMC 2.0 confirmed via MeitY / Business Standard / Business Today (2023). Revenue projection: KDEM HDB Cluster Vision Document 2025.",
+        "confidence": 4,
+        "sourceUrl": "https://www.business-standard.com/article/economy-policy/centre-approves-electronic-manufacturing-cluster-in-hubli-karnataka-123032401138_1.html",
+        "estimateTable": {
+          "title": "ESDM stream basis",
+          "rows": [
+            {
+              "c": "Today (2025)",
+              "v": "Rs 350 Cr",
+              "b": "KDEM model = lower-bound 5,000 jobs x Rs 7 lakh/employee (not measured revenue); 5 setups (page 25)"
+            },
+            {
+              "c": "2031-32",
+              "v": "Rs 1,050 Cr",
+              "b": "10 setups, 15,000-18,000 jobs (KDEM projection)"
+            },
+            {
+              "c": "EMC 2.0 (confirmed)",
+              "v": "Rs 180 Cr",
+              "b": "MeitY-sanctioned 2023, Kotur-Belur, Dharwad; 224.5 acres, Rs 89 Cr central grant; ~2,500 direct jobs committed, 18,000+ projected (Business Standard, 2023)"
+            },
+            {
+              "c": "Committed",
+              "v": "Rs 340 Cr",
+              "b": "9 firms committed; over Rs 1,500 Cr catalysed investment (official, 2023)"
+            },
+            {
+              "c": "Aequs cluster",
+              "v": "Rs 3,540 Cr",
+              "b": "Separate private consumer-electronics cluster, Dharwad, ~400 acres, ~20,000 jobs (Deccan Herald / IBEF)"
+            },
+            {
+              "c": "Nidec plant",
+              "v": "Rs 600 Cr",
+              "b": "Motor manufacturing facility, Dharwad, scaling from 800 toward 3,000 jobs (DQIndia, 2025)"
+            },
+            {
+              "c": "Design base",
+              "v": "Sankalp, Vayavya",
+              "b": "Sankalp Semiconductor (Hubballi, now HCLTech, 650+ engineers), Vayavya Labs (Belagavi, automotive silicon)"
+            }
+          ]
+        }
+      },
+      {
+        "id": "startups",
+        "name": "Startups & Innovation",
+        "badge": "ECOSYSTEM ENGINE",
+        "unit": "startups (count)",
+        "years": [
+          "2021-22",
+          "2022-23",
+          "2023-24",
+          "2024-25",
+          "2025-26",
+          "2026-27",
+          "2027-28",
+          "2028-29",
+          "2029-30",
+          "2030-31",
+          "2031-32"
+        ],
+        "actual": [
+          410,
+          492,
+          590,
+          708,
+          850
+        ],
+        "actualStartIdx": 0,
+        "projected": [
+          850,
+          1017,
+          1218,
+          1458,
+          1745,
+          2089,
+          2500
+        ],
+        "projStartIdx": 4,
+        "targetValue": 2500,
+        "targetLabel": "Vision 2031-32: 2,500",
+        "fyMarkerIdx": 4,
+        "fyMarkerLabel": "Today",
+        "maxY": 3000,
+        "ticks": [
+          0,
+          1000,
+          2000,
+          3000
+        ],
+        "chips": [
+          {
+            "l": "Today (DPIIT, 2026)",
+            "v": "850"
+          },
+          {
+            "l": "2031-32",
+            "v": "2,500+"
+          },
+          {
+            "l": "Revenue",
+            "v": "Rs 150 to 750 Cr"
+          }
+        ],
+        "methodology": "Methodology: today's figure is the live DPIIT-recognised startup count across the five HDB districts on the Startup India portal (accessed 11 Aug 2026): Dharwad 366, Belagavi 332, Bagalkot 63, Gadag 46, Haveri 43 = 850 (a live district filter, so cite with the access date). This already exceeds the KDEM vision document's own 2025 planning figure of 500. The 2021-22 to 2024-25 history (solid) is back-cast at about 20% a year, the recent DPIIT recognition pace - an estimate; only the current 850 is a hard count. The path to the 2,500 vision is a constant-growth line through 2031-32 (about 17% a year), for shape only. Cluster-wide, KDEM reports 400+ operational startups, 80+ funded, 90+ IP filings and 4,500+ jobs over three years (Techceleration 2025), supported by the Deshpande Foundation, KLE-CTIE, K-Tech and IIT/IIIT Dharwad. Startup revenue is a small, modelled stream (the doc's Rs 150 Cr today is 5,000 jobs x Rs 3 lakh/employee off a 500-startup base, so it lags the live count of 850; Rs 750 Cr by 2031-32), so this engine is tracked on counts.",
+        "source": "Today: Startup India / DPIIT recognition portal (live, 11 Aug 2026). Target: KDEM HDB Cluster Vision Document 2025.",
+        "confidence": 5,
+        "sourceUrl": "https://www.startupindia.gov.in/content/sih/en/search.html?roles=Startup",
+        "estimateTable": {
+          "title": "Startup count basis",
+          "rows": [
+            {
+              "c": "Today (DPIIT, Aug 2026)",
+              "v": "850",
+              "b": "Live DPIIT-recognised count, Startup India portal: Dharwad 366 + Belagavi 332 + Bagalkot 63 + Gadag 46 + Haveri 43"
+            },
+            {
+              "c": "vs KDEM plan",
+              "v": "500 (2025)",
+              "b": "The draft vision document's own 2025 figure; the real recognised count already exceeds it"
+            },
+            {
+              "c": "Cluster totals",
+              "v": "400+ / 80+ / 90+",
+              "b": "400+ operational startups, 80+ funded, 90+ IP filings, 4,500+ jobs over 3 years (DQIndia, Techceleration 2025); women-founder share is KDEM-cited, not independently verified"
+            },
+            {
+              "c": "2031-32",
+              "v": "2,500+",
+              "b": "KDEM roadmap target (Techceleration 2025); revenue Rs 750 Cr is the draft projection"
+            },
+            {
+              "c": "Notable",
+              "v": "Docketrun, LabinApp, iMerit",
+              "b": "Y Combinator and other investor backing"
+            }
+          ]
+        }
+      }
+    ],
+    "projections": {
+      "heading": "Rs 1,750 Cr Today, Rs 7,425 Cr by 2031-32: What Each Stream Must Do",
+      "targetColLabel": "2031-32 Target",
+      "sub": "The 'today' figures are not measured revenue - the KDEM vision document (page 25) models each as employment x average revenue per employee, taking the lower bound of each range. They are only as solid as those two assumptions, and no independent HDB IT-export or ESDM-output figure exists to check them against.",
+      "rows": [
+        {
+          "vertical": "IT Services & GCCs",
+          "today": "Rs 1,250 Cr (25k jobs x Rs 5L)",
+          "target": "Rs 5,625 Cr",
+          "cagr": "~24%",
+          "driver": "Needs ~25 more mid-size IT firms and 10+ GCCs: spoke-shore units of Bengaluru majors (Infosys, Accenture, HCL, TCS are the named targets) at Aryabhatta Tech Park (Hubballi) and Desur IT Park (Belagavi), scaling on the Hitachi GDC (200 engineers by 2027) and the 4,000+ jobs already at Zerodha, iMerit, IonIdea and Aissel"
+        },
+        {
+          "vertical": "ESDM Manufacturing",
+          "today": "Rs 350 Cr (5k jobs x Rs 7L)",
+          "target": "Rs 1,050 Cr",
+          "cagr": "~17%",
+          "driver": "Rests on plants already committed: the Aequs Rs 3,540 Cr electronics cluster (~20,000 jobs), EMC 2.0 at Kotur-Belur (9 firms, Rs 340 Cr), the Nidec Rs 600 Cr motor plant, and Sankalp / HCLTech's Hubballi chip-design centre coming on stream"
+        },
+        {
+          "vertical": "Startups",
+          "today": "850 DPIIT (Rs 150 Cr modelled)",
+          "target": "2,500 (Rs 750 Cr)",
+          "cagr": "~17% (count)",
+          "driver": "Funded by the Rs 1,000 Cr LEAP programme and Rs 25 Cr Cluster Seed Fund, incubated at 11 new TBIs (KLE Tech, VTU/VRIF, Gogte), the Deshpande Foundation sandbox and KLE-CTIE - about 275 net-new DPIIT startups a year from 850 today"
+        }
+      ],
+      "totalRow": {
+        "vertical": "Total (KDEM model)",
+        "today": "~Rs 1,750 Cr (modelled)",
+        "target": "Rs 7,425 Cr",
+        "cagr": "~23%",
+        "driver": "The three revenue streams KDEM models for the HDB cluster (Vision Document 2025, page 25); a modelled lower estimate, not measured revenue"
+      },
+      "note": "How the today figures are built (KDEM's model, lower bound of each range): IT and GCCs Rs 1,250 Cr = 25,000 jobs x Rs 5 lakh/employee; ESDM Rs 350 Cr = 5,000 jobs x Rs 7 lakh/employee; startups Rs 150 Cr = 5,000 jobs x Rs 3 lakh/employee. These are modelled estimates, not measured revenue - the Rs 5 lakh/employee IT figure is conservative and the headcounts are the document's own. Note those 2025 headcounts (IT 25,000 + ESDM 5,000 + startups 5,000) sum to about 35,000, more than the document's own ~30,000 total-employment figure used in the gauge - an inconsistency in the source, so read the per-stream headcounts as revenue-model inputs, not a workforce census. Implied CAGR is simple arithmetic to the 2031-32 target over seven years. Only these three streams count: unlike the Mysuru tab (a bottom-up $10B build on KDEM's 5-stream dashboard), the HDB vision document's Rs 7,425 Cr has no digitizing-sectors or biotech line, and KDEM publishes digitizing only Beyond-Bengaluru-wide, so neither is shown here. The startup base is shown as the live DPIIT count (850); the Rs 150 Cr revenue is the document's separate 500-startup modelled basis.",
+      "source": "KDEM HDB Cluster Vision Document 2025 (page 25), published on the KDEM resource page; KDEM's own planning figures, not independently verified",
+      "confidence": 3,
+      "sourceUrl": "https://karnatakadigital.in/resource/"
+    },
+    "growthStory": {
+      "heading": "The Growth Story: Recent Traction, Today, and 2031-32",
+      "sub": "Ecosystem metrics for the HDB cluster, not company revenues. Where a value is an estimate or a target it is marked.",
+      "colPast": "Recent traction",
+      "colNow": "Now (2025)",
+      "colVision": "Vision 2031-32",
+      "metrics": [
+        {
+          "label": "Digital-economy revenue",
+          "y1819": "-",
+          "now": "Rs 1,750 Cr",
+          "y2030": "Rs 7,425 Cr",
+          "source": "KDEM HDB Vision Document 2025 (draft projection, page 25; not independently published)"
+        },
+        {
+          "label": "Companies established",
+          "y1819": "56 in 3 years (38 new + 18 expanded)",
+          "now": "23 new in FY24-25 alone",
+          "y2030": "25+ IT cos, 10+ GCCs (vision)",
+          "source": "KDEM Strategic Dashboard (BB Data Points, Mar 2026)",
+          "sourceUrl": "https://kdem.vercel.app/"
+        },
+        {
+          "label": "Tech and tech-enabled jobs",
+          "y1819": "5,500+ direct jobs onboarded (Mar 2025)",
+          "now": "~30,000 (KDEM 2024 brochure)",
+          "y2030": "1,00,000 to 1,50,000 (vision)",
+          "source": "Onboarded jobs: DQIndia (2025). Employment base and vision: KDEM (2024 brochure; draft vision)"
+        },
+        {
+          "label": "Startups",
+          "y1819": "400+ KDEM-supported, 80+ funded, 90+ IP filings",
+          "now": "850 DPIIT-recognised (Aug 2026)",
+          "y2030": "2,500+ (vision)",
+          "source": "KDEM-supported totals: DQIndia (2025). DPIIT live count: Startup India portal (Aug 2026). These are two different lenses, not the same metric growing.",
+          "sourceUrl": "https://www.dqindia.com/esdm/techceleration-2025-unveils-draft-hdb-cluster-vision-with-1000-cr-investment-and-roadmap-to-2500-startups-9693466"
+        },
+        {
+          "label": "ESDM anchors",
+          "y1819": "Aequs Rs 3,540 Cr; EMC 2.0 (2023) 9 firms Rs 340 Cr; Nidec Rs 600 Cr; TSUYO Rs 200 Cr (Hubballi EV)",
+          "now": "5 setups",
+          "y2030": "10+ setups (vision)",
+          "source": "Aequs/EMC/Nidec/TSUYO: Business Standard, Deccan Herald, KDEM Strategic Dashboard. Setup counts: KDEM draft vision",
+          "sourceUrl": "https://kdem.vercel.app/"
+        },
+        {
+          "label": "IP filings (cluster)",
+          "y1819": "90+ filings",
+          "now": "-",
+          "y2030": "strong IP and product pipeline",
+          "source": "DQIndia / KDEM (2025)",
+          "sourceUrl": "https://www.dqindia.com/esdm/techceleration-2025-unveils-draft-hdb-cluster-vision-with-1000-cr-investment-and-roadmap-to-2500-startups-9693466"
+        }
+      ]
+    },
+    "traction": {
+      "heading": "56 Companies in 3 Years: It Is Already Happening",
+      "sub": "New setups and expansions in the HDB cluster, from KDEM's Beyond Bengaluru tracking",
+      "chartTitle": "New and Expanded Companies in the HDB Cluster",
+      "years": [
+        "FY 23-24",
+        "FY 24-25",
+        "FY 25-26"
+      ],
+      "maxV": 24,
+      "ticks": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "newCompanies": [
+        11,
+        23,
+        4
+      ],
+      "expandedCompanies": [
+        3,
+        7,
+        8
+      ],
+      "totals": {
+        "new": 38,
+        "expanded": 18,
+        "all": 56
+      },
+      "jobsNote": "KDEM publishes year-wise jobs only as a Beyond Bengaluru combined figure, not an HDB-only split, so the table shows company counts rather than an HDB jobs number.",
+      "source": "KDEM Internal, March 2026 (BB Data Points), via the KDEM Strategic Dashboard",
+      "confidence": 4,
+      "sourceUrl": "https://kdem.vercel.app/"
+    },
+    "headlineMetrics": {
+      "heading": "The Cluster Scoreboard",
+      "sub": "Current, sourced headline metrics for the HDB cluster",
+      "cards": [
+        {
+          "value": "Rs 2.79 L Cr",
+          "label": "HDB cluster economy: all 5 districts (2023-24)",
+          "unit": "Belagavi 99k + Dharwad 60k + Bagalkot 59k + Haveri 36k + Gadag 25k Cr = ~11% of Karnataka's GDP (Belagavi, the cluster's largest district, is the state's 3rd-largest economy)",
+          "source": "Karnataka Economic Survey 2024-25 district tables (sum of the 5 HDB districts)",
+          "confidence": 5,
+          "sourceUrl": "https://data.opencity.in/dataset/economic-survey-of-karnataka-2024-25"
+        },
+        {
+          "value": "Rs 1,750 Cr",
+          "label": "Digital-economy revenue (2025)",
+          "unit": "IT and GCCs + ESDM + startups; target Rs 7,425 Cr by 2031-32",
+          "source": "KDEM HDB Cluster Vision Document 2025 (page 25)",
+          "confidence": 4
+        },
+        {
+          "value": "56 companies",
+          "label": "Set up or expanded in 3 years",
+          "unit": "38 new + 18 expanded (FY23-24 to FY25-26); 23 new in FY24-25 alone",
+          "source": "KDEM Strategic Dashboard (BB Data Points, Mar 2026)",
+          "confidence": 4,
+          "sourceUrl": "https://kdem.vercel.app/"
+        },
+        {
+          "value": "EMC 2.0",
+          "label": "Electronics cluster, Kotur-Belur, Dharwad",
+          "unit": "MeitY-sanctioned 2023, 224.5 acres, Rs 180 Cr; 9 firms committed Rs 340 Cr (~2,500 direct jobs); 18,000+ projected across the electronics pipeline",
+          "source": "MeitY / Business Standard / Business Today (2023)",
+          "confidence": 5,
+          "sourceUrl": "https://www.business-standard.com/article/economy-policy/centre-approves-electronic-manufacturing-cluster-in-hubli-karnataka-123032401138_1.html"
+        },
+        {
+          "value": "850",
+          "label": "DPIIT-recognised startups (Aug 2026)",
+          "unit": "Dharwad 366, Belagavi 332, Bagalkot 63, Gadag 46, Haveri 43; vision 2,500",
+          "source": "Startup India / DPIIT recognition portal (live district filter, accessed 11 Aug 2026)",
+          "confidence": 4,
+          "sourceUrl": "https://www.startupindia.gov.in/content/sih/en/search.html?roles=Startup"
+        },
+        {
+          "value": "Rs 3,540 Cr",
+          "label": "Aequs electronics cluster, Dharwad",
+          "unit": "Private consumer-electronics cluster, ~400 acres, ~20,000 direct jobs",
+          "source": "Deccan Herald / IBEF",
+          "confidence": 4,
+          "sourceUrl": "https://www.deccanherald.com/state/aequs-to-invest-rs-3540-crore-for-home-appliances-cluster-in-karnatakas-dharwad-919893.html"
+        },
+        {
+          "value": "Rs 1,000 Cr",
+          "label": "LEAP programme (state, 5 years)",
+          "unit": "Beyond Bengaluru clusters incl. HDB; plus a Rs 25 Cr Cluster Seed Fund and a Rs 1,000+ Cr HDB investment framework",
+          "source": "Deccan Herald / Hans India (2025)",
+          "confidence": 5,
+          "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/govt-unveils-rs-1000-crore-leap-programme-to-drive-innovation-across-state-1009057"
+        },
+        {
+          "value": "35,000+",
+          "label": "Students a year",
+          "unit": "from 200+ colleges (43 engineering, 127 degree, 49 diploma) incl. IIT/IIIT Dharwad and KLE Tech",
+          "source": "KDEM Beyond Bengaluru",
+          "confidence": 4,
+          "sourceUrl": "https://karnatakadigital.in/beyond-bengaluru-1/"
+        }
+      ]
+    },
+    "industriesReady": {
+      "heading": "Three Industries HDB Is Built to Digitize",
+      "sub": "The sectors where the cluster's existing base and institutions give it a real head start. Revenue and jobs ranges are indicative of the opportunity, not committed targets.",
+      "cards": [
+        {
+          "group": "Automotive & EV Electronics",
+          "proximity": 5,
+          "targetRevenue": "Rs 1,000+ Cr",
+          "targetJobs": "18,000+ (projected)",
+          "rationale": "EMC 2.0 at Kotur-Belur, Dharwad (MeitY-sanctioned 2023, 224.5 acres, Rs 180 Cr) anchors auto electronics (sensors, ECUs, battery management), drones and EVs; Aequs is adding a Rs 3,540 Cr consumer-electronics cluster and Nidec a Rs 600 Cr motor plant in Dharwad. Tata Hitachi runs a Global Development Centre in Hubballi-Dharwad (200 engineers targeted by 2027); Belagavi hosts homegrown EV maker Rivot Motors and the KDEM-backed Drone and EV (DRoEV) initiative.",
+          "existing": "EMC 2.0 (9 firms, Rs 340 Cr), Aequs (Rs 3,540 Cr), Nidec (Rs 600 Cr), Tata Hitachi GDC, Rivot Motors"
+        },
+        {
+          "group": "Semiconductor & ESDM Design",
+          "proximity": 4,
+          "targetRevenue": "Rs 1,050 Cr",
+          "targetJobs": "15,000-18,000",
+          "rationale": "Hubballi has a two-decade semiconductor-design lineage. Sankalp Semiconductor was founded here in 2005 (analog and mixed-signal design, now part of HCLTech) with 650+ engineers; Vayavya Labs (Belagavi) builds automotive device software. IIT Dharwad adds hardware and cybersecurity R&D.",
+          "existing": "Sankalp Semiconductor (HCLTech), Vayavya Labs, Cyient, IIT Dharwad"
+        },
+        {
+          "group": "Agritech & Precision Agriculture",
+          "proximity": 4,
+          "targetRevenue": "opportunity",
+          "targetJobs": "large",
+          "rationale": "North Karnataka is an agricultural heartland. The University of Agricultural Sciences Dharwad, a horticulture-biotech incubator at Bagalkot and a growing set of agri startups create a digital layer over existing value chains in cotton, chilli, sugar and horticulture.",
+          "existing": "UAS Dharwad, Ken Agritech, Bagalkot horticulture TBI, cluster agritech startups"
+        }
+      ],
+      "source": "KDEM HDB Cluster Vision Document 2025; company sources named on each card",
+      "confidence": 3,
+      "sourceUrl": "https://karnatakadigital.in/"
+    },
+    "storiesHeading": "The Stories That Prove It",
+    "storiesSub": "HDB-cluster companies with real, verified numbers",
+    "stories": [
+      {
+        "featured": true,
+        "heroValue": "Rs 245 Cr",
+        "heroLabel": "MosChip's deal for 73% (announced, pending)",
+        "title": "Vayavya Labs - Belagavi",
+        "subtitle": "Automotive silicon software from North Karnataka, drawing a Rs 245 Cr deal",
+        "body": "Founded in Belagavi in 2006, Vayavya Labs builds software for the hardware-software interface in vehicles - virtual ECUs and digital twins, verification and validation for ADAS and autonomous driving, and software-defined-vehicle architectures. It was named in Forbes India's Top 200 Global Business Potential list, with turnover of about Rs 66 Cr in FY25 rising to Rs 83 Cr in FY26. In April 2026, listed chip firm MosChip agreed to acquire a 73% stake for Rs 245.49 Cr (Rs 148.52 Cr cash plus equity). As of August 2026 the deal is not yet closed - it is stalled under a Supreme Court status-quo order and the shareholder meeting was postponed.",
+        "metrics": [
+          {
+            "label": "Founded",
+            "value": "2006, Belagavi"
+          },
+          {
+            "label": "Turnover FY26",
+            "value": "Rs 83 Cr"
+          },
+          {
+            "label": "MosChip deal (Apr 2026)",
+            "value": "Rs 245.49 Cr / 73%, pending"
+          }
+        ],
+        "significance": "A Belagavi-headquartered chip-software company built globally competitive automotive silicon IP and drew a Rs 245 Cr acquisition offer (announced April 2026, not yet closed)",
+        "source": "MosChip deal + FY26 turnover: MosChip disclosure / YourStory / ScanX (Apr-May 2026); deal pending under a Supreme Court status-quo order. FY25 revenue: Tracxn.",
+        "confidence": 4,
+        "series": {
+          "label": "Turnover (Rs Cr)",
+          "points": [
+            {
+              "x": "FY25",
+              "y": 66
+            },
+            {
+              "x": "FY26",
+              "y": 83
+            }
+          ],
+          "note": "FY25 about Rs 64-66 Cr (Tracxn); FY26 Rs 83 Cr consolidated turnover per MosChip's April 2026 disclosure.",
+          "source": "Tracxn; MosChip disclosure"
+        },
+        "sourceUrl": "https://yourstory.com/enterprise-story/2026/04/moschip-to-acquire-73-stake-in-vayavya-labs-for-rs-245-crore"
+      },
+      {
+        "heroValue": "250 to 600",
+        "heroLabel": "Hubballi AI-centre headcount",
+        "title": "iMerit - Hubballi",
+        "subtitle": "An AI training-data Centre of Excellence, built with the Deshpande Foundation",
+        "body": "iMerit opened a Centre of Excellence for AI and machine-learning training data in Hubballi in partnership with the Deshpande Foundation, part of its work bringing tech careers to smaller cities. KDEM tracks the Hubballi centre growing from about 250 to around 600 people, serving autonomous-vehicle, agri and medical AI clients.",
+        "metrics": [
+          {
+            "label": "Centre",
+            "value": "Hubballi (10th globally)"
+          },
+          {
+            "label": "Partner",
+            "value": "Deshpande Foundation"
+          },
+          {
+            "label": "Focus",
+            "value": "AI/ML training data"
+          }
+        ],
+        "significance": "Global AI-services work delivered from Hubballi, with talent drawn from the region",
+        "source": "iMerit (PR Newswire, 2021); KDEM Beyond Bengaluru tracking",
+        "confidence": 3,
+        "series": {
+          "label": "Headcount",
+          "points": [
+            {
+              "x": "At launch",
+              "y": 250
+            },
+            {
+              "x": "Now",
+              "y": 600
+            }
+          ],
+          "note": "Approximate headcount growth at the Hubballi centre as tracked by KDEM.",
+          "source": "KDEM Beyond Bengaluru"
+        },
+        "sourceUrl": "https://www.prnewswire.com/in/news-releases/imerit-expands-by-opening-a-new-center-of-excellence-for-ai-training-data-in-hubballi-842388166.html"
+      }
+    ],
+    "policySchemes": {
+      "heading": "Policy Firepower HDB Can Draw On",
+      "sub": "State and central schemes that specifically name or favour the HDB cluster",
+      "rows": [
+        {
+          "name": "LEAP (Local Economy Accelerator)",
+          "allocation": "Rs 1,000 Cr (5 yrs)",
+          "scope": "State, Beyond Bengaluru",
+          "target": "Rs 1,000 Cr total over 5 years for BB clusters incl. HDB; includes a Rs 300 Cr fund-of-funds and a Rs 100 Cr deep-tech corpus",
+          "confidence": 5
+        },
+        {
+          "name": "Cluster Seed Fund (CSF)",
+          "allocation": "Rs 25 Cr per cluster",
+          "scope": "State, Beyond Bengaluru",
+          "target": "Rs 25 Cr for the HDB cluster (Rs 75 Cr across Mysuru, HDB and Mangaluru); SEBI Category-I fund run by KDEM",
+          "confidence": 4
+        },
+        {
+          "name": "Karnataka ESDM incentives (K-ESDM)",
+          "allocation": "10% capex, up to Rs 10 Cr",
+          "scope": "State",
+          "target": "10% capital subsidy up to Rs 10 Cr for anchor units; Hubballi-Dharwad is a recognised ESDM cluster (policy being renewed under the Industrial Policy 2025-30)",
+          "confidence": 4
+        },
+        {
+          "name": "Karnataka Startup Policy 2022-27",
+          "allocation": "Up to Rs 50 L / 50% CapEx",
+          "scope": "State",
+          "target": "Elevate Idea2PoC grant up to Rs 50 lakh; 50% incubator CapEx support outside Bengaluru; dedicated BB seed funds for tier-2 hubs like Hubballi",
+          "confidence": 4
+        },
+        {
+          "name": "Karnataka Cyber Security Policy 2024",
+          "allocation": "Rs 103.87 Cr",
+          "scope": "State",
+          "target": "Rs 103.87 Cr allocated statewide over 5 years; IIT Dharwad adds hardware-security research (the state cyber CoE, CySecK, is anchored at IISc Bengaluru)",
+          "confidence": 4
+        },
+        {
+          "name": "Karnataka Data Centre Policy 2022",
+          "allocation": "100% land-conversion waiver",
+          "scope": "State (outside Bengaluru)",
+          "target": "Belagavi eligible; 100% land-conversion fee exemption, FAR relaxation and 5-year electricity duty exemption",
+          "confidence": 4
+        },
+        {
+          "name": "AI in Hubballi (IndiaAI + Infosys)",
+          "allocation": "National + private",
+          "scope": "National / HDB",
+          "target": "Access to IndiaAI Mission compute and FutureSkills PRIME skilling; Infosys opened an AI, Cybersecurity and Space-Tech centre in Hubballi (2025)",
+          "confidence": 4
+        },
+        {
+          "name": "NAIN + TBI 2.0",
+          "allocation": "Rs 10 Cr per TBI",
+          "scope": "State",
+          "target": "NAIN centres at KLE Tech, BVBCET (Hubballi) and Gogte (Belagavi); new TBIs incl. VTU/VRIF and KLE Tech Belagavi",
+          "confidence": 4
+        }
+      ],
+      "source": "LEAP: Deccan Herald / Hans India (2025). Cyber Security Policy 2024, Startup/Data Centre policies: Karnataka E/IT-BT Department. K-ESDM: k-tech. Infosys Hubballi: YourStory (2025).",
+      "sourceUrl": "https://www.thehansindia.com/news/cities/bengaluru/govt-unveils-rs-1000-crore-leap-programme-to-drive-innovation-across-state-1009057"
+    },
+    "talentSection": {
+      "heading": "The Talent Base: 35,000+ Students a Year",
+      "sub": "HDB's education depth and the road to the 1,00,000 to 1,50,000 jobs vision, from the KDEM Vision Document",
+      "years": [
+        "2021-22",
+        "2022-23",
+        "2023-24",
+        "2024-25",
+        "2025-26",
+        "2026-27",
+        "2027-28",
+        "2028-29",
+        "2029-30",
+        "2030-31",
+        "2031-32"
+      ],
+      "actual": [
+        19066,
+        21354,
+        23916,
+        26786,
+        30000
+      ],
+      "actualStartIdx": 0,
+      "projected": [
+        30000,
+        45000,
+        45000,
+        60000,
+        100000,
+        125000,
+        150000
+      ],
+      "projStartIdx": 4,
+      "targetValue": 150000,
+      "targetLabel": "Vision 2031-32: 1,50,000",
+      "actualLegend": "Estimated tech employment",
+      "projectedLegend": "KDEM year-wise plan to 2031-32",
+      "fyMarkerIdx": 4,
+      "fyMarkerLabel": "Today (2025-26)",
+      "maxY": 160000,
+      "ticks": [
+        0,
+        40000,
+        80000,
+        120000,
+        160000
+      ],
+      "chips": [
+        {
+          "value": "35,000+",
+          "label": "Students a year (200+ colleges)"
+        },
+        {
+          "value": "25-30%",
+          "label": "Cost advantage vs Bengaluru"
+        },
+        {
+          "value": "~400+",
+          "label": "Co-working seats"
+        },
+        {
+          "value": "0.5M sq ft",
+          "label": "Plug-and-play space"
+        },
+        {
+          "value": "IIT + IIIT",
+          "label": "Dharwad, plus KLE Tech"
+        }
+      ],
+      "methodology": "Methodology: the KDEM year-wise plan sets total cluster employment at about 30,000 (2025-26), 45,000 (2026-27), 60,000 (2028-29) and 1,00,000 (2029-30), rising to 1,50,000 by 2031-32. The 2021-22 to 2024-25 history (solid) is back-cast from the ~30,000 baseline at about 12% a year - an estimate, for shape only. The pipeline is fed by 200+ colleges producing 35,000+ graduates a year, including IIT Dharwad, IIIT Dharwad and KLE Technological University, with skilling through the Deshpande Foundation, FUEL, NTTF, Nipuna and NASSCOM FutureSkills.",
+      "source": "KDEM HDB Cluster Vision Document 2025 (year-wise employment plan; talent chapter, pages 21, 38)",
+      "confidence": 3,
+      "estimateTable": {
+        "title": "Talent and jobs basis",
+        "rows": [
+          {
+            "c": "Colleges",
+            "v": "200+",
+            "b": "43 engineering, 127 degree, 49 diploma colleges (KDEM Beyond Bengaluru)"
+          },
+          {
+            "c": "Students a year",
+            "v": "~35,000",
+            "b": "Confirmed by KDEM Beyond Bengaluru; the fresh/STEM split from the 2024 brochure is not independently verifiable"
+          },
+          {
+            "c": "Employment 2025",
+            "v": "~30,000",
+            "b": "KDEM 2024 brochure; not independently verified. DQIndia (2025) cites 5,500+ direct jobs onboarded and a 50,000+ IT/BPM pipeline"
+          },
+          {
+            "c": "2031-32",
+            "v": "1,00,000-1,50,000",
+            "b": "KDEM draft jobs vision; the gauge uses the 1,50,000 upper bound"
+          },
+          {
+            "c": "Cost advantage",
+            "v": "25-30%",
+            "b": "Lower talent cost vs Bengaluru (NASSCOM-Deloitte, via KDEM)"
+          }
+        ]
+      }
+    },
+    "talentHeatmap": {
+      "heading": "Where the Engineers Are: Stream Concentration by District",
+      "sub": "Share of engineering seats by branch, from the Karnataka KEA UGCET-2026 final seat matrix. The HDB districts are far less CS-dominated than Bengaluru and far more concentrated in electronics and mechanical - the exact talent base for ESDM, auto-electronics and EVs.",
+      "branches": [
+        "CS & IT",
+        "Electronics",
+        "Mechanical",
+        "Civil",
+        "Other"
+      ],
+      "baseline": [
+        57,
+        23,
+        10,
+        6,
+        5
+      ],
+      "rows": [
+        {
+          "district": "Belagavi",
+          "colleges": 10,
+          "seats": 4680,
+          "shares": [
+            42,
+            27,
+            15,
+            10,
+            5
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "Dharwad (incl. Hubballi)",
+          "colleges": 4,
+          "seats": 1850,
+          "shares": [
+            46,
+            26,
+            15,
+            11,
+            2
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "Bagalkot",
+          "colleges": 4,
+          "seats": 1890,
+          "shares": [
+            44,
+            22,
+            8,
+            6,
+            19
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "Gadag",
+          "colleges": 2,
+          "seats": 780,
+          "shares": [
+            50,
+            27,
+            4,
+            4,
+            15
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "Haveri",
+          "colleges": 1,
+          "seats": 360,
+          "shares": [
+            50,
+            17,
+            17,
+            17,
+            0
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "HDB cluster (all 5)",
+          "colleges": 21,
+          "seats": 9560,
+          "shares": [
+            44,
+            25,
+            13,
+            9,
+            8
+          ],
+          "emphasis": true
+        },
+        {
+          "district": "Bengaluru (for contrast)",
+          "colleges": 57,
+          "seats": 39212,
+          "shares": [
+            64,
+            20,
+            8,
+            4,
+            4
+          ]
+        },
+        {
+          "district": "Karnataka",
+          "colleges": null,
+          "seats": 94723,
+          "shares": [
+            57,
+            23,
+            10,
+            6,
+            5
+          ]
+        }
+      ],
+      "note": "Cells are shaded by concentration versus the Karnataka average (darker = a bigger share of that district's seats than the state as a whole). This is why the HDB districts glow in electronics and mechanical while Bengaluru glows in CS. Electronics groups ECE and Electrical/EEE. Built by parsing the KEA UGCET-2026 final engineering seat matrix (163 colleges, ~95,000 seats); 73% of colleges reconcile exactly against their printed totals and branch shares are stable. The HDB cluster's electronics + mechanical share is 38%, against 28% in Bengaluru and 32% statewide. The 21 colleges shown for HDB are the engineering colleges in the KCET counselling matrix (a subset of the cluster's ~43 engineering and 200+ total colleges); autonomous, deemed and private-university colleges outside that matrix are not counted here.",
+      "source": "Karnataka Examinations Authority (KEA), UGCET-2026 final engineering seat matrix (30-06-2026)",
+      "sourceUrl": "https://cetonline.karnataka.gov.in/kea/ugcet2026"
+    },
+    "vision2030": {
+      "eyebrow": "Where HDB is going · 2031-32",
+      "headline": "North Karnataka's Next-Gen Tech and ESDM Hub",
+      "subhead": "The KDEM Vision 2031-32 targets for the Hubballi-Dharwad-Belagavi cluster",
+      "pillars": [
+        {
+          "value": "Rs 7,425 Cr",
+          "label": "Digital-economy revenue"
+        },
+        {
+          "value": "1,00,000-1,50,000",
+          "label": "Jobs in IT, ESDM and emerging tech"
+        },
+        {
+          "value": "2,500+",
+          "label": "Startups"
+        },
+        {
+          "value": "10+",
+          "label": "Global Capability Centres"
+        },
+        {
+          "value": "25+",
+          "label": "Large IT companies"
+        }
+      ],
+      "note": "KDEM HDB Cluster Vision Document 2025 (draft). Aspirational targets, not a committed forecast; 2031-32 is the document's projection year and the broader roadmap runs to 2047. The Rs 7,425 Cr revenue and jobs figures are not independently published; the Rs 1,000+ Cr investment framework and 2,500-startup roadmap are (Techceleration 2025).",
+      "sourceUrl": "https://karnatakadigital.in/beyond-bengaluru/"
+    },
+    "dashboardUrl": "https://kdem.vercel.app/",
+    "sourceNote": "Sourcing note: the Rs 1,750 / 3,650 / 7,425 Cr revenue path, the stream splits and the per-stream and 1,00,000-1,50,000 jobs figures are the KDEM HDB Cluster Vision Document's own projection - published by KDEM on its resource page (karnatakadigital.in/resource/) but not independently verified by any third party, and labelled as such on each card. What IS publicly reported (Techceleration 2025) is a Rs 1,000+ Cr investment framework and a 2,500-startup roadmap. 2031-32 is the document's near-term projection year; the broader HDB roadmap extends to 2047 (India@100), and 2031-32 is separately Karnataka's statewide $329B digital-economy target year. Cluster GDP is from the Karnataka Economic Survey; the engineering-stream heat map is from the KEA seat matrix; company, policy and ecosystem figures are sourced on each card, with the method, source date or live-access date stated where a figure is an estimate, a live count or a draft projection."
+  }
 }
