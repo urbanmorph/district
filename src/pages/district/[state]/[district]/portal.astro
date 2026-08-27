@@ -391,7 +391,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     <div class="de-band">
       <div class="de-band-glow"></div>
       <div class="de-band-inner">
-        <span class="de-hero-badge">Karnataka Digital Economy Mission · Mysuru Cluster</span>
+        <span class="de-hero-badge">{digitalEconomy.heroBadge || 'Karnataka Digital Economy Mission · Mysuru Cluster'}</span>
         <h2 class="de-hero-title">{digitalEconomy.title}</h2>
         <p class="de-hero-sub">{digitalEconomy.subtitle}</p>
         {digitalEconomy.clusterScopeNote && <p class="de-hero-note">{digitalEconomy.clusterScopeNote}</p>}
@@ -438,7 +438,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                 <g>
                   <line x1={padL} x2={W - padR} y1={y(g)} y2={y(g)} class="de-grid-dash" />
                   <text x={padL - 9} y={y(g) + 3.5} class="de-tick2" text-anchor="end">${g * 10}B</text>
-                  <text x={W - padR + 9} y={y(g) + 3.5} class="de-tick2" text-anchor="start">${g}B</text>
+                  <text x={W - padR + 9} y={y(g) + 3.5} class="de-tick2" text-anchor="start">${g * (c.rightFactor || 1)}B</text>
                 </g>
               ))}
               <line x1={padL} x2={W - padR} y1={H - padB} y2={H - padB} class="de-axis-line" />
@@ -455,7 +455,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
               {c.mysuru.map((v: number, i: number) => (
                 <g>
                   <circle cx={xs[i]} cy={y(v)} r="4" fill="#4C72B0" />
-                  <text x={xs[i]} y={y(v) + 18} text-anchor={anch(i)} class="de-pt">{v}</text>
+                  <text x={xs[i]} y={y(v) + 18} text-anchor={anch(i)} class="de-pt">{c.mysuruLabels ? c.mysuruLabels[i] : v}</text>
                 </g>
               ))}
               {c.labels.map((l: string, i: number) => <text x={xs[i]} y={H - 8} class="de-tick" text-anchor={anch(i)}>{l}</text>)}
@@ -472,8 +472,8 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     {digitalEconomy.trajectories && (
     <div class="portal-section">
       <div class="de-sec-head">
-        <h3 class="section-title">Riding Karnataka's Compounding Growth</h3>
-        <p class="de-sec-sub">The state is heading from $159B to $329B; Mysuru's $10B vision means growing far faster than the state from its $1.3B base</p>
+        <h3 class="section-title">{digitalEconomy.trajectoriesHeading || "Riding Karnataka's Compounding Growth"}</h3>
+        <p class="de-sec-sub">{digitalEconomy.trajectoriesSub || "The state is heading from $159B to $329B; Mysuru's $10B vision means growing far faster than the state from its $1.3B base"}</p>
       </div>
       {[digitalEconomy.trajectories.karnataka, digitalEconomy.trajectories.mysuru].map((t: any) => {
         const W = 940, H = 300, padL = 56, padR = 26, padT = 40, padB = 34;
@@ -487,20 +487,23 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         const areaPts = `${poly(actPts)} ${actPts[actPts.length - 1][0]},${H - padB} ${actPts[0][0]},${H - padB}`;
         const fx = xs[t.fyMarkerIdx];
         const anch = (i: number) => i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle';
+        const tCr = t.unit && t.unit.indexOf('Cr') >= 0;
+        const fmtT = (v: number) => tCr ? `Rs ${v.toLocaleString('en-IN')} Cr` : `$${v}B`;
+        const fmtTick = (g: number) => tCr ? g.toLocaleString('en-IN') : `$${g}B`;
         return (
           <div class="de-chart-card" style="margin-bottom:1rem;">
             <h4 class="de-chart-title">{t.heading}</h4>
             <p class="de-chart-sub">{t.sub}</p>
             <div class="de-legend de-legend-top">
-              <span class="de-legend-item"><span class="de-swatch" style="background:#4C72B0"></span>Actual (USD Bn)</span>
-              <span class="de-legend-item"><span class="de-swatch de-swatch-dash"></span>Projected (USD Bn)</span>
+              <span class="de-legend-item"><span class="de-swatch" style="background:#4C72B0"></span>Actual ({tCr ? 'Rs Cr' : 'USD Bn'})</span>
+              <span class="de-legend-item"><span class="de-swatch de-swatch-dash"></span>Projected ({tCr ? 'Rs Cr' : 'USD Bn'})</span>
               <span class="de-legend-item"><span class="de-swatch" style="background:#C44E52;height:2px"></span>{t.targetLabel}</span>
             </div>
             <svg viewBox={`0 0 ${W} ${H}`} class="de-svg" role="img" aria-label={t.heading}>
               {t.ticks.map((g: number) => (
                 <g>
                   <line x1={padL} x2={W - padR} y1={y(g)} y2={y(g)} class="de-grid-dash" />
-                  <text x={padL - 8} y={y(g) + 3.5} class="de-tick2" text-anchor="end">${g}B</text>
+                  <text x={padL - 8} y={y(g) + 3.5} class="de-tick2" text-anchor="end">{fmtTick(g)}</text>
                 </g>
               ))}
               <line x1={padL} x2={W - padR} y1={y(t.targetValue)} y2={y(t.targetValue)} stroke="#C44E52" stroke-width="1.6" stroke-dasharray="7 5" />
@@ -518,14 +521,14 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                 return (
                   <g>
                     <circle cx={xs[gi]} cy={y(v)} r="3.5" fill="#fff" stroke="#4C72B0" stroke-width="2" />
-                    <text x={xs[gi]} y={y(v) - 10} text-anchor={anch(gi)} class="de-pt">{v >= 100 ? `$${v}B` : `$${v}B`}</text>
+                    <text x={xs[gi]} y={y(v) - 10} text-anchor={anch(gi)} class="de-pt">{fmtT(v)}</text>
                   </g>
                 );
               })}
               {t.actual.map((v: number, i: number) => (
                 <g>
                   <circle cx={xs[i + aStart]} cy={y(v)} r="4" fill="#4C72B0" />
-                  <text x={xs[i + aStart]} y={y(v) - 10} text-anchor={anch(i + aStart)} class="de-pt-strong">${v}B</text>
+                  <text x={xs[i + aStart]} y={y(v) - 10} text-anchor={anch(i + aStart)} class="de-pt-strong">{fmtT(v)}</text>
                 </g>
               ))}
               <g>
@@ -623,8 +626,8 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     {digitalEconomy.gauges && (
     <div class="portal-section">
       <div class="de-sec-head">
-        <h3 class="section-title">Digital Economy: $1.7B Down, $8.3B to Go</h3>
-        <p class="de-sec-sub">Where Mysuru stands today against the 2030 targets, and how much is done</p>
+        <h3 class="section-title">{digitalEconomy.gaugesHeading || 'Digital Economy: $1.7B Down, $8.3B to Go'}</h3>
+        <p class="de-sec-sub">{digitalEconomy.gaugesSub || 'Where Mysuru stands today against the 2030 targets, and how much is done'}</p>
       </div>
       <div class="de-gauge-grid">
         {digitalEconomy.gauges.map((g: any) => {
@@ -691,8 +694,8 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         return (
           <div class="de-chart-card">
             <div class="de-legend de-legend-top">
-              <span class="de-legend-item"><span class="de-swatch" style="background:#4C72B0"></span>Estimated tech professionals</span>
-              <span class="de-legend-item"><span class="de-swatch de-swatch-dash"></span>Vision path</span>
+              <span class="de-legend-item"><span class="de-swatch" style="background:#4C72B0"></span>{t.actualLegend || 'Estimated tech professionals'}</span>
+              <span class="de-legend-item"><span class="de-swatch de-swatch-dash"></span>{t.projectedLegend || 'Vision path'}</span>
               <span class="de-legend-item"><span class="de-swatch" style="background:#C44E52;height:2px"></span>{t.targetLabel}</span>
             </div>
             <svg viewBox={`0 0 ${W} ${H}`} class="de-svg" role="img" aria-label={t.heading}>
@@ -751,6 +754,54 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     </div>
     )}
 
+    <!-- Talent stream-concentration heat map (KEA seat matrix) -->
+    {digitalEconomy.talentHeatmap && (
+    <div class="portal-section">
+      <div class="de-sec-head">
+        <h3 class="section-title">{digitalEconomy.talentHeatmap.heading}</h3>
+        <p class="de-sec-sub">{digitalEconomy.talentHeatmap.sub}</p>
+      </div>
+      <div class="de-chart-card">
+        <div style="overflow-x:auto;">
+        {(() => {
+          const h = digitalEconomy.talentHeatmap;
+          const cell = (v: number, base: number | null) => {
+            // colour by concentration vs the state average (location quotient); fallback to raw share
+            const lq = base ? v / base : v / 40;
+            const a = Math.max(0, Math.min(1, (lq - 0.7) / 0.9));
+            return `padding:8px;text-align:center;font-weight:700;font-size:0.82rem;border:1px solid var(--border);background:rgba(76,114,176,${(0.05 + a * 0.85).toFixed(3)});color:${a >= 0.45 ? '#fff' : '#22303f'};`;
+          };
+          const th = 'padding:8px;font-size:0.74rem;font-weight:700;border:1px solid var(--border);background:var(--gray-100,#eef1f5);text-align:center;';
+          const rh = 'padding:8px 10px;font-size:0.82rem;font-weight:600;border:1px solid var(--border);text-align:left;white-space:nowrap;';
+          const nc = 'padding:8px;font-size:0.8rem;border:1px solid var(--border);text-align:right;color:var(--gray-600,#5b6472);';
+          return (
+            <table style="border-collapse:collapse;width:100%;min-width:660px;">
+              <thead><tr>
+                <th style={th + 'text-align:left;'}>District</th>
+                <th style={th}>Colleges</th>
+                <th style={th}>BE seats</th>
+                {h.branches.map((b: string) => <th style={th}>{b}</th>)}
+              </tr></thead>
+              <tbody>
+                {h.rows.map((r: any) => (
+                  <tr style={r.emphasis ? 'background:rgba(238,133,74,0.07);' : ''}>
+                    <td style={rh + (r.emphasis ? 'font-weight:800;' : '')}>{r.district}</td>
+                    <td style={nc}>{r.colleges || '-'}</td>
+                    <td style={nc}>{r.seats ? r.seats.toLocaleString('en-IN') : '-'}</td>
+                    {r.shares.map((s: number, ci: number) => <td style={cell(s, h.baseline ? h.baseline[ci] : null)}>{s}%</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          );
+        })()}
+        </div>
+        {digitalEconomy.talentHeatmap.note && <p class="de-caption">{digitalEconomy.talentHeatmap.note}</p>}
+        <p class="de-chart-source">Source: {digitalEconomy.talentHeatmap.source} {digitalEconomy.talentHeatmap.sourceUrl && <a class="de-src-link" href={digitalEconomy.talentHeatmap.sourceUrl} target="_blank" rel="noopener">[source]</a>}</p>
+      </div>
+    </div>
+    )}
+
     <!-- SECTION 4: Engine graphs -->
     {digitalEconomy.pillarGraphs && (
     <div class="portal-section">
@@ -769,7 +820,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           const projPts = t.projected.map((v: number, i: number) => [xs[i + t.projStartIdx], y(v)]);
           const poly = (pp: number[][]) => pp.map((q) => `${q[0]},${q[1]}`).join(' ');
           const fx = xs[t.fyMarkerIdx];
-          const fmtV = (v: number) => t.unit && t.unit.indexOf('count') >= 0 ? v.toLocaleString('en-IN') : `$${v}B`;
+          const fmtV = (v: number) => t.unit && t.unit.indexOf('count') >= 0 ? v.toLocaleString('en-IN') : (t.unit && t.unit.indexOf('Cr') >= 0 ? `Rs ${v.toLocaleString('en-IN')} Cr` : `$${v}B`);
           return (
             <div class="de-chart-card">
               <div class="de-pillar-head">
@@ -783,7 +834,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                 {t.ticks.map((g: number) => (
                   <g>
                     <line x1={padL} x2={W - padR} y1={y(g)} y2={y(g)} class="de-grid-dash" />
-                    <text x={padL - 6} y={y(g) + 3.5} class="de-tick2" text-anchor="end">{t.unit && t.unit.indexOf('count') >= 0 ? (g >= 1000 ? `${g / 1000}k` : g) : `$${g}B`}</text>
+                    <text x={padL - 6} y={y(g) + 3.5} class="de-tick2" text-anchor="end">{t.unit && t.unit.indexOf('count') >= 0 ? (g >= 1000 ? `${g / 1000}k` : g) : (t.unit && t.unit.indexOf('Cr') >= 0 ? (g >= 1000 ? `${g / 1000}k` : g) : `$${g}B`)}</text>
                   </g>
                 ))}
                 <line x1={padL} x2={W - padR} y1={H - padB} y2={H - padB} class="de-axis-line" />
@@ -842,17 +893,20 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
         {(() => {
           const s = digitalEconomy.waterfall.streams;
           const W = 940, H = 280, padL = 52, padR = 20, padT = 28, padB = 44;
-          const total = 10;
+          const total = digitalEconomy.waterfall.total || 10;
+          const wCr = digitalEconomy.waterfall.unit && digitalEconomy.waterfall.unit.indexOf('Cr') >= 0;
+          const fmtW = (v: number) => wCr ? `Rs ${v.toLocaleString('en-IN')} Cr` : `$${v}B`;
+          const wTicks = digitalEconomy.waterfall.ticks || [0, 2.5, 5, 7.5, 10];
           const bw = (W - padL - padR) / s.length - 18;
           const y = (v: number) => padT + (1 - v / total) * (H - padT - padB);
           let cum = 0;
           const cols = ['#08306b', '#2171b5', '#4292c6', '#6baed6', '#c6dbef'];
           return (
-            <svg viewBox={`0 0 ${W} ${H}`} class="de-svg" role="img" aria-label="How five streams add up to 10 billion dollars">
-              {[0, 2.5, 5, 7.5, 10].map((g) => (
+            <svg viewBox={`0 0 ${W} ${H}`} class="de-svg" role="img" aria-label="How the streams add up to the target">
+              {wTicks.map((g: number) => (
                 <g>
                   <line x1={padL} x2={W - padR} y1={y(g)} y2={y(g)} class="de-grid-dash" />
-                  <text x={padL - 8} y={y(g) + 3.5} class="de-tick2" text-anchor="end">${g}B</text>
+                  <text x={padL - 8} y={y(g) + 3.5} class="de-tick2" text-anchor="end">{wCr ? g.toLocaleString('en-IN') : `$${g}B`}</text>
                 </g>
               ))}
               <line x1={padL} x2={W - padR} y1={y(0)} y2={y(0)} class="de-axis-line" />
@@ -863,7 +917,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
                 return (
                   <g>
                     <rect x={x} y={y1} width={bw} height={y0 - y1} rx="4" fill={cols[i]} />
-                    <text x={x + bw / 2} y={y1 - 6} text-anchor="middle" class="de-pt-val">${st.value}B</text>
+                    <text x={x + bw / 2} y={y1 - 6} text-anchor="middle" class="de-pt-val">{fmtW(st.value)}</text>
                     <text x={x + bw / 2} y={H - 22} text-anchor="middle" class="de-tick">{st.name}</text>
                     <text x={x + bw / 2} y={H - 8} text-anchor="middle" class="de-tick-sub">{st.share}%</text>
                   </g>
@@ -886,7 +940,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
       </div>
       <div class="de-table-wrap">
         <table class="de-table">
-          <thead><tr><th>Vertical</th><th>Today</th><th>2030 Target</th><th>Implied CAGR</th><th>Driver</th></tr></thead>
+          <thead><tr><th>Vertical</th><th>Today</th><th>{digitalEconomy.projections.targetColLabel || '2030 Target'}</th><th>Implied CAGR</th><th>Driver</th></tr></thead>
           <tbody>
             {digitalEconomy.projections.rows.map((r: any) => (
               <tr>
@@ -924,7 +978,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
       <div class="de-table-wrap">
         <table class="de-table">
           <thead>
-            <tr><th>Metric</th><th>2018-19 (past)</th><th>2025-26 (current)</th><th>2030 (vision)</th><th>Source</th></tr>
+            <tr><th>Metric</th><th>{digitalEconomy.growthStory.colPast || '2018-19 (past)'}</th><th>{digitalEconomy.growthStory.colNow || '2025-26 (current)'}</th><th>{digitalEconomy.growthStory.colVision || '2030 (vision)'}</th><th>Source</th></tr>
           </thead>
           <tbody>
             {digitalEconomy.growthStory.metrics.map((m: any) => (
@@ -971,7 +1025,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
       </div>
       <div class="de-grow-col">
         <div class="de-chart-card">
-          <h4 class="de-chart-title">New and Expanded Companies in the Mysuru Cluster</h4>
+          <h4 class="de-chart-title">{digitalEconomy.traction.chartTitle || 'New and Expanded Companies in the Mysuru Cluster'}</h4>
           <div class="de-legend de-legend-top">
             <span class="de-legend-item"><span class="de-swatch" style="background:#4C72B0"></span>New companies</span>
             <span class="de-legend-item"><span class="de-swatch" style="background:#EE854A"></span>Expansions</span>
@@ -979,12 +1033,12 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
           {(() => {
             const t = digitalEconomy.traction;
             const W = 420, H = 200, padL = 34, padT = 14, padB = 30, padR = 10;
-            const maxV = 18;
+            const maxV = t.maxV || 18;
             const gw = (W - padL - padR) / t.years.length;
             const y = (v: number) => padT + (1 - v / maxV) * (H - padT - padB);
             return (
               <svg viewBox={`0 0 ${W} ${H}`} class="de-svg" role="img" aria-label="Mysuru cluster new and expanded companies by year">
-                {[0, 6, 12, 18].map((g) => (
+                {(t.ticks || [0, 6, 12, 18]).map((g: number) => (
                   <g>
                     <line x1={padL} x2={W - padR} y1={y(g)} y2={y(g)} class="de-grid-dash" />
                     <text x={padL - 5} y={y(g) + 3.5} class="de-tick2" text-anchor="end">{g}</text>
@@ -1306,7 +1360,7 @@ const nextSteps = phase1?.components?.filter((c: any) => c.progress > 0 && c.pro
     <div class="de-vision">
       <div class="de-vision-glow"></div>
       <div class="de-vision-inner">
-        <span class="de-vision-eyebrow">Where Mysuru is going · 2030</span>
+        <span class="de-vision-eyebrow">{digitalEconomy.vision2030.eyebrow || 'Where Mysuru is going · 2030'}</span>
         <h3 class="de-vision-title">{digitalEconomy.vision2030.headline}</h3>
         <p class="de-vision-sub">{digitalEconomy.vision2030.subhead}</p>
         <div class="de-vision-pillars">
