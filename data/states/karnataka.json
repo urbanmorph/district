@@ -4,57 +4,100 @@
   "slug": "karnataka",
   "districtCount": 31,
   "demographics": {
-    "population": 63935297,
-    "rural": 38731168,
-    "urban": 25204129,
-    "area_sq_km": 208015,
-    "density": 307,
-    "literacyRate": 0.75,
+    "population": 61095297,
+    "male": 30966657,
+    "female": 30128640,
+    "rural": 37469335,
+    "urban": 23625962,
+    "households": 5410370,
+    "area_sq_km": 191791,
+    "density": 319,
+    "literacyRate": 0.7536,
+    "literacyRatePercent": 75.36,
+    "literacyRateMalePercent": 82.47,
+    "literacyRateFemalePercent": 68.08,
+    "totalLiterates": 40647322,
     "sexRatio": 973,
-    "urbanizationRate": 38.57,
-    "population_2026_projected": 69074000
+    "childSexRatio": 948,
+    "urbanizationRate": 38.67,
+    "decadalGrowth2001_11": 15.6,
+    "population_2026_projected": 69074000,
+    "censusYear": 2011,
+    "note": "All demographic values are Census 2011. literacyRate is stored as a fraction for state files (district files store percent) — literacyRatePercent is provided to avoid ambiguity. population_2026_projected is a projection, not a census count, and its derivation is not documented in this repo."
   },
   "economy": {
     "gsdp_crores": 2557241,
-    "perCapitaIncome": 376402,
+    "gsdp_crores_year": "2023-24",
+    "gsdp_crores_2024_25": 2883903,
+    "perCapitaIncome": 339813,
+    "perCapitaIncome_year": "2023-24",
+    "perCapitaIncome_2024_25": 380906,
+    "perCapitaIncome_2022_23": 310325,
+    "perCapitaIncomeBasis": "Per capita NSDP at current prices (Economic Survey of Karnataka)",
     "gsdpComposition": {
       "agriculture": 12.1,
       "industry": 24.5,
       "services": 63.4
-    }
+    },
+    "gsdpCompositionNote": "Broad sectoral GVA shares at state level from the MoSPI/StatisticsTimes compilation. Not to be applied to individual districts — Karnataka DES does not publish district-level sector shares."
   },
   "hdi": 0.673,
+  "hdiNote": "Global Data Lab Subnational HDI (2022). Karnataka's own State Human Development Report 2022 reports a state HDI of 0.644 using a different methodology, with Bengaluru Urban highest at 0.738. District-level HDI values in this repo come from the Karnataka SHDR 2022 and are therefore NOT directly comparable to this GDL figure.",
   "dataSources": [
     {
       "name": "Census of India 2011",
-      "url": "https://censusindia.gov.in",
+      "url": "https://www.census2011.co.in/census/state/karnataka.html",
       "fields": [
         "Population",
+        "Male/Female",
+        "Households",
         "Literacy Rate",
         "Sex Ratio",
+        "Child Sex Ratio",
         "Area",
         "Density",
-        "Rural/Urban"
+        "Rural/Urban",
+        "Decadal growth"
       ],
-      "type": "Demographics"
+      "type": "Demographics",
+      "confidence": "high"
     },
     {
-      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "name": "Economic Survey of Karnataka 2024-25 (DES Karnataka)",
+      "url": "https://des.karnataka.gov.in",
+      "fields": [
+        "GSDP (2023-24, 2024-25)",
+        "Per Capita Income (per capita NSDP, current prices)"
+      ],
+      "type": "Economy",
+      "confidence": "high"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes",
       "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
       "fields": [
-        "GSDP",
-        "Per Capita Income",
-        "Sectoral Composition"
+        "Sectoral Composition (state-level GVA shares)"
       ],
-      "type": "Economy"
+      "type": "Economy (composition)",
+      "confidence": "medium"
     },
     {
       "name": "Global Data Lab (2022)",
       "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
       "fields": [
-        "Human Development Index"
+        "Human Development Index (state, GDL methodology)"
       ],
-      "type": "Development"
+      "type": "Development",
+      "confidence": "medium"
+    },
+    {
+      "name": "Karnataka State Human Development Report 2022",
+      "url": "https://des.karnataka.gov.in",
+      "fields": [
+        "State and district HDI (Karnataka methodology)"
+      ],
+      "type": "Development",
+      "confidence": "high"
     },
     {
       "name": "Survey of India",
@@ -62,7 +105,8 @@
       "fields": [
         "Geographic boundaries"
       ],
-      "type": "Geography"
+      "type": "Geography",
+      "confidence": "high"
     },
     {
       "name": "NFHS-5 (2019-21) via MoSPI",
@@ -72,7 +116,8 @@
         "Neonatal Mortality Rate",
         "Under-5 Mortality Rate"
       ],
-      "type": "Health"
+      "type": "Health",
+      "confidence": "high"
     },
     {
       "name": "AISHE 2021-22 via MoSPI",
@@ -80,7 +125,8 @@
       "fields": [
         "Number of Colleges"
       ],
-      "type": "Education"
+      "type": "Education",
+      "confidence": "high"
     }
   ],
   "health": {
@@ -92,5 +138,20 @@
   "education": {
     "colleges": 4430,
     "source": "AISHE 2021-22 via MoSPI eSankhyiki MCP"
+  },
+  "dataNotes": {
+    "correctedInThisRevision": [
+      "population: 63,935,297 -> 61,095,297 (Census 2011 actual). The old figure was ~2.84 million too high.",
+      "rural: 38,731,168 -> 37,469,335 (Census 2011 actual)",
+      "urban: 25,204,129 -> 23,625,962 (Census 2011 actual)",
+      "area_sq_km: 208,015 -> 191,791 (Karnataka's actual area)",
+      "density: 307 -> 319 (Census 2011 actual; the old value was self-consistent with the wrong population and area)",
+      "urbanizationRate: 38.57 -> 38.67 (Census 2011 actual)",
+      "perCapitaIncome: 376,402 -> 339,813. The old value matched neither Karnataka's 2023-24 PCI (Rs 3,39,813) nor its 2024-25 PCI (Rs 3,80,906), and appears to have conflated vintages or mixed per capita GSDP with per capita income."
+    ],
+    "openGaps": [
+      "Basis and source for population_2026_projected (69,074,000) is undocumented",
+      "State-level sectoral GVA shares have not been re-verified against the Economic Survey directly"
+    ]
   }
 }

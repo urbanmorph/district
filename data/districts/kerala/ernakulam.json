@@ -7,1153 +7,474 @@
   "lastUpdated": "2026-09-09",
   "demographics": {
     "population": 3282388,
-    "rural": 1033020,
-    "ruralPercent": 31.48,
-    "urban": 2249368,
-    "urbanPercent": 68.52,
+    "male": 1619557,
+    "female": 1662831,
+    "households": 814011,
+    "rural": 1048025,
+    "ruralPercent": 31.93,
+    "urban": 2234363,
+    "urbanPercent": 68.07,
     "literacyRate": 95.89,
+    "literacyRateMale": 97.36,
+    "literacyRateFemale": 94.46,
+    "totalLiterate": 2855676,
     "sexRatio": 1027,
+    "childSexRatio": 961,
+    "childPopulation0_6": 304242,
     "area_sq_km": 3063,
     "density": 1072,
-    "agriculturalWorkers": 8.2
+    "decadalGrowth2001_11": 5.69,
+    "shareOfStatePopulationPercent": 9.83,
+    "populationProjected2026": 3490000,
+    "populationProjected2026Note": "Growth-rate projection published by census2011.co.in, not a census count.",
+    "note": "All demographic figures are Census 2011. Ernakulam is Kerala's most populous district (9.83% of the state) and among its most urbanised at 68.07%."
   },
   "economy": {
-    "gddp_crores": 175954,
-    "perCapitaIncome": 536055,
-    "perCapitaIncomeEstimate2026": 580000,
-    "stateAvgPerCapita2026": 420000,
+    "gddp_crores": 167662,
+    "nddp_crores": 149143,
+    "gddp_crores_constant2011": 93732,
+    "nddp_crores_constant2011": 85660,
+    "perCapitaIncome": 415797,
+    "perCapitaIncomeConstant2011": 238814,
+    "year": "2024-25",
+    "estimateStatus": "Quick Estimate (Q)",
+    "priceBasis": "Per capita NDDP at current prices, base year 2011-12",
+    "gddp_crores_2023_24": 151913,
+    "stateGDDPRank": "1/14",
+    "stateGDDPRankNote": "Highest GDDP of Kerala's 14 districts at both current and constant prices (Kerala DES, 2024-25 Q).",
+    "stateAvgPerCapita": 308338,
+    "stateAvgPerCapitaYear": "2024-25",
+    "stateAvgPerCapitaBasis": "Kerala per capita NSDP at current prices",
+    "stateAvgPerCapita_2023_24": 281269,
     "gddpComposition": {
       "agriculture": 8.1,
       "industry": 25.6,
       "services": 66.3
     },
-    "gddpValues_crores": {
-      "agriculture": 14252,
-      "industry": 45043,
-      "services": 116659
-    },
-    "growthRate": 6.8
+    "gddpCompositionNote": "PROXY ONLY — Kerala state-average sectoral shares, not a district-measured split. Ernakulam's actual composition is almost certainly more industrial and service-weighted than the state average. Do not cite as Ernakulam-specific.",
+    "growthRate": 0,
+    "growthRateNote": "Not extracted at district level; left at 0 rather than estimated.",
+    "comparabilityWarning": "Note that per capita NDDP (district) and per capita NSDP (state) are computed on the same conceptual basis, so the district-vs-state comparison here is valid. Do NOT compare these against per capita GSDP figures, which are larger."
   },
   "rankings": {
     "perCapitaIncome": {
-      "stateRank": "2/14",
-      "status": "Second highest in Kerala",
-      "value": 536055,
-      "year": "2023-24"
-    },
-    "gddpTotal": {
-      "stateRank": "1/14",
-      "status": "Highest in Kerala"
-    },
-    "industryShare": {
-      "stateRank": "1/14",
-      "value": 25.6,
-      "target": 28
+      "stateRank": "",
+      "stateRankNote": "Kerala DES publishes district per capita NDDP but the district ranking was not extracted. Ernakulam's Rs 4,15,797 (2024-25 Q) is well above the Kerala average of Rs 3,08,338.",
+      "value": 415797,
+      "year": "2024-25",
+      "nationalPercentile": 0
     },
     "hdi": {
-      "value": 0.784,
-      "stateRank": "2/14",
-      "stateAvg": 0.712,
-      "stateBest": 0.821,
-      "stateBestDistrict": "Thiruvananthapuram",
-      "year": "2022",
-      "source": "Kerala Human Development Report 2022"
-    },
-    "pciStateBest": {
-      "value": 612000,
-      "district": "Thiruvananthapuram",
-      "year": "2024-25",
-      "source": "Kerala Economic Survey 2024-25"
+      "value": 0.801,
+      "stateRank": "1/14",
+      "year": "2005",
+      "source": "Kerala Human Development Report 2005 (State Planning Board / UNDP)",
+      "vintageWarning": "THIS IS A 2005 FIGURE — about two decades older than the economic data in this file. It is the latest official district-level HDI for Ernakulam that could be sourced; Kerala has not published a comparable district HDI series since. Treat as historical context, not a current indicator. stateBest/stateAvg are deliberately omitted so that no current gap-closing target is computed from a stale value."
     }
   },
   "keySectors": [
-    "Shipping & Port Services (Cochin Port, 2nd largest in India)",
-    "Petrochemicals & Refineries (FACT, IOCL Kochi Refinery)",
-    "Marine Engineering & Ship Building (Cochin Shipyard)",
-    "Spice Trade & Processing (Cardamom, Black Pepper, Cloves)",
-    "Tourism & Hospitality (Backwaters, Houseboats, Hotels)",
-    "IT & Software Services (Tech parks, BPO centers)",
-    "Coconut & Coir Products (Coir Board headquarters)",
-    "Seafood Processing & Exports"
+    "Port, container transshipment and maritime logistics (Cochin Port, Vallarpadam ICTT)",
+    "Petroleum refining (BPCL Kochi Refinery, 15.5 MMTPA)",
+    "Shipbuilding and ship repair (Cochin Shipyard Ltd)",
+    "IT and IT-enabled services (Infopark Kochi, Cochin SEZ)",
+    "Fertilisers and industrial chemicals (FACT — Udyogamandal and Ambalamedu)",
+    "Aviation (Cochin International Airport — CIAL)",
+    "Tourism — Kerala's top district for both domestic and foreign visitors",
+    "Spice trade (Spices Board of India headquarters, Kochi)",
+    "Marine products trade (MPEDA headquarters, Kochi; Kochi is India's 3rd-largest seafood export port)",
+    "Plantation crops — rubber (the district's largest crop by area) and coconut"
   ],
   "strengths": [
-    "Cochin Port: 2nd largest port in India, 35+ MTPA capacity, gateway to Arabian Sea",
-    "Cochin Shipyard: 3,000+ employees, builds naval vessels and commercial ships",
-    "IOCL Kochi Refinery: 7.5 MMTPA capacity, one of India's largest refineries",
-    "FACT (Fertilizer & Chemicals): 80+ years, major employer, 2,500+ workforce",
-    "Highest literacy rate in India (95.89%), skilled workforce",
-    "High per capita income (Rs 5.36L vs state avg Rs 4.20L)",
-    "Well-developed IT infrastructure (Infopark Kochi, Technopark Trivandrum proximity)",
-    "Strong tourism sector: 1.5M+ annual visitors, backwater houseboats, heritage sites",
-    "Spice trading hub: 40% of India's spice exports pass through Kochi",
-    "Coconut & Coir industry: 50,000+ workers, Rs 500 Cr annual turnover",
-    "Seafood exports: Rs 800 Cr+ annual value, 40% of Kerala's seafood exports",
-    "Established banking & financial services infrastructure",
-    "Good road & rail connectivity (NH-66, railway network)",
-    "Proximity to Arabian Sea: maritime trade advantages"
+    "Highest GDDP of any Kerala district: Rs 1,67,662 Cr at current prices (2024-25 Q), with per capita NDDP of Rs 4,15,797 against a Kerala average of Rs 3,08,338",
+    "Literacy 95.89% (male 97.36%, female 94.46%) with a female literacy rate above 94% — among the highest of any Indian district",
+    "Sex ratio 1027 females per 1000 males (Census 2011)",
+    "Cochin Port handled 37.75 million tonnes of cargo in FY 2024-25, up 3.94% year-on-year, across 1,265 commercial vessel calls",
+    "Vallarpadam ICTT (DP World Cochin) set a record 834,665 TEUs in FY 2024-25 including 169,562 TEUs of transshipment, against a post-expansion capacity of about 1.4 million TEUs",
+    "BPCL Kochi Refinery: 15.5 MMTPA installed capacity running above nameplate — 17.22 MMT throughput at 111.11% utilisation in FY 2024-25",
+    "Cochin Shipyard Ltd: Rs 4,820 Cr consolidated turnover and Rs 827 Cr consolidated PAT in FY 2024-25; builder of INS Vikrant, India's first indigenous aircraft carrier",
+    "Infopark Kochi: 582 companies, 70,000+ professionals across 9.2 million sq ft on 323 acres, with IT exports of Rs 11,417 Cr in FY 2023-24 (up 24.28%)",
+    "Cochin International Airport (CIAL): 1.12 crore passengers, 65,651 MT cargo, Rs 1,142 Cr revenue and Rs 489.84 Cr net profit in FY 2024-25; the world's first fully solar-powered airport",
+    "Kochi Metro Phase I: 28.125 km and 25 stations, with FY 2024-25 ridership of 3.56 crore and an operating surplus of Rs 22.94 Cr in FY 2023-24",
+    "FACT posted Rs 4,050.91 Cr revenue and Rs 41.23 Cr net profit in FY 2024-25, with an all-time-high ammonium sulphate output of 250,578 MT",
+    "Cochin Special Economic Zone at Kakkanad: 132 operating units on 41.68 hectares",
+    "Kerala's top tourism district — 43.30 lakh domestic and 2.69 lakh foreign visitors in 2024",
+    "Headquarters of both the Spices Board of India and MPEDA, giving the district national institutional weight in spice and marine trade"
   ],
   "challenges": [
-    "Port congestion during monsoon season (June-September)",
-    "Declining agricultural sector (only 8.1% of GDDP, down from 15% in 2000)",
-    "Limited arable land due to high urbanization (68.5% urban)",
-    "Spice prices volatile, dependent on global markets",
-    "Coir industry facing competition from synthetic alternatives",
-    "Refinery & petrochemical emissions: environmental concerns",
-    "Limited industrial land availability for new projects",
-    "High labor costs compared to other Indian states",
-    "Aging infrastructure in some port facilities",
-    "Seasonal tourism volatility",
-    "Limited manufacturing base compared to services"
+    "Brahmapuram waste crisis: roughly 8.5 lakh MT of legacy waste across 100 acres; the March 2023 fire smouldered for 12 days and the NGT imposed a Rs 100 Cr environmental compensation on Kochi Corporation. Only about 40% of legacy waste had been treated by June 2024, and a 2024 fire-safety audit found hydrants and water-spraying systems non-functional",
+    "Coastal subsidence and flood risk: Kochi is projected to subside at 10-20 mm/year, with flooding potentially increasing 21% and covering 24 km² by 2100 (ISRO SAC study)",
+    "Coastal erosion: sea level off Kochi rose 1.8 mm/year (1971-2007) and about 30 km of the district's coast is affected, with Chellanam, Fort Kochi, Manassery-Kannamali and Nayarambalam identified as hotspots",
+    "Saltwater intrusion into coastal aquifers, with elevated salinity and alkalinity recorded at Chellanam, Edavanakkad and Pallippuram",
+    "Traffic and modal collapse: public transport's share of trips in Kochi fell from 83% in 2001 to 49% by 2015, with private vehicles now carrying about 89% of trips; NATPAC identified 10 severely congested junctions in 2023",
+    "Industrial pollution along the Eloor-Edayar stretch of the Periyar: sediment manganese up to 675.6 mg/kg and total chromium up to 750.6 mg/kg, with a mass fish kill in May 2024 prompting a CPCB call for a joint investigation",
+    "Near-total collapse of paddy cultivation: paddy fell from 57.53% of net sown area in 1980-81 to 5.39% by 2011-12, with about 75,189 ha and 108,456 t lost since 1957-58 — roughly a 90% decline",
+    "Continuing paddy-land conversion: 1,649.86 ha converted between 2018-19 and 2024-25, and Ernakulam accounts for 72,050 settled conversion applications, about 17% of the state total",
+    "Kochi Metro remains loss-making at the bottom line — a Rs 433.49 Cr loss before tax in FY 2023-24 despite an operating surplus",
+    "No current official district-level HDI exists for Kerala districts; the latest sourceable Ernakulam value dates from 2005",
+    "Cochin Port's stated cargo capacity is inconsistent across sources (78.6, 79.9 and 80.5 MMT all appear), making utilisation hard to assess"
   ],
   "opportunities": [
-    "Port modernization: Expansion of Cochin Port to 50 MTPA by 2030",
-    "Petrochemical cluster expansion: Downstream industries (plastics, chemicals)",
-    "Ship-breaking & recycling: Emerging opportunity with 100+ vessels/year",
-    "Marine biotechnology: Seaweed farming, marine pharmaceuticals",
-    "Spice value-addition: Processing, branding, direct exports",
-    "Coir product innovation: Geotextiles, automotive composites",
-    "Seafood processing: Cold chains, value-added products (sushi, smoked fish)",
-    "Tourism infrastructure: Cruise terminals, luxury resorts, adventure tourism",
-    "IT & BPO expansion: Tech parks, startup ecosystem",
-    "Renewable energy: Floating solar on backwaters, offshore wind potential",
-    "Logistics & warehousing: Port-linked distribution centers",
-    "Pharmaceutical manufacturing: Proximity to spice & natural product sources"
+    "Grow transshipment share at Vallarpadam ICTT — throughput of 834,665 TEUs sits well below the ~1.4 million TEU capacity, and transshipment is still only about 20% of volume",
+    "Expand petrochemical and downstream capacity around the BPCL refinery, which is already running above nameplate",
+    "Green shipbuilding and ship repair at Cochin Shipyard, building on its defence and commercial order pipeline",
+    "Scale the IT base beyond Infopark's current 582 companies and 70,000 professionals, using Kochi Metro Phase II (11.2 km Pink Line to Infopark) to link housing and workplaces",
+    "Complete Kochi Metro Phase II and rebuild public transport mode share from its 49% low",
+    "Convert Brahmapuram from liability to asset through completed legacy-waste biomining and waste-to-energy capacity",
+    "Coastal protection and managed retreat planning for the ~30 km of eroding shoreline, informed by the ISRO SAC subsidence projections",
+    "Marine value addition — Kochi is already India's 3rd-largest seafood export port (1,81,400 MT worth Rs 6,120.10 Cr in FY 2023-24) with room to move up the processing chain",
+    "Spice value addition and branding, leveraging the Spices Board headquarters presence",
+    "Cruise and MICE tourism building on Kerala's top district tourism position and CIAL's international connectivity",
+    "Periyar river remediation along Eloor-Edayar, which would unlock riverfront land and reduce health burden"
   ],
-  "communityInsights": {
-    "count": 2,
-    "summary": "Port modernization and petrochemical expansion opportunities verified from maritime industry stakeholders and port authority discussions.",
-    "verifiedItems": [
-      "Cochin Port capacity expansion plans",
-      "Shipyard modernization initiatives",
-      "Spice export volumes",
-      "Coir industry challenges"
-    ],
-    "contributors": ["Cochin Port Authority", "Maritime Industry Forum"],
-    "unverified": [
-      "Ship-breaking industry potential",
-      "Floating solar feasibility on backwaters",
-      "Offshore wind energy prospects"
+  "majorAssets": [
+    {
+      "name": "Cochin Port Authority",
+      "type": "Major port",
+      "cargo_mmt_FY2024_25": 37.75,
+      "cargo_mmt_FY2023_24": 36.32,
+      "cargoGrowthPercent_FY2024_25": 3.94,
+      "commercialVessels_FY2024_25": 1265,
+      "capacityNote": "Stated capacity is inconsistent across sources (78.6 / 79.9 / 80.5 MMT). No authoritative current figure was settled.",
+      "rankNote": "Its rank among Indian ports was NOT verified. Do not describe it as 'India's 2nd largest port' — that claim could not be substantiated.",
+      "confidence": "high"
+    },
+    {
+      "name": "Vallarpadam International Container Transshipment Terminal (ICTT) — DP World Cochin",
+      "type": "Container terminal",
+      "throughput_teu_FY2024_25": 834665,
+      "transshipment_teu_FY2024_25": 169562,
+      "throughput_teu_FY2023_24": 754237,
+      "capacity_teu": 1400000,
+      "confidence": "high"
+    },
+    {
+      "name": "BPCL Kochi Refinery",
+      "type": "Petroleum refinery",
+      "owner": "Bharat Petroleum Corporation Ltd (BPCL)",
+      "ownerNote": "This refinery is owned by BPCL, NOT IOCL. A previous version of this file wrongly attributed it to IOCL.",
+      "capacity_mmtpa": 15.5,
+      "throughput_mmt_FY2024_25": 17.22,
+      "utilisationPercent_FY2024_25": 111.11,
+      "throughput_mmt_FY2023_24": 17.54,
+      "confidence": "high"
+    },
+    {
+      "name": "Cochin Shipyard Ltd (CSL)",
+      "type": "Shipbuilding and ship repair",
+      "consolidatedTurnover_crores_FY2024_25": 4820,
+      "consolidatedPAT_crores_FY2024_25": 827,
+      "standaloneTurnover_crores_FY2024_25": 4527.84,
+      "standalonePAT_crores_FY2024_25": 842.91,
+      "notableBuild": "INS Vikrant, India's first indigenously built aircraft carrier",
+      "orderBookNote": "Exact current order book value NOT FOUND.",
+      "confidence": "high"
+    },
+    {
+      "name": "Fertilisers and Chemicals Travancore (FACT)",
+      "type": "Fertilisers and chemicals",
+      "divisions": ["Udyogamandal Complex (Eloor)", "Cochin Division (Ambalamedu)"],
+      "revenue_crores_FY2024_25": 4050.91,
+      "netProfit_crores_FY2024_25": 41.23,
+      "fertiliserProduction_lakhMT_FY2024_25": 8.95,
+      "fertiliserSales_MT_FY2024_25": 1163090,
+      "ammoniumSulphateProduction_MT_FY2024_25": 250578,
+      "installedCapacity_Factamfos_MT": 633500,
+      "employeesNote": "Current employee count NOT FOUND.",
+      "confidence": "high"
+    },
+    {
+      "name": "Infopark Kochi",
+      "type": "IT park",
+      "companies": 582,
+      "professionals": 70000,
+      "builtUpArea_millionSqFt": 9.2,
+      "landArea_acres": 323,
+      "itExports_crores_FY2023_24": 11417,
+      "itExportsGrowthPercent_FY2023_24": 24.28,
+      "confidence": "high"
+    },
+    {
+      "name": "Cochin Special Economic Zone (CSEZ)",
+      "type": "Multi-product SEZ (Government of India)",
+      "location": "Kakkanad, Kochi",
+      "area_hectares": 41.68,
+      "operatingUnits": 132,
+      "employmentNote": "Current employment NOT FOUND. A ~15,000 figure appears on Wikipedia but rests on dated references.",
+      "confidence": "medium"
+    },
+    {
+      "name": "Cochin International Airport (CIAL)",
+      "type": "International airport",
+      "passengers_FY2024_25": 11195965,
+      "internationalPassengers_FY2024_25": 5269721,
+      "domesticPassengers_FY2024_25": 5926244,
+      "cargo_MT_FY2024_25": 65651,
+      "aircraftMovements_FY2024_25": 76068,
+      "revenue_crores_FY2024_25": 1142,
+      "netProfit_crores_FY2024_25": 489.84,
+      "distinction": "World's first fully solar-powered airport",
+      "confidence": "high"
+    },
+    {
+      "name": "Kochi Metro Rail Ltd (KMRL)",
+      "type": "Urban rail",
+      "phase1_length_km": 28.125,
+      "phase1_stations": 25,
+      "ridership_FY2024_25": 35617580,
+      "ridership_FY2023_24": 32314947,
+      "operatingRevenue_crores_FY2023_24": 151.3,
+      "operatingSurplus_crores_FY2023_24": 22.94,
+      "lossBeforeTax_crores_FY2023_24": 433.49,
+      "phase2": "Pink Line, 11.2 km, Jawaharlal Nehru Stadium to Infopark, target 2026",
+      "confidence": "high"
+    }
+  ],
+  "tourism": {
+    "source": "Kerala Tourism — district-wise tourist statistics",
+    "stateRank": "1/14 for both domestic and foreign visitors in 2023 and 2024",
+    "years": [
+      { "year": 2024, "domesticVisits": 4329536, "foreignVisits": 268614 },
+      { "year": 2023, "domesticVisits": 4487930, "foreignVisits": 279904 }
     ]
   },
-  "alerts": [
-    { "id": 1, "severity": "yellow", "title": "Port Congestion During Monsoon", "roles": ["industrial", "logistics", "dc"], "deadline": "2026-06-30", "impact": "Shipping delays, increased logistics costs" },
-    { "id": 2, "severity": "yellow", "title": "Spice Price Volatility", "roles": ["agriculture", "trade"], "impact": "Farmer income uncertainty, export competitiveness" },
-    { "id": 3, "severity": "red", "title": "Coir Industry Modernization Needed", "roles": ["industrial", "msme"], "impact": "Declining market share, 50,000 jobs at risk" },
-    { "id": 4, "severity": "yellow", "title": "Environmental Compliance for Refineries", "roles": ["industrial", "health"], "deadline": "2026-12-31", "impact": "Potential operational restrictions if standards not met" },
-    { "id": 5, "severity": "yellow", "title": "Agricultural Land Conversion Pressure", "roles": ["agriculture", "revenue"], "impact": "Food security, farmer livelihoods declining" }
-  ],
-  "roleDashboards": {
-    "dc": {
-      "headline": "Ernakulam: Highest GDDP in Kerala (Rs 1.76L Cr). Per capita income Rs 5.36L (2nd highest). Strong port, refinery, and maritime base. Focus: Modernization of existing industries, port expansion, and sustainable growth.",
-      "kpis": [
-        { "label": "Per Capita Income", "value": "Rs 5.36L", "target": "Rs 6.00L", "status": "good" },
-        { "label": "HDI", "value": "0.784", "target": "0.820", "status": "good" },
-        { "label": "GDDP", "value": "Rs 1.76L Cr", "status": "good" },
-        { "label": "Urban Population", "value": "68.5%", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Port modernization to 50 MTPA", "progress": 35, "budget": 3500, "timeline": "2026-2030" },
-        { "title": "Petrochemical cluster expansion", "progress": 20, "budget": 2000, "timeline": "2027-2032" },
-        { "title": "Coir industry modernization", "progress": 15, "budget": 500, "timeline": "2026-2029" }
-      ],
-      "roadmapOwners": [],
-      "showLiveData": ["commodityPrices", "portTraffic"],
-      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
+  "agriculture": {
+    "year": "2021-22",
+    "totalCultivatedArea_ha": 149638,
+    "crops": [
+      { "crop": "Rubber", "area_ha": 60170, "shareOfCultivatedPercent": 40 },
+      { "crop": "Coconut", "area_ha": 39275 },
+      { "crop": "Paddy", "area_ha": 5224, "production_t": 14627.2 }
+    ],
+    "paddyDecline": {
+      "areaLost_ha": 75189,
+      "productionLost_t": 108456,
+      "period": "1957-58 to 2022-23",
+      "declinePercent": 90,
+      "shareOfNetSownArea": "57.53% (1980-81) -> 5.39% (2011-12)",
+      "conversions_ha_2018_19_to_2024_25": 1649.86,
+      "settledConversionApplications": 72050,
+      "shareOfStateConversionApplicationsPercent": 17
     },
-    "industrial": {
-      "headline": "Established industrial base: Cochin Port (35 MTPA), IOCL Refinery (7.5 MMTPA), Cochin Shipyard, FACT. Focus: Modernization, downstream petrochemicals, ship-breaking, marine biotech.",
-      "kpis": [
-        { "label": "Port Capacity", "value": "35 MTPA", "target": "50 MTPA", "status": "warning" },
-        { "label": "Refinery Capacity", "value": "7.5 MMTPA", "status": "good" },
-        { "label": "Shipyard Orders", "value": "3-4 vessels/year", "status": "good" },
-        { "label": "Industrial Land Available", "value": "Limited", "status": "critical" }
-      ],
-      "actions": [
-        { "title": "Port expansion Phase 2", "progress": 35, "budget": 3500, "timeline": "2026-2030" },
-        { "title": "Petrochemical downstream cluster", "progress": 20, "budget": 2000, "timeline": "2027-2032" },
-        { "title": "Ship-breaking facility setup", "progress": 10, "budget": 800, "timeline": "2026-2028" }
-      ],
-      "roadmapOwners": ["industrial-land", "msme", "industry"],
-      "showSections": ["roadmap", "industries", "industrial-land", "investments", "msme"]
-    },
-    "agriculture": {
-      "headline": "Agriculture declining (8.1% of GDDP). Focus: Spice value-addition, coconut & coir modernization, seafood processing, organic farming in remaining agricultural areas.",
-      "kpis": [
-        { "label": "Agricultural Share", "value": "8.1%", "target": "10%", "status": "warning" },
-        { "label": "Spice Exports", "value": "Rs 400 Cr/year", "status": "good" },
-        { "label": "Coir Workers", "value": "50,000", "target": "Modernize", "status": "warning" },
-        { "label": "Seafood Exports", "value": "Rs 800 Cr/year", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Spice processing clusters", "progress": 25, "budget": 300, "timeline": "2026-2029" },
-        { "title": "Coir modernization program", "progress": 15, "budget": 500, "timeline": "2026-2029" },
-        { "title": "Seafood cold chain expansion", "progress": 30, "budget": 400, "timeline": "2026-2028" }
-      ],
-      "roadmapOwners": ["agriculture", "agro-processing"],
-      "showLiveData": ["commodityPrices"],
-      "showSections": ["roadmap"]
-    },
-    "health": {
-      "headline": "High literacy (95.89%) and HDI (0.784). Strong healthcare infrastructure. Focus: Occupational health for port/refinery workers, pollution management, healthcare tourism expansion.",
-      "kpis": [
-        { "label": "Literacy Rate", "value": "95.89%", "target": "98%", "status": "good" },
-        { "label": "Sex Ratio", "value": "1027", "target": "1000+", "status": "good" },
-        { "label": "HDI", "value": "0.784", "target": "0.820", "status": "good" },
-        { "label": "Healthcare Facilities", "value": "Excellent", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Occupational health centers for port/refinery", "progress": 20, "budget": 150, "timeline": "2026-2028" },
-        { "title": "Healthcare tourism infrastructure", "progress": 30, "budget": 200, "timeline": "2026-2029" }
-      ],
-      "roadmapOwners": ["health"],
-      "showSections": []
-    },
-    "education": {
-      "headline": "Highest literacy in India (95.89%). Strong educational institutions. Focus: Skill development for maritime industries, IT sector, and emerging sectors.",
-      "kpis": [
-        { "label": "Literacy Rate", "value": "95.89%", "target": "98%", "status": "good" },
-        { "label": "Higher Education", "value": "Excellent", "status": "good" },
-        { "label": "Skill Development", "value": "Maritime focus", "status": "good" },
-        { "label": "Universities", "value": "10+", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Maritime skill development", "progress": 40, "budget": 250, "timeline": "2026-2029" },
-        { "title": "IT & tech training expansion", "progress": 50, "budget": 300, "timeline": "2026-2028" }
-      ],
-      "roadmapOwners": ["education", "skill-development"],
-      "showSections": ["roadmap"]
-    },
-    "tourism": {
-      "headline": "1.5M+ annual visitors. Backwaters, houseboats, heritage sites. Focus: Infrastructure expansion, cruise terminals, luxury resorts, adventure tourism.",
-      "kpis": [
-        { "label": "Annual Visitors", "value": "1.5M+", "target": "2.5M", "status": "good" },
-        { "label": "Tourism Revenue", "value": "Rs 2,500 Cr/year", "status": "good" },
-        { "label": "Houseboats", "value": "500+", "status": "good" },
-        { "label": "Hotel Rooms", "value": "15,000+", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Cruise terminal development", "progress": 15, "budget": 800, "timeline": "2027-2030" },
-        { "title": "Luxury resort expansion", "progress": 25, "budget": 600, "timeline": "2026-2029" }
-      ],
-      "roadmapOwners": [],
-      "showSections": ["roadmap"]
-    },
-    "minister": {
-      "headline": "Ernakulam: Economic powerhouse of Kerala. Highest GDDP (Rs 1.76L Cr), 2nd highest per capita income (Rs 5.36L). Port, refinery, shipyard, maritime base. Focus: Modernization, expansion, sustainability.",
-      "kpis": [
-        { "label": "Per Capita Income", "value": "Rs 5.36L", "target": "Rs 6.00L", "status": "good" },
-        { "label": "State Rank", "value": "1/14", "status": "good" },
-        { "label": "GDDP", "value": "Rs 1.76L Cr", "status": "good" },
-        { "label": "Port Capacity", "value": "35 MTPA", "status": "good" }
-      ],
-      "actions": [
-        { "title": "Port modernization to 50 MTPA", "progress": 35, "budget": 3500, "timeline": "2026-2030" },
-        { "title": "Petrochemical cluster expansion", "progress": 20, "budget": 2000, "timeline": "2027-2032" },
-        { "title": "Tourism infrastructure upgrade", "progress": 25, "budget": 1500, "timeline": "2026-2029" }
-      ],
-      "showLiveData": ["commodityPrices", "portTraffic"],
-      "roadmapOwners": [],
-      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
-    }
+    "note": "Rubber, not spices or coconut, is Ernakulam's largest crop by area. A previous version of this file presented spices, coir and cashew as core agricultural sectors without evidence."
   },
   "dataCompleteness": {
-    "level": "full",
+    "level": "partial",
     "sources": [
-      "Census of India 2011",
-      "Directorate of Economics & Statistics, Kerala",
-      "Ministry of Statistics & Programme Implementation (MoSPI)",
-      "Cochin Port Authority",
-      "Cochin Shipyard Limited",
-      "IOCL Kochi Refinery",
-      "FACT (Fertilizer & Chemicals Travancore)",
-      "Spice Board of India",
-      "Coir Board, Ministry of MSME",
-      "Kerala Tourism Board",
-      "SLBC Kerala (RBI)",
-      "Survey of India",
-      "Indian Bureau of Mines",
-      "Ministry of Shipping"
+      "Census of India 2011 — Ernakulam district",
+      "Kerala Directorate of Economics & Statistics (Ecostat) — GDDP/NDDP/net per capita income, 2024-25 (Q)",
+      "Kerala Economic Review 2025, State Planning Board",
+      "Union Budget Economic Survey Table 1.11A — state per capita NSDP",
+      "Kerala Human Development Report 2005 (UNDP) — historical district HDI",
+      "Cochin Port Authority traffic results via The Hindu BusinessLine / New Indian Express",
+      "DP World Cochin ICTT results",
+      "BPCL — Kochi Refinery capacity; BPCL Directors' Report FY2024-25",
+      "Cochin Shipyard Ltd FY2024-25 results and ESG Report",
+      "Department of Fertilizers and FACT FY2024-25 results",
+      "Infopark Kochi figures via Onmanorama / New Indian Express",
+      "Kochi Metro Rail Ltd annual reports",
+      "CIAL Annual Report 2024-25",
+      "Cochin SEZ RTI disclosures",
+      "Kerala Tourism — district-wise tourist statistics 2023 and 2024",
+      "MPEDA export performance 2023-24",
+      "Survey of India"
     ],
-    "lastVerified": "2026-09-09"
+    "lastVerified": "2026-09-09",
+    "verificationNote": "Demographics, district GDDP/NDDP/per capita income, and the financial and operating metrics of the major assets are sourced from company reports, government statistics or credible press coverage. Sectoral GDDP composition is a state-average proxy. The HDI value is from 2005 and is flagged as stale. No roadmap, investment pipeline, credit, MSME or KPI-target tables are included because no verified district-level figures were available."
   },
-  "kpis": [
-    {
-      "id": "portTraffic",
-      "title": "Cochin Port Traffic",
-      "current": "35 MTPA",
-      "percentage": 70,
-      "target": "50 MTPA (2030)",
-      "targetYear": "50 MTPA (2030)",
-      "gap": "15 MTPA expansion needed",
-      "status": "yellow",
-      "confidence": "high",
-      "source": "Cochin Port Authority",
-      "updated": "Jun 2026",
-      "details": [
-        "Current capacity: 35 MTPA",
-        "Cargo handled: 32 MTPA (2025-26)",
-        "Expansion Phase 2: 15 MTPA additional",
-        "Investment: Rs 3,500 Cr",
-        "Timeline: 2026-2030"
-      ]
-    },
-    {
-      "id": "refineryCapacity",
-      "title": "IOCL Refinery Capacity",
-      "current": "7.5 MMTPA",
-      "percentage": 85,
-      "target": "8.5 MMTPA (2028)",
-      "targetYear": "8.5 MMTPA (2028)",
-      "gap": "1 MMTPA upgrade planned",
-      "status": "green",
-      "confidence": "high",
-      "source": "IOCL Kochi",
-      "updated": "Jul 2026",
-      "details": [
-        "Current capacity: 7.5 MMTPA",
-        "Utilization: 85-90%",
-        "Upgrade planned: +1 MMTPA",
-        "Investment: Rs 2,000 Cr",
-        "Timeline: 2027-2028"
-      ]
-    },
-    {
-      "id": "shipyardOrders",
-      "title": "Cochin Shipyard Orders",
-      "current": "3-4 vessels/year",
-      "percentage": 60,
-      "target": "6-8 vessels/year (2030)",
-      "targetYear": "6-8 vessels/year (2030)",
-      "gap": "Capacity expansion needed",
-      "status": "yellow",
-      "confidence": "medium",
-      "source": "Cochin Shipyard Limited",
-      "updated": "Aug 2026",
-      "details": [
-        "Current order book: 8-10 vessels",
-        "Annual capacity: 3-4 vessels",
-        "Expansion plan: +50% capacity",
-        "Investment: Rs 1,200 Cr",
-        "Timeline: 2026-2029"
-      ]
-    },
-    {
-      "id": "spiceExports",
-      "title": "Spice Exports Value",
-      "current": "Rs 400 Cr/year",
-      "percentage": 75,
-      "target": "Rs 600 Cr/year (2030)",
-      "targetYear": "Rs 600 Cr/year (2030)",
-      "gap": "Rs 200 Cr increase needed",
-      "status": "yellow",
-      "confidence": "medium",
-      "source": "Spice Board of India",
-      "updated": "Jun 2026",
-      "details": [
-        "Current exports: Rs 400 Cr/year",
-        "Volume: 40% of India's spice exports",
-        "Main products: Cardamom, pepper, cloves",
-        "Growth target: 50% by 2030",
-        "Focus: Value-addition, branding"
-      ]
-    },
-    {
-      "id": "coirIndustry",
-      "title": "Coir Industry Employment",
-      "current": "50,000 workers",
-      "percentage": 50,
-      "target": "Modernize & sustain (2030)",
-      "targetYear": "Modernize & sustain (2030)",
-      "gap": "Technology upgrade needed",
-      "status": "red",
-      "confidence": "high",
-      "source": "Coir Board, Ministry of MSME",
-      "updated": "Jul 2026",
-      "details": [
-        "Current workers: 50,000",
-        "Annual turnover: Rs 500 Cr",
-        "Challenge: Synthetic competition",
-        "Modernization investment: Rs 500 Cr",
-        "Focus: Geotextiles, composites"
-      ]
-    },
-    {
-      "id": "seafoodExports",
-      "title": "Seafood Exports Value",
-      "current": "Rs 800 Cr/year",
-      "percentage": 80,
-      "target": "Rs 1,200 Cr/year (2030)",
-      "targetYear": "Rs 1,200 Cr/year (2030)",
-      "gap": "Rs 400 Cr growth needed",
-      "status": "yellow",
-      "confidence": "high",
-      "source": "Marine Products Export Development Authority",
-      "updated": "Jun 2026",
-      "details": [
-        "Current exports: Rs 800 Cr/year",
-        "Volume: 40% of Kerala's seafood exports",
-        "Main products: Shrimp, fish, crab",
-        "Growth focus: Cold chain, value-addition",
-        "Investment: Rs 400 Cr"
-      ]
-    },
-    {
-      "id": "tourism",
-      "title": "Tourism Arrivals",
-      "current": "1.5M visitors/year",
-      "percentage": 60,
-      "target": "2.5M visitors/year (2030)",
-      "targetYear": "2.5M visitors/year (2030)",
-      "gap": "1M additional visitors needed",
-      "status": "yellow",
-      "confidence": "medium",
-      "source": "Kerala Tourism Board",
-      "updated": "Aug 2026",
-      "details": [
-        "Current arrivals: 1.5M/year",
-        "Revenue: Rs 2,500 Cr/year",
-        "Growth target: 67% by 2030",
-        "Infrastructure: Cruise terminals, resorts",
-        "Investment: Rs 2,000 Cr"
-      ]
-    }
-  ],
-  "baseline": {
-    "rankings": {
-      "perCapitaIncome": {
-        "rank": "2/14",
-        "value": "Rs 5,36,055 (2023-24)",
-        "stateAvg": "Rs 4,20,000 (2025-26 est.)",
-        "status": "2nd highest in Kerala"
-      },
-      "gddpTotal": {
-        "rank": "1/14",
-        "value": "Rs 1,75,954 crore (2023-24)",
-        "status": "Highest in Kerala"
-      },
-      "industryShare": {
-        "rank": "1/14",
-        "value": "25.6% of GDDP",
-        "target": "28%"
-      }
-    },
-    "gddp": {
-      "total": 175954,
-      "agriculture": {
-        "share": 8.1,
-        "value": 14252
-      },
-      "industry": {
-        "share": 25.6,
-        "value": 45043
-      },
-      "services": {
-        "share": 66.3,
-        "value": 116659
-      }
-    },
-    "demographics": {
-      "totalPopulation": 3282388,
-      "rural": 1033020,
-      "ruralPercent": 31.48,
-      "urban": 2249368,
-      "urbanPercent": 68.52,
-      "agriculturalWorkers": 8.2,
-      "literacy": 95.89,
-      "note": "Highest literacy rate in India. Aligned to Census 2011 official"
-    },
-    "migration": {
-      "outMigration": 15,
-      "reasons": [
-        "Limited agricultural opportunities",
-        "Seeking higher wages in metros",
-        "Education & skill development"
-      ]
-    }
-  },
-  "roadmap": {
-    "totalInvestment": 12000,
-    "targetRank": "1/14",
-    "perCapitaGoal": 600000,
-    "jobsToCreate": 45000,
-    "phases": {
-      "phase1": {
-        "name": "Modernization",
-        "years": "2026-2029",
-        "budget": 4500,
-        "progress": 35,
-        "status": "yellow",
-        "components": [
-          {
-            "name": "Port Modernization Phase 2",
-            "budget": 3500,
-            "progress": 35,
-            "owner": "industrial",
-            "budgetFlow": { "planned": 3500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Berth expansion: 3 new berths planned",
-              "Dredging: 15m depth for larger vessels",
-              "Container terminal: 1M TEU capacity",
-              "Cargo handling: 50 MTPA target"
-            ]
-          },
-          {
-            "name": "Refinery Upgrade",
-            "budget": 2000,
-            "progress": 20,
-            "owner": "industrial",
-            "budgetFlow": { "planned": 2000, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Capacity increase: 7.5 to 8.5 MMTPA",
-              "Environmental compliance: Euro-5 standards",
-              "Petrochemical downstream: Expansion"
-            ]
-          }
-        ]
-      },
-      "phase2": {
-        "name": "Expansion",
-        "years": "2029-2032",
-        "budget": 4500,
-        "progress": 20,
-        "status": "yellow",
-        "components": [
-          {
-            "name": "Petrochemical Cluster",
-            "budget": 2000,
-            "progress": 20,
-            "owner": "industrial",
-            "budgetFlow": { "planned": 2000, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Downstream industries: Plastics, chemicals",
-              "Investment: Rs 2,000 Cr",
-              "Jobs: 8,000+ direct"
-            ]
-          },
-          {
-            "name": "Ship-breaking & Recycling",
-            "budget": 800,
-            "progress": 10,
-            "owner": "industrial",
-            "budgetFlow": { "planned": 800, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Facility capacity: 100+ vessels/year",
-              "Jobs: 2,000+ direct",
-              "Environmental compliance: IMO standards"
-            ]
-          },
-          {
-            "name": "Spice & Agro-processing",
-            "budget": 600,
-            "progress": 25,
-            "owner": "agriculture",
-            "budgetFlow": { "planned": 600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Processing clusters: 5 new clusters",
-              "Value-addition: 50% increase",
-              "Export growth: Rs 600 Cr target"
-            ]
-          },
-          {
-            "name": "Coir Modernization",
-            "budget": 500,
-            "progress": 15,
-            "owner": "msme",
-            "budgetFlow": { "planned": 500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
-            "items": [
-              "Technology upgrade: 50,000 workers",
-              "New products: Geotextiles, composites",
-              "Market diversification: 30% export growth"
-            ]
-          }
-        ]
-      },
-      "phase3": {
-        "name": "Sustainability",
-        "years": "2032-2034",
-        "budget": 3000,
-        "progress": 0,
-        "status": "notstarted",
-        "description": "Green port operations, renewable energy integration, tourism infrastructure, and sustainable industrial growth."
-      }
-    },
-    "financing": [
-      {
-        "source": "Central Schemes",
-        "amount": 4200,
-        "percent": 35,
-        "details": "Port modernization, industrial development, PMKSY"
-      },
-      {
-        "source": "State Budget",
-        "amount": 2760,
-        "percent": 23,
-        "details": "State schemes & budget allocation"
-      },
-      {
-        "source": "Private Investment",
-        "amount": 3120,
-        "percent": 26,
-        "details": "Port operations, petrochemicals, tourism"
-      },
-      {
-        "source": "Bank Credit",
-        "amount": 1920,
-        "percent": 16,
-        "details": "MSME, agriculture, services"
-      }
+  "dataNotes": {
+    "factualErrorsCorrected": [
+      "'IOCL Kochi Refinery, 7.5 MMTPA' — WRONG ON BOTH COUNTS. The refinery is owned by BPCL, not IOCL, and its capacity is 15.5 MMTPA, not 7.5 MMTPA.",
+      "'Cochin Port: 2nd largest port in India, 35 MTPA capacity' — the rank claim could not be substantiated and has been removed. Actual FY2024-25 cargo was 37.75 MMT; stated capacity is inconsistent across sources.",
+      "'HDI 0.784, rank 2/14, state best Thiruvananthapuram 0.821' — invented. The only sourceable district HDI is 0.801 with rank 1/14, from the Kerala HDR 2005. The Thiruvananthapuram figures did not exist.",
+      "'Per capita income Rs 5,36,055' and 'GDDP Rs 1,75,954 Cr' — unsourced estimates. Kerala DES reports per capita NDDP of Rs 4,15,797 and GDDP of Rs 1,67,662 Cr for 2024-25 (Q).",
+      "'State avg per capita Rs 4,20,000 (2026)' — invented. Kerala's per capita NSDP was Rs 3,08,338 in 2024-25.",
+      "'Cochin Shipyard: 3,000+ employees' — not verified and removed.",
+      "'Coir Board headquarters' listed as an Ernakulam asset — the Coir Board is headquartered in Kochi, but the '50,000 coir workers' and 'Rs 500 Cr turnover' district figures attached to it were invented."
+    ],
+    "removedInThisRevision": [
+      "'Spice exports Rs 400 Cr/year', 'seafood exports Rs 800 Cr/year, 40% of Kerala's', '1.5M+ annual visitors', 'Rs 2,500 Cr tourism revenue', '500+ houseboats', '15,000+ hotel rooms', '1.5M tourists', 'FACT 2,500+ workforce' — all unsourced district-level figures. Where real equivalents existed they have been replaced with sourced values (e.g. actual tourism arrivals, actual Kochi-port seafood export volume).",
+      "'Ship-breaking & recycling: 100+ vessels/year opportunity', 'floating solar on backwaters', 'offshore wind' — speculative items presented as pipeline.",
+      "roadmap / industries / creditData / msme / investments / kpis / roleDashboards blocks — these contained invented budgets, job counts, progress percentages and revenue projections presented with false source attribution and 'high' confidence labels. Removed rather than corrected."
+    ],
+    "correctedInThisRevision": [
+      "rural: 1,033,020 -> 1,048,025 and urban: 2,249,368 -> 2,234,363 (Census 2011 actual; verified against the rural/urban male-female breakdowns)",
+      "Added the district's largest missing assets — Infopark Kochi, Cochin SEZ, Vallarpadam ICTT, CIAL and Kochi Metro — none of which appeared in the previous version despite being central to Ernakulam's economy",
+      "Replaced the invented agriculture narrative with actual 2021-22 crop areas: rubber (60,170 ha) is the largest crop, not spices"
+    ],
+    "openGaps": [
+      "District rank for per capita NDDP within Kerala",
+      "District-level sectoral GDDP shares — may not be published by Kerala DES",
+      "A current official district HDI for Ernakulam (latest sourceable is 2005)",
+      "Definitive Cochin Port cargo capacity (78.6 / 79.9 / 80.5 MMT conflict)",
+      "Cochin Shipyard current order book value",
+      "CSEZ current employment and full-year export time series",
+      "FACT current employee count",
+      "Ernakulam-district-specific spice and seafood production/export values (only national and port-level figures exist)",
+      "Bank branch count, deposits, credit and CD ratio (SLBC Kerala)",
+      "UDYAM MSME registration counts for Ernakulam"
     ]
-  },
-  "industries": {
-    "overview": {
-      "totalInvestment": 8500,
-      "totalJobs": 42000,
-      "gddpContribution": 2100,
-      "percentOfTarget": 5.2,
-      "status": "Port operational, refinery stable, shipyard active, expansion planned"
-    },
-    "sectors": [
-      {
-        "id": "port",
-        "name": "Port & Maritime Services",
-        "priority": "HIGHEST",
-        "priorityNote": "Cochin Port: 2nd largest in India, 35 MTPA capacity",
-        "investment": {
-          "total": 3500,
-          "breakdown": {
-            "infrastructure": 2000,
-            "equipment": 1000,
-            "technology": 500
-          },
-          "financing": {
-            "government": 2100,
-            "private": 1050,
-            "bonds": 350
-          }
-        },
-        "impact": {
-          "jobs": {
-            "direct": 8000,
-            "indirect": 12000,
-            "total": 20000,
-            "skillLevel": "Mix (operators, engineers, managers)",
-            "salary": "Rs 20,000-80,000/month"
-          },
-          "revenue": {
-            "year2034": 5000,
-            "cargo": 3500,
-            "services": 1500
-          },
-          "gddp": {
-            "contribution": 1200,
-            "percentOfTarget": 3.0,
-            "multiplier": 1.8
-          }
-        },
-        "timeline": {
-          "phase1": "2026-2027: Berth expansion, dredging",
-          "phase2": "2027-2029: Container terminal, automation",
-          "phase3": "2029-2034: 50 MTPA capacity, green port",
-          "firstRevenue": "OPERATIONAL NOW",
-          "fullScale": "2030"
-        },
-        "location": "Cochin Port, Ernakulam",
-        "products": [
-          "Container handling (TEU capacity)",
-          "Breakbulk cargo services",
-          "Tanker services (petroleum, chemicals)",
-          "Cruise terminal services"
-        ],
-        "risks": [
-          {
-            "risk": "Monsoon congestion (June-September)",
-            "severity": "medium",
-            "mitigation": "Improved dredging, faster turnaround"
-          },
-          {
-            "risk": "Competition from other ports",
-            "severity": "medium",
-            "mitigation": "Cost efficiency, service quality"
-          }
-        ],
-        "confidence": "HIGHEST (95%)",
-        "recommendation": "PROCEED - Operational, expansion approved"
-      },
-      {
-        "id": "refinery",
-        "name": "Petrochemicals & Refinery",
-        "priority": "HIGHEST",
-        "priorityNote": "IOCL Kochi: 7.5 MMTPA, one of India's largest",
-        "investment": {
-          "total": 2000,
-          "breakdown": {
-            "refinery": 1200,
-            "downstream": 600,
-            "environmental": 200
-          },
-          "financing": {
-            "private": 1500,
-            "government": 300,
-            "banks": 200
-          }
-        },
-        "impact": {
-          "jobs": {
-            "direct": 5000,
-            "indirect": 8000,
-            "total": 13000,
-            "skillLevel": "Highly skilled (engineers, technicians)",
-            "salary": "Rs 25,000-100,000/month"
-          },
-          "revenue": {
-            "year2034": 8000,
-            "petroleum": 5000,
-            "petrochemicals": 3000
-          },
-          "gddp": {
-            "contribution": 800,
-            "percentOfTarget": 2.0,
-            "multiplier": 1.6
-          }
-        },
-        "timeline": {
-          "phase1": "2026-2027: Capacity upgrade to 8.5 MMTPA",
-          "phase2": "2027-2029: Downstream petrochemical expansion",
-          "phase3": "2029-2034: Full capacity, green operations",
-          "firstRevenue": "OPERATIONAL NOW",
-          "fullScale": "2028"
-        },
-        "location": "Kochi, Ernakulam",
-        "products": [
-          "Petroleum products (petrol, diesel, kerosene)",
-          "Petrochemical feedstock",
-          "Lubricants and specialty products"
-        ],
-        "risks": [
-          {
-            "risk": "Environmental compliance pressure",
-            "severity": "high",
-            "mitigation": "Euro-5 standards, pollution control"
-          },
-          {
-            "risk": "Global crude price volatility",
-            "severity": "medium",
-            "mitigation": "Hedging, efficiency improvements"
-          }
-        ],
-        "confidence": "HIGHEST (95%)",
-        "recommendation": "OPERATIONAL - Upgrade & expansion in progress"
-      },
-      {
-        "id": "shipyard",
-        "name": "Ship Building & Repair",
-        "priority": "HIGH",
-        "priorityNote": "Cochin Shipyard: 3,000+ employees, naval vessels & commercial ships",
-        "investment": {
-          "total": 1200,
-          "breakdown": {
-            "infrastructure": 400,
-            "equipment": 600,
-            "technology": 200
-          },
-          "financing": {
-            "government": 600,
-            "private": 400,
-            "banks": 200
-          }
-        },
-        "impact": {
-          "jobs": {
-            "direct": 4000,
-            "indirect": 6000,
-            "total": 10000,
-            "skillLevel": "Highly skilled (welders, engineers, technicians)",
-            "salary": "Rs 20,000-80,000/month"
-          },
-          "revenue": {
-            "year2034": 3000,
-            "naval": 1500,
-            "commercial": 1200,
-            "repair": 300
-          },
-          "gddp": {
-            "contribution": 450,
-            "percentOfTarget": 1.1,
-            "multiplier": 1.5
-          }
-        },
-        "timeline": {
-          "phase1": "2026-2027: Capacity expansion +50%",
-          "phase2": "2027-2029: New dry dock, automation",
-          "phase3": "2029-2034: 6-8 vessels/year capacity",
-          "firstRevenue": "OPERATIONAL NOW",
-          "fullScale": "2029"
-        },
-        "location": "Cochin Shipyard, Ernakulam",
-        "products": [
-          "Naval vessels (corvettes, frigates)",
-          "Commercial ships (tankers, bulk carriers)",
-          "Ship repair & maintenance",
-          "Offshore support vessels"
-        ],
-        "risks": [
-          {
-            "risk": "Long project cycles (3-5 years)",
-            "severity": "medium",
-            "mitigation": "Modular construction, parallel projects"
-          },
-          {
-            "risk": "Competition from global shipyards",
-            "severity": "medium",
-            "mitigation": "Cost efficiency, quality focus"
-          }
-        ],
-        "confidence": "HIGH (85%)",
-        "recommendation": "PROCEED - Expansion approved, order book strong"
-      },
-      {
-        "id": "spice",
-        "name": "Spice Processing & Exports",
-        "priority": "MEDIUM-HIGH",
-        "priorityNote": "40% of India's spice exports, Rs 400 Cr/year value",
-        "investment": {
-          "total": 600,
-          "breakdown": {
-            "infrastructure": 200,
-            "equipment": 300,
-            "branding": 100
-          },
-          "financing": {
-            "government": 200,
-            "private": 250,
-            "banks": 150
-          }
-        },
-        "impact": {
-          "jobs": {
-            "direct": 3000,
-            "indirect": 5000,
-            "total": 8000,
-            "skillLevel": "Skilled (processing, quality control)",
-            "salary": "Rs 12,000-40,000/month"
-          },
-          "revenue": {
-            "year2034": 600,
-            "domestic": 240,
-            "export": 360
-          },
-          "gddp": {
-            "contribution": 180,
-            "percentOfTarget": 0.45,
-            "multiplier": 1.3
-          }
-        },
-        "timeline": {
-          "phase1": "2026-2027: Processing clusters setup",
-          "phase2": "2027-2029: Value-addition, branding",
-          "phase3": "2029-2034: Rs 600 Cr revenue target",
-          "firstRevenue": "12-18 months",
-          "fullScale": "60 months"
-        },
-        "location": "Kochi, Ernakulam (spice trading hub)",
-        "products": [
-          "Cardamom (green & black)",
-          "Black pepper",
-          "Cloves",
-          "Processed & packaged spices",
-          "Spice extracts & oils"
-        ],
-        "risks": [
-          {
-            "risk": "Global spice price volatility",
-            "severity": "medium",
-            "mitigation": "Value-addition, branding, diversification"
-          },
-          {
-            "risk": "Quality & certification standards",
-            "severity": "medium",
-            "mitigation": "ISO certification, quality labs"
-          }
-        ],
-        "confidence": "MEDIUM-HIGH (75%)",
-        "recommendation": "PROCEED - High export potential, existing base"
-      },
-      {
-        "id": "coir",
-        "name": "Coir & Coconut Products",
-        "priority": "MEDIUM",
-        "priorityNote": "50,000 workers, Rs 500 Cr/year, facing synthetic competition",
-        "investment": {
-          "total": 500,
-          "breakdown": {
-            "technology": 250,
-            "equipment": 200,
-            "training": 50
-          },
-          "financing": {
-            "government": 250,
-            "private": 150,
-            "banks": 100
-          }
-        },
-        "impact": {
-          "jobs": {
-            "direct": 2000,
-            "indirect": 3000,
-            "total": 5000,
-            "skillLevel": "Skilled (modernized production)",
-            "salary": "Rs 15,000-35,000/month"
-          },
-          "revenue": {
-            "year2034": 700,
-            "traditional": 300,
-            "newProducts": 400
-          },
-          "gddp": {
-            "contribution": 210,
-            "percentOfTarget": 0.52,
-            "multiplier": 1.2
-          }
-        },
-        "timeline": {
-          "phase1": "2026-2027: Technology upgrade, training",
-          "phase2": "2027-2029: New product development",
-          "phase3": "2029-2034: Market expansion, exports",
-          "firstRevenue": "24-30 months",
-          "fullScale": "72 months"
-        },
-        "location": "Ernakulam district (Coir Board HQ)",
-        "products": [
-          "Coir fiber (traditional)",
-          "Coir geotextiles (erosion control)",
-          "Automotive composites",
-          "Coir pith products",
-          "Coconut shell charcoal"
-        ],
-        "risks": [
-          {
-            "risk": "Synthetic fiber competition",
-            "severity": "high",
-            "mitigation": "Innovation, eco-branding, new markets"
-          },
-          {
-            "risk": "Worker skill gaps",
-            "severity": "medium",
-            "mitigation": "Training programs, wage incentives"
-          }
-        ],
-        "confidence": "MEDIUM (65%)",
-        "recommendation": "PROCEED with modernization focus"
-      }
-    ]
-  },
-  "creditData": {
-    "lastUpdated": "2026-09-09",
-    "currentQuarter": "Q2 FY 2026-27",
-    "source": "SLBC Kerala",
-    "summary": {
-      "totalCredit": 85000000000,
-      "totalDeposits": 120000000000,
-      "creditDepositRatio": 70.8,
-      "stateAvgCDRatio": 68.5,
-      "prioritySectorCredit": 45000000000,
-      "nonPrioritySectorCredit": 40000000000,
-      "totalBankBranches": 650,
-      "totalATMs": 1200
-    },
-    "sectorWiseCredit": {
-      "agriculture": {
-        "outstanding": 12000000000,
-        "percentOfTotal": 14.1,
-        "yearlyTarget": 13500000000,
-        "achievement": 88.9
-      },
-      "industry": {
-        "outstanding": 35000000000,
-        "percentOfTotal": 41.2,
-        "yearlyTarget": 38000000000,
-        "achievement": 92.1
-      },
-      "services": {
-        "outstanding": 25000000000,
-        "percentOfTotal": 29.4,
-        "yearlyTarget": 26000000000,
-        "achievement": 96.2
-      },
-      "others": {
-        "outstanding": 13000000000,
-        "percentOfTotal": 15.3
-      }
-    }
-  },
-  "msme": {
-    "lastUpdated": "2026-09-09",
-    "source": "UDYAM Registration (OGD Platform)",
-    "statistics": {
-      "total": 8542,
-      "byType": {
-        "proprietorship": 5200,
-        "partnership": 2100,
-        "privateLimited": 980,
-        "publicLimited": 150,
-        "selfHelpGroup": 112
-      },
-      "bySector": {
-        "manufacturing": 3200,
-        "services": 3500,
-        "trade": 1600,
-        "others": 242
-      },
-      "totalInvestment": 4200000000,
-      "totalEmployment": 52000
-    },
-    "growthTrends": {
-      "yearOverYear": "+12.5%",
-      "targetBy2032": 12000,
-      "gapRemaining": 3458
-    }
-  },
-  "investments": {
-    "lastUpdated": "2026-09-09",
-    "source": "Kerala Udyog Mitra / Invest Kerala",
-    "summary": {
-      "totalProposals": 125,
-      "approvedProposals": 85,
-      "pendingProposals": 28,
-      "rejectedProposals": 12,
-      "proposedInvestment": 18500000000,
-      "realizedInvestment": 12800000000,
-      "projectedEmployment": 35000,
-      "realizationRate": 69.2
-    },
-    "proposalsBySector": {
-      "portAndMaritime": {
-        "count": 28,
-        "investment": 8500000000,
-        "employment": 12000
-      },
-      "petrochemicals": {
-        "count": 15,
-        "investment": 4200000000,
-        "employment": 5000
-      },
-      "shipBuilding": {
-        "count": 8,
-        "investment": 2400000000,
-        "employment": 3000
-      },
-      "spiceProcessing": {
-        "count": 18,
-        "investment": 1200000000,
-        "employment": 2500
-      },
-      "tourism": {
-        "count": 32,
-        "investment": 1800000000,
-        "employment": 8000
-      },
-      "others": {
-        "count": 24,
-        "investment": 400000000,
-        "employment": 4500
-      }
-    }
   },
   "dataSources": [
     {
-      "name": "Census of India 2011",
-      "url": "https://censusindia.gov.in",
+      "name": "Census of India 2011 — Ernakulam district",
+      "url": "https://www.census2011.co.in/census/district/278-ernakulam.html",
       "fields": [
         "Population",
-        "Literacy Rate",
+        "Male/Female",
+        "Households",
+        "Rural/Urban (with male-female breakdown)",
+        "Literacy (total/male/female)",
         "Sex Ratio",
-        "Rural/Urban split",
-        "Area"
+        "Child Sex Ratio",
+        "Area",
+        "Density",
+        "Decadal growth"
       ],
-      "type": "Demographics"
+      "type": "Demographics",
+      "confidence": "high"
     },
     {
-      "name": "Cochin Port Authority",
-      "url": "https://cochinport.gov.in",
+      "name": "Kerala DES (Ecostat) — GDDP, NDDP & Net Per Capita Income, 2011-12 to 2024-25 (Q)",
+      "url": "https://www.ecostat.kerala.gov.in/publication-detail/gross-district-domestic-productgddp-net-district-domestic-productnddp--net-percapita-income---2011-12-to-2024-25q",
       "fields": [
-        "Port capacity",
-        "Cargo handled",
-        "Expansion plans",
-        "Employment"
+        "GDDP (current & constant prices)",
+        "NDDP (current & constant prices)",
+        "Net per capita income"
       ],
-      "type": "Port & Maritime"
+      "type": "Economy",
+      "confidence": "high"
     },
     {
-      "name": "IOCL Kochi Refinery",
-      "url": "https://www.iocl.com",
+      "name": "Union Budget Economic Survey — Table 1.11A, Per Capita NSDP at Current Prices",
+      "url": "https://www.indiabudget.gov.in/economicsurvey/doc/stat/tab1.11a.pdf",
       "fields": [
-        "Refinery capacity",
-        "Production volumes",
-        "Upgrade plans"
+        "Kerala per capita NSDP 2023-24 and 2024-25"
       ],
-      "type": "Petrochemicals"
+      "type": "Economy (state benchmark)",
+      "confidence": "high"
     },
     {
-      "name": "Cochin Shipyard Limited",
-      "url": "https://cochinshipyard.com",
+      "name": "Kerala Human Development Report 2005 (State Planning Board / UNDP)",
+      "url": "https://files.acquia.undp.org/public/migration/in/human_develop_report_kerala_2005_full_report.pdf",
       "fields": [
-        "Order book",
-        "Capacity",
-        "Employment",
-        "Expansion plans"
+        "District HDI and rank (2005 vintage)"
       ],
-      "type": "Ship Building"
+      "type": "Human Development (historical)",
+      "confidence": "medium"
     },
     {
-      "name": "Spice Board of India",
-      "url": "https://spiceboard.gov.in",
+      "name": "Cochin Port cargo traffic FY2024-25",
+      "url": "https://www.thehindubusinessline.com/economy/logistics/cochin-port-posts-4-rise-in-cargo-traffic-in-fy25/article69403855.ece",
       "fields": [
-        "Spice exports",
-        "Production volumes",
-        "Market trends"
+        "Cargo throughput FY2024-25 and FY2023-24",
+        "Commercial vessel calls"
       ],
-      "type": "Agriculture & Trade"
+      "type": "Ports",
+      "confidence": "high"
     },
     {
-      "name": "Coir Board, Ministry of MSME",
-      "url": "https://coirboard.gov.in",
+      "name": "DP World Cochin ICTT FY2024-25 results",
+      "url": "https://www.newindianexpress.com/cities/kochi/2025/Apr/02/dp-world-cochin-achieves-record-834665-teus-in-fy-2024-25",
       "fields": [
-        "Coir industry statistics",
-        "Employment",
-        "Production volumes",
-        "Modernization programs"
+        "TEU throughput",
+        "Transshipment TEUs"
       ],
-      "type": "MSME & Industry"
+      "type": "Ports",
+      "confidence": "high"
     },
     {
-      "name": "Kerala Tourism Board",
-      "url": "https://keralatourism.org",
+      "name": "BPCL — Kochi Refinery refining capacity",
+      "url": "https://www.bharatpetroleum.in/our-businesses/refineries/kochi-refinery/refining-capacity",
       "fields": [
-        "Tourist arrivals",
-        "Tourism revenue",
-        "Infrastructure"
+        "Installed capacity",
+        "Ownership"
       ],
-      "type": "Tourism"
+      "type": "Petroleum",
+      "confidence": "high"
     },
     {
-      "name": "Directorate of Economics & Statistics, Kerala",
-      "url": "https://des.kerala.gov.in",
+      "name": "Cochin Shipyard Ltd FY2024-25 results",
+      "url": "https://cochinshipyard.in/uploads/investor/fa2061cfb0e7a0b1626e0e0d34dde955.pdf",
       "fields": [
-        "GSDP",
-        "Per capita income",
-        "Sectoral composition"
+        "Consolidated and standalone turnover",
+        "PBT and PAT"
       ],
-      "type": "Economy"
+      "type": "Shipbuilding",
+      "confidence": "high"
     },
     {
-      "name": "SLBC Kerala (RBI)",
-      "url": "https://www.rbi.org.in",
+      "name": "FACT FY2024-25 results and Department of Fertilizers profile",
+      "url": "https://www.thehindubusinessline.com/economy/agri-business/amid-challenges-fact-clocks-405091-crore-turnover-4123-crore-net-profit-in-fy25/article70120471.ece",
       "fields": [
-        "Credit disbursement",
-        "Credit-deposit ratio",
-        "Bank branches"
+        "Revenue and net profit",
+        "Production and sales volumes",
+        "Installed capacities and divisions"
       ],
-      "type": "Banking & Credit"
+      "type": "Fertilisers & Chemicals",
+      "confidence": "high"
+    },
+    {
+      "name": "Infopark Kochi — companies, employment and exports",
+      "url": "https://www.onmanorama.com/news/business/2024/09/04/infopark-clocks-crore-it-exports-growth.html",
+      "fields": [
+        "Companies",
+        "Professionals",
+        "Built-up and land area",
+        "IT exports FY2023-24"
+      ],
+      "type": "IT & Services",
+      "confidence": "high"
+    },
+    {
+      "name": "CIAL Annual Report 2024-25",
+      "url": "https://www.cial.aero/ckeditor/upload/CIAL-Annual-Report-2024-25.pdf",
+      "fields": [
+        "Passenger and aircraft movements",
+        "Cargo",
+        "Revenue and net profit"
+      ],
+      "type": "Aviation",
+      "confidence": "high"
+    },
+    {
+      "name": "Kochi Metro Rail Ltd annual reports",
+      "url": "https://kochimetro.org/annual-reports/",
+      "fields": [
+        "Phase I length and stations",
+        "Operating revenue and surplus",
+        "Loss before tax",
+        "Ridership"
+      ],
+      "type": "Urban transport",
+      "confidence": "high"
+    },
+    {
+      "name": "Cochin Special Economic Zone — RTI disclosures",
+      "url": "https://csez.com/rti/map/csez.php",
+      "fields": [
+        "Area",
+        "Number of operating units"
+      ],
+      "type": "SEZ",
+      "confidence": "medium"
+    },
+    {
+      "name": "Kerala Tourism — district-wise tourist statistics 2024",
+      "url": "https://www.keralatourism.org/tourismstatistics/tourists_statistics_202420250926131606.pdf",
+      "fields": [
+        "Domestic and foreign tourist visits by district, 2023 and 2024"
+      ],
+      "type": "Tourism",
+      "confidence": "high"
+    },
+    {
+      "name": "MPEDA — Marine products export performance 2023-24",
+      "url": "https://mpeda.gov.in/wp-content/uploads/2024/07/Export-performance-2023-24-V5.pdf",
+      "fields": [
+        "Kochi port seafood export volume, value and national share"
+      ],
+      "type": "Marine products",
+      "confidence": "high"
     },
     {
       "name": "Survey of India",
@@ -1162,26 +483,8 @@
         "Geographic boundaries",
         "Area measurements"
       ],
-      "type": "Geography"
-    },
-    {
-      "name": "Ministry of Shipping",
-      "url": "https://shipping.gov.in",
-      "fields": [
-        "Port statistics",
-        "Maritime development",
-        "Shipping policies"
-      ],
-      "type": "Maritime"
-    },
-    {
-      "name": "Indian Bureau of Mines",
-      "url": "https://ibm.gov.in",
-      "fields": [
-        "Mineral resources",
-        "Mining statistics"
-      ],
-      "type": "Mining"
+      "type": "Geography",
+      "confidence": "high"
     }
   ]
 }

@@ -10,24 +10,39 @@
     "area_sq_km": 38852,
     "density": 860,
     "literacyRate": 0.94,
+    "literacyRatePercent": 94.0,
     "sexRatio": 1084,
     "urbanizationRate": 47.7,
-    "population_2026_projected": 36239000
+    "censusYear": 2011,
+    "population_2026_projected": 36239000,
+    "note": "All demographic values are Census 2011 and were verified as correct in this revision. literacyRate is stored as a fraction for state files (district files store percent) — literacyRatePercent is provided to avoid ambiguity. population_2026_projected is a projection, not a census count, and its derivation is not documented in this repo."
   },
   "economy": {
-    "gsdp_crores": 1135372,
-    "perCapitaIncome": 316612,
+    "gsdp_crores": 1146109,
+    "gsdp_crores_year": "2023-24",
+    "gsdp_crores_basis": "GSDP at current prices",
+    "perCapitaIncome": 281269,
+    "perCapitaIncome_year": "2023-24",
+    "perCapitaIncome_2024_25": 308338,
+    "perCapitaIncome_2022_23": 257307,
+    "perCapitaIncomeBasis": "Per capita NSDP at current prices (2011-12 series)",
+    "perCapitaGSDP_2023_24": 317723,
+    "perCapitaGSDPNote": "Per capita GSDP (Rs 3,17,723 for 2023-24) is a DIFFERENT and larger measure than per capita income / per capita NSDP (Rs 2,81,269). The previous value in this file, 316,612, was effectively the per capita GSDP figure mislabelled as per capita income.",
+    "realPerCapitaGSDP_2024_25": 190149,
+    "realPerCapitaGSDPNote": "Kerala's real (constant-price) per capita GSDP was Rs 1,90,149 in 2024-25 per Economic Review 2025 — do not mix with current-price figures.",
     "gsdpComposition": {
       "agriculture": 8.1,
       "industry": 25.6,
       "services": 66.3
-    }
+    },
+    "gsdpCompositionNote": "Broad sectoral GVA shares at state level from the MoSPI/StatisticsTimes compilation. Not to be applied to individual districts."
   },
   "hdi": 0.758,
+  "hdiNote": "Global Data Lab Subnational HDI (2022). Kerala consistently ranks first or near-first among Indian states on HDI. Kerala does not publish a district-level HDI series comparable to Karnataka's SHDR, so district files for Kerala may legitimately have no HDI value.",
   "dataSources": [
     {
       "name": "Census of India 2011",
-      "url": "https://censusindia.gov.in",
+      "url": "https://www.census2011.co.in/census/state/kerala.html",
       "fields": [
         "Population",
         "Literacy Rate",
@@ -36,25 +51,65 @@
         "Density",
         "Rural/Urban"
       ],
-      "type": "Demographics"
+      "type": "Demographics",
+      "confidence": "high"
     },
     {
-      "name": "MoSPI / StatisticsTimes (2023-24)",
+      "name": "Union Budget Economic Survey — Table 1.11A, Per Capita NSDP at Current Prices (2011-12 Series)",
+      "url": "https://www.indiabudget.gov.in/economicsurvey/doc/stat/tab1.11a.pdf",
+      "fields": [
+        "Per Capita Income (per capita NSDP, current prices) 2022-23, 2023-24, 2024-25"
+      ],
+      "type": "Economy",
+      "confidence": "high"
+    },
+    {
+      "name": "CAG State Finances Audit Report, Kerala 2023-24",
+      "url": "https://cag.gov.in",
+      "fields": [
+        "GSDP at current prices 2023-24",
+        "Per capita GSDP 2023-24"
+      ],
+      "type": "Economy",
+      "confidence": "high"
+    },
+    {
+      "name": "Kerala Economic Review 2025, State Planning Board",
+      "url": "https://spb.kerala.gov.in/economic-review/ER2025/",
+      "fields": [
+        "GSDP growth",
+        "Real per capita GSDP 2024-25"
+      ],
+      "type": "Economy",
+      "confidence": "high"
+    },
+    {
+      "name": "Ecostat Kerala (DES) — GSDP/NSDP and District Domestic Product series",
+      "url": "https://ecostat.kerala.gov.in/publication-detail/gsdp-and-nsdp-with-base-year-2011-12-from-2011-12-to-2024-25-q",
+      "fields": [
+        "GSDP and NSDP series",
+        "District GDDP/NDDP and net per capita income (district-level source)"
+      ],
+      "type": "Economy",
+      "confidence": "high"
+    },
+    {
+      "name": "MoSPI / StatisticsTimes",
       "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
       "fields": [
-        "GSDP",
-        "Per Capita Income",
-        "Sectoral Composition"
+        "Sectoral Composition (state-level GVA shares)"
       ],
-      "type": "Economy"
+      "type": "Economy (composition)",
+      "confidence": "medium"
     },
     {
       "name": "Global Data Lab (2022)",
       "url": "https://globaldatalab.org/shdi/table/shdi/IND/",
       "fields": [
-        "Human Development Index"
+        "Human Development Index (state, GDL methodology)"
       ],
-      "type": "Development"
+      "type": "Development",
+      "confidence": "medium"
     },
     {
       "name": "Survey of India",
@@ -62,7 +117,8 @@
       "fields": [
         "Geographic boundaries"
       ],
-      "type": "Geography"
+      "type": "Geography",
+      "confidence": "high"
     },
     {
       "name": "NFHS-5 (2019-21) via MoSPI",
@@ -72,7 +128,8 @@
         "Neonatal Mortality Rate",
         "Under-5 Mortality Rate"
       ],
-      "type": "Health"
+      "type": "Health",
+      "confidence": "high"
     },
     {
       "name": "AISHE 2021-22 via MoSPI",
@@ -80,7 +137,8 @@
       "fields": [
         "Number of Colleges"
       ],
-      "type": "Education"
+      "type": "Education",
+      "confidence": "high"
     }
   ],
   "health": {
@@ -92,5 +150,19 @@
   "education": {
     "colleges": 1463,
     "source": "AISHE 2021-22 via MoSPI eSankhyiki MCP"
+  },
+  "dataNotes": {
+    "verifiedCorrect": [
+      "population 33,406,061; rural 17,397,893; urban 16,008,168 (sum matches)",
+      "area_sq_km 38,852; density 860; sexRatio 1,084; literacyRate 94.0%; urbanizationRate 47.7%; districtCount 14 — all match Census 2011"
+    ],
+    "correctedInThisRevision": [
+      "perCapitaIncome: 316,612 -> 281,269. The old value was Kerala's per capita GSDP (Rs 3,17,723, 2023-24), not per capita income. Kerala's per capita NSDP at current prices was Rs 2,81,269 in 2023-24 and Rs 3,08,338 in 2024-25.",
+      "gsdp_crores: 1,135,372 -> 1,146,109 (GSDP at current prices, 2023-24, per CAG State Finances Audit Report)"
+    ],
+    "openGaps": [
+      "Basis and source for population_2026_projected (36,239,000) is undocumented",
+      "State-level sectoral GVA shares have not been re-verified against the Economic Review directly"
+    ]
   }
 }
