@@ -39,6 +39,7 @@ const searchIndex = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} — India District Development Dashboard</title>
     <meta name="description" content={description}>
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
@@ -130,7 +131,7 @@ const searchIndex = [
         align-items: stretch;
         position: relative;
         z-index: 50;
-        min-height: 11.5rem;
+        /* min-height: 11.5rem; */
     }
     .header::before {
         content: '';
@@ -143,6 +144,7 @@ const searchIndex = [
 
     /* Logo — absolutely positioned, fills header height, JS sets padding */
     .header-logo-link {
+        margin-left: 1rem;
         position: absolute;
         top: 0;
         bottom: 0;
