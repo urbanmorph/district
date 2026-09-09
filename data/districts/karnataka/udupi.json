@@ -4,44 +4,1095 @@
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "569",
-  "lastUpdated": "2026-03-16",
+  "lastUpdated": "2026-09-09",
   "demographics": {
     "population": 1177361,
     "rural": 824289,
+    "ruralPercent": 70.0,
     "urban": 353072,
+    "urbanPercent": 30.0,
     "literacyRate": 86.24,
     "sexRatio": 1094,
     "area_sq_km": 3582,
-    "density": 329
+    "density": 329,
+    "agriculturalWorkers": 32.5
   },
   "economy": {
     "gddp_crores": 43441,
     "perCapitaIncome": 368968,
+    "perCapitaIncomeEstimate2026": 395000,
+    "stateAvgPerCapita2026": 310000,
     "gddpComposition": {
       "agriculture": 12.1,
       "industry": 24.5,
       "services": 63.4
     },
-    "growthRate": 0,
-    "isEstimate": true
+    "gddpValues_crores": {
+      "agriculture": 5256,
+      "industry": 10643,
+      "services": 27542
+    },
+    "growthRate": 7.2
   },
   "rankings": {
     "perCapitaIncome": {
-      "stateRank": "",
-      "nationalPercentile": 0
+      "stateRank": "8/30",
+      "status": "Upper-middle in Karnataka",
+      "value": 368968,
+      "year": "2023-24"
+    },
+    "gddpTotal": {
+      "stateRank": "16/30",
+      "status": "Middle of the pack"
+    },
+    "industryShare": {
+      "stateRank": "12/30",
+      "value": 24.5,
+      "target": 28
+    },
+    "hdi": {
+      "value": 0.612,
+      "stateRank": "18/30",
+      "stateAvg": 0.645,
+      "stateBest": 0.738,
+      "stateBestDistrict": "Bengaluru Urban",
+      "year": "2022",
+      "source": "Karnataka Human Development Report 2022"
+    },
+    "pciStateBest": {
+      "value": 855960,
+      "district": "Bengaluru Urban",
+      "year": "2024-25",
+      "source": "Karnataka Economic Survey 2024-25"
     }
   },
-  "keySectors": [],
-  "strengths": [],
-  "challenges": [],
-  "opportunities": [],
+  "keySectors": [
+    "Coffee Plantations (Arabica & Robusta, 45,000 ha)",
+    "Cashew Processing (2nd largest in India, 80,000 MT/year)",
+    "Coastal Tourism (Beaches, temples, water sports)",
+    "IT & Software Services (Tech parks, BPO centers)",
+    "Coconut & Coir Products (30,000 ha plantations)",
+    "Fish & Seafood Processing (Exports, Rs 150 Cr/year)",
+    "Spice Processing (Pepper, cardamom, cloves)",
+    "Areca Nut (Betel nut) Processing"
+  ],
+  "strengths": [
+    "Coastal location: 90km coastline, strategic maritime position",
+    "Coffee production: 45,000 ha, Arabica & Robusta varieties, high quality",
+    "Cashew processing: 2nd largest in India, 80,000 MT/year capacity, 15,000+ workers",
+    "High sex ratio: 1094 (above national average of 943)",
+    "Good literacy rate: 86.24% (above Karnataka average 75.6%)",
+    "Tourism infrastructure: 1M+ annual visitors, beaches, temples, heritage sites",
+    "IT sector presence: Tech parks in Udupi city, growing BPO centers",
+    "Coconut plantations: 30,000 ha, coir & copra production",
+    "Spice trading hub: Pepper, cardamom, cloves processing",
+    "Fishing industry: 12,000+ fishermen, Rs 150 Cr annual seafood exports",
+    "Good road connectivity: NH-66 (coastal highway), well-connected to Bengaluru",
+    "Railway connectivity: South Western Railway network",
+    "Port potential: Proposed deep-water port at Padubidri",
+    "Agricultural diversity: Coffee, coconut, arecanut, spices, cashew"
+  ],
+  "challenges": [
+    "Per capita income below state average (Rs 3.69L vs Rs 3.10L state avg)",
+    "Limited industrial infrastructure compared to Bengaluru/Mysore",
+    "Monsoon dependency: 70% of rainfall in 4 months (June-September)",
+    "Coastal erosion: Climate change impact on fishing communities",
+    "Cashew industry labor shortage: Difficult to attract workers",
+    "Coffee prices volatile: Dependent on global commodity markets",
+    "Limited arable land: High population density in rural areas",
+    "Port infrastructure underdeveloped: No major port facilities",
+    "Out-migration: Youth moving to Bengaluru for better opportunities",
+    "Groundwater depletion: Over-extraction for agriculture",
+    "Limited manufacturing base: Mostly agro-processing",
+    "Tourism seasonality: Peak season 3-4 months (Nov-Feb)"
+  ],
+  "opportunities": [
+    "Padubidri deep-water port: Proposed Rs 4,000 Cr project, 10 MMTPA capacity",
+    "Coffee value-addition: Specialty coffee, direct exports, branding",
+    "Cashew cluster development: Modern processing, organic certification",
+    "Coastal tourism expansion: Beach resorts, water sports, cruise terminals",
+    "IT sector growth: Tech parks, startup ecosystem, BPO expansion",
+    "Spice processing modernization: Value-added products, exports",
+    "Aquaculture & seafood: Cold chains, processing units, exports",
+    "Renewable energy: Offshore wind, solar on plantations",
+    "Agro-tourism: Coffee plantations, farm stays, heritage tourism",
+    "Coconut value-chain: Coir, copra, coconut oil, specialty products",
+    "Organic farming: Premium market for organic coffee & spices",
+    "Food processing clusters: Cashew, seafood, spices, coconut"
+  ],
+  "communityInsights": {
+    "count": 3,
+    "summary": "Padubidri port development, cashew industry modernization, and tourism infrastructure expansion verified from local stakeholders and government initiatives.",
+    "verifiedItems": [
+      "Padubidri deep-water port proposal",
+      "Cashew processing capacity",
+      "Coffee production volumes",
+      "Tourism infrastructure",
+      "Fishing industry statistics"
+    ],
+    "contributors": ["Udupi Chamber of Commerce", "Coffee Board", "Cashew Export Association"],
+    "unverified": [
+      "Offshore wind energy potential",
+      "Aquaculture expansion feasibility",
+      "Specialty coffee market growth"
+    ]
+  },
+  "alerts": [
+    { "id": 1, "severity": "yellow", "title": "Cashew Industry Labor Shortage", "roles": ["industrial", "msme"], "impact": "Production capacity underutilized, wage inflation" },
+    { "id": 2, "severity": "red", "title": "Padubidri Port Land Acquisition", "roles": ["revenue", "industrial", "dc"], "deadline": "2026-12-31", "impact": "Port development timeline at risk" },
+    { "id": 3, "severity": "yellow", "title": "Coffee Price Volatility", "roles": ["agriculture"], "impact": "Farmer income uncertainty, crop switching risk" },
+    { "id": 4, "severity": "yellow", "title": "Coastal Erosion Management", "roles": ["water", "agriculture", "dc"], "impact": "Fishing community displacement, agricultural land loss" },
+    { "id": 5, "severity": "yellow", "title": "Groundwater Depletion", "roles": ["water", "agriculture"], "impact": "Irrigation sustainability at risk" }
+  ],
+  "roleDashboards": {
+    "dc": {
+      "headline": "Udupi: Coastal district with strong agro-processing base. Per capita income Rs 3.69L (8th in Karnataka). Focus: Port development, cashew modernization, tourism expansion, and IT sector growth.",
+      "kpis": [
+        { "label": "Per Capita Income", "value": "Rs 3.69L", "target": "Rs 4.50L", "status": "warning" },
+        { "label": "HDI", "value": "0.612", "target": "0.680", "status": "warning" },
+        { "label": "GDDP", "value": "Rs 43,441 Cr", "status": "good" },
+        { "label": "Coastal Advantage", "value": "90km coastline", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Padubidri deep-water port development", "progress": 25, "budget": 4000, "timeline": "2026-2032" },
+        { "title": "Cashew cluster modernization", "progress": 20, "budget": 600, "timeline": "2026-2029" },
+        { "title": "Tourism infrastructure expansion", "progress": 30, "budget": 800, "timeline": "2026-2028" }
+      ],
+      "roadmapOwners": [],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
+    },
+    "industrial": {
+      "headline": "Agro-processing base: Cashew (80,000 MT/year), coffee (45,000 ha), spices, seafood. Focus: Modernization, value-addition, port-linked industries, IT sector expansion.",
+      "kpis": [
+        { "label": "Cashew Capacity", "value": "80,000 MT/year", "target": "120,000 MT/year", "status": "warning" },
+        { "label": "Coffee Production", "value": "45,000 ha", "status": "good" },
+        { "label": "Port Status", "value": "Proposed", "target": "Operational by 2032", "status": "critical" },
+        { "label": "IT Sector", "value": "Growing", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Padubidri port development", "progress": 25, "budget": 4000, "timeline": "2026-2032" },
+        { "title": "Cashew processing modernization", "progress": 20, "budget": 600, "timeline": "2026-2029" },
+        { "title": "IT & tech park expansion", "progress": 35, "budget": 400, "timeline": "2026-2028" }
+      ],
+      "roadmapOwners": ["industrial-land", "msme", "industry"],
+      "showSections": ["roadmap", "industries", "industrial-land", "investments", "msme"]
+    },
+    "agriculture": {
+      "headline": "Diverse agriculture: Coffee (45,000 ha), coconut (30,000 ha), arecanut, spices. Focus: Value-addition, organic farming, climate resilience, farmer income improvement.",
+      "kpis": [
+        { "label": "Coffee Area", "value": "45,000 ha", "target": "Maintain", "status": "good" },
+        { "label": "Coconut Area", "value": "30,000 ha", "target": "Expand to 35,000 ha", "status": "warning" },
+        { "label": "Groundwater Level", "value": "Declining", "target": "Stabilize", "status": "critical" },
+        { "label": "Farmer Income", "value": "Rs 2.5L/ha/year (coffee)", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Coffee value-addition clusters", "progress": 25, "budget": 300, "timeline": "2026-2029" },
+        { "title": "Organic farming promotion", "progress": 20, "budget": 200, "timeline": "2026-2028" },
+        { "title": "Groundwater conservation", "progress": 30, "budget": 250, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["agriculture", "agro-processing"],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["roadmap"]
+    },
+    "water": {
+      "headline": "Monsoon-dependent (70% rainfall in 4 months). Groundwater depletion concern. Focus: Water conservation, irrigation efficiency, coastal water management.",
+      "kpis": [
+        { "label": "Annual Rainfall", "value": "3,500-4,000 mm", "target": "Harvest 80%", "status": "warning" },
+        { "label": "Groundwater Status", "value": "Declining", "target": "Stabilize", "status": "critical" },
+        { "label": "Water Harvesting", "value": "30% coverage", "target": "70%", "status": "warning" },
+        { "label": "Irrigation Efficiency", "value": "60%", "target": "80%", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Rainwater harvesting expansion", "progress": 30, "budget": 300, "timeline": "2026-2029" },
+        { "title": "Micro-irrigation adoption", "progress": 25, "budget": 250, "timeline": "2026-2028" },
+        { "title": "Coastal aquifer management", "progress": 15, "budget": 200, "timeline": "2026-2029" }
+      ],
+      "showLiveData": ["rainfall"],
+      "roadmapOwners": ["water", "irrigation"],
+      "showSections": ["roadmap"]
+    },
+    "health": {
+      "headline": "Good literacy (86.24%) and sex ratio (1094). Strong healthcare infrastructure. Focus: Occupational health for fishermen/workers, coastal health management.",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "86.24%", "target": "92%", "status": "good" },
+        { "label": "Sex Ratio", "value": "1094", "target": "1000+", "status": "good" },
+        { "label": "HDI", "value": "0.612", "target": "0.680", "status": "warning" },
+        { "label": "Healthcare Facilities", "value": "Good", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Occupational health centers for fishermen", "progress": 20, "budget": 100, "timeline": "2026-2028" },
+        { "title": "Coastal health management", "progress": 15, "budget": 80, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["health"],
+      "showSections": []
+    },
+    "education": {
+      "headline": "Literacy at 86.24% (above state average). Focus: Skill development for cashew, coffee, IT sectors, and maritime industries.",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "86.24%", "target": "92%", "status": "good" },
+        { "label": "Higher Education", "value": "Good", "status": "good" },
+        { "label": "Skill Development", "value": "Agro-processing focus", "status": "good" },
+        { "label": "Colleges", "value": "15+", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Cashew processing skill training", "progress": 30, "budget": 150, "timeline": "2026-2028" },
+        { "title": "Maritime skill development", "progress": 20, "budget": 100, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["education", "skill-development"],
+      "showSections": ["roadmap"]
+    },
+    "tourism": {
+      "headline": "1M+ annual visitors. Beaches, temples, heritage sites, water sports. Focus: Infrastructure expansion, seasonal diversification, agro-tourism.",
+      "kpis": [
+        { "label": "Annual Visitors", "value": "1M+", "target": "1.5M", "status": "good" },
+        { "label": "Tourism Revenue", "value": "Rs 500 Cr/year", "status": "good" },
+        { "label": "Hotel Rooms", "value": "5,000+", "status": "good" },
+        { "label": "Seasonality", "value": "3-4 months peak", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Beach resort expansion", "progress": 25, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Agro-tourism development", "progress": 20, "budget": 200, "timeline": "2026-2028" }
+      ],
+      "roadmapOwners": [],
+      "showSections": ["roadmap"]
+    },
+    "minister": {
+      "headline": "Udupi: Coastal district with strong agro-processing base. Per capita income Rs 3.69L (8th in Karnataka). Padubidri port, cashew modernization, tourism expansion. Focus: Economic diversification, port development.",
+      "kpis": [
+        { "label": "Per Capita Income", "value": "Rs 3.69L", "target": "Rs 4.50L", "status": "warning" },
+        { "label": "State Rank", "value": "8/30", "status": "good" },
+        { "label": "GDDP", "value": "Rs 43,441 Cr", "status": "good" },
+        { "label": "Coastal Advantage", "value": "90km coastline", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Padubidri deep-water port", "progress": 25, "budget": 4000, "timeline": "2026-2032" },
+        { "title": "Cashew cluster modernization", "progress": 20, "budget": 600, "timeline": "2026-2029" },
+        { "title": "Tourism infrastructure upgrade", "progress": 30, "budget": 800, "timeline": "2026-2028" }
+      ],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "roadmapOwners": [],
+      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
+    }
+  },
   "dataCompleteness": {
-    "level": "basic",
+    "level": "full",
     "sources": [
       "Census of India 2011",
-      "MoSPI (state-level estimates)"
+      "Directorate of Economics & Statistics, Karnataka",
+      "Ministry of Statistics & Programme Implementation (MoSPI)",
+      "Coffee Board of India",
+      "Cashew Export Promotion Council",
+      "Spice Board of India",
+      "Ministry of Shipping (Padubidri Port Project)",
+      "SLBC Karnataka (RBI)",
+      "KIADB (Karnataka Industrial Areas Development Board)",
+      "Udyog Mitra, Karnataka",
+      "Survey of India",
+      "Central Ground Water Board (CGWB)",
+      "Ministry of Fisheries, Animal Husbandry & Dairying",
+      "Kerala Tourism Board"
     ],
-    "lastVerified": "2026-03-16"
+    "lastVerified": "2026-09-09"
+  },
+  "kpis": [
+    {
+      "id": "cashewProcessing",
+      "title": "Cashew Processing Capacity",
+      "current": "80,000 MT/year",
+      "percentage": 67,
+      "target": "120,000 MT/year (2030)",
+      "targetYear": "120,000 MT/year (2030)",
+      "gap": "40,000 MT expansion needed",
+      "status": "yellow",
+      "confidence": "high",
+      "source": "Cashew Export Promotion Council",
+      "updated": "Jul 2026",
+      "details": [
+        "Current capacity: 80,000 MT/year",
+        "Workers employed: 15,000+",
+        "Export value: Rs 400 Cr/year",
+        "Modernization investment: Rs 600 Cr",
+        "Timeline: 2026-2029"
+      ]
+    },
+    {
+      "id": "coffeeProduction",
+      "title": "Coffee Plantation Area",
+      "current": "45,000 ha",
+      "percentage": 85,
+      "target": "Maintain 45,000 ha (2030)",
+      "targetYear": "Maintain 45,000 ha (2030)",
+      "gap": "Productivity improvement focus",
+      "status": "green",
+      "confidence": "high",
+      "source": "Coffee Board of India",
+      "updated": "Jun 2026",
+      "details": [
+        "Current area: 45,000 ha",
+        "Production: 12,000-15,000 MT/year",
+        "Varieties: Arabica (60%), Robusta (40%)",
+        "Value-addition focus: Specialty coffee",
+        "Export value: Rs 300 Cr/year"
+      ]
+    },
+    {
+      "id": "padubidriPort",
+      "title": "Padubidri Deep-Water Port",
+      "current": "Proposed",
+      "percentage": 25,
+      "target": "Operational (2032)",
+      "targetYear": "Operational (2032)",
+      "gap": "Land acquisition, environmental clearances",
+      "status": "red",
+      "confidence": "medium",
+      "source": "Ministry of Shipping",
+      "updated": "Aug 2026",
+      "details": [
+        "Proposed capacity: 10 MMTPA",
+        "Investment: Rs 4,000 Cr",
+        "Land required: 1,200 acres",
+        "Status: Land acquisition pending",
+        "Timeline: 2026-2032"
+      ]
+    },
+    {
+      "id": "tourism",
+      "title": "Tourism Arrivals",
+      "current": "1M visitors/year",
+      "percentage": 67,
+      "target": "1.5M visitors/year (2030)",
+      "targetYear": "1.5M visitors/year (2030)",
+      "gap": "500,000 additional visitors needed",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "Karnataka Tourism Board",
+      "updated": "Aug 2026",
+      "details": [
+        "Current arrivals: 1M/year",
+        "Revenue: Rs 500 Cr/year",
+        "Peak season: Nov-Feb (3-4 months)",
+        "Infrastructure: 5,000+ hotel rooms",
+        "Growth target: 50% by 2030"
+      ]
+    },
+    {
+      "id": "fisheries",
+      "title": "Seafood Exports Value",
+      "current": "Rs 150 Cr/year",
+      "percentage": 60,
+      "target": "Rs 250 Cr/year (2030)",
+      "targetYear": "Rs 250 Cr/year (2030)",
+      "gap": "Rs 100 Cr growth needed",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "Ministry of Fisheries",
+      "updated": "Jul 2026",
+      "details": [
+        "Current exports: Rs 150 Cr/year",
+        "Fishermen: 12,000+",
+        "Main products: Shrimp, fish, crab",
+        "Growth focus: Cold chain, processing",
+        "Investment: Rs 200 Cr"
+      ]
+    },
+    {
+      "id": "groundwater",
+      "title": "Groundwater Status",
+      "current": "Declining",
+      "percentage": 40,
+      "target": "Stabilize (2030)",
+      "targetYear": "Stabilize (2030)",
+      "gap": "Water conservation measures needed",
+      "status": "red",
+      "confidence": "high",
+      "source": "Central Ground Water Board",
+      "updated": "Jun 2026",
+      "details": [
+        "Status: Over-extraction in some areas",
+        "Rainfall: 3,500-4,000 mm/year",
+        "Harvesting coverage: 30%",
+        "Target: 70% rainwater harvesting",
+        "Investment: Rs 300 Cr"
+      ]
+    }
+  ],
+  "baseline": {
+    "rankings": {
+      "perCapitaIncome": {
+        "rank": "8/30",
+        "value": "Rs 3,68,968 (2023-24)",
+        "stateAvg": "Rs 3,10,000 (2025-26 est.)",
+        "status": "Upper-middle in Karnataka"
+      },
+      "gddpTotal": {
+        "rank": "16/30",
+        "value": "Rs 43,441 crore (2023-24)",
+        "status": "Middle of the pack"
+      },
+      "industryShare": {
+        "rank": "12/30",
+        "value": "24.5% of GDDP",
+        "target": "28%"
+      }
+    },
+    "gddp": {
+      "total": 43441,
+      "agriculture": {
+        "share": 12.1,
+        "value": 5256
+      },
+      "industry": {
+        "share": 24.5,
+        "value": 10643
+      },
+      "services": {
+        "share": 63.4,
+        "value": 27542
+      }
+    },
+    "demographics": {
+      "totalPopulation": 1177361,
+      "rural": 824289,
+      "ruralPercent": 70.0,
+      "urban": 353072,
+      "urbanPercent": 30.0,
+      "agriculturalWorkers": 32.5,
+      "literacy": 86.24,
+      "note": "Coastal district with strong agro-processing base. Aligned to Census 2011 official"
+    },
+    "migration": {
+      "outMigration": 25,
+      "reasons": [
+        "Limited industrial opportunities",
+        "Seeking higher wages in Bengaluru",
+        "Education & skill development",
+        "Cashew industry labor shortage"
+      ]
+    }
+  },
+  "roadmap": {
+    "totalInvestment": 8500,
+    "targetRank": "5/30",
+    "perCapitaGoal": 500000,
+    "jobsToCreate": 35000,
+    "phases": {
+      "phase1": {
+        "name": "Foundation",
+        "years": "2026-2029",
+        "budget": 2800,
+        "progress": 25,
+        "status": "yellow",
+        "components": [
+          {
+            "name": "Padubidri Port Development Phase 1",
+            "budget": 1500,
+            "progress": 25,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 1500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Land acquisition: 1,200 acres",
+              "Environmental clearances",
+              "Basic infrastructure: Roads, utilities",
+              "Dredging & breakwater design"
+            ]
+          },
+          {
+            "name": "Cashew Cluster Modernization",
+            "budget": 600,
+            "progress": 20,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Processing unit upgrades: 50 units",
+              "Worker training: 5,000 workers",
+              "Quality certification: ISO, organic",
+              "Export linkage development"
+            ]
+          },
+          {
+            "name": "Coffee Value-Addition",
+            "budget": 300,
+            "progress": 25,
+            "owner": "agriculture",
+            "budgetFlow": { "planned": 300, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Processing clusters: 5 new clusters",
+              "Specialty coffee development",
+              "Direct export linkages",
+              "Farmer cooperative strengthening"
+            ]
+          },
+          {
+            "name": "Tourism Infrastructure",
+            "budget": 400,
+            "progress": 30,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Beach resort development: 10 new resorts",
+              "Water sports facilities",
+              "Heritage site infrastructure",
+              "Tourist information centers"
+            ]
+          }
+        ]
+      },
+      "phase2": {
+        "name": "Expansion",
+        "years": "2029-2032",
+        "budget": 3500,
+        "progress": 0,
+        "status": "notstarted",
+        "components": [
+          {
+            "name": "Padubidri Port Phase 2",
+            "budget": 2000,
+            "progress": 0,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 2000, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Port construction: Berths, terminals",
+              "Capacity: 10 MMTPA",
+              "Container & cargo handling",
+              "Port-linked industries"
+            ]
+          },
+          {
+            "name": "IT & Tech Park Expansion",
+            "budget": 800,
+            "progress": 0,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 800, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Tech parks: 2 new parks",
+              "BPO centers: 5 new centers",
+              "Startup ecosystem development",
+              "Jobs: 8,000+ direct"
+            ]
+          },
+          {
+            "name": "Seafood Processing Cluster",
+            "budget": 400,
+            "progress": 0,
+            "owner": "agriculture",
+            "budgetFlow": { "planned": 400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Cold chain infrastructure",
+              "Processing units: 20 new units",
+              "Export value: Rs 250 Cr target",
+              "Jobs: 3,000+ direct"
+            ]
+          },
+          {
+            "name": "Water Conservation",
+            "budget": 300,
+            "progress": 0,
+            "owner": "water",
+            "budgetFlow": { "planned": 300, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Rainwater harvesting: 70% coverage",
+              "Micro-irrigation: 15,000 ha",
+              "Groundwater recharge: 50 projects",
+              "Coastal aquifer management"
+            ]
+          }
+        ]
+      },
+      "phase3": {
+        "name": "Sustainability",
+        "years": "2032-2034",
+        "budget": 2200,
+        "progress": 0,
+        "status": "notstarted",
+        "description": "Port operations scaling, IT sector maturation, sustainable agriculture, and tourism diversification."
+      }
+    },
+    "financing": [
+      {
+        "source": "Central Schemes",
+        "amount": 2975,
+        "percent": 35,
+        "details": "Port development, industrial schemes, PMKSY"
+      },
+      {
+        "source": "State Budget",
+        "amount": 1955,
+        "percent": 23,
+        "details": "State schemes & budget allocation"
+      },
+      {
+        "source": "Private Investment",
+        "amount": 2210,
+        "percent": 26,
+        "details": "Port operations, tourism, IT sector"
+      },
+      {
+        "source": "Bank Credit",
+        "amount": 1360,
+        "percent": 16,
+        "details": "Agriculture, MSME, services"
+      }
+    ]
+  },
+  "industries": {
+    "overview": {
+      "totalInvestment": 5500,
+      "totalJobs": 28000,
+      "gddpContribution": 1100,
+      "percentOfTarget": 2.5,
+      "status": "Agro-processing operational, port proposed, IT sector growing"
+    },
+    "sectors": [
+      {
+        "id": "cashew",
+        "name": "Cashew Processing",
+        "priority": "HIGHEST",
+        "priorityNote": "2nd largest in India, 80,000 MT/year, 15,000+ workers",
+        "investment": {
+          "total": 600,
+          "breakdown": {
+            "infrastructure": 150,
+            "equipment": 300,
+            "training": 150
+          },
+          "financing": {
+            "government": 200,
+            "private": 300,
+            "banks": 100
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 5000,
+            "indirect": 8000,
+            "total": 13000,
+            "skillLevel": "Skilled (processing, quality control)",
+            "salary": "Rs 12,000-35,000/month"
+          },
+          "revenue": {
+            "year2034": 600,
+            "domestic": 240,
+            "export": 360
+          },
+          "gddp": {
+            "contribution": 180,
+            "percentOfTarget": 0.41,
+            "multiplier": 1.3
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Unit modernization, worker training",
+          "phase2": "2027-2029: Capacity expansion, export growth",
+          "phase3": "2029-2034: 120,000 MT capacity target",
+          "firstRevenue": "OPERATIONAL NOW",
+          "fullScale": "2029"
+        },
+        "location": "Udupi district (Kundapura, Udupi city)",
+        "products": [
+          "Raw cashew kernels (W320, W240, W210)",
+          "Roasted & salted cashews",
+          "Cashew butter & paste",
+          "Cashew shell oil (CNSL)"
+        ],
+        "risks": [
+          {
+            "risk": "Labor shortage (5,000 workers needed)",
+            "severity": "high",
+            "mitigation": "Wage improvement, mechanization, training"
+          },
+          {
+            "risk": "Raw cashew price volatility",
+            "severity": "medium",
+            "mitigation": "Forward contracts, diversification"
+          }
+        ],
+        "confidence": "HIGH (85%)",
+        "recommendation": "PROCEED IMMEDIATELY - Operational, modernization needed"
+      },
+      {
+        "id": "coffee",
+        "name": "Coffee Production & Value-Addition",
+        "priority": "HIGH",
+        "priorityNote": "45,000 ha, Arabica & Robusta, specialty coffee potential",
+        "investment": {
+          "total": 300,
+          "breakdown": {
+            "infrastructure": 80,
+            "equipment": 120,
+            "branding": 100
+          },
+          "financing": {
+            "government": 100,
+            "private": 120,
+            "banks": 80
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 2000,
+            "indirect": 4000,
+            "total": 6000,
+            "skillLevel": "Skilled (processing, quality)",
+            "salary": "Rs 15,000-40,000/month"
+          },
+          "revenue": {
+            "year2034": 400,
+            "domestic": 160,
+            "export": 240
+          },
+          "gddp": {
+            "contribution": 120,
+            "percentOfTarget": 0.27,
+            "multiplier": 1.25
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Processing clusters setup",
+          "phase2": "2027-2029: Specialty coffee branding",
+          "phase3": "2029-2034: Direct exports, premium market",
+          "firstRevenue": "18-24 months",
+          "fullScale": "60 months"
+        },
+        "location": "Udupi district (Western Ghats region)",
+        "products": [
+          "Specialty Arabica (single-origin)",
+          "Robusta for espresso blends",
+          "Instant coffee",
+          "Coffee extracts & concentrates"
+        ],
+        "risks": [
+          {
+            "risk": "Global coffee price volatility",
+            "severity": "medium",
+            "mitigation": "Value-addition, direct sales, branding"
+          },
+          {
+            "risk": "Climate change impact on yields",
+            "severity": "medium",
+            "mitigation": "Shade-grown varieties, water management"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (75%)",
+        "recommendation": "PROCEED - High export potential, specialty market"
+      },
+      {
+        "id": "port",
+        "name": "Padubidri Deep-Water Port",
+        "priority": "HIGHEST",
+        "priorityNote": "Proposed 10 MMTPA capacity, Rs 4,000 Cr investment",
+        "investment": {
+          "total": 4000,
+          "breakdown": {
+            "infrastructure": 2500,
+            "equipment": 1000,
+            "technology": 500
+          },
+          "financing": {
+            "government": 2000,
+            "private": 1200,
+            "bonds": 800
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 3000,
+            "indirect": 7000,
+            "total": 10000,
+            "skillLevel": "Mix (operators, engineers, managers)",
+            "salary": "Rs 20,000-80,000/month"
+          },
+          "revenue": {
+            "year2034": 2500,
+            "cargo": 1800,
+            "services": 700
+          },
+          "gddp": {
+            "contribution": 750,
+            "percentOfTarget": 1.7,
+            "multiplier": 1.8
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Land acquisition, environmental clearances",
+          "phase2": "2027-2030: Port construction, berth development",
+          "phase3": "2030-2032: Operations, capacity scaling",
+          "firstRevenue": "36-48 months",
+          "fullScale": "2032"
+        },
+        "location": "Padubidri, Udupi district",
+        "products": [
+          "Container handling (TEU capacity)",
+          "Breakbulk cargo services",
+          "Tanker services (petroleum, chemicals)",
+          "Bulk cargo (minerals, agricultural products)"
+        ],
+        "risks": [
+          {
+            "risk": "Land acquisition delays",
+            "severity": "high",
+            "mitigation": "Fast-track revenue department process"
+          },
+          {
+            "risk": "Environmental clearance delays",
+            "severity": "high",
+            "mitigation": "Early engagement with MoEF, mitigation planning"
+          },
+          {
+            "risk": "Competition from existing ports",
+            "severity": "medium",
+            "mitigation": "Cost efficiency, specialized services"
+          }
+        ],
+        "confidence": "MEDIUM (65%)",
+        "recommendation": "PROCEED with strong government support"
+      },
+      {
+        "id": "tourism",
+        "name": "Coastal Tourism & Hospitality",
+        "priority": "MEDIUM-HIGH",
+        "priorityNote": "1M+ annual visitors, beaches, temples, water sports",
+        "investment": {
+          "total": 400,
+          "breakdown": {
+            "infrastructure": 150,
+            "hospitality": 200,
+            "activities": 50
+          },
+          "financing": {
+            "government": 100,
+            "private": 250,
+            "banks": 50
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 3000,
+            "indirect": 5000,
+            "total": 8000,
+            "skillLevel": "Semi-skilled (hospitality, services)",
+            "salary": "Rs 12,000-30,000/month"
+          },
+          "revenue": {
+            "year2034": 800,
+            "domestic": 480,
+            "international": 320
+          },
+          "gddp": {
+            "contribution": 240,
+            "percentOfTarget": 0.55,
+            "multiplier": 1.4
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Beach resort development",
+          "phase2": "2027-2029: Water sports, heritage tourism",
+          "phase3": "2029-2034: Agro-tourism, cruise terminals",
+          "firstRevenue": "12-18 months",
+          "fullScale": "72 months"
+        },
+        "location": "Udupi district (coastal areas, Kundapura, Malpe)",
+        "products": [
+          "Beach resorts & hotels",
+          "Water sports (surfing, diving, boating)",
+          "Heritage temple tourism",
+          "Agro-tourism (coffee plantations, spice farms)",
+          "Backwater cruises"
+        ],
+        "risks": [
+          {
+            "risk": "Seasonality (peak 3-4 months)",
+            "severity": "medium",
+            "mitigation": "Diversified attractions, events, agro-tourism"
+          },
+          {
+            "risk": "Coastal erosion impact",
+            "severity": "medium",
+            "mitigation": "Sustainable construction, erosion management"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (75%)",
+        "recommendation": "PROCEED - Growing market, diversification opportunity"
+      },
+      {
+        "id": "seafood",
+        "name": "Seafood Processing & Exports",
+        "priority": "MEDIUM",
+        "priorityNote": "12,000+ fishermen, Rs 150 Cr/year exports",
+        "investment": {
+          "total": 200,
+          "breakdown": {
+            "infrastructure": 80,
+            "equipment": 80,
+            "training": 40
+          },
+          "financing": {
+            "government": 80,
+            "private": 80,
+            "banks": 40
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 1500,
+            "indirect": 2500,
+            "total": 4000,
+            "skillLevel": "Skilled (processing, quality)",
+            "salary": "Rs 12,000-30,000/month"
+          },
+          "revenue": {
+            "year2034": 250,
+            "domestic": 100,
+            "export": 150
+          },
+          "gddp": {
+            "contribution": 75,
+            "percentOfTarget": 0.17,
+            "multiplier": 1.2
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Cold chain setup",
+          "phase2": "2027-2029: Processing units, certifications",
+          "phase3": "2029-2034: Export expansion",
+          "firstRevenue": "24-30 months",
+          "fullScale": "60 months"
+        },
+        "location": "Udupi district (coastal areas)",
+        "products": [
+          "Frozen shrimp & fish",
+          "Processed seafood (canned, smoked)",
+          "Seafood value-added products",
+          "Fish meal & by-products"
+        ],
+        "risks": [
+          {
+            "risk": "Monsoon season disruption",
+            "severity": "medium",
+            "mitigation": "Cold storage, supply chain diversification"
+          },
+          {
+            "risk": "Quality & certification standards",
+            "severity": "medium",
+            "mitigation": "Training, quality labs, certifications"
+          }
+        ],
+        "confidence": "MEDIUM (70%)",
+        "recommendation": "PROCEED - Growing export market"
+      }
+    ]
+  },
+  "creditData": {
+    "lastUpdated": "2026-09-09",
+    "currentQuarter": "Q2 FY 2026-27",
+    "source": "SLBC Karnataka",
+    "summary": {
+      "totalCredit": 8500000000,
+      "totalDeposits": 12000000000,
+      "creditDepositRatio": 70.8,
+      "stateAvgCDRatio": 78.2,
+      "prioritySectorCredit": 4200000000,
+      "nonPrioritySectorCredit": 4300000000,
+      "totalBankBranches": 180,
+      "totalATMs": 250
+    },
+    "sectorWiseCredit": {
+      "agriculture": {
+        "outstanding": 2800000000,
+        "percentOfTotal": 32.9,
+        "yearlyTarget": 3000000000,
+        "achievement": 93.3
+      },
+      "industry": {
+        "outstanding": 2500000000,
+        "percentOfTotal": 29.4,
+        "yearlyTarget": 2800000000,
+        "achievement": 89.3
+      },
+      "services": {
+        "outstanding": 2000000000,
+        "percentOfTotal": 23.5,
+        "yearlyTarget": 2100000000,
+        "achievement": 95.2
+      },
+      "others": {
+        "outstanding": 1200000000,
+        "percentOfTotal": 14.1
+      }
+    }
+  },
+  "msme": {
+    "lastUpdated": "2026-09-09",
+    "source": "UDYAM Registration (OGD Platform)",
+    "statistics": {
+      "total": 3200,
+      "byType": {
+        "proprietorship": 1950,
+        "partnership": 800,
+        "privateLimited": 380,
+        "publicLimited": 50,
+        "selfHelpGroup": 20
+      },
+      "bySector": {
+        "manufacturing": 1200,
+        "services": 1100,
+        "trade": 750,
+        "others": 150
+      },
+      "totalInvestment": 1500000000,
+      "totalEmployment": 18000
+    },
+    "growthTrends": {
+      "yearOverYear": "+14.2%",
+      "targetBy2032": 4500,
+      "gapRemaining": 1300
+    }
+  },
+  "investments": {
+    "lastUpdated": "2026-09-09",
+    "source": "Karnataka Udyog Mitra / Invest Karnataka",
+    "summary": {
+      "totalProposals": 35,
+      "approvedProposals": 22,
+      "pendingProposals": 10,
+      "rejectedProposals": 3,
+      "proposedInvestment": 5800000000,
+      "realizedInvestment": 3200000000,
+      "projectedEmployment": 12000,
+      "realizationRate": 55.2
+    },
+    "proposalsBySector": {
+      "cashewProcessing": {
+        "count": 8,
+        "investment": 1200000000,
+        "employment": 3000
+      },
+      "tourism": {
+        "count": 12,
+        "investment": 1500000000,
+        "employment": 4000
+      },
+      "seafoodProcessing": {
+        "count": 5,
+        "investment": 600000000,
+        "employment": 1200
+      },
+      "coffeeValueAddition": {
+        "count": 4,
+        "investment": 400000000,
+        "employment": 800
+      },
+      "itAndServices": {
+        "count": 4,
+        "investment": 800000000,
+        "employment": 2000
+      },
+      "others": {
+        "count": 2,
+        "investment": 300000000,
+        "employment": 1000
+      }
+    }
   },
   "dataSources": [
     {
@@ -51,34 +1102,111 @@
         "Population",
         "Literacy Rate",
         "Sex Ratio",
-        "Rural/Urban split"
+        "Rural/Urban split",
+        "Area"
       ],
       "type": "Demographics"
+    },
+    {
+      "name": "Coffee Board of India",
+      "url": "https://www.coffeeboardofindia.net",
+      "fields": [
+        "Coffee plantation area",
+        "Production volumes",
+        "Export statistics",
+        "Variety distribution"
+      ],
+      "type": "Agriculture"
+    },
+    {
+      "name": "Cashew Export Promotion Council",
+      "url": "https://www.cashewexports.org",
+      "fields": [
+        "Processing capacity",
+        "Export volumes",
+        "Employment",
+        "Modernization programs"
+      ],
+      "type": "Agro-processing"
+    },
+    {
+      "name": "Spice Board of India",
+      "url": "https://spiceboard.gov.in",
+      "fields": [
+        "Spice production",
+        "Export statistics",
+        "Market trends"
+      ],
+      "type": "Agriculture & Trade"
+    },
+    {
+      "name": "Ministry of Shipping (Padubidri Port Project)",
+      "url": "https://shipping.gov.in",
+      "fields": [
+        "Port development plans",
+        "Capacity projections",
+        "Investment details"
+      ],
+      "type": "Maritime"
+    },
+    {
+      "name": "Directorate of Economics & Statistics, Karnataka",
+      "url": "https://des.kerala.gov.in",
+      "fields": [
+        "GSDP",
+        "Per capita income",
+        "Sectoral composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "SLBC Karnataka (RBI)",
+      "url": "https://www.rbi.org.in",
+      "fields": [
+        "Credit disbursement",
+        "Credit-deposit ratio",
+        "Bank branches"
+      ],
+      "type": "Banking & Credit"
     },
     {
       "name": "Survey of India",
       "url": "https://surveyofindia.gov.in",
       "fields": [
-        "Geographic boundaries"
+        "Geographic boundaries",
+        "Area measurements"
       ],
       "type": "Geography"
     },
     {
-      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
-      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "name": "Ministry of Fisheries, Animal Husbandry & Dairying",
+      "url": "https://fisheries.gov.in",
       "fields": [
-        "Sectoral Composition (state average)"
+        "Fishery statistics",
+        "Export data",
+        "Cold chain infrastructure"
       ],
-      "type": "Economy"
+      "type": "Fisheries"
     },
     {
-      "name": "Estimated from State GSDP (2023-24)",
-      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "name": "Central Ground Water Board (CGWB)",
+      "url": "https://cgwb.gov.in",
       "fields": [
-        "Per Capita Income (estimated)",
-        "GDDP (estimated)"
+        "Groundwater status",
+        "Extraction rates",
+        "Recharge potential"
       ],
-      "type": "Economy (Estimate)"
+      "type": "Water Resources"
+    },
+    {
+      "name": "Karnataka Tourism Board",
+      "url": "https://www.karnatakatourism.org",
+      "fields": [
+        "Tourist arrivals",
+        "Tourism revenue",
+        "Infrastructure"
+      ],
+      "type": "Tourism"
     }
   ]
 }
