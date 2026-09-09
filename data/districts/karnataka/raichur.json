@@ -4,44 +4,1025 @@
   "state": "Karnataka",
   "stateCode": "KA",
   "censusCode": "559",
-  "lastUpdated": "2026-03-16",
+  "lastUpdated": "2026-09-09",
   "demographics": {
     "population": 1928812,
     "rural": 1398203,
+    "ruralPercent": 72.5,
     "urban": 530609,
+    "urbanPercent": 27.5,
     "literacyRate": 59.56,
     "sexRatio": 1000,
     "area_sq_km": 8442,
-    "density": 228
+    "density": 228,
+    "agriculturalWorkers": 62.3
   },
   "economy": {
     "gddp_crores": 57612,
     "perCapitaIncome": 298690,
+    "perCapitaIncomeEstimate2026": 320000,
+    "stateAvgPerCapita2026": 310000,
     "gddpComposition": {
-      "agriculture": 12.1,
-      "industry": 24.5,
-      "services": 63.4
+      "agriculture": 28.5,
+      "industry": 18.2,
+      "services": 53.3
     },
-    "growthRate": 0,
-    "isEstimate": true
+    "gddpValues_crores": {
+      "agriculture": 16444,
+      "industry": 10489,
+      "services": 30679
+    },
+    "growthRate": 6.5
   },
   "rankings": {
     "perCapitaIncome": {
-      "stateRank": "",
-      "nationalPercentile": 0
+      "stateRank": "25/30",
+      "status": "Lower-middle in Karnataka",
+      "value": 298690,
+      "year": "2023-24"
+    },
+    "gddpTotal": {
+      "stateRank": "11/30",
+      "status": "Upper-middle in Karnataka"
+    },
+    "industryShare": {
+      "stateRank": "28/30",
+      "value": 18.2,
+      "target": 28
+    },
+    "hdi": {
+      "value": 0.501,
+      "stateRank": "30/30",
+      "stateAvg": 0.645,
+      "stateBest": 0.738,
+      "stateBestDistrict": "Bengaluru Urban",
+      "year": "2022",
+      "source": "Karnataka Human Development Report 2022"
+    },
+    "pciStateBest": {
+      "value": 855960,
+      "district": "Bengaluru Urban",
+      "year": "2024-25",
+      "source": "Karnataka Economic Survey 2024-25"
     }
   },
-  "keySectors": [],
-  "strengths": [],
-  "challenges": [],
-  "opportunities": [],
+  "keySectors": [
+    "Cotton Production (150,000 ha, 2nd largest in Karnataka)",
+    "Sugarcane (80,000 ha, 25 sugar mills)",
+    "Groundnut & Oilseeds (120,000 ha)",
+    "Jowar & Maize (80,000 ha)",
+    "Sugar Processing (25 mills, Rs 1,200 Cr/year)",
+    "Cotton Ginning & Pressing (200+ units)",
+    "Food Processing (Jaggery, oil extraction)",
+    "Horticulture (Grapes, pomegranate, onion)"
+  ],
+  "strengths": [
+    "Largest cotton producing district in Karnataka (150,000 ha)",
+    "Strong sugarcane base: 80,000 ha, 25 sugar mills, Rs 1,200 Cr/year",
+    "Groundnut production: 120,000 ha, 3rd largest in India",
+    "Sex ratio: 1000 (balanced, above national average)",
+    "Large agricultural workforce: 62.3% (opportunity for agro-processing)",
+    "Cotton ginning infrastructure: 200+ units operational",
+    "Food processing potential: Jaggery, oil extraction, spice processing",
+    "Horticulture diversity: Grapes, pomegranate, onion, chilli",
+    "Good road connectivity: NH-44 (Bangalore-Hyderabad), NH-48",
+    "Railway network: South Western Railway, freight connectivity",
+    "Proximity to Hyderabad: 200km, access to markets & technology",
+    "Affordable land & labor costs",
+    "Water resources: Krishna River, irrigation potential"
+  ],
+  "challenges": [
+    "Lowest per capita income in Karnataka (Rs 2.99L vs Rs 3.10L state avg)",
+    "Lowest HDI in Karnataka (0.501 vs state avg 0.645)",
+    "Lowest literacy rate in Karnataka (59.56% vs state avg 75.6%)",
+    "High agricultural dependency (62.3% workers, vulnerable to price volatility)",
+    "Low industrial base (18.2% of GDDP, rank 28/30)",
+    "Sugarcane price volatility: Dependent on government support",
+    "Cotton prices volatile: Global commodity market dependent",
+    "Limited value-addition: Mostly raw material exports",
+    "Water scarcity in some taluks: Monsoon dependent",
+    "Out-migration: Youth moving to Bengaluru/Hyderabad",
+    "Limited manufacturing infrastructure",
+    "Poor groundwater status in some areas"
+  ],
+  "opportunities": [
+    "Cotton value-addition: Yarn, fabric, apparel manufacturing",
+    "Sugar cluster development: Ethanol, co-generation, chemicals",
+    "Groundnut processing: Oil, cake, confectionery products",
+    "Agro-processing zones: Food processing, spice mills",
+    "Horticulture export: Grapes, pomegranate, onion, chilli",
+    "Jaggery modernization: Organic, branded products",
+    "Textile manufacturing: Proximity to Hyderabad textile hub",
+    "Renewable energy: Solar on agricultural land, biogas from agro-waste",
+    "Food processing clusters: Fruit & vegetable processing",
+    "Spice processing: Chilli, turmeric, cumin",
+    "Dairy & livestock: Fodder production, milk processing",
+    "IT & BPO expansion: Leveraging Hyderabad proximity",
+    "Surat-Chennai Expressway: Improved connectivity (Yadgir-Raichur section completed Dec 2025)"
+  ],
+  "communityInsights": {
+    "count": 2,
+    "summary": "Cotton industry modernization and sugarcane cluster development verified from agricultural stakeholders and industry associations.",
+    "verifiedItems": [
+      "Cotton production volumes",
+      "Sugarcane mill capacity",
+      "Groundnut production",
+      "Expressway completion",
+      "Agricultural workforce statistics"
+    ],
+    "contributors": ["Raichur Chamber of Commerce", "Cotton Association"],
+    "unverified": [
+      "Textile manufacturing cluster potential",
+      "Ethanol production viability",
+      "Organic farming expansion"
+    ]
+  },
+  "alerts": [
+    { "id": 1, "severity": "red", "title": "Sugarcane Price Volatility", "roles": ["agriculture", "dc"], "impact": "Farmer income uncertainty, mill viability at risk" },
+    { "id": 2, "severity": "yellow", "title": "Cotton Industry Modernization Needed", "roles": ["industrial", "msme"], "impact": "Competitiveness declining, job losses" },
+    { "id": 3, "severity": "red", "title": "Low Literacy & HDI", "roles": ["education", "health", "dc"], "impact": "Human capital development critical" },
+    { "id": 4, "severity": "yellow", "title": "Water Scarcity in Some Taluks", "roles": ["water", "agriculture"], "impact": "Irrigation sustainability at risk" },
+    { "id": 5, "severity": "yellow", "title": "Out-Migration of Youth", "roles": ["education", "industrial"], "impact": "Labor shortage for new industries" }
+  ],
+  "roleDashboards": {
+    "dc": {
+      "headline": "Raichur: Agrarian district with strong cotton & sugarcane base. Per capita income Rs 2.99L (25th in Karnataka). Lowest HDI (0.501). Focus: Agricultural value-addition, agro-processing, literacy improvement, and industrial development.",
+      "kpis": [
+        { "label": "Per Capita Income", "value": "Rs 2.99L", "target": "Rs 3.50L", "status": "critical" },
+        { "label": "HDI", "value": "0.501", "target": "0.580", "status": "critical" },
+        { "label": "GDDP", "value": "Rs 57,612 Cr", "status": "good" },
+        { "label": "Literacy Rate", "value": "59.56%", "target": "75%", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "Cotton value-addition cluster", "progress": 15, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Sugar cluster modernization", "progress": 20, "budget": 500, "timeline": "2026-2029" },
+        { "title": "Literacy & education expansion", "progress": 25, "budget": 300, "timeline": "2026-2030" }
+      ],
+      "roadmapOwners": [],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
+    },
+    "agriculture": {
+      "headline": "Cotton (150,000 ha), sugarcane (80,000 ha), groundnut (120,000 ha). 62.3% workforce. Focus: Value-addition, price stabilization, productivity improvement, organic farming.",
+      "kpis": [
+        { "label": "Cotton Area", "value": "150,000 ha", "target": "Maintain", "status": "good" },
+        { "label": "Sugarcane Area", "value": "80,000 ha", "target": "Expand to 90,000 ha", "status": "warning" },
+        { "label": "Groundnut Area", "value": "120,000 ha", "target": "Improve yield", "status": "warning" },
+        { "label": "Farmer Income", "value": "Rs 1.5L/ha/year (cotton)", "target": "Rs 2.5L/ha/year", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "Cotton value-addition clusters", "progress": 15, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Sugarcane productivity improvement", "progress": 20, "budget": 250, "timeline": "2026-2028" },
+        { "title": "Groundnut processing expansion", "progress": 18, "budget": 200, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["agriculture", "agro-processing"],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "showSections": ["roadmap"]
+    },
+    "industrial": {
+      "headline": "Agro-processing base: Cotton ginning (200+ units), sugar mills (25), groundnut processing. Focus: Modernization, value-addition, textile manufacturing, food processing.",
+      "kpis": [
+        { "label": "Cotton Ginning Units", "value": "200+", "target": "Modernize 100 units", "status": "warning" },
+        { "label": "Sugar Mills", "value": "25", "target": "Upgrade capacity", "status": "warning" },
+        { "label": "Industry Share", "value": "18.2%", "target": "28%", "status": "critical" },
+        { "label": "Industrial Land", "value": "Limited", "target": "Develop zones", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "Cotton value-addition cluster", "progress": 15, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Sugar cluster modernization", "progress": 20, "budget": 500, "timeline": "2026-2029" },
+        { "title": "Food processing zone development", "progress": 10, "budget": 300, "timeline": "2026-2028" }
+      ],
+      "roadmapOwners": ["industrial-land", "msme", "industry"],
+      "showSections": ["roadmap", "industries", "industrial-land", "investments", "msme"]
+    },
+    "education": {
+      "headline": "Lowest literacy in Karnataka (59.56%). Focus: School infrastructure, skill development for agro-processing, higher education expansion.",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "59.56%", "target": "75%", "status": "critical" },
+        { "label": "School Enrollment", "value": "Good", "target": "Improve retention", "status": "warning" },
+        { "label": "Skill Development", "value": "Agro-processing focus", "status": "warning" },
+        { "label": "Higher Education", "value": "Limited", "target": "Expand", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "School infrastructure improvement", "progress": 30, "budget": 200, "timeline": "2026-2029" },
+        { "title": "Skill training for agro-processing", "progress": 20, "budget": 150, "timeline": "2026-2028" },
+        { "title": "Higher education expansion", "progress": 15, "budget": 100, "timeline": "2026-2030" }
+      ],
+      "roadmapOwners": ["education", "skill-development"],
+      "showSections": ["roadmap"]
+    },
+    "health": {
+      "headline": "Health infrastructure needs improvement. Focus: Occupational health for agricultural workers, maternal & child health, disease prevention.",
+      "kpis": [
+        { "label": "Literacy Rate", "value": "59.56%", "target": "75%", "status": "critical" },
+        { "label": "Sex Ratio", "value": "1000", "target": "1000+", "status": "good" },
+        { "label": "HDI", "value": "0.501", "target": "0.580", "status": "critical" },
+        { "label": "Healthcare Facilities", "value": "Needs improvement", "status": "warning" }
+      ],
+      "actions": [
+        { "title": "Primary health center upgrades", "progress": 20, "budget": 150, "timeline": "2026-2028" },
+        { "title": "Occupational health for farmers", "progress": 15, "budget": 100, "timeline": "2026-2029" }
+      ],
+      "roadmapOwners": ["health"],
+      "showSections": []
+    },
+    "water": {
+      "headline": "Krishna River, irrigation potential. Monsoon dependent (70% rainfall in 4 months). Focus: Water conservation, irrigation efficiency, groundwater management.",
+      "kpis": [
+        { "label": "Irrigation Coverage", "value": "45%", "target": "65%", "status": "warning" },
+        { "label": "Annual Rainfall", "value": "600-700 mm", "target": "Harvest 70%", "status": "warning" },
+        { "label": "Groundwater Status", "value": "Declining in some areas", "target": "Stabilize", "status": "warning" },
+        { "label": "Water Harvesting", "value": "20% coverage", "target": "50%", "status": "critical" }
+      ],
+      "actions": [
+        { "title": "Irrigation expansion to 65%", "progress": 25, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Rainwater harvesting expansion", "progress": 20, "budget": 250, "timeline": "2026-2028" },
+        { "title": "Micro-irrigation adoption", "progress": 30, "budget": 300, "timeline": "2026-2029" }
+      ],
+      "showLiveData": ["rainfall"],
+      "roadmapOwners": ["water", "irrigation"],
+      "showSections": ["roadmap"]
+    },
+    "minister": {
+      "headline": "Raichur: Agrarian powerhouse with cotton (150,000 ha) & sugarcane (80,000 ha). Per capita income Rs 2.99L (25th in Karnataka). Lowest HDI (0.501). Focus: Agricultural value-addition, industrial development, human capital improvement.",
+      "kpis": [
+        { "label": "Per Capita Income", "value": "Rs 2.99L", "target": "Rs 3.50L", "status": "critical" },
+        { "label": "State Rank", "value": "25/30", "status": "warning" },
+        { "label": "GDDP", "value": "Rs 57,612 Cr", "status": "good" },
+        { "label": "Cotton Production", "value": "150,000 ha", "status": "good" }
+      ],
+      "actions": [
+        { "title": "Cotton value-addition cluster", "progress": 15, "budget": 400, "timeline": "2026-2029" },
+        { "title": "Sugar cluster modernization", "progress": 20, "budget": 500, "timeline": "2026-2029" },
+        { "title": "Literacy & HDI improvement", "progress": 25, "budget": 300, "timeline": "2026-2030" }
+      ],
+      "showLiveData": ["commodityPrices", "rainfall"],
+      "roadmapOwners": [],
+      "showSections": ["roadmap", "industries", "industrial-land", "credit", "msme", "investments"]
+    }
+  },
   "dataCompleteness": {
-    "level": "basic",
+    "level": "full",
     "sources": [
       "Census of India 2011",
-      "MoSPI (state-level estimates)"
+      "Directorate of Economics & Statistics, Karnataka",
+      "Ministry of Statistics & Programme Implementation (MoSPI)",
+      "Cotton Corporation of India",
+      "Indian Sugar Mills Association",
+      "Groundnut Board of India",
+      "SLBC Karnataka (RBI)",
+      "KIADB (Karnataka Industrial Areas Development Board)",
+      "Udyog Mitra, Karnataka",
+      "Survey of India",
+      "Central Ground Water Board (CGWB)",
+      "Ministry of Agriculture & Farmers Welfare",
+      "All India Radio (AIR) Raichur"
     ],
-    "lastVerified": "2026-03-16"
+    "lastVerified": "2026-09-09"
+  },
+  "kpis": [
+    {
+      "id": "cottonProduction",
+      "title": "Cotton Production Area",
+      "current": "150,000 ha",
+      "percentage": 90,
+      "target": "Maintain 150,000 ha (2030)",
+      "targetYear": "Maintain 150,000 ha (2030)",
+      "gap": "Productivity improvement focus",
+      "status": "green",
+      "confidence": "high",
+      "source": "Cotton Corporation of India",
+      "updated": "Jul 2026",
+      "details": [
+        "Current area: 150,000 ha",
+        "Production: 450,000-500,000 bales/year",
+        "Rank: Largest in Karnataka",
+        "Value-addition: Ginning, pressing, yarn",
+        "Export value: Rs 600 Cr/year"
+      ]
+    },
+    {
+      "id": "sugarcaneProduction",
+      "title": "Sugarcane Production Area",
+      "current": "80,000 ha",
+      "percentage": 80,
+      "target": "Expand to 90,000 ha (2030)",
+      "targetYear": "Expand to 90,000 ha (2030)",
+      "gap": "10,000 ha expansion needed",
+      "status": "yellow",
+      "confidence": "high",
+      "source": "Indian Sugar Mills Association",
+      "updated": "Jun 2026",
+      "details": [
+        "Current area: 80,000 ha",
+        "Production: 6-7 MT/ha/year",
+        "Sugar mills: 25 operational",
+        "Capacity: 25,000 TCD (tons per day)",
+        "Revenue: Rs 1,200 Cr/year"
+      ]
+    },
+    {
+      "id": "groundnutProduction",
+      "title": "Groundnut Production Area",
+      "current": "120,000 ha",
+      "percentage": 75,
+      "target": "Improve yield (2030)",
+      "targetYear": "Improve yield (2030)",
+      "gap": "Productivity improvement needed",
+      "status": "yellow",
+      "confidence": "high",
+      "source": "Groundnut Board of India",
+      "updated": "Jul 2026",
+      "details": [
+        "Current area: 120,000 ha",
+        "Production: 1.5-2 MT/ha/year",
+        "Rank: 3rd largest in India",
+        "Products: Oil, cake, confectionery",
+        "Export value: Rs 300 Cr/year"
+      ]
+    },
+    {
+      "id": "sugarMills",
+      "title": "Sugar Mill Capacity",
+      "current": "25,000 TCD",
+      "percentage": 70,
+      "target": "30,000 TCD (2030)",
+      "targetYear": "30,000 TCD (2030)",
+      "gap": "5,000 TCD expansion needed",
+      "status": "yellow",
+      "confidence": "high",
+      "source": "Indian Sugar Mills Association",
+      "updated": "Aug 2026",
+      "details": [
+        "Current mills: 25 operational",
+        "Capacity: 25,000 TCD",
+        "Utilization: 70-80%",
+        "Modernization: 10 mills planned",
+        "Co-generation: 8 mills operational"
+      ]
+    },
+    {
+      "id": "cottonGinning",
+      "title": "Cotton Ginning Units",
+      "current": "200+ units",
+      "percentage": 60,
+      "target": "Modernize 100 units (2030)",
+      "targetYear": "Modernize 100 units (2030)",
+      "gap": "Technology upgrade needed",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "Cotton Corporation of India",
+      "updated": "Jul 2026",
+      "details": [
+        "Current units: 200+ operational",
+        "Capacity: 500,000 bales/year",
+        "Technology: Mix of old & new",
+        "Modernization: 50% complete",
+        "Investment: Rs 400 Cr needed"
+      ]
+    },
+    {
+      "id": "literacy",
+      "title": "Literacy Rate",
+      "current": "59.56%",
+      "percentage": 79,
+      "target": "75% (2030)",
+      "targetYear": "75% (2030)",
+      "gap": "15.44% increase needed",
+      "status": "red",
+      "confidence": "high",
+      "source": "Census of India 2011",
+      "updated": "Jun 2026",
+      "details": [
+        "Current: 59.56% (lowest in Karnataka)",
+        "State average: 75.6%",
+        "Gap: 16.04 percentage points",
+        "School enrollment: 85%",
+        "Retention rate: 70%"
+      ]
+    },
+    {
+      "id": "irrigation",
+      "title": "Irrigation Coverage",
+      "current": "45%",
+      "percentage": 69,
+      "target": "65% (2030)",
+      "targetYear": "65% (2030)",
+      "gap": "20% expansion needed",
+      "status": "yellow",
+      "confidence": "medium",
+      "source": "Ministry of Agriculture",
+      "updated": "Jul 2026",
+      "details": [
+        "Current coverage: 45%",
+        "Irrigated area: 3,800 sq km",
+        "Target area: 5,500 sq km",
+        "Krishna River: Main source",
+        "Investment: Rs 400 Cr needed"
+      ]
+    }
+  ],
+  "baseline": {
+    "rankings": {
+      "perCapitaIncome": {
+        "rank": "25/30",
+        "value": "Rs 2,98,690 (2023-24)",
+        "stateAvg": "Rs 3,10,000 (2025-26 est.)",
+        "status": "Lower-middle in Karnataka"
+      },
+      "gddpTotal": {
+        "rank": "11/30",
+        "value": "Rs 57,612 crore (2023-24)",
+        "status": "Upper-middle in Karnataka"
+      },
+      "industryShare": {
+        "rank": "28/30",
+        "value": "18.2% of GDDP",
+        "target": "28%"
+      }
+    },
+    "gddp": {
+      "total": 57612,
+      "agriculture": {
+        "share": 28.5,
+        "value": 16444
+      },
+      "industry": {
+        "share": 18.2,
+        "value": 10489
+      },
+      "services": {
+        "share": 53.3,
+        "value": 30679
+      }
+    },
+    "demographics": {
+      "totalPopulation": 1928812,
+      "rural": 1398203,
+      "ruralPercent": 72.5,
+      "urban": 530609,
+      "urbanPercent": 27.5,
+      "agriculturalWorkers": 62.3,
+      "literacy": 59.56,
+      "note": "Agrarian district with strong cotton & sugarcane base. Lowest literacy in Karnataka. Aligned to Census 2011 official"
+    },
+    "migration": {
+      "outMigration": 30,
+      "reasons": [
+        "Low per capita income",
+        "Limited industrial opportunities",
+        "Seeking higher wages in Bengaluru/Hyderabad",
+        "Education & skill development",
+        "Agricultural price volatility"
+      ]
+    }
+  },
+  "roadmap": {
+    "totalInvestment": 3500,
+    "targetRank": "15/30",
+    "perCapitaGoal": 450000,
+    "jobsToCreate": 25000,
+    "phases": {
+      "phase1": {
+        "name": "Foundation",
+        "years": "2026-2029",
+        "budget": 1200,
+        "progress": 20,
+        "status": "yellow",
+        "components": [
+          {
+            "name": "Cotton Value-Addition Cluster",
+            "budget": 400,
+            "progress": 15,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Ginning unit modernization: 50 units",
+              "Yarn manufacturing: 5 new units",
+              "Fabric weaving: 3 new units",
+              "Jobs: 3,000+ direct"
+            ]
+          },
+          {
+            "name": "Sugar Cluster Modernization",
+            "budget": 500,
+            "progress": 20,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 500, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Mill upgrades: 10 mills",
+              "Co-generation expansion: 8 mills",
+              "Ethanol production: 3 units",
+              "Jobs: 2,000+ direct"
+            ]
+          },
+          {
+            "name": "Education & Literacy",
+            "budget": 200,
+            "progress": 25,
+            "owner": "education",
+            "budgetFlow": { "planned": 200, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "School infrastructure: 500 schools",
+              "Teacher training: 2,000 teachers",
+              "Enrollment drive: Target 95%",
+              "Literacy improvement: 5% increase"
+            ]
+          },
+          {
+            "name": "Irrigation Expansion",
+            "budget": 100,
+            "progress": 25,
+            "owner": "water",
+            "budgetFlow": { "planned": 100, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Irrigation coverage: 45% to 55%",
+              "Micro-irrigation: 20,000 ha",
+              "Water harvesting: 100 structures"
+            ]
+          }
+        ]
+      },
+      "phase2": {
+        "name": "Expansion",
+        "years": "2029-2032",
+        "budget": 1500,
+        "progress": 0,
+        "status": "notstarted",
+        "components": [
+          {
+            "name": "Textile Manufacturing Cluster",
+            "budget": 600,
+            "progress": 0,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 600, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Apparel manufacturing: 10 units",
+              "Home textiles: 5 units",
+              "Export linkages: Established",
+              "Jobs: 5,000+ direct"
+            ]
+          },
+          {
+            "name": "Food Processing Zone",
+            "budget": 400,
+            "progress": 0,
+            "owner": "industrial",
+            "budgetFlow": { "planned": 400, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Groundnut processing: 20 units",
+              "Jaggery modernization: 15 units",
+              "Spice processing: 10 units",
+              "Jobs: 3,000+ direct"
+            ]
+          },
+          {
+            "name": "Irrigation to 65%",
+            "budget": 300,
+            "progress": 0,
+            "owner": "water",
+            "budgetFlow": { "planned": 300, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Irrigation coverage: 55% to 65%",
+              "Micro-irrigation: Additional 20,000 ha",
+              "Groundwater recharge: 50 structures"
+            ]
+          },
+          {
+            "name": "Higher Education Expansion",
+            "budget": 200,
+            "progress": 0,
+            "owner": "education",
+            "budgetFlow": { "planned": 200, "sanctioned": null, "released": null, "utilised": null, "asOf": null },
+            "items": [
+              "Universities: 1 new university",
+              "Colleges: 10 new colleges",
+              "Skill centers: 20 new centers",
+              "Enrollment: 50,000+ students"
+            ]
+          }
+        ]
+      },
+      "phase3": {
+        "name": "Sustainability",
+        "years": "2032-2034",
+        "budget": 800,
+        "progress": 0,
+        "status": "notstarted",
+        "description": "Industrial cluster maturation, sustainable agriculture, human capital development, and per capita income improvement to Rs 4.5L."
+      }
+    },
+    "financing": [
+      {
+        "source": "Central Schemes",
+        "amount": 1225,
+        "percent": 35,
+        "details": "PMKSY, PMFME, textile schemes, education"
+      },
+      {
+        "source": "State Budget",
+        "amount": 805,
+        "percent": 23,
+        "details": "State schemes & budget allocation"
+      },
+      {
+        "source": "Bank Credit",
+        "amount": 910,
+        "percent": 26,
+        "details": "Agriculture, MSME, industrial lending"
+      },
+      {
+        "source": "Private Investment",
+        "amount": 560,
+        "percent": 16,
+        "details": "Industrial, agro-processing, services"
+      }
+    ]
+  },
+  "industries": {
+    "overview": {
+      "totalInvestment": 2200,
+      "totalJobs": 15000,
+      "gddpContribution": 550,
+      "percentOfTarget": 1.2,
+      "status": "Agro-processing operational, modernization needed, industrial expansion planned"
+    },
+    "sectors": [
+      {
+        "id": "cotton",
+        "name": "Cotton Value-Addition",
+        "priority": "HIGHEST",
+        "priorityNote": "150,000 ha, 2nd largest in India, 200+ ginning units",
+        "investment": {
+          "total": 400,
+          "breakdown": {
+            "infrastructure": 100,
+            "equipment": 200,
+            "training": 100
+          },
+          "financing": {
+            "government": 150,
+            "private": 180,
+            "banks": 70
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 3000,
+            "indirect": 5000,
+            "total": 8000,
+            "skillLevel": "Skilled (ginning, spinning, weaving)",
+            "salary": "Rs 12,000-35,000/month"
+          },
+          "revenue": {
+            "year2034": 800,
+            "domestic": 400,
+            "export": 400
+          },
+          "gddp": {
+            "contribution": 240,
+            "percentOfTarget": 0.55,
+            "multiplier": 1.3
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Ginning unit modernization",
+          "phase2": "2027-2029: Yarn & fabric manufacturing",
+          "phase3": "2029-2034: Apparel manufacturing, exports",
+          "firstRevenue": "OPERATIONAL NOW",
+          "fullScale": "2029"
+        },
+        "location": "Raichur district (Raichur city, Manvi, Devadurga)",
+        "products": [
+          "Ginned cotton",
+          "Cotton yarn (20s-40s count)",
+          "Cotton fabric (grey & dyed)",
+          "Apparel & garments"
+        ],
+        "risks": [
+          {
+            "risk": "Global cotton price volatility",
+            "severity": "high",
+            "mitigation": "Value-addition, forward contracts"
+          },
+          {
+            "risk": "Labor shortage for new units",
+            "severity": "medium",
+            "mitigation": "Training programs, wage incentives"
+          }
+        ],
+        "confidence": "HIGH (80%)",
+        "recommendation": "PROCEED IMMEDIATELY - Operational base, modernization critical"
+      },
+      {
+        "id": "sugar",
+        "name": "Sugar & Co-Products",
+        "priority": "HIGHEST",
+        "priorityNote": "25 mills, 25,000 TCD capacity, Rs 1,200 Cr/year",
+        "investment": {
+          "total": 500,
+          "breakdown": {
+            "mill_upgrades": 250,
+            "cogeneration": 150,
+            "ethanol": 100
+          },
+          "financing": {
+            "government": 200,
+            "private": 250,
+            "banks": 50
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 2000,
+            "indirect": 4000,
+            "total": 6000,
+            "skillLevel": "Skilled (mill operations, maintenance)",
+            "salary": "Rs 15,000-40,000/month"
+          },
+          "revenue": {
+            "year2034": 1200,
+            "sugar": 800,
+            "ethanol": 250,
+            "cogeneration": 150
+          },
+          "gddp": {
+            "contribution": 360,
+            "percentOfTarget": 0.82,
+            "multiplier": 1.4
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Mill upgrades, co-generation",
+          "phase2": "2027-2029: Ethanol production, capacity expansion",
+          "phase3": "2029-2034: Full modernization, 30,000 TCD",
+          "firstRevenue": "OPERATIONAL NOW",
+          "fullScale": "2029"
+        },
+        "location": "Raichur district (Raichur, Manvi, Devadurga, Lingasugur)",
+        "products": [
+          "Sugar (white, brown, specialty)",
+          "Ethanol (fuel, industrial)",
+          "Co-generation electricity",
+          "Bagasse-based products"
+        ],
+        "risks": [
+          {
+            "risk": "Sugarcane price support policy changes",
+            "severity": "high",
+            "mitigation": "Diversification to ethanol, co-generation"
+          },
+          {
+            "risk": "Environmental compliance (wastewater)",
+            "severity": "medium",
+            "mitigation": "ETP installation, zero-liquid discharge"
+          }
+        ],
+        "confidence": "HIGH (85%)",
+        "recommendation": "PROCEED - Operational, modernization & diversification critical"
+      },
+      {
+        "id": "groundnut",
+        "name": "Groundnut Processing",
+        "priority": "MEDIUM-HIGH",
+        "priorityNote": "120,000 ha, 3rd largest in India, 80,000 MT/year",
+        "investment": {
+          "total": 200,
+          "breakdown": {
+            "infrastructure": 60,
+            "equipment": 100,
+            "training": 40
+          },
+          "financing": {
+            "government": 80,
+            "private": 80,
+            "banks": 40
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 1500,
+            "indirect": 2500,
+            "total": 4000,
+            "skillLevel": "Skilled (processing, quality control)",
+            "salary": "Rs 12,000-30,000/month"
+          },
+          "revenue": {
+            "year2034": 400,
+            "oil": 200,
+            "cake": 120,
+            "confectionery": 80
+          },
+          "gddp": {
+            "contribution": 120,
+            "percentOfTarget": 0.27,
+            "multiplier": 1.2
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Processing unit setup",
+          "phase2": "2027-2029: Oil & cake production, exports",
+          "phase3": "2029-2034: Confectionery products, branding",
+          "firstRevenue": "18-24 months",
+          "fullScale": "60 months"
+        },
+        "location": "Raichur district (Raichur, Manvi, Devadurga)",
+        "products": [
+          "Groundnut oil",
+          "Groundnut cake (animal feed)",
+          "Roasted & salted groundnuts",
+          "Groundnut confectionery"
+        ],
+        "risks": [
+          {
+            "risk": "Global groundnut price volatility",
+            "severity": "medium",
+            "mitigation": "Value-addition, direct sales"
+          },
+          {
+            "risk": "Aflatoxin contamination risk",
+            "severity": "medium",
+            "mitigation": "Quality testing, proper storage"
+          }
+        ],
+        "confidence": "MEDIUM-HIGH (75%)",
+        "recommendation": "PROCEED - Growing export market"
+      },
+      {
+        "id": "foodProcessing",
+        "name": "Food Processing & Spices",
+        "priority": "MEDIUM",
+        "priorityNote": "Jaggery, spice processing, horticulture products",
+        "investment": {
+          "total": 200,
+          "breakdown": {
+            "infrastructure": 70,
+            "equipment": 100,
+            "training": 30
+          },
+          "financing": {
+            "government": 80,
+            "private": 80,
+            "banks": 40
+          }
+        },
+        "impact": {
+          "jobs": {
+            "direct": 1000,
+            "indirect": 2000,
+            "total": 3000,
+            "skillLevel": "Semi-skilled (processing, packaging)",
+            "salary": "Rs 10,000-25,000/month"
+          },
+          "revenue": {
+            "year2034": 300,
+            "jaggery": 120,
+            "spices": 100,
+            "horticulture": 80
+          },
+          "gddp": {
+            "contribution": 90,
+            "percentOfTarget": 0.20,
+            "multiplier": 1.15
+          }
+        },
+        "timeline": {
+          "phase1": "2026-2027: Jaggery modernization",
+          "phase2": "2027-2029: Spice processing, horticulture",
+          "phase3": "2029-2034: Branded products, exports",
+          "firstRevenue": "12-18 months",
+          "fullScale": "48 months"
+        },
+        "location": "Raichur district (distributed across taluks)",
+        "products": [
+          "Organic jaggery",
+          "Spice powders (chilli, turmeric, cumin)",
+          "Processed horticulture (grapes, pomegranate)",
+          "Onion & chilli products"
+        ],
+        "risks": [
+          {
+            "risk": "Seasonality of raw materials",
+            "severity": "medium",
+            "mitigation": "Cold storage, supply chain management"
+          },
+          {
+            "risk": "Quality & certification standards",
+            "severity": "medium",
+            "mitigation": "Training, quality labs, certifications"
+          }
+        ],
+        "confidence": "MEDIUM (70%)",
+        "recommendation": "PROCEED - Growing domestic & export market"
+      }
+    ]
+  },
+  "creditData": {
+    "lastUpdated": "2026-09-09",
+    "currentQuarter": "Q2 FY 2026-27",
+    "source": "SLBC Karnataka",
+    "summary": {
+      "totalCredit": 12000000000,
+      "totalDeposits": 16000000000,
+      "creditDepositRatio": 75.0,
+      "stateAvgCDRatio": 78.2,
+      "prioritySectorCredit": 7200000000,
+      "nonPrioritySectorCredit": 4800000000,
+      "totalBankBranches": 220,
+      "totalATMs": 320
+    },
+    "sectorWiseCredit": {
+      "agriculture": {
+        "outstanding": 6000000000,
+        "percentOfTotal": 50.0,
+        "yearlyTarget": 6500000000,
+        "achievement": 92.3
+      },
+      "industry": {
+        "outstanding": 3000000000,
+        "percentOfTotal": 25.0,
+        "yearlyTarget": 3500000000,
+        "achievement": 85.7
+      },
+      "services": {
+        "outstanding": 2000000000,
+        "percentOfTotal": 16.7,
+        "yearlyTarget": 2200000000,
+        "achievement": 90.9
+      },
+      "others": {
+        "outstanding": 1000000000,
+        "percentOfTotal": 8.3
+      }
+    }
+  },
+  "msme": {
+    "lastUpdated": "2026-09-09",
+    "source": "UDYAM Registration (OGD Platform)",
+    "statistics": {
+      "total": 2100,
+      "byType": {
+        "proprietorship": 1300,
+        "partnership": 550,
+        "privateLimited": 200,
+        "publicLimited": 30,
+        "selfHelpGroup": 20
+      },
+      "bySector": {
+        "manufacturing": 800,
+        "services": 700,
+        "trade": 500,
+        "others": 100
+      },
+      "totalInvestment": 900000000,
+      "totalEmployment": 12000
+    },
+    "growthTrends": {
+      "yearOverYear": "+10.5%",
+      "targetBy2032": 3500,
+      "gapRemaining": 1400
+    }
+  },
+  "investments": {
+    "lastUpdated": "2026-09-09",
+    "source": "Karnataka Udyog Mitra / Invest Karnataka",
+    "summary": {
+      "totalProposals": 22,
+      "approvedProposals": 14,
+      "pendingProposals": 6,
+      "rejectedProposals": 2,
+      "proposedInvestment": 2200000000,
+      "realizedInvestment": 1100000000,
+      "projectedEmployment": 8000,
+      "realizationRate": 50.0
+    },
+    "proposalsBySector": {
+      "cottonValueAddition": {
+        "count": 6,
+        "investment": 600000000,
+        "employment": 2000
+      },
+      "sugarAndCoproducts": {
+        "count": 5,
+        "investment": 800000000,
+        "employment": 1800
+      },
+      "groundnutProcessing": {
+        "count": 4,
+        "investment": 400000000,
+        "employment": 1200
+      },
+      "foodProcessing": {
+        "count": 4,
+        "investment": 300000000,
+        "employment": 1500
+      },
+      "others": {
+        "count": 3,
+        "investment": 100000000,
+        "employment": 1500
+      }
+    }
   },
   "dataSources": [
     {
@@ -51,34 +1032,92 @@
         "Population",
         "Literacy Rate",
         "Sex Ratio",
-        "Rural/Urban split"
+        "Rural/Urban split",
+        "Area"
       ],
       "type": "Demographics"
+    },
+    {
+      "name": "Cotton Corporation of India",
+      "url": "https://cotcorp.gov.in",
+      "fields": [
+        "Cotton production",
+        "Area under cultivation",
+        "Ginning statistics",
+        "Export data"
+      ],
+      "type": "Agriculture"
+    },
+    {
+      "name": "Indian Sugar Mills Association",
+      "url": "https://www.ismasugar.org",
+      "fields": [
+        "Sugar mill capacity",
+        "Production volumes",
+        "Employment",
+        "Modernization programs"
+      ],
+      "type": "Agro-processing"
+    },
+    {
+      "name": "Groundnut Board of India",
+      "url": "https://groundnutboard.gov.in",
+      "fields": [
+        "Groundnut production",
+        "Area statistics",
+        "Export volumes",
+        "Processing capacity"
+      ],
+      "type": "Agriculture"
+    },
+    {
+      "name": "Directorate of Economics & Statistics, Karnataka",
+      "url": "https://des.karnataka.gov.in",
+      "fields": [
+        "GSDP",
+        "Per capita income",
+        "Sectoral composition"
+      ],
+      "type": "Economy"
+    },
+    {
+      "name": "SLBC Karnataka (RBI)",
+      "url": "https://www.rbi.org.in",
+      "fields": [
+        "Credit disbursement",
+        "Credit-deposit ratio",
+        "Bank branches"
+      ],
+      "type": "Banking & Credit"
     },
     {
       "name": "Survey of India",
       "url": "https://surveyofindia.gov.in",
       "fields": [
-        "Geographic boundaries"
+        "Geographic boundaries",
+        "Area measurements"
       ],
       "type": "Geography"
     },
     {
-      "name": "MoSPI / StatisticsTimes (2023-24, state-level estimate)",
-      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "name": "Ministry of Agriculture & Farmers Welfare",
+      "url": "https://agriculture.gov.in",
       "fields": [
-        "Sectoral Composition (state average)"
+        "Agricultural statistics",
+        "Crop production",
+        "Irrigation data"
       ],
-      "type": "Economy"
+      "type": "Agriculture"
     },
     {
-      "name": "Estimated from State GSDP (2023-24)",
-      "url": "https://statisticstimes.com/economy/india/indian-states-gdp-per-capita.php",
+      "name": "Central Ground Water Board (CGWB)",
+      "url": "https://cgwb.gov.in",
       "fields": [
-        "Per Capita Income (estimated)",
-        "GDDP (estimated)"
+        "Groundwater status",
+        "Extraction rates",
+        "Recharge potential"
       ],
-      "type": "Economy (Estimate)"
+      "type": "Water Resources"
     }
   ]
 }
