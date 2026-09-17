@@ -120,11 +120,11 @@ function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
           <div class="rd-action">
             <div class="rd-action-header">
               <span class="rd-action-title">{action.title}</span>
-              <span class="rd-action-pct">{action.progress}%</span>
+              {action.progress != null && <span class="rd-action-pct">{action.progress}%</span>}
             </div>
-            <div class="rd-action-bar"><div class="rd-action-fill" style={`width:${action.progress}%`}></div></div>
+            {action.progress != null && <div class="rd-action-bar"><div class="rd-action-fill" style={`width:${action.progress}%`}></div></div>}
             <div class="rd-action-meta">
-              <span>{fmtCr(action.budget)}</span>
+              {action.budget != null && <span>{fmtCr(action.budget)}</span>}
               <span>{action.timeline}</span>
             </div>
           </div>
@@ -152,9 +152,9 @@ function fmtCr(v: number) { return `₹${v.toLocaleString('en-IN')} Cr`; }
                 <div class="rd-comp">
                   <div class="rd-comp-header">
                     <span class="rd-comp-name">{comp.name}</span>
-                    <span class="rd-comp-pct">{comp.progress}%</span>
+                    {comp.progress != null && <span class="rd-comp-pct">{comp.progress}%</span>}
                   </div>
-                  <div class="rd-comp-bar"><div class="rd-comp-fill" style={`width:${comp.progress}%`}></div></div>
+                  {comp.progress != null && <div class="rd-comp-bar"><div class="rd-comp-fill" style={`width:${comp.progress}%`}></div></div>}
                   {comp.items?.slice(0, 2).map((item: string) => (
                     <div class="rd-comp-item">{item}</div>
                   ))}
