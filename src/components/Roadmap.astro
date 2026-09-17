@@ -73,10 +73,10 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
   <div class="roadmap-header">
     <h3 class="section-title">Development Roadmap</h3>
     <div class="roadmap-summary">
-      <div class="roadmap-stat">
+      {roadmap.totalInvestment != null && <div class="roadmap-stat">
         <span class="roadmap-stat-value">{'\u20B9'}{roadmap.totalInvestment.toLocaleString('en-IN')} Cr</span>
         <span class="roadmap-stat-label">Total Investment</span>
-      </div>
+      </div>}
       {roadmap.jobsToCreate && (
         <div class="roadmap-stat">
           <span class="roadmap-stat-value">{roadmap.jobsToCreate.toLocaleString('en-IN')}</span>
@@ -110,7 +110,7 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
   {phases.map((phase, i) => (
     <div class={`phase-panel ${i === 0 ? 'active' : ''}`} data-phase-panel={phase.id}>
       <div class="phase-meta">
-        <span class="phase-budget">{'\u20B9'}{phase.budget.toLocaleString('en-IN')} Cr</span>
+        {phase.budget != null && <span class="phase-budget">{'\u20B9'}{phase.budget.toLocaleString('en-IN')} Cr</span>}
         {phase.progress > 0 && (
           <span class="phase-progress-label">{phase.progress}% complete</span>
         )}
@@ -135,17 +135,17 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
                     <span class="component-name">{comp.name}</span>
                   </div>
                   <div class="component-meta">
-                    <span class="component-budget">{'\u20B9'}{comp.budget.toLocaleString('en-IN')} Cr</span>
+                    {comp.budget != null && <span class="component-budget">{'\u20B9'}{comp.budget.toLocaleString('en-IN')} Cr</span>}
                     {comp.owner && (
                       <span class="component-owner">{comp.owner.toUpperCase()}</span>
                     )}
                   </div>
                 </div>
-                <div class="progress-bar-container">
+                {comp.progress != null && <div class="progress-bar-container">
                   <div class="progress-bar" style={`width: ${comp.progress}%`}></div>
-                </div>
-                <span class="progress-text">{comp.progress}%</span>
-                {comp.budgetFlow && (
+                </div>}
+                {comp.progress != null && <span class="progress-text">{comp.progress}%</span>}
+                {comp.budgetFlow && (comp.budget != null || comp.budgetFlow.planned != null || comp.budgetFlow.sanctioned != null) && (
                   <div class="budget-flow">
                     {[
                       { label: 'Planned', val: comp.budgetFlow.planned ?? comp.budget },
@@ -167,7 +167,7 @@ function isOwned(component: RoadmapTask, role: string | null | undefined): boole
                     })}
                   </div>
                 )}
-                {comp.budgetFlow && comp.budgetFlow.sanctioned == null && comp.budgetFlow.released == null && comp.budgetFlow.utilised == null && (
+                {comp.budgetFlow && comp.budget != null && comp.budgetFlow.sanctioned == null && comp.budgetFlow.released == null && comp.budgetFlow.utilised == null && (
                   <p class="bf-note">Sanctioned {'→'} Released {'→'} Utilised awaiting monthly Finance returns</p>
                 )}
                 {comp.blockTargeting && (
