@@ -35,14 +35,14 @@
     "growthRateNominal": 12.2,
     "growthRateNote": "Nominal GDDP growth 2023-24 to 2024-25 (Rs 88,717 cr to Rs 99,527 cr, current prices, Economic Survey editions)",
     "gddpComposition": {
-      "agriculture": 17.7,
-      "industry": 17.1,
-      "services": 65.2
+      "agriculture": 16.2,
+      "industry": 16.5,
+      "services": 67.3
     },
-    "compositionYear": "2023-24",
+    "compositionYear": "2024-25",
     "compositionIsStatePattern": false,
     "isEstimate": false,
-    "note": "GDDP (Rs 99,527 cr current prices, 2024-25), per-capita income (Rs 2,69,333) and share of state GSDP (3.4%) are official Karnataka DES figures from the Economic Survey of Karnataka 2025-26 (district-wise table). Mysuru remains the 5th-largest district economy in Karnataka. The internal sector split (agriculture 17.7%, industry 17.1%, services 65.2%) is the latest separately published district GVA composition (2023-24 survey) and will be refreshed when the 2024-25 composition table is released."
+    "note": "GDDP (Rs 99,527 cr current prices, 2024-25), per-capita income (Rs 2,69,333) and share of state GSDP (3.4%) are official Karnataka DES figures from the Economic Survey of Karnataka 2025-26 (district-wise table). Mysuru remains the 5th-largest district economy in Karnataka. The sector split for 2024-25 (agriculture 16.2%, rank 20; industry 16.5%, rank 27; services 67.3%, rank 3) is from Table 1.8 of the same survey (Sector wise contributions to GDDP). Services rose from 65.2% in the 2023-24 split, while agriculture (17.7%) and industry (17.1%) both slipped."
   },
   "rankings": {
     "perCapitaIncome": {
@@ -64,9 +64,11 @@
       "note": "Highest district per-capita income in Karnataka, 2024-25 (Economic Survey of Karnataka 2025-26)"
     },
     "industryShare": {
-      "value": 17.1,
+      "value": 16.5,
       "unit": "% of district GDDP",
-      "note": "Industry is a relatively small share of Mysuru's economy; services dominate at 65.2% (Economic Survey of Karnataka, 2023-24 composition)"
+      "stateRank": "27/31",
+      "year": "2024-25",
+      "note": "Industry is a relatively small share of Mysuru's economy (rank 27/31); services dominate at 67.3%, the 3rd-highest services share in Karnataka (Economic Survey of Karnataka 2025-26, Table 1.8, 2024-25)"
     },
     "irrigation": {
       "value": "~71% of net irrigated area is canal-fed (Cauvery-Kabini)",
@@ -95,7 +97,7 @@
     "Education, Research & Skilling (University of Mysuru, CFTRI, Infosys Global Education Centre)"
   ],
   "strengths": [
-    "5th-largest district economy in Karnataka - GDDP Rs 99,527 crore (2024-25), 3.5% of state GSDP, and one of its most services-heavy districts (services 65.2%)",
+    "5th-largest district economy in Karnataka - GDDP Rs 99,527 crore (2024-25), 3.4% of state GSDP, and one of its most services-heavy districts (services 67.3%, 3rd-highest share in the state, 2024-25)",
     "Karnataka's 2nd-largest software exporter and the anchor of the KDEM 'Beyond Bengaluru' Mysuru cluster (Tier-2 hub for IT/ITeS, ESDM, cybersecurity, GCCs and startups)",
     "Home to Infosys' 337-acre Mysuru campus and Global Education Centre - described as the world's largest corporate training centre (~14,000 trainees at a time)",
     "India's heritage-tourism capital - Mysuru Palace drew ~40.6 lakh visitors in 2023-24 (incl. ~34,600 foreign tourists), the highest in a decade, anchored by the Dasara festival",
@@ -137,8 +139,8 @@
         "status": "5th-largest district economy"
       },
       "industryShare": {
-        "value": "17.1% of GDDP",
-        "status": "Services-dominated economy (65.2%); industry share is modest"
+        "value": "16.5% of GDDP (2024-25, rank 27/31)",
+        "status": "Services-dominated economy (67.3%); industry share is modest"
       },
       "irrigation": {
         "value": "~71% of net irrigated area canal-fed (2020)",
@@ -149,18 +151,18 @@
       "total": 99527,
       "year": "2024-25",
       "agriculture": {
-        "share": 17.7,
-        "value": 17616
+        "share": 16.2,
+        "value": 16123
       },
       "industry": {
-        "share": 17.1,
-        "value": 17019
+        "share": 16.5,
+        "value": 16422
       },
       "services": {
-        "share": 65.2,
-        "value": 64892
+        "share": 67.3,
+        "value": 66982
       },
-      "note": "Total GDDP Rs 99,527 cr (2024-25, current prices). Sector values apply the latest published composition (17.7/17.1/65.2, 2023-24 split) to the 2024-25 total and are therefore approximate."
+      "note": "Total GDDP Rs 99,527 cr (2024-25, current prices). Shares are the official 2024-25 composition (16.2/16.5/67.3, Economic Survey of Karnataka 2025-26, Table 1.8); sector values in Rs cr are those shares applied to the total, rounded."
     },
     "irrigation": {
       "geographicalArea": 676382,
@@ -340,8 +342,8 @@
       "source": "Economic Survey of Karnataka 2025-26",
       "updated": "2024-25",
       "details": [
-        "Rank 5 in Karnataka (3.5% of state GSDP)",
-        "Services 65.2%, agriculture 17.7%, industry 17.1%",
+        "Rank 5 in Karnataka (3.4% of state GSDP)",
+        "Services 67.3%, agriculture 16.2%, industry 16.5% (2024-25)",
         "3rd-largest services economy in the state",
         "Constant-price (2011-12) GDDP: Rs 53,757 Cr"
       ]
@@ -4113,7 +4115,7 @@
         ],
         "conflict": "Figures updated to the Economic Survey of Karnataka 2025-26 (2024-25 data): Mysuru GDDP Rs 99,527 cr, PCI Rs 2,69,333, state avg PCI Rs 3,86,156. The prior 2024-25 survey (2023-24 data) had GDDP Rs 88,717 cr / PCI Rs 2,39,296 / state avg Rs 3,39,813",
         "groundTruth": "Karnataka DES Economic Survey editions (2025-26 latest)",
-        "resolution": "Using the 2025-26 edition (2024-25 data) for headline GDDP/PCI/rank; the internal sector composition (17.7/17.1/65.2) remains the 2023-24 published split pending the 2024-25 composition table",
+        "resolution": "Using the 2025-26 edition (2024-25 data) for headline GDDP/PCI/rank; the internal sector composition is also the 2024-25 split from the same edition (Table 1.8: agriculture 16.2, industry 16.5, services 67.3), replacing the earlier 2023-24 split (17.7/17.1/65.2)",
         "owner": [
           "dc"
         ],
@@ -4300,7 +4302,8 @@
         "District GDDP (Rs 99,527 cr, 2024-25)",
         "Per-capita income (Rs 2,69,333)",
         "Share of state GSDP (3.4%)",
-        "State ranks (GDDP 5th, PCI 17th)"
+        "State ranks (GDDP 5th, PCI 17th)",
+        "Sector shares 2024-25, Table 1.8 (agriculture 16.2%, industry 16.5%, services 67.3%)"
       ],
       "type": "Economy"
     },
